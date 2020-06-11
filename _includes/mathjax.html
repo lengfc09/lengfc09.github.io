@@ -1,5 +1,5 @@
 {% if page.mathjax %}
-<script type="text/x-mathjax-config">
+<!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
@@ -18,8 +18,18 @@
   charset="utf-8"
   src="https://vincenttam.github.io/javascripts/MathJaxLocal.js"
 >
-</script>
+</script> -->
 
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [['$','$']]
+    }
+  });
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
 <!-- MathJax Support -->
 
