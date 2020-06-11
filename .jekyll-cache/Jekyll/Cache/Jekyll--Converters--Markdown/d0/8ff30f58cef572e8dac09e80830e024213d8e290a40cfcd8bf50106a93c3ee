@@ -1,0 +1,849 @@
+I"1!<ul id="markdown-toc">
+  <li><a href="#machine-learning-part-1-basics" id="markdown-toc-machine-learning-part-1-basics">Machine Learning-Part 1-Basics</a>    <ul>
+      <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a>        <ul>
+          <li><a href="#what-is-machine-learning" id="markdown-toc-what-is-machine-learning">What is Machine Learning?</a></li>
+          <li><a href="#supervised-learning" id="markdown-toc-supervised-learning">Supervised Learning</a></li>
+          <li><a href="#unsupervised-learning" id="markdown-toc-unsupervised-learning">Unsupervised Learning</a></li>
+        </ul>
+      </li>
+      <li><a href="#model-and-cost-function" id="markdown-toc-model-and-cost-function">Model and Cost Function</a>        <ul>
+          <li><a href="#model-representation" id="markdown-toc-model-representation">Model Representation</a></li>
+          <li><a href="#cost-function" id="markdown-toc-cost-function">Cost Function</a></li>
+        </ul>
+      </li>
+      <li><a href="#parameter-learning" id="markdown-toc-parameter-learning">Parameter Learning</a>        <ul>
+          <li><a href="#gradient-descent" id="markdown-toc-gradient-descent">Gradient Descent</a></li>
+          <li><a href="#gradient-descent-for-linear-regression" id="markdown-toc-gradient-descent-for-linear-regression">Gradient Descent for Linear Regression</a></li>
+        </ul>
+      </li>
+      <li><a href="#linear-algebra-review" id="markdown-toc-linear-algebra-review">Linear Algebra Review</a>        <ul>
+          <li><a href="#matrix" id="markdown-toc-matrix">Matrix</a></li>
+          <li><a href="#matrix-multiplication-properties" id="markdown-toc-matrix-multiplication-properties">Matrix Multiplication Properties</a></li>
+          <li><a href="#multiple-linear-regression" id="markdown-toc-multiple-linear-regression">Multiple Linear regression</a></li>
+          <li><a href="#gradient-descent-for-multiple-variables" id="markdown-toc-gradient-descent-for-multiple-variables">Gradient Descent for Multiple Variables</a></li>
+          <li><a href="#vectorization" id="markdown-toc-vectorization">Vectorization</a>            <ul>
+              <li><a href="#practice-1-feature-scaling-and-mean-normalization" id="markdown-toc-practice-1-feature-scaling-and-mean-normalization">Practice 1: Feature Scaling and Mean normalization</a></li>
+              <li><a href="#practice-2-learning-rate" id="markdown-toc-practice-2-learning-rate">Practice 2: Learning Rate</a></li>
+              <li><a href="#practice-3-features-and-polynomial-regression" id="markdown-toc-practice-3-features-and-polynomial-regression">Practice 3: Features and Polynomial Regression</a></li>
+            </ul>
+          </li>
+          <li><a href="#computing-parameters-analytically" id="markdown-toc-computing-parameters-analytically">Computing Parameters Analytically</a>            <ul>
+              <li><a href="#single-value-decomposition" id="markdown-toc-single-value-decomposition">Single value decomposition</a></li>
+              <li><a href="#pseudoinverse" id="markdown-toc-pseudoinverse">Pseudoinverse</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#classification-and-representation" id="markdown-toc-classification-and-representation">Classification and Representation</a>        <ul>
+          <li><a href="#logistic-regression-hypothesis--representation" id="markdown-toc-logistic-regression-hypothesis--representation">Logistic Regression-Hypothesis  Representation</a></li>
+          <li><a href="#decision-boundary" id="markdown-toc-decision-boundary">Decision Boundary</a>            <ul>
+              <li><a href="#draw-the-plot-and-decision-boundary" id="markdown-toc-draw-the-plot-and-decision-boundary">Draw the plot and decision Boundary</a></li>
+            </ul>
+          </li>
+          <li><a href="#logistic-regression-model" id="markdown-toc-logistic-regression-model">Logistic Regression Model</a>            <ul>
+              <li><a href="#proposition-about-convex-functions" id="markdown-toc-proposition-about-convex-functions">Proposition about convex functions</a></li>
+            </ul>
+          </li>
+          <li><a href="#gradient-descent-1" id="markdown-toc-gradient-descent-1">Gradient Descent</a></li>
+          <li><a href="#vectorization-1" id="markdown-toc-vectorization-1">Vectorization</a></li>
+          <li><a href="#advanced-optimization" id="markdown-toc-advanced-optimization">Advanced Optimization</a></li>
+          <li><a href="#multiclass-classification" id="markdown-toc-multiclass-classification">Multiclass Classification</a></li>
+        </ul>
+      </li>
+      <li><a href="#solving-the-problem-of-overfitting" id="markdown-toc-solving-the-problem-of-overfitting">Solving the Problem of Overfitting</a>        <ul>
+          <li><a href="#the-problem-of-overfitting" id="markdown-toc-the-problem-of-overfitting">The Problem of Overfitting</a></li>
+          <li><a href="#cost-function-1" id="markdown-toc-cost-function-1">Cost Function</a></li>
+          <li><a href="#regularized-linear-regression" id="markdown-toc-regularized-linear-regression">Regularized Linear Regression</a>            <ul>
+              <li><a href="#gradient-descent-2" id="markdown-toc-gradient-descent-2">Gradient Descent</a></li>
+              <li><a href="#normal-equation" id="markdown-toc-normal-equation">Normal Equation</a></li>
+            </ul>
+          </li>
+          <li><a href="#regularized-logistic-regression" id="markdown-toc-regularized-logistic-regression">Regularized Logistic Regression</a></li>
+          <li><a href="#cost-function-for-regularized-logistic-regression" id="markdown-toc-cost-function-for-regularized-logistic-regression">Cost function for Regularized Logistic Regression</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="machine-learning-part-1-basics">Machine Learning-Part 1-Basics</h1>
+<p>by Andrew Ng
+ [TOC]</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<h3 id="what-is-machine-learning">What is Machine Learning?</h3>
+
+<p>Two definitions of Machine Learning are offered. Arthur Samuel described it as: “the field of study that gives computers the ability to learn without being explicitly programmed.” This is an older, informal definition.</p>
+
+<p>Tom Mitchell provides a more modern definition: “A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E.”</p>
+
+<p>Example: playing checkers.</p>
+
+<p>E = the experience of playing many games of checkers</p>
+
+<p>T = the task of playing checkers.</p>
+
+<p>P = the probability that the program will win the next game.</p>
+
+<p>In general, any machine learning problem can be assigned to one of two broad classifications:</p>
+
+<p>Supervised learning and Unsupervised learning.</p>
+
+<h3 id="supervised-learning">Supervised Learning</h3>
+
+<p>In supervised learning, we are given a data set and already know what our correct output should look like, having the idea that there is a relationship between the input and the output.</p>
+
+<p>Supervised learning problems are categorized into “regression” and “classification” problems. In a regression problem, we are trying to predict results within a continuous output, meaning that we are trying to map input variables to some continuous function. In a classification problem, we are instead trying to predict results in a discrete output. In other words, we are trying to map input variables into discrete categories.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<p>Given data about the size of houses on the real estate market, try to predict their price. Price as a function of size is a continuous output, so this is a regression problem.</p>
+
+<p>We could turn this example into a classification problem by instead making our output about whether the house “sells for more or less than the asking price.” Here we are classifying the houses based on price into two discrete categories.</p>
+
+<p><strong>Example 2</strong>:</p>
+
+<p>(a) Regression - Given a picture of a person, we have to predict their age on the basis of the given picture</p>
+
+<p>(b) Classification - Given a patient with a tumor, we have to predict whether the tumor is malignant or benign.</p>
+
+<h3 id="unsupervised-learning">Unsupervised Learning</h3>
+
+<p>Unsupervised learning allows us to approach problems with little or no idea what our results should look like. We can derive structure from data where we don’t necessarily know the effect of the variables.</p>
+
+<p>We can derive this structure by clustering the data based on relationships among the variables in the data.</p>
+
+<p>With unsupervised learning there is no feedback based on the prediction results.</p>
+
+<p><strong>Example:</strong></p>
+
+<p>Clustering: Take a collection of 1,000,000 different genes, and find a way to automatically group these genes into groups that are somehow similar or related by different variables, such as lifespan, location, roles, and so on.</p>
+
+<p>Non-clustering: The “Cocktail Party Algorithm”, allows you to find structure in a chaotic environment. (i.e. identifying individual voices and music from a mesh of sounds at a <a href="https://en.wikipedia.org/wiki/Cocktail_party_effect">cocktail party</a>).</p>
+
+<h2 id="model-and-cost-function">Model and Cost Function</h2>
+
+<h3 id="model-representation">Model Representation</h3>
+
+<p>To establish notation for future use, we’ll use $x^{(i)}$ to denote the “input” variables (living area in this example), also called input features, and $y^{(i)}$ to denote the “output” or target variable that we are trying to predict (price). A pair $(x^{(i)} , y^{(i)} )$ is called a training example, and the dataset that we’ll be using to learn—a list of m training examples $(x^{(i)} , y^{(i)} )$; i=1,…,m—is called a training set. Note that the superscript “(i)” in the notation is simply an index into the training set, and has nothing to do with exponentiation. We will also use X to denote the space of input values, and Y to denote the space of output values. In this example, X = Y = $\mathcal{R}$.</p>
+
+<p>To describe the supervised learning problem slightly more formally, our goal is, given a training set, to learn a function h : X → Y so that h(x) is a “good” predictor for the corresponding value of y. For historical reasons, this function h is called a hypothesis. Seen pictorially, the process is therefore like this:</p>
+
+<p><img src="media/15686881844491/15687294490039.jpg" alt="-w540" /></p>
+
+<p>When the target variable that we’re trying to predict is continuous, such as in our housing example, we call the learning problem a regression problem. When y can take on only a small number of discrete values (such as if, given the living area, we wanted to predict if a dwelling is a house or an apartment, say), we call it a classification problem.</p>
+
+<p>$h_\theta(x)=\theta_0+\theta_1*x$</p>
+
+<h3 id="cost-function">Cost Function</h3>
+
+<p>We can measure the accuracy of our hypothesis function by using a <strong>cost function</strong>. This takes an average difference (actually a fancier version of an average) of all the results of the hypothesis with inputs from x’s and the actual output y’s.
+\(J\left(\theta_{0}, \theta_{1}\right)=\frac{1}{2 m} \sum_{i=1}^{m}\left(\hat{y}_{i}-y_{i}\right)^{2}=\frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x_{i}\right)-y_{i}\right)^{2}\)
+To break it apart, it is $\frac{1}{2}\bar{x}$  where $\bar{x}$ is the mean of the squares of $h_{\theta}\left(x_{i}\right)-y_{i}$ , or the difference between the predicted value and the actual value.</p>
+
+<p>This function is otherwise called the “Squared error function”, or “Mean squared error”. The mean is halved  $\left(\frac{1}{2}\right)$ as a convenience for the computation of the gradient descent, as the derivative term of the square function will cancel out the $\frac{1}{2}$ term. The following image summarizes what the cost function does:
+\(\min_{\theta } ~~J(\theta )=\frac{1}{2 m} \sum_{i=1}^{m}\left(\hat{y}_{i}-y_{i}\right)^{2}=\frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x_{i}\right)-y_{i}\right)^{2}\)</p>
+
+<h2 id="parameter-learning">Parameter Learning</h2>
+
+<h3 id="gradient-descent">Gradient Descent</h3>
+
+<p>So we have our hypothesis function and we have a way of measuring how well it fits into the data. Now we need to estimate the parameters in the hypothesis function. That’s where gradient descent comes in.</p>
+
+<p>Imagine that we graph our hypothesis function based on its fields $\theta_0$ and $\theta_1$ (actually we are graphing the cost function as a function of the parameter estimates). We are not graphing x and y itself, but the parameter range of our hypothesis function and the cost resulting from selecting a particular set of parameters.</p>
+
+<p>We put $\theta_0$ on the x axis and $\theta_1$ on the y axis, with the cost function on the vertical z axis. The points on our graph will be the result of the cost function using our hypothesis with those specific theta parameters. The graph below depicts such a setup.</p>
+
+<p><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/bn9SyaDIEeav5QpTGIv-Pg_0d06dca3d225f3de8b5a4a7e92254153_Screenshot-2016-11-01-23.48.26.png?expiry=1568764800000&amp;hmac=cmj750jdAMQSq4kKpQ9YfXDZCao704JpARJwKjG0ofw" alt="img" /></p>
+
+<p>We will know that we have succeeded when our cost function is at the very bottom of the pits in our graph, i.e. when its value is the minimum. The red arrows show the minimum points in the graph.</p>
+
+<p><strong>The gradient descent algorithm is:</strong>
+\(\begin{array}{ll}{\text { repeat until convergence }\{ } \\ {\qquad \theta_{j} :=\theta_{j}-\alpha \frac{\partial}{\partial \theta_{j}} J\left(\theta_{0}, \theta_{1}\right) \quad \text { (simultaneously update $\theta_0$ and $\theta_1$ }} \\ { \}}\end{array}\)
+At each iteration j, one should simultaneously update the parameters $\theta_1, \theta_2,…,\theta_n$. Updating a specific parameter prior to calculating another one on the $j^{(th)}$ iteration would yield to a wrong implementation.</p>
+
+<p>$\alpha := learning~ rate$. On a side note, we should adjust our parameter \alpha<em>α</em> to ensure that the gradient descent algorithm converges in a reasonable time. Failure to converge or too much time to obtain the minimum value imply that our step size is wrong.</p>
+
+<p>How does gradient descent converge with a fixed step size $\alpha$?</p>
+
+<p>The intuition behind the convergence is that $\frac{d}{d\theta_1} J(\theta_1)$ approaches 0 as we approach the bottom of our convex function. At the minimum, the derivative will always be 0 and thus we get: $\theta_{1} :=\theta_{1}-\alpha * 0$</p>
+
+<h3 id="gradient-descent-for-linear-regression">Gradient Descent for Linear Regression</h3>
+
+<p>For the cost function:
+\(~~J(\theta )=\frac{1}{2 m} \sum_{i=1}^{m}\left(\hat{y}_{i}-y_{i}\right)^{2}=\frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x_{i}\right)-y_{i}\right)^{2}\)
+Gradient Descent Algorithm
+\(\begin{array}{l}{\text { repeat until convergence }\{ } \\ {\qquad \begin{array}{l}{\theta_{0} :=\theta_{0}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right)} \\ {\theta_{1} :=\theta_{1}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) \cdot x^{(i)}}\end{array}}\end{array}\)</p>
+
+<p>This method looks at every example in the entire training set on every step, and is called <strong>batch gradient descent</strong>. Note that, while gradient descent can be susceptible to local minima in general, the optimization problem we have posed here for linear regression has only one global, and no other local, optima; thus gradient descent always converges (assuming the learning rate α is not too large) to the global minimum. Indeed, J is a convex quadratic function.</p>
+
+<h2 id="linear-algebra-review">Linear Algebra Review</h2>
+
+<h3 id="matrix">Matrix</h3>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">% The ; denotes we are going back to a new row.</span>
+<span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">;</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">;</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">;</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span>
+
+<span class="c1">% Initialize a vector</span>
+<span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="c1">% Get the dimension of the matrix A where m = rows and n = columns</span>
+<span class="p">[</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="nb">size</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="c1">% You could also store it this way</span>
+<span class="n">dim_A</span> <span class="o">=</span> <span class="nb">size</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="c1">% Get the dimension of the vector v</span>
+<span class="n">dim_v</span> <span class="o">=</span> <span class="nb">size</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+<span class="c1">% Now let's index into the 2nd row 3rd column of matrix A</span>
+<span class="n">A_23</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">% Initialize matrix A and B</span>
+<span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">;</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">B</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1">% Initialize constant s</span>
+<span class="n">s</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c1">% See how element-wise addition works</span>
+<span class="n">add_AB</span> <span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="n">B</span>
+
+<span class="c1">% See how element-wise subtraction works</span>
+<span class="n">sub_AB</span> <span class="o">=</span> <span class="n">A</span> <span class="o">-</span> <span class="n">B</span>
+
+<span class="c1">% See how scalar multiplication works</span>
+<span class="n">mult_As</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">s</span>
+
+<span class="c1">% Divide A by s</span>
+<span class="n">div_As</span> <span class="o">=</span> <span class="n">A</span> <span class="p">/</span> <span class="n">s</span>
+
+<span class="c1">% What happens if we have a Matrix + scalar?</span>
+<span class="n">add_As</span> <span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="n">s</span>
+
+</code></pre></div></div>
+
+\[\left[\begin{array}{ll}{a} &amp; {b} \\ {c} &amp; {d} \\ {e} &amp; {f}\end{array}\right] *\left[\begin{array}{l}{x} \\ {y}\end{array}\right]=\left[\begin{array}{l}{a * x+b * y} \\ {c * x+d * y} \\ {e * x+f * y}\end{array}\right]\]
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">% Initialize matrix A</span>
+<span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">;</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">;</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+
+<span class="c1">% Initialize vector v</span>
+<span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span> <span class="mi">1</span><span class="p">;</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1">% Multiply A * v</span>
+<span class="n">Av</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">v</span>
+</code></pre></div></div>
+
+<p>An <strong>m x n matrix</strong> multiplied by an <strong>n x o matrix</strong> results in an <strong>m x o</strong> matrix. In the above example, a 3 x 2 matrix times a 2 x 2 matrix resulted in a 3 x 2 matrix. To multiply two matrices, the number of <strong>columns</strong> of the first matrix must equal the number of <strong>rows</strong> of the second matrix.</p>
+
+<p>For example:</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">% Initialize a 3 by 2 matrix</span>
+<span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">;</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">;</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+
+<span class="c1">% Initialize a 2 by 1 matrix</span>
+<span class="n">B</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span> <span class="mi">2</span><span class="p">]</span>
+
+<span class="c1">% We expect a resulting matrix of (3 by 2)*(2 by 1) = (3 by 1)</span>
+<span class="n">mult_AB</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">B</span>
+
+<span class="c1">% Make sure you understand why we got that result</span>
+</code></pre></div></div>
+
+<h3 id="matrix-multiplication-properties">Matrix Multiplication Properties</h3>
+
+<ul>
+  <li>Matrices are not commutative: A∗B≠B∗A</li>
+  <li>Matrices are associative: (A∗B)∗C=A∗(B∗C)</li>
+</ul>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">% Initialize random matrices A and B</span>
+<span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">;</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">B</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">;</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c1">% Initialize a 2 by 2 identity matrix</span>
+<span class="n">I</span> <span class="o">=</span> <span class="nb">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1">% The above notation is the same as I = [1,0;0,1]</span>
+
+<span class="c1">% What happens when we multiply I*A ?</span>
+<span class="n">IA</span> <span class="o">=</span> <span class="n">I</span><span class="o">*</span><span class="n">A</span>
+
+<span class="c1">% How about A*I ?</span>
+<span class="n">AI</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">I</span>
+
+<span class="c1">% Compute A*B</span>
+<span class="n">AB</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">B</span>
+
+<span class="c1">% Is it equal to B*A?</span>
+<span class="n">BA</span> <span class="o">=</span> <span class="n">B</span><span class="o">*</span><span class="n">A</span>
+
+<span class="c1">% Note that IA = AI but AB != BA</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Inverse of matrix A</li>
+  <li>Transpose of A</li>
+</ul>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Ainv</span><span class="o">=</span><span class="nb">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">Atrans</span><span class="o">=</span><span class="nb">transpose</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="c1">%Alternatively</span>
+<span class="n">Atrans2</span><span class="o">=</span><span class="n">A</span><span class="o">'</span>
+</code></pre></div></div>
+
+<h3 id="multiple-linear-regression">Multiple Linear regression</h3>
+
+<p>Linear regression with multiple variables is also known as “multivariate linear regression”.</p>
+
+<p>We now introduce notation for equations where we can have any number of input variables.
+\(\begin{aligned} x_{j}^{(i)} &amp;=\text { value of feature } j \text { in the } i^{\text {th}} \text {training example } \\ x^{(i)} &amp;=\text { the input (features) of the } i^{\text {th}} \text {training example } \\ m &amp;=\text { the number of training examples } \\ n &amp;=\text { the number of features } \end{aligned}\)
+The multivariable form of the hypothesis function accommodating these multiple features is as follows:</p>
+
+<p>$h_{\theta}(x)=\theta_{0}+\theta_{1} x_{1}+\theta_{2} x_{2}+\theta_{3} x_{3}+\cdots+\theta_{n} x_{n}$</p>
+
+<p>Using the definition of matrix multiplication, our multivariable hypothesis function can be concisely represented as:</p>
+
+<p>$h_{\theta}(x)=\theta^Tx$</p>
+
+<p>Remark: Note that for convenience reasons in this course we assume $x_{0}^{(i)}=1 \text { for }(i \in 1, \ldots, m)$.  This allows us to do matrix operations with theta and x. Hence making the two vectors $\theta$ and $x^{(i)}$ match each other element-wise (that is, have the same number of elements: n+1).]</p>
+
+<h3 id="gradient-descent-for-multiple-variables">Gradient Descent for Multiple Variables</h3>
+
+<p><strong>repeat until convergence:</strong>
+\(\begin{array}{l}{\theta_{0} :=\theta_{0}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{0}^{(i)}} \\ {\theta_{1} :=\theta_{1}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{1}^{(i)}} \\ {\theta_{2} :=\theta_{2}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{2}^{(i)}}\end{array} \\...\)
+In other words:
+\(\begin{array}{l}{\text { repeat until convergence: } } \\ {\theta_{j} :=\theta_{j}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) \cdot x_{j}^{(i)} \quad \text { for } j :=0 \ldots n}\end{array}\)
+$x_{0}^{(i)}=1, \forall i$</p>
+
+<h3 id="vectorization">Vectorization</h3>
+
+<p>Use the built in functions to solve the calculation. Try not to implement the loop by ourselves.</p>
+
+<p>For example, in the gradient descent method, we need to calculate simultaneously:
+\(\begin{array}{l}{\text { repeat until convergence: } } \\ {\theta_{j} :=\theta_{j}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) \cdot x_{j}^{(i)} \quad \text { for } j :=0 \ldots n}\end{array}\)
+In fact, this is equivalent to:</p>
+
+<p>$\theta_{new}=\theta-\frac{\alpha}{m}X^T(X\theta-y)$</p>
+
+<h4 id="practice-1-feature-scaling-and-mean-normalization">Practice 1: Feature Scaling and Mean normalization</h4>
+
+<p>We can speed up gradient descent by having each of our input values in roughly the same range. This is because θ will descend quickly on small ranges and slowly on large ranges, and so will oscillate inefficiently down to the optimum when the variables are very uneven.</p>
+
+<p>The way to prevent this is to modify the ranges of our input variables so that they are all roughly the same. Ideally:</p>
+
+<p>$-1 \leq x_{(i)} \leq 1$</p>
+
+<p>Two techniques to help with this are <strong>feature scaling</strong> and <strong>mean normalization</strong>. Feature scaling involves dividing the input values by the range (i.e. the maximum value minus the minimum value) of the input variable, resulting in a new range of just 1. Mean normalization involves subtracting the average value for an input variable from the values for that input variable resulting in a new average value for the input variable of just zero. To implement both of these techniques, adjust your input values as shown in this formula:</p>
+
+<p>$x_{i} :=\frac{x_{i}-\mu_{i}}{s_{i}}$</p>
+
+<p>Where $\mu_i$ is the <strong>average</strong> of all the values for feature (i) and $s_i$ is the range of values (max - min), or $s_i$ is the standard deviation.</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="p">[</span><span class="n">X_norm</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">]</span> <span class="o">=</span> <span class="n">featureNormalize</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="c1">%FEATURENORMALIZE Normalizes the features in X</span>
+<span class="c1">%   FEATURENORMALIZE(X) returns a normalized version of X where</span>
+<span class="c1">%   the mean value of each feature is 0 and the standard deviation</span>
+<span class="c1">%   is 1. This is often a good preprocessing step to do when</span>
+<span class="c1">%   working with learning algorithms.</span>
+
+<span class="n">mu</span> <span class="o">=</span> <span class="nb">mean</span><span class="p">(</span><span class="n">X</span><span class="p">);</span>
+<span class="n">X_norm</span> <span class="o">=</span> <span class="nb">bsxfun</span><span class="p">(</span><span class="o">@</span><span class="nb">minus</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">mu</span><span class="p">);</span>
+
+<span class="n">sigma</span> <span class="o">=</span> <span class="nb">std</span><span class="p">(</span><span class="n">X_norm</span><span class="p">);</span>
+<span class="n">X_norm</span> <span class="o">=</span> <span class="nb">bsxfun</span><span class="p">(</span><span class="o">@</span><span class="nb">rdivide</span><span class="p">,</span> <span class="n">X_norm</span><span class="p">,</span> <span class="n">sigma</span><span class="p">);</span>
+
+
+<span class="c1">% ============================================================</span>
+
+<span class="k">end</span>
+
+</code></pre></div></div>
+<p>It is especially useful when dealing with polynomials.</p>
+<h4 id="practice-2-learning-rate">Practice 2: Learning Rate</h4>
+
+<p><strong>Debugging gradient descent.</strong> Make a plot with <em>number of iterations</em> on the x-axis. Now plot the cost function, $J(\theta)$ over the number of iterations of gradient descent. If $J(\theta)$ ever increases, then you probably need to decrease $\alpha$.</p>
+
+<p><strong>Automatic convergence test.</strong> Declare convergence if $J(\theta)$ decreases by less than E in one iteration, where E is some small value such as $10^{−3}$. However in practice it’s difficult to choose this threshold value</p>
+
+<p>It has been proven that if learning rate α is sufficiently small, then J(θ) will decrease on every iteration.</p>
+
+<p><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/rC2jGKgvEeamBAoLccicqA_ec9e40a58588382f5b6df60637b69470_Screenshot-2016-11-11-08.55.21.png?expiry=1568851200000&amp;hmac=e_JdVe_gtv0LnLjxSg24XdCYtwgYuXjAp139YPaPbH4" alt="img" /></p>
+
+<p>To summarize:</p>
+
+<p>If $\alpha$ is too small: slow convergence.</p>
+
+<p>If $\alpha$i s too large: may not decrease on every iteration and thus may not converge.</p>
+
+<h4 id="practice-3-features-and-polynomial-regression">Practice 3: Features and Polynomial Regression</h4>
+
+<p>We can improve our features and the form of our hypothesis function in a couple different ways.</p>
+
+<p>We can <strong>combine</strong> multiple features into one. For example, we can combine $x_1$ and $x_2$ into a new feature $x_3$ by taking $x_1*x_2$</p>
+
+<p>Our hypothesis function need not be linear (a straight line) if that does not fit the data well. We can <strong>change the behavior or curve</strong> of our hypothesis function by making it a quadratic, cubic or square root function (or any other form).</p>
+
+<p>For example, if our hypothesis function is $h_{\theta}(x)=\theta_{0}+\theta_{1} x_{1}$, then we can create additional features based on $x_1$, to get the quadratic function $ h_{\theta}(x)=\theta_{0}+\theta_{1} x_{1}+\theta_{2} x_{1}^{2} $, or the cubic function $h_{\theta}(x)=\theta_{0}+\theta_{1} x_{1}+\theta_{2} x_{1}^{2}+\theta_{3} x_{1}^{3}$.</p>
+
+<p>To make it a square root function, we could do:</p>
+
+<p>$h_{\theta}(x)=\theta_{0}+\theta_{1} x_{1}+\theta_{2} \sqrt{x_{1}}$</p>
+
+<p>One important thing to keep in mind is, if you choose your features this way then <strong>feature scaling</strong> becomes very important.</p>
+
+<p>eg. if $x_1$ has range 1 - 1000 then range of $x_1^2$ becomes 1 - 1000000 and that of $x_1^3$ becomes 1 - 1000000000.</p>
+
+<h3 id="computing-parameters-analytically">Computing Parameters Analytically</h3>
+
+<p>In the “Normal Equation” method, we will minimize J by explicitly taking its derivatives with respect to the θj ’s, and setting them to zero. This allows us to find the optimum theta without iteration. The normal equation formula is given below:</p>
+
+<p>$\min J=\frac{1}{2}&lt;X\theta -y,X\theta -y&gt;$ is achieved when $\partial J / \partial \theta$ =0 , which is equivalent to</p>
+
+<p>$f(x)=x^TA^TAx=&gt; \frac{\partial f}{\partial x}=2A^TAx$</p>
+
+<p>$X^TX\theta-X^Ty=0 $</p>
+
+<p>If $X^TX$ is invertible, than we have only one solution:</p>
+
+<p>$\theta=(X^TX)^{-1} X^Ty$</p>
+
+<p>Even if $X^TX$ is degenerate, we can use the pseudo-inverse to get the right answer:</p>
+
+<p>$\theta=Pinv(X^TX) X^Ty$</p>
+
+<p>When implementing the normal equation in octave we want to use the ‘pinv’ function rather than ‘inv.’ The ‘pinv’ function will give you a value of $\theta$ even if $X^TX$ is not invertible.</p>
+
+<p>Cases where $(X^TX)^{-1}$ does not exist:</p>
+
+<ul>
+  <li>Redundant features, where two features are very closely related (i.e. they are linearly dependent):
+    <ul>
+      <li>m&lt;n+1: too many properties than examples</li>
+    </ul>
+  </li>
+  <li>Too many features (e.g. m ≤ n). In this case, delete some features or use “regularization” (to be explained in a later lesson).
+    <ul>
+      <li>X is not full rank, i.e. rank(X)&lt;n+1</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="media/15686881844491/15687295259632.jpg" alt="-w761" /></p>
+
+<p>There is <strong>no need</strong> to do feature scaling with the normal equation.</p>
+
+<p>The following is a comparison of gradient descent and the normal equation:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Gradient Descent</th>
+      <th style="text-align: left">Normal Equation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Need to choose alpha</td>
+      <td style="text-align: left">No need to choose alpha</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Needs many iterations</td>
+      <td style="text-align: left">No need to iterate</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">O $(kn^2)$</td>
+      <td style="text-align: left">O ($n^3$), need to calculate inverse of $X^TX$*</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Works well when n is large</td>
+      <td style="text-align: left">Slow if n is very large</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>With the normal equation, computing the inversion has complexity $\mathcal{O}\left(n^{3}\right)$. So if we have a very large number of features, the normal equation will be slow. In practice, when n exceeds 10,000 it might be a good time to go from a normal solution to an iterative process</p>
+
+<h4 id="single-value-decomposition">Single value decomposition</h4>
+
+<p>Suppose <strong>M</strong> is an m × n matrix whose entries come from the field K, which is either the field of real numbers or the field of complex numbers. Then the singular value decomposition of M exists, and is a factorization of the form:
+\(\begin{array}{l}{\quad \mathbf{M}=\mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{*}} \\ {\text { where }} \\ {\bullet \mathbf{U} \text { is an } m \times m \text { unitary matrix over } K(\text { if } K=\mathbb{R}, \text { unitary matrices are orthogonal matrices), }} \\ {\bullet \Sigma \text { is a diagonal } m \times n \text { matrix with non-negative real numbers on the diagonal, }} \\ {\bullet \mathbf{V} \text { is an } n \times n \text { unitary matrix over } K, \text { and } \mathbf{V}^{*} \text { is the conjugate transpose of } \mathbf{V} \text { . }}\end{array}\)
+An <strong>orthogonal matrix</strong> is a square matrix whose columns and rows are orthogonal unit vectors (i.e., orthonormal vectors), i.e.:</p>
+
+<p>$Q^{\mathrm{T}} Q=Q Q^{\mathrm{T}}=I$, i.e. $Q^{\mathrm{T}}=Q^{-1}$</p>
+
+<p>The diagonal entries $\sigma_i$ of <strong>Σ</strong> are known as the <strong>singular values</strong> of <strong>M</strong>. A common convention is to list the singular values in descending order. In this case, the diagonal matrix <strong>Σ</strong>, is uniquely determined by <strong>M</strong> (though not the matrices <strong>U</strong> and <strong>V</strong> if <strong>M</strong> is not square, see below).</p>
+
+<p>Since $\mathbf{V}^{*}\mathbf{V} =I$,</p>
+
+<p>$\mathbf{M}=\mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{<em>}=\mathbf{U}\mathbf{V}^{</em>}\mathbf{V} \boldsymbol{\Sigma} \mathbf{V}^{*}$</p>
+
+<p>Thus, the expression $\mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{*}$ can be intuitively interpreted as a composition of three geometrical transformations: <strong>a rotation or reflection</strong>, <strong>a scaling</strong>, <strong>and another rotation or reflection.</strong> For instance, the figure explains how a shear matrix can be described as such a sequence.</p>
+
+<p>The singular value decomposition can be used for computing the <strong>pseudoinverse</strong> of a matrix. Indeed, the pseudoinverse of the matrix <strong>M</strong> with singular value decomposition <strong>M</strong> = <strong>UΣV</strong>* is</p>
+
+<p>$\mathbf{M}^{+}=\mathbf{V} \boldsymbol{\Sigma}^{+} \mathbf{U}^{*}$</p>
+
+<p>Where $ \boldsymbol{\Sigma}^{+}$ is the pseudoinverse of <strong>Σ</strong>, which is formed by replacing every non-zero diagonal entry by its <strong>reciprocal</strong> and transposing the resulting matrix. The pseudoinverse is one way to solve <strong>linear least squares</strong> problems.</p>
+
+<h4 id="pseudoinverse">Pseudoinverse</h4>
+
+<p>More formally, the Moore-Penrose pseudo inverse, <em>A</em>+, of an <em>m</em>-by-<em>n</em> matrix is defined by the <strong>unique <em>n</em>-by-<em>m</em> matrix</strong> satisfying the following four criteria (we are only considering the case where <em>A</em> consists of real numbers).
+\(\begin{array}{l}{\text { 1. } A A^{+} A=A\left(A A^{+} \text {need not be the general identity matrix, but it maps all column vectors of } A \text { to themselves); }\right.} \\ {\text { 2. } A^{+} A A^{+}=A^{+}\left(A^{+} \text {is a weak inverse for the multiplicative semigroup); }\right.} \\ {\text { 3. }\left(A A^{+}\right)^{*}=A A^{+}\left(A A^{+} \text {is Hermitian); }\right.} \\ {\begin{array}{ll}{\text { 4. }\left(A^{+} A\right)^{*}} &amp; {=A^{+} A\left(A^{+} A \text { is also Hermitian). }\right.}\end{array}}\end{array}\)
+In fact $\mathbf{M}^{+}=\mathbf{V} \boldsymbol{\Sigma}^{+} \mathbf{U}^{*}$, we can prove that $M^+$ is the pseudo inverse of $\mathbf{M}$.</p>
+
+<p>$A^+$ exists for any matrix <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/7daff47fa58cdfd29dc333def748ff5fa4c923e3" alt="A" />, but, when the latter has full rank (that is, the rank of A is min(m,n)), then $A^+$ can be expressed as a simple algebraic formula A(m,n).</p>
+
+<hr />
+
+<h2 id="classification-and-representation">Classification and Representation</h2>
+
+<p>To attempt classification, one method is to use linear regression and map all predictions greater than 0.5 as a 1 and all less than 0.5 as a 0. However, this method doesn’t work well because classification is not actually a linear function.</p>
+
+<p>The classification problem is just like the regression problem, except that the values we now want to predict take on only a small number of discrete values. For now, we will focus on the <strong>binary classification</strong> <strong>problem</strong> in which y can take on only two values, 0 and 1. (Most of what we say here will also generalize to the multiple-class case.) For instance, if we are trying to build a spam classifier for email, then $x^{(i)}$ may be some features of a piece of email, and y may be 1 if it is a piece of spam mail, and 0 otherwise. Hence, y∈{0,1}. 0 is also called the negative class, and 1 the positive class, and they are sometimes also denoted by the symbols “-” and “+.” Given $x^{(i)}$, the corresponding $y^{(i)}$ is also called the label for the training example.</p>
+
+<h3 id="logistic-regression-hypothesis--representation">Logistic Regression-Hypothesis  Representation</h3>
+
+<p>We could approach the classification problem ignoring the fact that y is discrete-valued, and use our old linear regression algorithm to try to predict y given x. However, it is easy to construct examples where this method performs very poorly. Intuitively, it also doesn’t make sense for $h_\theta (x)$ to take values larger than 1 or smaller than 0 when we know that y ∈ {0, 1}. To fix this, let’s change the form for our hypotheses $h_\theta (x)$ to satisfy $0 \leq h_\theta (x) \leq 1$. This is accomplished by plugging $\theta^Tx$ into the Logistic Function.</p>
+
+<p>Our new form uses the “<strong>Sigmoid Function</strong>,” also called the “<strong>Logistic Function</strong>”:
+\(\begin{array}{l}{h_{\theta}(x)=g\left(\theta^{T} x\right)} \\ {z=\theta^{T} x} \\ {g(z)=\frac{1}{1+e^{-z}}}\end{array}\)
+The function g(z): $(-\infty,+\infty)\rightarrow (0,1)$</p>
+
+<p>$h_\theta(x)$ will give us the <strong>probability</strong> that our output is 1.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>$\begin{array}{l}{h_{\theta}(x)=P(y=1</td>
+      <td>x ; \theta)=1-P(y=0</td>
+      <td>x ; \theta)} \ {P(y=0</td>
+      <td>x ; \theta)+P(y=1</td>
+      <td>x ; \theta)=1}\end{array}$</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="decision-boundary">Decision Boundary</h3>
+
+<p>In order to get our discrete 0 or 1 classification, we can translate the output of the hypothesis function as follows:
+\(\begin{array}{l}{h_{\theta}(x) \geq 0.5 \rightarrow y=1} \\ {h_{\theta}(x)&lt;0.5 \rightarrow y=0}\end{array}\begin{array}{l}{h_{\theta}(x) \geq 0.5 \rightarrow y=1} \\ {h_{\theta}(x)&lt;0.5 \rightarrow y=0}\end{array}\)
+The way our logistic function g behaves is that when its input is greater than or equal to zero, its output is greater than or equal to 0.5:
+\(\begin{array}{l}{g(z) \geq 0.5} \\ {\text { when } z \geq 0}\end{array}\begin{array}{l}{g(z) \geq 0.5} \\ {\text { when } z \geq 0}\end{array}\)
+Remember:
+\(\begin{aligned} z=0, e^{0}=1 \Rightarrow g(z)=&amp; 1 / 2 \\ z \rightarrow \infty, e^{-\infty} \rightarrow 0 \Rightarrow g(z)=1 \\ z \rightarrow-\infty, e^{\infty} \rightarrow \infty \Rightarrow g(z)=0 \end{aligned}\)
+From these statements we can now say:
+\(\begin{array}{l}{\theta^{T} x \geq 0 \Rightarrow y=1} \\ {\theta^{T} x&lt;0 \Rightarrow y=0}\end{array}\)
+The <strong>decision boundary</strong> is the line that separates the area where y = 0 and where y = 1. It is created by our hypothesis function.</p>
+
+<p>Again, the input to the sigmoid function g(z) (e.g. $\theta^TX)$ doesn’t need to be linear, and could be a function that describes a circle (e.g. z = $\theta_0 + \theta_1 x_1^2 +\theta_2 x_2^2$ or any shape to fit our data.</p>
+
+<h4 id="draw-the-plot-and-decision-boundary">Draw the plot and decision Boundary</h4>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">plotData</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="c1">% Find Indices of Positive and Negative Examples</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="nb">find</span><span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="mi">1</span><span class="p">);</span> <span class="n">neg</span> <span class="o">=</span> <span class="nb">find</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
+<span class="c1">% Plot Examples</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">X</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">X</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">'k+'</span><span class="p">,</span><span class="s1">'LineWidth'</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'MarkerSize'</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">X</span><span class="p">(</span><span class="n">neg</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">X</span><span class="p">(</span><span class="n">neg</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">'bo'</span><span class="p">,</span> <span class="s1">'MarkerFaceColor'</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">,</span> <span class="s1">'MarkerSize'</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">plotDecisionBoundary</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="c1">%PLOTDECISIONBOUNDARY Plots the data points X and y into a new figure with</span>
+<span class="c1">%the decision boundary defined by theta</span>
+<span class="c1">%   PLOTDECISIONBOUNDARY(theta, X,y) plots the data points with + for the</span>
+<span class="c1">%   positive examples and o for the negative examples. X is assumed to be</span>
+<span class="c1">%   a either</span>
+<span class="c1">%   1) Mx3 matrix, where the first column is an all-ones column for the</span>
+<span class="c1">%      intercept.</span>
+<span class="c1">%   2) MxN, N&gt;3 matrix, where the first column is all-ones</span>
+
+<span class="c1">% Plot Data</span>
+<span class="n">plotData</span><span class="p">(</span><span class="n">X</span><span class="p">(:,</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">),</span> <span class="n">y</span><span class="p">);</span>
+<span class="nb">hold</span> <span class="n">on</span>
+
+<span class="k">if</span> <span class="nb">size</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">3</span>
+    <span class="c1">% Only need 2 points to define a line, so choose two endpoints</span>
+    <span class="n">plot_x</span> <span class="o">=</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">X</span><span class="p">(:,</span><span class="mi">2</span><span class="p">))</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span>  <span class="nb">max</span><span class="p">(</span><span class="n">X</span><span class="p">(:,</span><span class="mi">2</span><span class="p">))</span><span class="o">+</span><span class="mi">2</span><span class="p">];</span>
+
+    <span class="c1">% Calculate the decision boundary line</span>
+    <span class="n">plot_y</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="p">/</span><span class="n">theta</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span><span class="o">.*</span><span class="p">(</span><span class="n">theta</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.*</span><span class="n">plot_x</span> <span class="o">+</span> <span class="n">theta</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+
+    <span class="c1">% Plot, and adjust axes for better viewing</span>
+    <span class="nb">plot</span><span class="p">(</span><span class="n">plot_x</span><span class="p">,</span> <span class="n">plot_y</span><span class="p">)</span>
+
+    <span class="c1">% Legend, specific for the exercise</span>
+    <span class="nb">legend</span><span class="p">(</span><span class="s1">'Admitted'</span><span class="p">,</span> <span class="s1">'Not admitted'</span><span class="p">,</span> <span class="s1">'Decision Boundary'</span><span class="p">)</span>
+    <span class="nb">axis</span><span class="p">([</span><span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="k">else</span>
+    <span class="c1">% Here is the grid range</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+
+    <span class="n">z</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="nb">length</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="nb">length</span><span class="p">(</span><span class="n">v</span><span class="p">));</span>
+    <span class="c1">% Evaluate z = theta*x over the grid</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="nb">length</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="nb">length</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="n">z</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="o">=</span> <span class="n">mapFeature</span><span class="p">(</span><span class="n">u</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">v</span><span class="p">(</span><span class="n">j</span><span class="p">))</span><span class="o">*</span><span class="n">theta</span><span class="p">;</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">'</span><span class="p">;</span> <span class="c1">% important to transpose z before calling contour</span>
+ <span class="c1">% contour(u, v, z, RangeForZ, 'LineWidth', 2)</span>
+     <span class="c1">% Plot z = 0, i.e, set the range=[0,0]</span>
+    <span class="c1">% Notice you need to specify the range [0, 0]</span>
+    <span class="nb">contour</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">'LineWidth'</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="nb">hold</span> <span class="n">off</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="logistic-regression-model">Logistic Regression Model</h3>
+
+<p>We cannot use the same cost function that we use for linear regression because the Logistic Function will cause the output to be wavy, causing many local optima. In other words, it will not be a convex function.</p>
+
+<p>Instead, our cost function for logistic regression looks like:
+\(\begin{array}{ll}{J(\theta)=\frac{1}{m} \sum_{i=1}^{m} \operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right)} \\ {\operatorname{Cost}\left(h_{\theta}(x), y\right)=-\log \left(h_{\theta}(x)\right)} &amp; {\text { if } y=1} \\ {\operatorname{Cost}\left(h_{\theta}(x), y\right)=-\log \left(1-h_{\theta}(x)\right)} &amp; {\text { if } y=0}\end{array}\)</p>
+
+<p><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/Q9sX8nnxEeamDApmnD43Fw_1cb67ecfac77b134606532f5caf98ee4_Logistic_regression_cost_function_positive_class.png?expiry=1568851200000&amp;hmac=XgLun-f7WGakE-b1Kq6_rCPvtlzMHAihbHgYfK9HPYQ" alt="img" /></p>
+
+<p><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/Ut7vvXnxEead-BJkoDOYOw_f719f2858d78dd66d80c5ec0d8e6b3fa_Logistic_regression_cost_function_negative_class.png?expiry=1568851200000&amp;hmac=8tgJLHbwEcGaP51eZg4MaW83wCReE2XUpKeNcmx5jBk" alt="img" /></p>
+
+<p>In conclusion, the cost function is defined as:
+\(\begin{array}{l}{J(\theta)=\frac{1}{m} \sum_{i=1}^{m} \operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right)} \\ {\operatorname{Cost}\left(h_{\theta}(x), y\right)=\left\{\begin{aligned}-\log \left(h_{\theta}(x)\right) &amp; \text { if } y=1 \\-\log \left(1-h_{\theta}(x)\right) &amp; \text { if } y=0 \end{aligned}\right.} \\ {\text { Note: } y=0 \text { or } 1 \text { always }}\end{array}\)
+Therefore, we can simplify this expression as:
+\(\begin{aligned} J(\theta) &amp;=\frac{1}{m} \sum_{i=1}^{m} \operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right) \\ &amp;=-\frac{1}{m}\left[\sum_{i=1}^{m} y^{(i)} \log h_{\theta}\left(x^{(i)}\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right] \end{aligned}\)
+Which is still convex function.</p>
+
+<h4 id="proposition-about-convex-functions">Proposition about convex functions</h4>
+
+<ul>
+  <li>If $f(\cdot)$ is convex function, $g(\cdot)$ is an linear/affine function, then $f(g(\cdot))$ is a convex function.</li>
+  <li>If $f(\cdot)$ and $g(\cdot)$ are both convex function, then $af(x)+bg(y)$ is still convex function if $a,b&gt;=0$.</li>
+</ul>
+
+<p>Essentially,  $Cost~function \in [0,+\infty )$</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>$Cost~function \to +\infty$ if  $</td>
+      <td>h_\theta(x)-y</td>
+      <td>\to 1 $</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>$Cost~function \to 0$ if $</td>
+      <td>h_\theta(x)-y</td>
+      <td>\to 0 $</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Note that writing the cost function in this way guarantees that $J(\theta )$ is convex for logistic regression.</p>
+
+<h3 id="gradient-descent-1">Gradient Descent</h3>
+
+\[\begin{array}{l}{\text { Gradient Descent }} \\ {\qquad \begin{array}{l}{J(\theta)=-\frac{1}{m}\left[\sum_{i=1}^{m} y^{(i)} \log h_{\theta}\left(x^{(i)}\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right]} \\ {\text { Want } \min _{\theta} J(\theta) :} \\ {\text { Repeat }\{ } \end{array}} \\ {\qquad \begin{array}{ll} {\theta_{j} :=\theta_{j}-\alpha \frac{\partial}{\partial \theta_{j}} J(\theta)} \\ { \}} &amp; {\left.\text { (simultaneously update all } \theta_{j}\right)}\end{array}}\end{array}\]
+
+<p>Since $\frac{\partial} {\partial \theta_j} J(\theta)=\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}$, we get:
+\(\begin{array}{l}{\text { Gradient Descent }} \\ {\qquad \begin{array}{l}{J(\theta)=-\frac{1}{m}\left[\sum_{i=1}^{m} y^{(i)} \log h_{\theta}\left(x^{(i)}\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right]} \\ {\text { Want } \min _{\theta} J(\theta) :} \\ {\text { Repeat }\{ } \end{array}} \\ {\qquad \begin{array}{ll} {\theta_{j} :=\theta_{j}-\frac{\alpha}{m} \sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}} \\ { \}} &amp; {\left.\text { (simultaneously update all } \theta_{j}\right)}\end{array}}\end{array}\)</p>
+
+<h3 id="vectorization-1">Vectorization</h3>
+
+<p>Use the built in functions to solve the calculation. Try not to implement the loop by ourselves.</p>
+
+<p>For example, in the gradient descent method, we need to calculate simultaneously:
+\(\begin{array}{l}{\text { repeat until convergence: } } \\ {\theta_{j} :=\theta_{j}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) \cdot x_{j}^{(i)} \quad \text { for } j :=0 \ldots n}\end{array}\)
+In fact, this is equivalent to:</p>
+
+<p>$\theta_{new}=\theta-\frac{\alpha}{m}X^T[g(X\theta)-y)]$</p>
+
+<h3 id="advanced-optimization">Advanced Optimization</h3>
+
+<ul>
+  <li>Conjugate Gradient</li>
+  <li>BFGS</li>
+  <li>L-BFGS</li>
+</ul>
+
+<p>“Conjugate gradient”, “BFGS”, and “L-BFGS” are more sophisticated, faster ways to optimize θ that can be used instead of gradient descent. We suggest that you should not write these more sophisticated algorithms yourself (unless you are an expert in numerical computing) but use the libraries instead, as they’re already tested and highly optimized. Octave provides them.</p>
+
+<p>We first need to provide a function that evaluates the following two functions for a given input value θ:</p>
+
+<p>$\begin{array}{c}{J(\theta)} \ {\frac{\partial}{\partial \theta_{j}} J(\theta)}\end{array}$</p>
+
+<p>We can write a single function that returns both of these:</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="p">[</span><span class="n">jVal</span><span class="p">,</span> <span class="nb">gradient</span><span class="p">]</span> <span class="o">=</span> <span class="n">costFunction</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+  <span class="n">jVal</span> <span class="o">=</span> <span class="p">[</span><span class="k">...</span><span class="c">code to compute J(theta)...];</span>
+  <span class="nb">gradient</span> <span class="o">=</span> <span class="p">[</span><span class="k">...</span><span class="c">code to compute derivative of J(theta)...];</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Then we can use octave’s <code class="language-plaintext highlighter-rouge">"fminunc()"</code> optimization algorithm along with the <code class="language-plaintext highlighter-rouge">"optimset()" </code>function that creates an object containing the options we want to send to “fminunc()”. (Note: the value for MaxIter should be an integer, not a character string)</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">options</span> <span class="o">=</span> <span class="nb">optimset</span><span class="p">(</span><span class="s1">'GradObj'</span><span class="p">,</span> <span class="s1">'on'</span><span class="p">,</span> <span class="s1">'MaxIter'</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="n">initialTheta</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="c1">%final step:</span>
+<span class="p">[</span><span class="n">optTheta</span><span class="p">,</span> <span class="n">functionVal</span><span class="p">,</span> <span class="n">exitFlag</span><span class="p">]</span> <span class="o">=</span> <span class="n">fminunc</span><span class="p">(</span><span class="o">@</span><span class="n">costFunction</span><span class="p">,</span> <span class="n">initialTheta</span><span class="p">,</span> <span class="n">options</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Here, we give to the function “fminunc()” our cost function, our initial vector of theta values, and the “options” object that we created beforehand.</p>
+
+<p>Sometimes, the original costFunction also need parameters of X and Y. We can create a anonymous function to wrap it:</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">theta</span><span class="p">,</span> <span class="n">cost</span><span class="p">]</span> <span class="o">=</span> <span class="k">...</span>
+    <span class="n">fminunc</span><span class="p">(</span><span class="o">@</span><span class="p">(</span><span class="n">t</span><span class="p">)(</span><span class="n">costFunction</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)),</span> <span class="n">initial_theta</span><span class="p">,</span> <span class="n">options</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>mysin=@(t) matlat expression;</p>
+
+<p>It defines a function. For example:<code class="language-plaintext highlighter-rouge">mysin=@(t) sin(t+3)</code>; later we can use <code class="language-plaintext highlighter-rouge">mysin(-3)</code> which gives 0.</p>
+
+<h3 id="multiclass-classification">Multiclass Classification</h3>
+
+<p>Now we will approach the classification of data when we have more than two categories. Instead of y = {0,1} we will expand our definition so that y = {0,1…n}.</p>
+
+<p>Since y = {0,1…n}, we divide our problem into n+1 (+1 because the index starts at 0) binary classification problems; in each one, we predict the probability that ‘y’ is a member of one of our classes.
+\(\begin{array}{l}{y \in\{0,1 \ldots n\}} \\ {h_{\theta}^{(0)}(x)=P(y=0 | x ; \theta)} \\ {h_{\theta}^{(1)}(x)=P(y=1 | x ; \theta)} \\ {\stackrel{\cdots}{h}_{\theta}^{(n)}(x)=P(y=n | x ; \theta)} \\ {\text { prediction }=\max _{i}\left(h_{\theta}^{(i)}(x)\right)}\end{array}\)
+We are basically choosing one class and then lumping all the others into a single second class. We do this repeatedly, applying binary logistic regression to each case, and then use the hypothesis that returned the highest value as our prediction.</p>
+
+<p>The following image shows how one could classify 3 classes:</p>
+
+<p><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/cqmPjanSEeawbAp5ByfpEg_299fcfbd527b6b5a7440825628339c54_Screenshot-2016-11-13-10.52.29.png?expiry=1568937600000&amp;hmac=PGyBSYEc3_NZowq_ajpqp0myfFlZZyq6x7rUkhlbUKI" alt="img" /></p>
+
+<p><strong>To summarize:</strong></p>
+
+<p>Train a logistic regression classifier $h_\theta(x)$ for each class to predict the probability that  y = i .</p>
+
+<p>To make a prediction on a new x, pick the class that maximizes $h_\theta (x)$.</p>
+
+<p>Note: for each class, we make an one-vs-rest classification to get the prediction of the probability:  $h_\theta (x)$. In other words, if we have k different classes, we need to find k predictions $h_\theta (x)$.</p>
+
+<h2 id="solving-the-problem-of-overfitting">Solving the Problem of Overfitting</h2>
+
+<h3 id="the-problem-of-overfitting">The Problem of Overfitting</h3>
+
+<p>Consider the problem of predicting y from x ∈ R. The leftmost figure below shows the result of fitting a y = θ0+θ1x to a dataset. We see that the data doesn’t really lie on straight line, and so the fit is not very good.</p>
+
+<p><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/0cOOdKsMEeaCrQqTpeD5ng_2a806eb8d988461f716f4799915ab779_Screenshot-2016-11-15-00.23.30.png?expiry=1568937600000&amp;hmac=0q2XMGdHK4sB4nF7V_LBjsF5fKlWyWxdWedn2wiAlBs" alt="img" /></p>
+
+<p>Without formally defining what these terms mean, we’ll say the figure on the left shows an instance of <strong>underfitting</strong>—in which the data clearly shows structure not captured by the model—and the figure on the right is an example of <strong>overfitting</strong>.</p>
+
+<p><strong>Underfitting,</strong> or high bias, is when the form of our hypothesis function h maps poorly to the trend of the data. It is usually caused by a function that is too simple or uses too few features.</p>
+
+<p>At the other extreme, <strong>overfitting</strong>, or high variance, is caused by a hypothesis function that fits the available data but does not generalize well to predict new data. It is usually caused by a complicated function that creates a lot of unnecessary curves and angles unrelated to the data.</p>
+
+<p>This terminology is applied to both linear and logistic regression. There are two main options to address the issue of overfitting:</p>
+
+<p>1) <strong>Reduce the number of features</strong>:</p>
+
+<ul>
+  <li>Manually select which features to keep.</li>
+  <li>Use a model selection algorithm (studied later in the course).</li>
+</ul>
+
+<p>2)  <strong>Regularization</strong></p>
+
+<ul>
+  <li>Keep all the features, but reduce the magnitude of parameters $\theta_j$.</li>
+  <li>Regularization works well when we have a lot of slightly useful features.</li>
+</ul>
+
+<h3 id="cost-function-1">Cost Function</h3>
+
+<p>If we have overfitting from our hypothesis function, we can reduce the weight that some of the terms in our function carry by increasing their cost.</p>
+
+<p>Say we wanted to make the following function more quadratic:</p>
+
+<p>$\theta_{0}+\theta_{1} x+\theta_{2} x^{2}+\theta_{3} x^{3}+\theta_{4} x^{4}$</p>
+
+<p>We’ll want to eliminate the influence of $\theta_3x^3$ and $\theta_4x^4$. Without actually getting rid of these features or changing the form of our hypothesis, we can instead modify our <strong>cost function</strong>:</p>
+
+<p>$\min <em>{\theta} \frac{1}{2 m} \sum</em>{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right)^{2}+1000 \cdot \theta_{3}^{2}+1000 \cdot \theta_{4}^{2}$</p>
+
+<p>We could also regularize all of our theta parameters in a single summation as:</p>
+
+<p>$\min <em>{\theta} \frac{1}{2 m} \sum</em>{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right)^{2}+\lambda \sum_{j=1}^{n} \theta_{j}^{2}$</p>
+
+<p>Note: in this expression, the $\theta_0$ is not penalized. $x_0^{(i)} =1$.</p>
+
+<p>The λ, or lambda, is the <strong>regularization parameter</strong>. It determines how much the costs of our theta parameters are inflated.</p>
+
+<p>Using the above cost function with the extra summation, we can smooth the output of our hypothesis function to reduce overfitting. If lambda is chosen to be too large, it may smooth out the function too much and cause underfitting. Hence, what would happen if λ=0 or is too small ?</p>
+
+<h3 id="regularized-linear-regression">Regularized Linear Regression</h3>
+
+<p>We can apply regularization to both linear regression and logistic regression. We will approach linear regression first.</p>
+
+<h4 id="gradient-descent-2">Gradient Descent</h4>
+
+<p>With the cost function as:
+\(J(\theta)=\min _{\theta} \frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right)^{2}+\frac{\lambda }{2m}\sum_{j=1}^{n} \theta_{j}^{2}\)
+We will modify our gradient descent function to separate out $\theta_0$ from the rest of the parameters because we do not want to penalize $\theta_0$.
+\(\begin{array}{l}{\text { Repeat }\{ } \\ {\theta_{0} :=\theta_{0}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{0}^{(i)}} \\ {\theta_{j} :=\theta_{j}-\alpha\left[\left(\frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}\right)+\frac{\lambda}{m} \theta_{j}\right] \quad j \in\{1,2 \ldots n\}}\end{array}\)
+ With some manipulation our update rule can also be represented as:</p>
+
+<p>$\theta_{j} :=\theta_{j}\left(1-\alpha \frac{\lambda}{m}\right)-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}$</p>
+
+<p>The first term in the above equation, $1 - \alpha\frac{\lambda}{m}$ will always be less than 1. Intuitively you can see it as reducing the value of $\theta_j$ by some amount on every update. Notice that the second term is now exactly the same as it was before.
+<strong>Vectorization</strong></p>
+
+<p>$\theta_{new}=(I- \alpha\frac{\lambda }{m}L)\theta-\frac{\alpha}{m}X^T(X\theta-y)$</p>
+
+<p>With</p>
+
+<p>$L=\left[\begin{array}{cccc}{0} \ {} &amp; {1} \ {} &amp; {} &amp; {\ddots} \ {} &amp; {} &amp; {} &amp; {1}\end{array}\right]$</p>
+
+<h4 id="normal-equation">Normal Equation</h4>
+
+<p>Now let’s approach regularization using the alternate method of the non-iterative normal equation.</p>
+
+<p>For
+\(J(\theta)=\min _{\theta} \frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right)^{2}+\frac{\lambda}{2m} \sum_{j=1}^{n} \theta_{j}^{2}\)
+(Note: m examples, n+1 features with $x_0=1$.)</p>
+
+<p>For the new regularized cost function, set $\frac{\partial J}{\partial \theta}=0$, and we get</p>
+
+<p>$X^T (X\theta-y)+\lambda L\theta=0$</p>
+
+<p>To add in regularization, the equation is the same as our original, except that we add another term inside the parentheses:</p>
+
+\[\begin{array}{l}{\theta=\left(X^{T} X+\lambda \cdot L\right)^{-1} X^{T} y} \\ {\text { where } L=\left[\begin{array}{cccc}{0} \\ {} &amp; {1} \\ {} &amp; {} &amp; {\ddots} \\ {} &amp; {} &amp; {} &amp; {1}\end{array}\right]}\end{array}\]
+
+<p>Since $x^{(i)}_0=1$, we know that $e_0=[1,0,0,…,0]$ will is not in the null space of  $X^TX$. Meanwhile, all the other $e_i,i&gt;0$ is not in the null space of $\lambda L$. We know that, with $\lambda$ large enough, the matrix $\left(X^{T} X+\lambda \cdot L\right)$ is always invertible, which means we do not have to use the Pseudoinverse.</p>
+
+<h3 id="regularized-logistic-regression">Regularized Logistic Regression</h3>
+
+<p>We can regularize logistic regression in a similar way that we regularize linear regression. As a result, we can avoid overfitting. The following image shows how the regularized function, displayed by the pink line, is less likely to overfit than the non-regularized function represented by the blue line:</p>
+
+<p><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/Od9mobDaEeaCrQqTpeD5ng_4f5e9c71d1aa285c1152ed4262f019c1_Screenshot-2016-11-22-09.31.21.png?expiry=1568937600000&amp;hmac=6fWE7koC0c1L96gfMB69sZEL2xOXxMCxDl3ymYBKdcA" alt="img" /></p>
+
+<h3 id="cost-function-for-regularized-logistic-regression">Cost function for Regularized Logistic Regression</h3>
+
+<p>Recall that our cost function for logistic regression was:</p>
+
+<p>$J(\theta)=-\frac{1}{m} \sum_{i=1}^{m}\left[y^{(i)} \log \left(h_{\theta}\left(x^{(i)}\right)\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right]$</p>
+
+<p>We can regularize this equation by adding a term to the end:</p>
+
+<p>$J(\theta)=-\frac{1}{m} \sum_{i=1}^{m}\left[y^{(i)} \log \left(h_{\theta}\left(x^{(i)}\right)\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right]+\frac{\lambda}{2 m} \sum_{j=1}^{n} \theta_{j}^{2}$</p>
+
+<p>The second sum, $\sum_{j=1}^n \theta_j^2$ <strong>means to explicitly exclude</strong> the bias term, $\theta_0$. I.e. the θ vector is indexed from 0 to n (holding n+1 values, $\theta_0$ through $\theta_n$), and this sum explicitly skips $\theta_0$, by running from 1 to n, skipping 0. Thus, when computing the equation, we should continuously update the two following equations:
+\(\begin{array}{l}{\text { Repeat }\{ } \\ {\theta_{0} :=\theta_{0}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{0}^{(i)}} \\ {\theta_{j} :=\theta_{j}-\alpha\left[\left(\frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}\right)+\frac{\lambda}{m} \theta_{j}\right] \quad j \in\{1,2 \ldots n\}}\end{array}\)
+<strong>Vectorization</strong></p>
+
+<p>$\theta_{new}=(I- \alpha\frac{\lambda }{m}L)\theta-\frac{\alpha}{m}X^T[g(X\theta)-y]$</p>
+
+<p>With</p>
+
+\[L=\left[\begin{array}{cccc}{0} \\ {} &amp; {1} \\ {} &amp; {} &amp; {\ddots} \\ {} &amp; {} &amp; {} &amp; {1}\end{array}\right]\]
+:ET
