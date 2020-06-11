@@ -1,0 +1,68 @@
+I"í<ul id="markdown-toc">
+  <li><a href="#machine-learning-part-1-basics" id="markdown-toc-machine-learning-part-1-basics">Machine Learning-Part 1-Basics</a>    <ul>
+      <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a>        <ul>
+          <li><a href="#what-is-machine-learning" id="markdown-toc-what-is-machine-learning">What is Machine Learning?</a></li>
+          <li><a href="#supervised-learning" id="markdown-toc-supervised-learning">Supervised Learning</a></li>
+          <li><a href="#unsupervised-learning" id="markdown-toc-unsupervised-learning">Unsupervised Learning</a></li>
+        </ul>
+      </li>
+      <li><a href="#model-and-cost-function" id="markdown-toc-model-and-cost-function">Model and Cost Function</a>        <ul>
+          <li><a href="#model-representation" id="markdown-toc-model-representation">Model Representation</a></li>
+          <li><a href="#cost-function" id="markdown-toc-cost-function">Cost Function</a></li>
+        </ul>
+      </li>
+      <li><a href="#parameter-learning" id="markdown-toc-parameter-learning">Parameter Learning</a>        <ul>
+          <li><a href="#gradient-descent" id="markdown-toc-gradient-descent">Gradient Descent</a></li>
+          <li><a href="#gradient-descent-for-linear-regression" id="markdown-toc-gradient-descent-for-linear-regression">Gradient Descent for Linear Regression</a></li>
+        </ul>
+      </li>
+      <li><a href="#linear-algebra-review" id="markdown-toc-linear-algebra-review">Linear Algebra Review</a>        <ul>
+          <li><a href="#matrix" id="markdown-toc-matrix">Matrix</a></li>
+          <li><a href="#matrix-multiplication-properties" id="markdown-toc-matrix-multiplication-properties">Matrix Multiplication Properties</a></li>
+          <li><a href="#multiple-linear-regression" id="markdown-toc-multiple-linear-regression">Multiple Linear regression</a></li>
+          <li><a href="#gradient-descent-for-multiple-variables" id="markdown-toc-gradient-descent-for-multiple-variables">Gradient Descent for Multiple Variables</a></li>
+          <li><a href="#vectorization" id="markdown-toc-vectorization">Vectorization</a>            <ul>
+              <li><a href="#practice-1-feature-scaling-and-mean-normalization" id="markdown-toc-practice-1-feature-scaling-and-mean-normalization">Practice 1: Feature Scaling and Mean normalization</a></li>
+              <li><a href="#practice-2-learning-rate" id="markdown-toc-practice-2-learning-rate">Practice 2: Learning Rate</a></li>
+              <li><a href="#practice-3-features-and-polynomial-regression" id="markdown-toc-practice-3-features-and-polynomial-regression">Practice 3: Features and Polynomial Regression</a></li>
+            </ul>
+          </li>
+          <li><a href="#computing-parameters-analytically" id="markdown-toc-computing-parameters-analytically">Computing Parameters Analytically</a>            <ul>
+              <li><a href="#single-value-decomposition" id="markdown-toc-single-value-decomposition">Single value decomposition</a></li>
+              <li><a href="#pseudoinverse" id="markdown-toc-pseudoinverse">Pseudoinverse</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#classification-and-representation" id="markdown-toc-classification-and-representation">Classification and Representation</a>        <ul>
+          <li><a href="#logistic-regression-hypothesis--representation" id="markdown-toc-logistic-regression-hypothesis--representation">Logistic Regression-Hypothesis  Representation</a></li>
+          <li><a href="#decision-boundary" id="markdown-toc-decision-boundary">Decision Boundary</a>            <ul>
+              <li><a href="#draw-the-plot-and-decision-boundary" id="markdown-toc-draw-the-plot-and-decision-boundary">Draw the plot and decision Boundary</a></li>
+            </ul>
+          </li>
+          <li><a href="#logistic-regression-model" id="markdown-toc-logistic-regression-model">Logistic Regression Model</a>            <ul>
+              <li><a href="#proposition-about-convex-functions" id="markdown-toc-proposition-about-convex-functions">Proposition about convex functions</a></li>
+            </ul>
+          </li>
+          <li><a href="#gradient-descent-1" id="markdown-toc-gradient-descent-1">Gradient Descent</a></li>
+          <li><a href="#vectorization-1" id="markdown-toc-vectorization-1">Vectorization</a></li>
+          <li><a href="#advanced-optimization" id="markdown-toc-advanced-optimization">Advanced Optimization</a></li>
+          <li><a href="#multiclass-classification" id="markdown-toc-multiclass-classification">Multiclass Classification</a></li>
+        </ul>
+      </li>
+      <li><a href="#solving-the-problem-of-overfitting" id="markdown-toc-solving-the-problem-of-overfitting">Solving the Problem of Overfitting</a>        <ul>
+          <li><a href="#the-problem-of-overfitting" id="markdown-toc-the-problem-of-overfitting">The Problem of Overfitting</a></li>
+          <li><a href="#cost-function-1" id="markdown-toc-cost-function-1">Cost Function</a></li>
+          <li><a href="#regularized-linear-regression" id="markdown-toc-regularized-linear-regression">Regularized Linear Regression</a>            <ul>
+              <li><a href="#gradient-descent-2" id="markdown-toc-gradient-descent-2">Gradient Descent</a></li>
+              <li><a href="#normal-equation" id="markdown-toc-normal-equation">Normal Equation</a></li>
+            </ul>
+          </li>
+          <li><a href="#regularized-logistic-regression" id="markdown-toc-regularized-logistic-regression">Regularized Logistic Regression</a></li>
+          <li><a href="#cost-function-for-regularized-logistic-regression" id="markdown-toc-cost-function-for-regularized-logistic-regression">Cost function for Regularized Logistic Regression</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET
