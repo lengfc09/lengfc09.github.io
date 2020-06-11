@@ -1,4 +1,73 @@
-I"4!<ul id="markdown-toc">
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Machine Learning-Part 1-Basics | Your awesome title</title>
+<meta name="generator" content="Jekyll v4.1.0" />
+<meta property="og:title" content="Machine Learning-Part 1-Basics" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="http://localhost:4000/machine/learning/2020/06/01/mmdf1.html" />
+<meta property="og:url" content="http://localhost:4000/machine/learning/2020/06/01/mmdf1.html" />
+<meta property="og:site_name" content="Your awesome title" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-01T21:40:16+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/machine/learning/2020/06/01/mmdf1.html","headline":"Machine Learning-Part 1-Basics","dateModified":"2020-06-01T21:40:16+08:00","datePublished":"2020-06-01T21:40:16+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/machine/learning/2020/06/01/mmdf1.html"},"description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Your awesome title" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Your awesome title</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <!-- MathJax Support -->
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+   <!--  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_SVG-full"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+ -->
+
+    <h1 class="post-title p-name" itemprop="name headline">Machine Learning-Part 1-Basics</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-06-01T21:40:16+08:00" itemprop="datePublished">Jun 1, 2020
+      </time></p>
+
+
+
+
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="markdown-toc">
   <li><a href="#machine-learning-part-1-basics" id="markdown-toc-machine-learning-part-1-basics">Machine Learning-Part 1-Basics</a>    <ul>
       <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a>        <ul>
           <li><a href="#what-is-machine-learning" id="markdown-toc-what-is-machine-learning">What is Machine Learning?</a></li>
@@ -67,8 +136,7 @@
 </ul>
 
 <h1 id="machine-learning-part-1-basics">Machine Learning-Part 1-Basics</h1>
-<p>by Andrew Ng
- [TOC]</p>
+<p>by Andrew Ng</p>
 
 <h2 id="introduction">Introduction</h2>
 
@@ -138,12 +206,15 @@
 
 <h3 id="cost-function">Cost Function</h3>
 
-<p>We can measure the accuracy of our hypothesis function by using a <strong>cost function</strong>. This takes an average difference (actually a fancier version of an average) of all the results of the hypothesis with inputs from x’s and the actual output y’s.
-\(J\left(\theta_{0}, \theta_{1}\right)=\frac{1}{2 m} \sum_{i=1}^{m}\left(\hat{y}_{i}-y_{i}\right)^{2}=\frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x_{i}\right)-y_{i}\right)^{2}\)
-To break it apart, it is $\frac{1}{2}\bar{x}$  where $\bar{x}$ is the mean of the squares of $h_{\theta}\left(x_{i}\right)-y_{i}$ , or the difference between the predicted value and the actual value.</p>
+<p>We can measure the accuracy of our hypothesis function by using a <strong>cost function</strong>. This takes an average difference (actually a fancier version of an average) of all the results of the hypothesis with inputs from x’s and the actual output y’s.</p>
 
-<p>This function is otherwise called the “Squared error function”, or “Mean squared error”. The mean is halved  $\left(\frac{1}{2}\right)$ as a convenience for the computation of the gradient descent, as the derivative term of the square function will cancel out the $\frac{1}{2}$ term. The following image summarizes what the cost function does:
-\(\min_{\theta } ~~J(\theta )=\frac{1}{2 m} \sum_{i=1}^{m}\left(\hat{y}_{i}-y_{i}\right)^{2}=\frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x_{i}\right)-y_{i}\right)^{2}\)</p>
+\[J\left(\theta_{0}, \theta_{1}\right)=\frac{1}{2 m} \sum_{i=1}^{m}\left(\hat{y}_{i}-y_{i}\right)^{2}=\frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x_{i}\right)-y_{i}\right)^{2}\]
+
+<p>To break it apart, it is $\frac{1}{2}\bar{x}$  where $\bar{x}$ is the mean of the squares of $h_{\theta}\left(x_{i}\right)-y_{i}$ , or the difference between the predicted value and the actual value.</p>
+
+<p>This function is otherwise called the “Squared error function”, or “Mean squared error”. The mean is halved  $\left(\frac{1}{2}\right)$ as a convenience for the computation of the gradient descent, as the derivative term of the square function will cancel out the $\frac{1}{2}$ term. The following image summarizes what the cost function does:</p>
+
+\[\min_{\theta } ~~J(\theta )=\frac{1}{2 m} \sum_{i=1}^{m}\left(\hat{y}_{i}-y_{i}\right)^{2}=\frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x_{i}\right)-y_{i}\right)^{2}\]
 
 <h2 id="parameter-learning">Parameter Learning</h2>
 
@@ -159,9 +230,11 @@ To break it apart, it is $\frac{1}{2}\bar{x}$  where $\bar{x}$ is the mean of th
 
 <p>We will know that we have succeeded when our cost function is at the very bottom of the pits in our graph, i.e. when its value is the minimum. The red arrows show the minimum points in the graph.</p>
 
-<p><strong>The gradient descent algorithm is:</strong>
-\(\begin{array}{ll}{\text { repeat until convergence }\{ } \\ {\qquad \theta_{j} :=\theta_{j}-\alpha \frac{\partial}{\partial \theta_{j}} J\left(\theta_{0}, \theta_{1}\right) \quad \text { (simultaneously update $\theta_0$ and $\theta_1$ }} \\ { \}}\end{array}\)
-At each iteration j, one should simultaneously update the parameters $\theta_1, \theta_2,…,\theta_n$. Updating a specific parameter prior to calculating another one on the $j^{(th)}$ iteration would yield to a wrong implementation.</p>
+<p><strong>The gradient descent algorithm is:</strong></p>
+
+\[\begin{array}{ll}{\text { repeat until convergence }\{ } \\ {\qquad \theta_{j} :=\theta_{j}-\alpha \frac{\partial}{\partial \theta_{j}} J\left(\theta_{0}, \theta_{1}\right) \quad \text { (simultaneously update $\theta_0$ and $\theta_1$ }} \\ { \}}\end{array}\]
+
+<p>At each iteration j, one should simultaneously update the parameters $\theta_1, \theta_2,…,\theta_n$. Updating a specific parameter prior to calculating another one on the $j^{(th)}$ iteration would yield to a wrong implementation.</p>
 
 <p>$\alpha := learning~ rate$. On a side note, we should adjust our parameter \alpha<em>α</em> to ensure that the gradient descent algorithm converges in a reasonable time. Failure to converge or too much time to obtain the minimum value imply that our step size is wrong.</p>
 
@@ -171,10 +244,13 @@ At each iteration j, one should simultaneously update the parameters $\theta_1, 
 
 <h3 id="gradient-descent-for-linear-regression">Gradient Descent for Linear Regression</h3>
 
-<p>For the cost function:
-\(~~J(\theta )=\frac{1}{2 m} \sum_{i=1}^{m}\left(\hat{y}_{i}-y_{i}\right)^{2}=\frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x_{i}\right)-y_{i}\right)^{2}\)
-Gradient Descent Algorithm
-\(\begin{array}{l}{\text { repeat until convergence }\{ } \\ {\qquad \begin{array}{l}{\theta_{0} :=\theta_{0}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right)} \\ {\theta_{1} :=\theta_{1}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) \cdot x^{(i)}}\end{array}}\end{array}\)</p>
+<p>For the cost function:</p>
+
+\[~~J(\theta )=\frac{1}{2 m} \sum_{i=1}^{m}\left(\hat{y}_{i}-y_{i}\right)^{2}=\frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x_{i}\right)-y_{i}\right)^{2}\]
+
+<p>Gradient Descent Algorithm</p>
+
+\[\begin{array}{l}{\text { repeat until convergence }\{ } \\ {\qquad \begin{array}{l}{\theta_{0} :=\theta_{0}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right)} \\ {\theta_{1} :=\theta_{1}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) \cdot x^{(i)}}\end{array}}\end{array}\]
 
 <p>This method looks at every example in the entire training set on every step, and is called <strong>batch gradient descent</strong>. Note that, while gradient descent can be susceptible to local minima in general, the optimization problem we have posed here for linear regression has only one global, and no other local, optima; thus gradient descent always converges (assuming the learning rate α is not too large) to the global minimum. Indeed, J is a convex quadratic function.</p>
 
@@ -299,9 +375,11 @@ Gradient Descent Algorithm
 
 <p>Linear regression with multiple variables is also known as “multivariate linear regression”.</p>
 
-<p>We now introduce notation for equations where we can have any number of input variables.
-\(\begin{aligned} x_{j}^{(i)} &amp;=\text { value of feature } j \text { in the } i^{\text {th}} \text {training example } \\ x^{(i)} &amp;=\text { the input (features) of the } i^{\text {th}} \text {training example } \\ m &amp;=\text { the number of training examples } \\ n &amp;=\text { the number of features } \end{aligned}\)
-The multivariable form of the hypothesis function accommodating these multiple features is as follows:</p>
+<p>We now introduce notation for equations where we can have any number of input variables.</p>
+
+\[\begin{aligned} x_{j}^{(i)} &amp;=\text { value of feature } j \text { in the } i^{\text {th}} \text {training example } \\ x^{(i)} &amp;=\text { the input (features) of the } i^{\text {th}} \text {training example } \\ m &amp;=\text { the number of training examples } \\ n &amp;=\text { the number of features } \end{aligned}\]
+
+<p>The multivariable form of the hypothesis function accommodating these multiple features is as follows:</p>
 
 <p>$h_{\theta}(x)=\theta_{0}+\theta_{1} x_{1}+\theta_{2} x_{2}+\theta_{3} x_{3}+\cdots+\theta_{n} x_{n}$</p>
 
@@ -313,19 +391,25 @@ The multivariable form of the hypothesis function accommodating these multiple f
 
 <h3 id="gradient-descent-for-multiple-variables">Gradient Descent for Multiple Variables</h3>
 
-<p><strong>repeat until convergence:</strong>
-\(\begin{array}{l}{\theta_{0} :=\theta_{0}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{0}^{(i)}} \\ {\theta_{1} :=\theta_{1}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{1}^{(i)}} \\ {\theta_{2} :=\theta_{2}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{2}^{(i)}}\end{array} \\...\)
-In other words:
-\(\begin{array}{l}{\text { repeat until convergence: } } \\ {\theta_{j} :=\theta_{j}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) \cdot x_{j}^{(i)} \quad \text { for } j :=0 \ldots n}\end{array}\)
-$x_{0}^{(i)}=1, \forall i$</p>
+<p><strong>repeat until convergence:</strong></p>
+
+\[\begin{array}{l}{\theta_{0} :=\theta_{0}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{0}^{(i)}} \\ {\theta_{1} :=\theta_{1}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{1}^{(i)}} \\ {\theta_{2} :=\theta_{2}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{2}^{(i)}}\end{array} \\...\]
+
+<p>In other words:</p>
+
+\[\begin{array}{l}{\text { repeat until convergence: } } \\ {\theta_{j} :=\theta_{j}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) \cdot x_{j}^{(i)} \quad \text { for } j :=0 \ldots n}\end{array}\]
+
+<p>$x_{0}^{(i)}=1, \forall i$</p>
 
 <h3 id="vectorization">Vectorization</h3>
 
 <p>Use the built in functions to solve the calculation. Try not to implement the loop by ourselves.</p>
 
-<p>For example, in the gradient descent method, we need to calculate simultaneously:
-\(\begin{array}{l}{\text { repeat until convergence: } } \\ {\theta_{j} :=\theta_{j}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) \cdot x_{j}^{(i)} \quad \text { for } j :=0 \ldots n}\end{array}\)
-In fact, this is equivalent to:</p>
+<p>For example, in the gradient descent method, we need to calculate simultaneously:</p>
+
+\[\begin{array}{l}{\text { repeat until convergence: } } \\ {\theta_{j} :=\theta_{j}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) \cdot x_{j}^{(i)} \quad \text { for } j :=0 \ldots n}\end{array}\]
+
+<p>In fact, this is equivalent to:</p>
 
 <p>$\theta_{new}=\theta-\frac{\alpha}{m}X^T(X\theta-y)$</p>
 
@@ -469,9 +553,11 @@ In fact, this is equivalent to:</p>
 
 <h4 id="single-value-decomposition">Single value decomposition</h4>
 
-<p>Suppose <strong>M</strong> is an m × n matrix whose entries come from the field K, which is either the field of real numbers or the field of complex numbers. Then the singular value decomposition of M exists, and is a factorization of the form:
-\(\begin{array}{l}{\quad \mathbf{M}=\mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{*}} \\ {\text { where }} \\ {\bullet \mathbf{U} \text { is an } m \times m \text { unitary matrix over } K(\text { if } K=\mathbb{R}, \text { unitary matrices are orthogonal matrices), }} \\ {\bullet \Sigma \text { is a diagonal } m \times n \text { matrix with non-negative real numbers on the diagonal, }} \\ {\bullet \mathbf{V} \text { is an } n \times n \text { unitary matrix over } K, \text { and } \mathbf{V}^{*} \text { is the conjugate transpose of } \mathbf{V} \text { . }}\end{array}\)
-An <strong>orthogonal matrix</strong> is a square matrix whose columns and rows are orthogonal unit vectors (i.e., orthonormal vectors), i.e.:</p>
+<p>Suppose <strong>M</strong> is an m × n matrix whose entries come from the field K, which is either the field of real numbers or the field of complex numbers. Then the singular value decomposition of M exists, and is a factorization of the form:</p>
+
+\[\begin{array}{l}{\quad \mathbf{M}=\mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{*}} \\ {\text { where }} \\ {\bullet \mathbf{U} \text { is an } m \times m \text { unitary matrix over } K(\text { if } K=\mathbb{R}, \text { unitary matrices are orthogonal matrices), }} \\ {\bullet \Sigma \text { is a diagonal } m \times n \text { matrix with non-negative real numbers on the diagonal, }} \\ {\bullet \mathbf{V} \text { is an } n \times n \text { unitary matrix over } K, \text { and } \mathbf{V}^{*} \text { is the conjugate transpose of } \mathbf{V} \text { . }}\end{array}\]
+
+<p>An <strong>orthogonal matrix</strong> is a square matrix whose columns and rows are orthogonal unit vectors (i.e., orthonormal vectors), i.e.:</p>
 
 <p>$Q^{\mathrm{T}} Q=Q Q^{\mathrm{T}}=I$, i.e. $Q^{\mathrm{T}}=Q^{-1}$</p>
 
@@ -491,9 +577,11 @@ An <strong>orthogonal matrix</strong> is a square matrix whose columns and rows 
 
 <h4 id="pseudoinverse">Pseudoinverse</h4>
 
-<p>More formally, the Moore-Penrose pseudo inverse, <em>A</em>+, of an <em>m</em>-by-<em>n</em> matrix is defined by the <strong>unique <em>n</em>-by-<em>m</em> matrix</strong> satisfying the following four criteria (we are only considering the case where <em>A</em> consists of real numbers).
-\(\begin{array}{l}{\text { 1. } A A^{+} A=A\left(A A^{+} \text {need not be the general identity matrix, but it maps all column vectors of } A \text { to themselves); }\right.} \\ {\text { 2. } A^{+} A A^{+}=A^{+}\left(A^{+} \text {is a weak inverse for the multiplicative semigroup); }\right.} \\ {\text { 3. }\left(A A^{+}\right)^{*}=A A^{+}\left(A A^{+} \text {is Hermitian); }\right.} \\ {\begin{array}{ll}{\text { 4. }\left(A^{+} A\right)^{*}} &amp; {=A^{+} A\left(A^{+} A \text { is also Hermitian). }\right.}\end{array}}\end{array}\)
-In fact $\mathbf{M}^{+}=\mathbf{V} \boldsymbol{\Sigma}^{+} \mathbf{U}^{*}$, we can prove that $M^+$ is the pseudo inverse of $\mathbf{M}$.</p>
+<p>More formally, the Moore-Penrose pseudo inverse, <em>A</em>+, of an <em>m</em>-by-<em>n</em> matrix is defined by the <strong>unique <em>n</em>-by-<em>m</em> matrix</strong> satisfying the following four criteria (we are only considering the case where <em>A</em> consists of real numbers).</p>
+
+\[\begin{array}{l}{\text { 1. } A A^{+} A=A\left(A A^{+} \text {need not be the general identity matrix, but it maps all column vectors of } A \text { to themselves); }\right.} \\ {\text { 2. } A^{+} A A^{+}=A^{+}\left(A^{+} \text {is a weak inverse for the multiplicative semigroup); }\right.} \\ {\text { 3. }\left(A A^{+}\right)^{*}=A A^{+}\left(A A^{+} \text {is Hermitian); }\right.} \\ {\begin{array}{ll}{\text { 4. }\left(A^{+} A\right)^{*}} &amp; {=A^{+} A\left(A^{+} A \text { is also Hermitian). }\right.}\end{array}}\end{array}\]
+
+<p>In fact $\mathbf{M}^{+}=\mathbf{V} \boldsymbol{\Sigma}^{+} \mathbf{U}^{*}$, we can prove that $M^+$ is the pseudo inverse of $\mathbf{M}$.</p>
 
 <p>$A^+$ exists for any matrix <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/7daff47fa58cdfd29dc333def748ff5fa4c923e3" alt="A" />, but, when the latter has full rank (that is, the rank of A is min(m,n)), then $A^+$ can be expressed as a simple algebraic formula A(m,n).</p>
 
@@ -509,9 +597,11 @@ In fact $\mathbf{M}^{+}=\mathbf{V} \boldsymbol{\Sigma}^{+} \mathbf{U}^{*}$, we c
 
 <p>We could approach the classification problem ignoring the fact that y is discrete-valued, and use our old linear regression algorithm to try to predict y given x. However, it is easy to construct examples where this method performs very poorly. Intuitively, it also doesn’t make sense for $h_\theta (x)$ to take values larger than 1 or smaller than 0 when we know that y ∈ {0, 1}. To fix this, let’s change the form for our hypotheses $h_\theta (x)$ to satisfy $0 \leq h_\theta (x) \leq 1$. This is accomplished by plugging $\theta^Tx$ into the Logistic Function.</p>
 
-<p>Our new form uses the “<strong>Sigmoid Function</strong>,” also called the “<strong>Logistic Function</strong>”:
-\(\begin{array}{l}{h_{\theta}(x)=g\left(\theta^{T} x\right)} \\ {z=\theta^{T} x} \\ {g(z)=\frac{1}{1+e^{-z}}}\end{array}\)
-The function g(z): $(-\infty,+\infty)\rightarrow (0,1)$</p>
+<p>Our new form uses the “<strong>Sigmoid Function</strong>,” also called the “<strong>Logistic Function</strong>”:</p>
+
+\[\begin{array}{l}{h_{\theta}(x)=g\left(\theta^{T} x\right)} \\ {z=\theta^{T} x} \\ {g(z)=\frac{1}{1+e^{-z}}}\end{array}\]
+
+<p>The function g(z): $(-\infty,+\infty)\rightarrow (0,1)$</p>
 
 <p>$h_\theta(x)$ will give us the <strong>probability</strong> that our output is 1.</p>
 
@@ -529,15 +619,23 @@ The function g(z): $(-\infty,+\infty)\rightarrow (0,1)$</p>
 
 <h3 id="decision-boundary">Decision Boundary</h3>
 
-<p>In order to get our discrete 0 or 1 classification, we can translate the output of the hypothesis function as follows:
-\(\begin{array}{l}{h_{\theta}(x) \geq 0.5 \rightarrow y=1} \\ {h_{\theta}(x)&lt;0.5 \rightarrow y=0}\end{array}\begin{array}{l}{h_{\theta}(x) \geq 0.5 \rightarrow y=1} \\ {h_{\theta}(x)&lt;0.5 \rightarrow y=0}\end{array}\)
-The way our logistic function g behaves is that when its input is greater than or equal to zero, its output is greater than or equal to 0.5:
-\(\begin{array}{l}{g(z) \geq 0.5} \\ {\text { when } z \geq 0}\end{array}\begin{array}{l}{g(z) \geq 0.5} \\ {\text { when } z \geq 0}\end{array}\)
-Remember:
-\(\begin{aligned} z=0, e^{0}=1 \Rightarrow g(z)=&amp; 1 / 2 \\ z \rightarrow \infty, e^{-\infty} \rightarrow 0 \Rightarrow g(z)=1 \\ z \rightarrow-\infty, e^{\infty} \rightarrow \infty \Rightarrow g(z)=0 \end{aligned}\)
-From these statements we can now say:
-\(\begin{array}{l}{\theta^{T} x \geq 0 \Rightarrow y=1} \\ {\theta^{T} x&lt;0 \Rightarrow y=0}\end{array}\)
-The <strong>decision boundary</strong> is the line that separates the area where y = 0 and where y = 1. It is created by our hypothesis function.</p>
+<p>In order to get our discrete 0 or 1 classification, we can translate the output of the hypothesis function as follows:</p>
+
+\[\begin{array}{l}{h_{\theta}(x) \geq 0.5 \rightarrow y=1} \\ {h_{\theta}(x)&lt;0.5 \rightarrow y=0}\end{array}\begin{array}{l}{h_{\theta}(x) \geq 0.5 \rightarrow y=1} \\ {h_{\theta}(x)&lt;0.5 \rightarrow y=0}\end{array}\]
+
+<p>The way our logistic function g behaves is that when its input is greater than or equal to zero, its output is greater than or equal to 0.5:</p>
+
+\[\begin{array}{l}{g(z) \geq 0.5} \\ {\text { when } z \geq 0}\end{array}\begin{array}{l}{g(z) \geq 0.5} \\ {\text { when } z \geq 0}\end{array}\]
+
+<p>Remember:</p>
+
+\[\begin{aligned} z=0, e^{0}=1 \Rightarrow g(z)=&amp; 1 / 2 \\ z \rightarrow \infty, e^{-\infty} \rightarrow 0 \Rightarrow g(z)=1 \\ z \rightarrow-\infty, e^{\infty} \rightarrow \infty \Rightarrow g(z)=0 \end{aligned}\]
+
+<p>From these statements we can now say:</p>
+
+\[\begin{array}{l}{\theta^{T} x \geq 0 \Rightarrow y=1} \\ {\theta^{T} x&lt;0 \Rightarrow y=0}\end{array}\]
+
+<p>The <strong>decision boundary</strong> is the line that separates the area where y = 0 and where y = 1. It is created by our hypothesis function.</p>
 
 <p>Again, the input to the sigmoid function g(z) (e.g. $\theta^TX)$ doesn’t need to be linear, and could be a function that describes a circle (e.g. z = $\theta_0 + \theta_1 x_1^2 +\theta_2 x_2^2$ or any shape to fit our data.</p>
 
@@ -605,18 +703,23 @@ The <strong>decision boundary</strong> is the line that separates the area where
 
 <p>We cannot use the same cost function that we use for linear regression because the Logistic Function will cause the output to be wavy, causing many local optima. In other words, it will not be a convex function.</p>
 
-<p>Instead, our cost function for logistic regression looks like:
-\(\begin{array}{ll}{J(\theta)=\frac{1}{m} \sum_{i=1}^{m} \operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right)} \\ {\operatorname{Cost}\left(h_{\theta}(x), y\right)=-\log \left(h_{\theta}(x)\right)} &amp; {\text { if } y=1} \\ {\operatorname{Cost}\left(h_{\theta}(x), y\right)=-\log \left(1-h_{\theta}(x)\right)} &amp; {\text { if } y=0}\end{array}\)</p>
+<p>Instead, our cost function for logistic regression looks like:</p>
+
+\[\begin{array}{ll}{J(\theta)=\frac{1}{m} \sum_{i=1}^{m} \operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right)} \\ {\operatorname{Cost}\left(h_{\theta}(x), y\right)=-\log \left(h_{\theta}(x)\right)} &amp; {\text { if } y=1} \\ {\operatorname{Cost}\left(h_{\theta}(x), y\right)=-\log \left(1-h_{\theta}(x)\right)} &amp; {\text { if } y=0}\end{array}\]
 
 <p><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/Q9sX8nnxEeamDApmnD43Fw_1cb67ecfac77b134606532f5caf98ee4_Logistic_regression_cost_function_positive_class.png?expiry=1568851200000&amp;hmac=XgLun-f7WGakE-b1Kq6_rCPvtlzMHAihbHgYfK9HPYQ" alt="img" /></p>
 
 <p><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/Ut7vvXnxEead-BJkoDOYOw_f719f2858d78dd66d80c5ec0d8e6b3fa_Logistic_regression_cost_function_negative_class.png?expiry=1568851200000&amp;hmac=8tgJLHbwEcGaP51eZg4MaW83wCReE2XUpKeNcmx5jBk" alt="img" /></p>
 
-<p>In conclusion, the cost function is defined as:
-\(\begin{array}{l}{J(\theta)=\frac{1}{m} \sum_{i=1}^{m} \operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right)} \\ {\operatorname{Cost}\left(h_{\theta}(x), y\right)=\left\{\begin{aligned}-\log \left(h_{\theta}(x)\right) &amp; \text { if } y=1 \\-\log \left(1-h_{\theta}(x)\right) &amp; \text { if } y=0 \end{aligned}\right.} \\ {\text { Note: } y=0 \text { or } 1 \text { always }}\end{array}\)
-Therefore, we can simplify this expression as:
-\(\begin{aligned} J(\theta) &amp;=\frac{1}{m} \sum_{i=1}^{m} \operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right) \\ &amp;=-\frac{1}{m}\left[\sum_{i=1}^{m} y^{(i)} \log h_{\theta}\left(x^{(i)}\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right] \end{aligned}\)
-Which is still convex function.</p>
+<p>In conclusion, the cost function is defined as:</p>
+
+\[\begin{array}{l}{J(\theta)=\frac{1}{m} \sum_{i=1}^{m} \operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right)} \\ {\operatorname{Cost}\left(h_{\theta}(x), y\right)=\left\{\begin{aligned}-\log \left(h_{\theta}(x)\right) &amp; \text { if } y=1 \\-\log \left(1-h_{\theta}(x)\right) &amp; \text { if } y=0 \end{aligned}\right.} \\ {\text { Note: } y=0 \text { or } 1 \text { always }}\end{array}\]
+
+<p>Therefore, we can simplify this expression as:</p>
+
+\[\begin{aligned} J(\theta) &amp;=\frac{1}{m} \sum_{i=1}^{m} \operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right) \\ &amp;=-\frac{1}{m}\left[\sum_{i=1}^{m} y^{(i)} \log h_{\theta}\left(x^{(i)}\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right] \end{aligned}\]
+
+<p>Which is still convex function.</p>
 
 <h4 id="proposition-about-convex-functions">Proposition about convex functions</h4>
 
@@ -653,16 +756,19 @@ Which is still convex function.</p>
 
 \[\begin{array}{l}{\text { Gradient Descent }} \\ {\qquad \begin{array}{l}{J(\theta)=-\frac{1}{m}\left[\sum_{i=1}^{m} y^{(i)} \log h_{\theta}\left(x^{(i)}\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right]} \\ {\text { Want } \min _{\theta} J(\theta) :} \\ {\text { Repeat }\{ } \end{array}} \\ {\qquad \begin{array}{ll} {\theta_{j} :=\theta_{j}-\alpha \frac{\partial}{\partial \theta_{j}} J(\theta)} \\ { \}} &amp; {\left.\text { (simultaneously update all } \theta_{j}\right)}\end{array}}\end{array}\]
 
-<p>Since $\frac{\partial} {\partial \theta_j} J(\theta)=\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}$, we get:
-\(\begin{array}{l}{\text { Gradient Descent }} \\ {\qquad \begin{array}{l}{J(\theta)=-\frac{1}{m}\left[\sum_{i=1}^{m} y^{(i)} \log h_{\theta}\left(x^{(i)}\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right]} \\ {\text { Want } \min _{\theta} J(\theta) :} \\ {\text { Repeat }\{ } \end{array}} \\ {\qquad \begin{array}{ll} {\theta_{j} :=\theta_{j}-\frac{\alpha}{m} \sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}} \\ { \}} &amp; {\left.\text { (simultaneously update all } \theta_{j}\right)}\end{array}}\end{array}\)</p>
+<p>Since $\frac{\partial} {\partial \theta_j} J(\theta)=\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}$, we get:</p>
+
+\[\begin{array}{l}{\text { Gradient Descent }} \\ {\qquad \begin{array}{l}{J(\theta)=-\frac{1}{m}\left[\sum_{i=1}^{m} y^{(i)} \log h_{\theta}\left(x^{(i)}\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right]} \\ {\text { Want } \min _{\theta} J(\theta) :} \\ {\text { Repeat }\{ } \end{array}} \\ {\qquad \begin{array}{ll} {\theta_{j} :=\theta_{j}-\frac{\alpha}{m} \sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}} \\ { \}} &amp; {\left.\text { (simultaneously update all } \theta_{j}\right)}\end{array}}\end{array}\]
 
 <h3 id="vectorization-1">Vectorization</h3>
 
 <p>Use the built in functions to solve the calculation. Try not to implement the loop by ourselves.</p>
 
-<p>For example, in the gradient descent method, we need to calculate simultaneously:
-\(\begin{array}{l}{\text { repeat until convergence: } } \\ {\theta_{j} :=\theta_{j}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) \cdot x_{j}^{(i)} \quad \text { for } j :=0 \ldots n}\end{array}\)
-In fact, this is equivalent to:</p>
+<p>For example, in the gradient descent method, we need to calculate simultaneously:</p>
+
+\[\begin{array}{l}{\text { repeat until convergence: } } \\ {\theta_{j} :=\theta_{j}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) \cdot x_{j}^{(i)} \quad \text { for } j :=0 \ldots n}\end{array}\]
+
+<p>In fact, this is equivalent to:</p>
 
 <p>$\theta_{new}=\theta-\frac{\alpha}{m}X^T[g(X\theta)-y)]$</p>
 
@@ -712,9 +818,11 @@ In fact, this is equivalent to:</p>
 
 <p>Now we will approach the classification of data when we have more than two categories. Instead of y = {0,1} we will expand our definition so that y = {0,1…n}.</p>
 
-<p>Since y = {0,1…n}, we divide our problem into n+1 (+1 because the index starts at 0) binary classification problems; in each one, we predict the probability that ‘y’ is a member of one of our classes.
-\(\begin{array}{l}{y \in\{0,1 \ldots n\}} \\ {h_{\theta}^{(0)}(x)=P(y=0 | x ; \theta)} \\ {h_{\theta}^{(1)}(x)=P(y=1 | x ; \theta)} \\ {\stackrel{\cdots}{h}_{\theta}^{(n)}(x)=P(y=n | x ; \theta)} \\ {\text { prediction }=\max _{i}\left(h_{\theta}^{(i)}(x)\right)}\end{array}\)
-We are basically choosing one class and then lumping all the others into a single second class. We do this repeatedly, applying binary logistic regression to each case, and then use the hypothesis that returned the highest value as our prediction.</p>
+<p>Since y = {0,1…n}, we divide our problem into n+1 (+1 because the index starts at 0) binary classification problems; in each one, we predict the probability that ‘y’ is a member of one of our classes.</p>
+
+\[\begin{array}{l}{y \in\{0,1 \ldots n\}} \\ {h_{\theta}^{(0)}(x)=P(y=0 | x ; \theta)} \\ {h_{\theta}^{(1)}(x)=P(y=1 | x ; \theta)} \\ {\stackrel{\cdots}{h}_{\theta}^{(n)}(x)=P(y=n | x ; \theta)} \\ {\text { prediction }=\max _{i}\left(h_{\theta}^{(i)}(x)\right)}\end{array}\]
+
+<p>We are basically choosing one class and then lumping all the others into a single second class. We do this repeatedly, applying binary logistic regression to each case, and then use the hypothesis that returned the highest value as our prediction.</p>
 
 <p>The following image shows how one could classify 3 classes:</p>
 
@@ -786,11 +894,15 @@ We are basically choosing one class and then lumping all the others into a singl
 
 <h4 id="gradient-descent-2">Gradient Descent</h4>
 
-<p>With the cost function as:
-\(J(\theta)=\min _{\theta} \frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right)^{2}+\frac{\lambda }{2m}\sum_{j=1}^{n} \theta_{j}^{2}\)
-We will modify our gradient descent function to separate out $\theta_0$ from the rest of the parameters because we do not want to penalize $\theta_0$.
-\(\begin{array}{l}{\text { Repeat }\{ } \\ {\theta_{0} :=\theta_{0}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{0}^{(i)}} \\ {\theta_{j} :=\theta_{j}-\alpha\left[\left(\frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}\right)+\frac{\lambda}{m} \theta_{j}\right] \quad j \in\{1,2 \ldots n\}}\end{array}\)
- With some manipulation our update rule can also be represented as:</p>
+<p>With the cost function as:</p>
+
+\[J(\theta)=\min _{\theta} \frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right)^{2}+\frac{\lambda }{2m}\sum_{j=1}^{n} \theta_{j}^{2}\]
+
+<p>We will modify our gradient descent function to separate out $\theta_0$ from the rest of the parameters because we do not want to penalize $\theta_0$.</p>
+
+\[\begin{array}{l}{\text { Repeat }\{ } \\ {\theta_{0} :=\theta_{0}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{0}^{(i)}} \\ {\theta_{j} :=\theta_{j}-\alpha\left[\left(\frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}\right)+\frac{\lambda}{m} \theta_{j}\right] \quad j \in\{1,2 \ldots n\}}\end{array}\]
+
+<p>With some manipulation our update rule can also be represented as:</p>
 
 <p>$\theta_{j} :=\theta_{j}\left(1-\alpha \frac{\lambda}{m}\right)-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}$</p>
 
@@ -807,9 +919,11 @@ We will modify our gradient descent function to separate out $\theta_0$ from the
 
 <p>Now let’s approach regularization using the alternate method of the non-iterative normal equation.</p>
 
-<p>For
-\(J(\theta)=\min _{\theta} \frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right)^{2}+\frac{\lambda}{2m} \sum_{j=1}^{n} \theta_{j}^{2}\)
-(Note: m examples, n+1 features with $x_0=1$.)</p>
+<p>For</p>
+
+\[J(\theta)=\min _{\theta} \frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right)^{2}+\frac{\lambda}{2m} \sum_{j=1}^{n} \theta_{j}^{2}\]
+
+<p>(Note: m examples, n+1 features with $x_0=1$.)</p>
 
 <p>For the new regularized cost function, set $\frac{\partial J}{\partial \theta}=0$, and we get</p>
 
@@ -817,7 +931,7 @@ We will modify our gradient descent function to separate out $\theta_0$ from the
 
 <p>To add in regularization, the equation is the same as our original, except that we add another term inside the parentheses:</p>
 
-<p>$\begin{array}{l}{\theta=\left(X^{T} X+\lambda \cdot L\right)^{-1} X^{T} y} \ {\text { where } L=\left[\begin{array}{cccc}{0} \ {} &amp; {1} \ {} &amp; {} &amp; {\ddots} \ {} &amp; {} &amp; {} &amp; {1}\end{array}\right]}\end{array}$</p>
+\[\begin{array}{l}{\theta=\left(X^{T} X+\lambda \cdot L\right)^{-1} X^{T} y} \\ {\text { where } L=\left[\begin{array}{cccc}{0} \\ {} &amp; {1} \\ {} &amp; {} &amp; {\ddots} \\ {} &amp; {} &amp; {} &amp; {1}\end{array}\right]}\end{array}\]
 
 <p>Since $x^{(i)}_0=1$, we know that $e_0=[1,0,0,…,0]$ will is not in the null space of  $X^TX$. Meanwhile, all the other $e_i,i&gt;0$ is not in the null space of $\lambda L$. We know that, with $\lambda$ large enough, the matrix $\left(X^{T} X+\lambda \cdot L\right)$ is always invertible, which means we do not have to use the Pseudoinverse.</p>
 
@@ -837,13 +951,47 @@ We will modify our gradient descent function to separate out $\theta_0$ from the
 
 <p>$J(\theta)=-\frac{1}{m} \sum_{i=1}^{m}\left[y^{(i)} \log \left(h_{\theta}\left(x^{(i)}\right)\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right]+\frac{\lambda}{2 m} \sum_{j=1}^{n} \theta_{j}^{2}$</p>
 
-<p>The second sum, $\sum_{j=1}^n \theta_j^2$ <strong>means to explicitly exclude</strong> the bias term, $\theta_0$. I.e. the θ vector is indexed from 0 to n (holding n+1 values, $\theta_0$ through $\theta_n$), and this sum explicitly skips $\theta_0$, by running from 1 to n, skipping 0. Thus, when computing the equation, we should continuously update the two following equations:
-\(\begin{array}{l}{\text { Repeat }\{ } \\ {\theta_{0} :=\theta_{0}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{0}^{(i)}} \\ {\theta_{j} :=\theta_{j}-\alpha\left[\left(\frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}\right)+\frac{\lambda}{m} \theta_{j}\right] \quad j \in\{1,2 \ldots n\}}\end{array}\)
-<strong>Vectorization</strong></p>
+<p>The second sum, $\sum_{j=1}^n \theta_j^2$ <strong>means to explicitly exclude</strong> the bias term, $\theta_0$. I.e. the θ vector is indexed from 0 to n (holding n+1 values, $\theta_0$ through $\theta_n$), and this sum explicitly skips $\theta_0$, by running from 1 to n, skipping 0. Thus, when computing the equation, we should continuously update the two following equations:</p>
+
+\[\begin{array}{l}{\text { Repeat }\{ } \\ {\theta_{0} :=\theta_{0}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{0}^{(i)}} \\ {\theta_{j} :=\theta_{j}-\alpha\left[\left(\frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}\right)+\frac{\lambda}{m} \theta_{j}\right] \quad j \in\{1,2 \ldots n\}}\end{array}\]
+
+<p><strong>Vectorization</strong></p>
 
 <p>$\theta_{new}=(I- \alpha\frac{\lambda }{m}L)\theta-\frac{\alpha}{m}X^T[g(X\theta)-y]$</p>
 
 <p>With</p>
 
-<p>$L=\left[\begin{array}{cccc}{0} \ {} &amp; {1} \ {} &amp; {} &amp; {\ddots} \ {} &amp; {} &amp; {} &amp; {1}\end{array}\right]$</p>
-:ET
+\[L=\left[\begin{array}{cccc}{0} \\ {} &amp; {1} \\ {} &amp; {} &amp; {\ddots} \\ {} &amp; {} &amp; {} &amp; {1}\end{array}\right]\]
+
+
+  </div><a class="u-url" href="/machine/learning/2020/06/01/mmdf1.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Your awesome title</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Your awesome title</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
