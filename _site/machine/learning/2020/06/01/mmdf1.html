@@ -47,7 +47,7 @@
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
     </script> -->
     
-<script type="text/x-mathjax-config">
+<!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
@@ -66,7 +66,19 @@
   charset="utf-8"
   src="https://vincenttam.github.io/javascripts/MathJaxLocal.js"
 >
+</script> -->
+
+
+<!-- MathJax Support -->
+
+<script>
+MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]},svg: {fontCache: 'global'}
+};
 </script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
 
 
 
@@ -581,7 +593,7 @@
 
 <p>Since $\mathbf{V}^{*}\mathbf{V} =I$,</p>
 
-<p>$\mathbf{M}=\mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{<em>}=\mathbf{U}\mathbf{V}^{</em>}\mathbf{V} \boldsymbol{\Sigma} \mathbf{V}^{*}$</p>
+\[\mathbf{M}=\mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{*}=\mathbf{U}\mathbf{V}^{*}\mathbf{V} \boldsymbol{\Sigma} \mathbf{V}^{*}\]
 
 <p>Thus, the expression $\mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{*}$ can be intuitively interpreted as a composition of three geometrical transformations: <strong>a rotation or reflection</strong>, <strong>a scaling</strong>, <strong>and another rotation or reflection.</strong> For instance, the figure explains how a shear matrix can be described as such a sequence.</p>
 
@@ -621,17 +633,7 @@
 
 <p>$h_\theta(x)$ will give us the <strong>probability</strong> that our output is 1.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>$\begin{array}{l}{h_{\theta}(x)=P(y=1</td>
-      <td>x ; \theta)=1-P(y=0</td>
-      <td>x ; \theta)} \ {P(y=0</td>
-      <td>x ; \theta)+P(y=1</td>
-      <td>x ; \theta)=1}\end{array}$</td>
-    </tr>
-  </tbody>
-</table>
+\[\begin{array}{l}{h_{\theta}(x)=P(y=1 | x ; \theta)=1-P(y=0 | x ; \theta)} \\ {P(y=0 | x ; \theta)+P(y=1 | x ; \theta)=1}\end{array}\]
 
 <h3 id="decision-boundary">Decision Boundary</h3>
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-06-11T23:57:03+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Machine Learning-Part 1-Basics</title><link href="http://localhost:4000/machine/learning/2020/06/11/ml1.html" rel="alternate" type="text/html" title="Machine Learning-Part 1-Basics" /><published>2020-06-11T21:40:16+08:00</published><updated>2020-06-11T21:40:16+08:00</updated><id>http://localhost:4000/machine/learning/2020/06/11/ml1</id><content type="html" xml:base="http://localhost:4000/machine/learning/2020/06/11/ml1.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-06-12T00:08:06+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Machine Learning-Part 1-Basics</title><link href="http://localhost:4000/machine/learning/2020/06/11/ml1.html" rel="alternate" type="text/html" title="Machine Learning-Part 1-Basics" /><published>2020-06-11T21:40:16+08:00</published><updated>2020-06-11T21:40:16+08:00</updated><id>http://localhost:4000/machine/learning/2020/06/11/ml1</id><content type="html" xml:base="http://localhost:4000/machine/learning/2020/06/11/ml1.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#machine-learning-part-1-basics&quot; id=&quot;markdown-toc-machine-learning-part-1-basics&quot;&gt;Machine Learning-Part 1-Basics&lt;/a&gt;    &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#introduction&quot; id=&quot;markdown-toc-introduction&quot;&gt;Introduction&lt;/a&gt;        &lt;ul&gt;
           &lt;li&gt;&lt;a href=&quot;#what-is-machine-learning&quot; id=&quot;markdown-toc-what-is-machine-learning&quot;&gt;What is Machine Learning?&lt;/a&gt;&lt;/li&gt;
@@ -1396,7 +1396,7 @@
 
 &lt;p&gt;Since $\mathbf{V}^{*}\mathbf{V} =I$,&lt;/p&gt;
 
-&lt;p&gt;$\mathbf{M}=\mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{&lt;em&gt;}=\mathbf{U}\mathbf{V}^{&lt;/em&gt;}\mathbf{V} \boldsymbol{\Sigma} \mathbf{V}^{*}$&lt;/p&gt;
+\[\mathbf{M}=\mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{*}=\mathbf{U}\mathbf{V}^{*}\mathbf{V} \boldsymbol{\Sigma} \mathbf{V}^{*}\]
 
 &lt;p&gt;Thus, the expression $\mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{*}$ can be intuitively interpreted as a composition of three geometrical transformations: &lt;strong&gt;a rotation or reflection&lt;/strong&gt;, &lt;strong&gt;a scaling&lt;/strong&gt;, &lt;strong&gt;and another rotation or reflection.&lt;/strong&gt; For instance, the figure explains how a shear matrix can be described as such a sequence.&lt;/p&gt;
 
@@ -1436,17 +1436,7 @@
 
 &lt;p&gt;$h_\theta(x)$ will give us the &lt;strong&gt;probability&lt;/strong&gt; that our output is 1.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$\begin{array}{l}{h_{\theta}(x)=P(y=1&lt;/td&gt;
-      &lt;td&gt;x ; \theta)=1-P(y=0&lt;/td&gt;
-      &lt;td&gt;x ; \theta)} \ {P(y=0&lt;/td&gt;
-      &lt;td&gt;x ; \theta)+P(y=1&lt;/td&gt;
-      &lt;td&gt;x ; \theta)=1}\end{array}$&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+\[\begin{array}{l}{h_{\theta}(x)=P(y=1 | x ; \theta)=1-P(y=0 | x ; \theta)} \\ {P(y=0 | x ; \theta)+P(y=1 | x ; \theta)=1}\end{array}\]
 
 &lt;h3 id=&quot;decision-boundary&quot;&gt;Decision Boundary&lt;/h3&gt;
 
