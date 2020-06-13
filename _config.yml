@@ -37,6 +37,18 @@ markdown: kramdown
 kramdown:
   input: GFM
 
+# set the default front matter
+defaults:
+  -
+    scope:
+      path: ""    # path is for the docs in the _sits, the category name!
+      type: "posts"   # type is for posts, layouts, drafts and etc.
+    values:
+      layout: "post"
+      mathjax: true
+
+
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
