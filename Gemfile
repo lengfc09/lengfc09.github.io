@@ -15,6 +15,7 @@ source "https://rubygems.org"
 #gem "minimal-mistakes-jekyll"
 gem "jekyll-remote-theme"
 
+gem 'jekyll-include-cache'
 
 
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and
