@@ -22,7 +22,7 @@ title: Ben's Blog
 email: chenyyfan@example.com
 description: >- # this means to ignore newlines until "baseurl:"
   For sharing and transparency.
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "/bensblog" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: lengfc09
 github_username:  lengfc09
@@ -41,8 +41,8 @@ kramdown:
 defaults:
   -
     scope:
-      path: ""    # path is for the docs in the _sits, the category name!
-      type: "posts"   # type is for posts, layouts, drafts and etc.
+      path: ""    # path is for path of the docs ,e.g. path: "assets/img"
+      type: "posts"   # type is for the type (posts, drafts, home, about)
     values:
       layout: "post"
       mathjax: true

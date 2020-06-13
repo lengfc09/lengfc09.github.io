@@ -1,4 +1,4 @@
-I"� <ul id="markdown-toc">
+I"� <ul id="markdown-toc">
   <li><a href="#machine-learning-part-1-basics" id="markdown-toc-machine-learning-part-1-basics">Machine Learning-Part 1-Basics</a>    <ul>
       <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a>        <ul>
           <li><a href="#what-is-machine-learning" id="markdown-toc-what-is-machine-learning">What is Machine Learning?</a></li>
@@ -129,7 +129,7 @@
 
 <p>To describe the supervised learning problem slightly more formally, our goal is, given a training set, to learn a function h : X → Y so that h(x) is a “good” predictor for the corresponding value of y. For historical reasons, this function h is called a hypothesis. Seen pictorially, the process is therefore like this:</p>
 
-<p><img src="media/15686881844491/15687294490039.jpg" alt="-w540" /></p>
+<p><img src="media/15686881844491/15687294490039.jpg" alt="img" /></p>
 
 <p>When the target variable that we’re trying to predict is continuous, such as in our housing example, we call the learning problem a regression problem. When y can take on only a small number of discrete values (such as if, given the living area, we wanted to predict if a dwelling is a house or an apartment, say), we call it a classification problem.</p>
 
