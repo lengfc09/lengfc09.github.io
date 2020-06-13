@@ -11,8 +11,9 @@ gem "jekyll", "~> 4.1.0"
 # gem "jekyll", "~> 3.8.7"
 # This is the default theme for new Jekyll sites. You may change this to anything you like.
 
-# gem "minima", "~> 2.5"
+gem "minima", "~> 2.5"
 gem "minimal-mistakes-jekyll"
+gem "jekyll-remote-theme"
 
 
 
