@@ -1,7 +1,8 @@
 ---
-layout: page
+layout: single
 title: About this blog
 permalink: /about/
+author_profile: true
 ---
 
 Hello! This is the place where I will write about Finance, Data Science and Mathematics. I might also occasionally talk about my life story and working experience.
