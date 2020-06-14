@@ -305,9 +305,6 @@ defaults:
       toc: true
       toc_sticky: true
       permalink: /:categories/:title/
-
-
-defaults:
   # _pages
   - scope:
       path: ""
@@ -315,8 +312,6 @@ defaults:
     values:
       layout: single
       mathjax: true
-
-defaults:
   # _foo collection！
   - scope:
       path: ""
