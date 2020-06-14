@@ -273,11 +273,10 @@ tag_archive:
 
 # Collections
 
-# collections:
-#   docs:
-#     output: true
-#     permalink: /:collection/:path/
-
+collections:
+  docs:
+    output: true
+    permalink: /:collection/:path
 
 
 
