@@ -100,8 +100,8 @@ analytics:
 # Site Author
 author:
   name             : "Ben"
-  avatar           : "/assets/images/bio-photo.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Just another boring man who tries to be open to everything."
+  avatar           : "/assets/images/bio-photo.jpg" # path openf avatar image, e.g. "/assets/images/bio-photo.jpg"
+  bio              : "Just another boring man who obssesed with tech and sceince. \n Stay hungry, stay foolis."
   location         : "HongKong & Shanghai, CN"
   email            : chenyyfan@gmail.com
   links:
