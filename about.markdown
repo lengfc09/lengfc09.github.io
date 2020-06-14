@@ -7,7 +7,7 @@ author_profile: true
 
 Hello! This is the place where I will write about Finance, Data Science and Mathematics. I might also occasionally talk about my life story and working experience.
 
-**Topics In Finance:**
+**Topics in Finance:**
 
 - Risk management
 - Credit analysis/rating
@@ -15,16 +15,14 @@ Hello! This is the place where I will write about Finance, Data Science and Math
 - Asset liability management
 - Application of machine learning in finance
 
-**Topics In Data Science**
+**Topics in Data Science**
 
 - Machine learning
 - Database and SQL
 - Python, Matlab, and VBA
 
-**Topics In Mathematics**
+**Topics in Mathematics**
 
 - Optimization
 - Time Series
 - Financial Mathematics
-
-**Email:** chenyyfan@gmail.com
