@@ -269,6 +269,17 @@ tag_archive:
 #     tag: /tags/:name/
 
 
+
+
+# Collections
+collections:
+  docs:
+    output: true
+    permalink: /:collection/:path/
+
+
+
+
 # HTML Compression
 # - https://jch.penibelst.de/
 compress_html:
@@ -282,7 +293,7 @@ defaults:
   # _posts
   - scope:
       path: ""    # path is for path of the docs ,e.g. path: "assets/img"
-      type: "posts"   # type is for the type (posts, drafts, home, about)
+      type: posts   # type is for the type (posts, drafts, home, about)
     values:
       layout: "single"
       mathjax: true
@@ -291,6 +302,9 @@ defaults:
       comments: true
       share: true
       related: true
+      toc: true
+      toc_sticky: true
+      permalink: /:categories/:title/
 
 
 defaults:
@@ -303,10 +317,25 @@ defaults:
       mathjax: true
 
 defaults:
-  # _foo
+  # _foo collection！
   - scope:
       path: ""
       type: foo
     values:
       layout: single
       mathjax: true
+  # _docs collection!
+  - scope:
+      path: ""
+      type: docs
+    values:
+      layout: single
+      toc: true
+      toc_sticky: true
+      mathjax: true
+      read_time: false
+      author_profile: false
+      share: false
+      comments: false
+      sidebar:
+        nav: "docs"
