@@ -37,11 +37,7 @@ docs:
       - title: "Installation"
         url: /docs/installation/
       - title: "Upgrading"
-        children:
-          - title : "hah new title"
-            url: /docs/upgrading/
-          - title: "Installation"
-            url: /docs/installation/
+        url: /docs/upgrading/
 
 
 
