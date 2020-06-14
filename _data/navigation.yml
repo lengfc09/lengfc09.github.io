@@ -40,6 +40,8 @@ docs:
         children:
           - title : "hah new title"
             url: /docs/upgrading/
+          - title: "Installation"
+            url: /docs/installation/
 
 
 
