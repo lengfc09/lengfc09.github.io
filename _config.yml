@@ -23,7 +23,7 @@ title                    : "Ben's Blog"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Ben Y. Chen"
-description              : "A personal for transparency, sharing, and lifelong learning."
+description              : "A personal blog for transparency, sharing, and lifelong learning."
 url                      : "https://bensblog.tech" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "lengfc09/lengfc09.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -103,8 +103,8 @@ analytics:
 author:
   name             : "Ben"
   avatar           : "/assets/images/bio-photo.jpg" # path openf avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Just another boring man who tries to stay hungry and stay foolish."
-  location         : "HongKong & Shanghai, CN"
+  bio              : "Just another boring man who tries to leave something on the internet."
+  location         : "Shanghai & Hongkong, CN"
   email            : chenyyfan@gmail.com
   links:
     # - label: "Email"
