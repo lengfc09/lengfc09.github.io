@@ -102,7 +102,7 @@ analytics:
 # Site Author
 author:
   name             : "Ben"
-  avatar           : "/assets/images/logo1.png" # path openf avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/images/xiaoxin.jpg" # path openf avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Just another boring man who tries to leave something on the internet."
   location         : "Shanghai & Hongkong, CN"
   email            : chenyyfan@gmail.com
