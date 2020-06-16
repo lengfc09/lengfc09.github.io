@@ -1,18 +1,18 @@
 ---
-layout: single
+layout: mysingle
 date:   2020-03-3 21:43:16 +0800
 title: Data Analysis With Python
 categories: IBM_certificate
 excerpt: "Framework for data analysis form IBM certificate corse."
 
-# classes: wide
+classes: wide
 tags: data_science python
 # sidebar:
 #         nav: "machinelearnings"
 
 toc_sticky: false
 toc: true
-
+author_profile: false
 ---
 
 ## Importing Datasets
