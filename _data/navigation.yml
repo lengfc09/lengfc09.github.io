@@ -73,3 +73,67 @@ docs:
         url: /docs/stylesheets/
       - title: "JavaScript"
         url: /docs/javascript/
+
+
+
+machinelearnings:
+  - title: Basics
+    children:
+      - title: "Introduction"
+        url: /machine_learning/part1/#model-and-cost-function
+      - title: "Model and Cost Function"
+        url: /machine_learning/part1/#model-and-cost-function
+      - title: "Parameter Learning"
+        url: /machine_learning/part1/#parameter-learning
+      - title: "Linear Algebra Review"
+        url: /machine_learning/part1/#linear-algebra-review
+      - title: "Classification and Representation"
+        url: /machine_learning/part1/#classification-and-representation
+      - title : "Sovling the problem of overfitting"
+        url: /machine_learning/part1/#solving-the-problem-of-overfitting
+  - title: Deep Neural Networks
+    children:
+      - title: "Neural Networks: Representation"
+        url: /machine_learning/part2/#neural-networks-representation
+      - title: "Neural Networks: Learning"
+        url: /machine_learning/part2/#neural-networks-learning
+  - title: Evaluating and Designing
+    children:
+      - title: "Evaluating a Learning Algorithm"
+        url: /machine_learning/part3/#evaluating-a-learning-algorithm
+      - title: "Bias vs. Variance"
+        url: /machine_learning/part3/#bias-vs-variance
+      - title: "Building a Spam Classification"
+        url: /machine_learning/part3/#building-a-spam-classification
+      - title : "Error Analysis"
+        url: /machine_learning/part3/#error-analysis
+  - title: Support Vector Machine
+    children:
+      - title: "Linear SVM"
+        url: /machine_learning/part4/#support-vector-machine---linear-svm
+      - title: "Nonlinear SVM"
+        url: /machine_learning/part4/#nonlinear-svm
+  - title: Clustering
+    children:
+      - title: "Unsupervised Learning"
+        url: /machine_learning/part5/#unsupervised-learning--clustering
+      - title: "Dimensionality Reduction"
+        url: /machine_learning/part5/#dimensionality-reduction
+      - title: "Anomaly Detection"
+        url: /machine_learning/part5/#anomaly-detection
+  - title: Recommender System
+    children:
+      - title: "Predicting Movie Rating"
+        url: /machine_learning/part6/#predicting-movie-rating
+      - title: "Collaborative Filtering"
+        url: /machine_learning/part6/#collaborative-filtering
+  - title: Large Scale Machine Learning
+    children:
+      - title: "Gradient Descent"
+        url: /machine_learning/part7/#gradient-descent-with-large-datasets
+      - title: "Advanced Topics"
+        url: /machine_learning/part7/#advanced-topics-with-large-scale-problem
+      - title: "Application: Photo OCR"
+        url: /machine_learning/part7/#application-photo-ocr
+  - title: Summary
+    url: /machine_learning/part7/#summary-main-topics
