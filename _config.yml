@@ -295,7 +295,7 @@ defaults:
       path: ""    # path is for path of the docs ,e.g. path: "assets/img"
       type: posts   # type is for the type (posts, drafts, home, about)
     values:
-      layout: "single"
+      layout: "mysingle"
       mathjax: true
       author_profile: false
       read_time: true
@@ -303,7 +303,7 @@ defaults:
       share: true
       related: true
       toc: true
-      toc_sticky: true
+      toc_sticky: false
       permalink: /:categories/:title/
   # _pages
   - scope:

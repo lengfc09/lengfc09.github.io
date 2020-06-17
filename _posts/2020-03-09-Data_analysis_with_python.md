@@ -8,10 +8,7 @@ excerpt: "Framework for data analysis form IBM certificate corse."
 classes: wide
 tags: data_science python
 
-
-toc_sticky: false
 toc: true
-author_profile: false
 ---
 
 ## Importing Datasets
@@ -67,9 +64,7 @@ path='c:\windows\...\my.csv'
 df.to_csv(path)
 ```
 
-$$\begin{equation}
-\begin{array}{|l|l|l|}\hline \text { Data Format } & \text { Read } & \text { Save } \\ \hline \text { csv } & \text { pd.read_csv() } & \text { df.to }_{-} \text {csv }() \\ \hline \text { json } & \text { pd.read } \text { json }() & \text { df.to }_{\text {json }()} \\ \hline \text { Excel } & \text { pd.read_excel }() & \text { df.to }_{\text {- excel }()} \\ \hline \text { sq } 1 & \text { pd.read_sql() } & \text { df.to_sql() } \\ \hline\end{array}
-\end{equation}$$
+$$\begin{array}{|l|l|l|}\hline \text { Data Format } & \text { Read } & \text { Save } \\ \hline \text { csv } & \text { pd.read_csv() } & \text { df.to }_{-} \text {csv }() \\ \hline \text { json } & \text { pd.read } \text { json }() & \text { df.to }_{\text {json }()} \\ \hline \text { Excel } & \text { pd.read_excel }() & \text { df.to }_{\text {- excel }()} \\ \hline \text { sq } 1 & \text { pd.read_sql() } & \text { df.to_sql() } \\ \hline\end{array}$$
 
 
 
@@ -377,16 +372,22 @@ df['column_name'].value_counts()
 
 Box plots are great way to visualize numeric data, since you can visualize the various distributions of the data.
 
-![-w500](media/15832429806135/15836424178554.jpg)
 
-![-w600](media/15832429806135/15836424779223.jpg)
+![-w500](/media/15832429806135/15836424178554.jpg){:width="500px"}
+
+
+
+![-w600](/media/15832429806135/15836424779223.jpg){:width="500px"}
+
 
 ```python
 import seaborn as sns
 sns.boxplot(x='Drive-wheels',y='price',data=df)
 ```
 
-![-w500](media/15832429806135/15836423968486.jpg)
+
+![-w500](/media/15832429806135/15836423968486.jpg){:width="500px"}
+
 
 
 
@@ -442,7 +443,9 @@ plt.pcolor(df_pivot,cmap="RdBu")
 plt.colorbar()
 plt.show()
 ```
-![-w500](media/15832429806135/15836443731193.jpg)
+
+![-w500](/media/15832429806135/15836443731193.jpg){:width="500px"}
+
 he heatmap plots the target variable (price) proportional to colour with respect to the variables 'drive-wheel' and 'body-style' in the vertical and horizontal axis respectively. This allows us to visualize how the price is related to 'drive-wheel' and 'body-style'.
 
 The default labels convey no useful information to us. Let's change that:
@@ -487,7 +490,9 @@ sns.regplot(x='engine-size',y='Price',data=df)
 plt.ylim(0,)
 ```
 
-![-w400](media/15832429806135/15836446867078.jpg)
+
+![-w400](/media/15832429806135/15836446867078.jpg){:width="400px"}
+
 
 #### Pearson Correlation
 
@@ -509,12 +514,16 @@ df.corr()
 # say we want to know the correlations bwtween certain columns
 df[["stroke","price"]].corr()
 ```
-![-w600](media/15832429806135/15836450790278.jpg)
+
+![-w600](/media/15832429806135/15836450790278.jpg){:width="500px"}
+
 
 ### Analysis of Variance (ANOVA)
 
 #### stats.f_oneway
-![-w600](media/15832429806135/15836526973769.jpg)
+
+![-w600](/media/15832429806135/15836526973769.jpg){:width="500px"}
+
 
  ```python
 # Anova between "honda" and "subaru"
@@ -635,10 +644,16 @@ plt.ylim(0,)
 import seaborn as sns
 sns.residplot(df['highway-mpg'],df['price'])
 ```
-![-w500](media/15832429806135/15836574485930.jpg)
 
-![-w500](media/15832429806135/15836574699862.jpg)
-![-w500](media/15832429806135/15836574851246.jpg)
+![-w500](/media/15832429806135/15836574485930.jpg){:width="500px"}
+
+
+
+![-w500](/media/15832429806135/15836574699862.jpg){:width="500px"}
+
+
+![-w500](/media/15832429806135/15836574851246.jpg){:width="500px"}
+
 **Distribution Plot**
 Density function for the target value and predicted value.
 ```python
@@ -646,7 +661,9 @@ ax1=sns.distplot(df['price'],hist=False,color='r',label='Actual Value')
 sns.distplot(Yhat,hist=False,color='b',label='Fitted Values', ax=ax1)
 ```
 
-![-w500](media/15832429806135/15836578976971.jpg)
+
+![-w500](/media/15832429806135/15836578976971.jpg){:width="500px"}
+
 
 ### Polinomial Regression and Pipelines
 
@@ -680,7 +697,9 @@ x_scale=SCALE.transform(x_data[['horsepower','highway-mpg']])
 
 #### Pipelines
 There are many steps to getting a predction:
-![-w600](media/15832429806135/15836723392611.jpg)
+
+![-w600](/media/15832429806135/15836723392611.jpg){:width="500px"}
+
 
 ```python
 from sklearn.preprocessing import PolynomialFeatures
@@ -964,7 +983,9 @@ np.mean(scores)
 
 * lr: the type of model we are using
 * cv: number of equal partitions/folds
-![-w500](media/15832429806135/15836812040158.jpg)
+
+![-w500](/media/15832429806135/15836812040158.jpg){:width="500px"}
+
 
 ```python
 # to return the predictions for the cross validation
@@ -972,19 +993,29 @@ from sklearn.model_selection import cross_val_predict
 yhat=cross_val_predict(lr2e,x_data,y_data,cv=3)
 # the y_hat is for the test set
 ```
-![-w300](media/15832429806135/15836813766247.jpg)
-![-w300](media/15832429806135/15836813880164.jpg)
+
+![-w300](/media/15832429806135/15836813766247.jpg){:width="300px"}
+
+
+![-w300](/media/15832429806135/15836813880164.jpg){:width="300px"}
+
 
 
 ### Overfitting and Underfitting
 
-![-w800](media/15832429806135/15836818859941.jpg)
+
+![-w800](/media/15832429806135/15836818859941.jpg){:width="500px"}
+
 
 Check the cross-validation score for the test sets.
-![-w600](media/15832429806135/15836819772880.jpg)
+
+![-w600](/media/15832429806135/15836819772880.jpg){:width="500px"}
+
 
 Use the test sets
-![-w600](media/15832429806135/15836820288690.jpg)
+
+![-w600](/media/15832429806135/15836820288690.jpg){:width="500px"}
+
 
 
 ### Ridge Regression
@@ -1064,10 +1095,14 @@ plt.show()
 
 Search on the grid of hyperparameters.
 
-![-w600](media/15832429806135/15837584720258.jpg)
+
+![-w600](/media/15832429806135/15837584720258.jpg){:width="500px"}
+
 
 We split the data into 3 sets. We use the validation set to find the optimal heperparameter.
-![-w600](media/15832429806135/15837586290393.jpg)
+
+![-w600](/media/15832429806135/15837586290393.jpg){:width="500px"}
+
 
 ```python
 from sklearn.linear_model import Ridge
@@ -1089,8 +1124,12 @@ for param,mean_test,mean_train in zip(scores['params'],scores['mean_test_score']
 
 
 **Result:**
-![-w600](media/15832429806135/15837589750997.jpg)
-![-w600](media/15832429806135/15837589984885.jpg)
+
+![-w600](/media/15832429806135/15837589750997.jpg){:width="500px"}
+
+
+![-w600](/media/15832429806135/15837589984885.jpg){:width="500px"}
+
 
 
 ## Final Assignment
