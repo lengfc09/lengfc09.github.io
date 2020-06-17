@@ -7,8 +7,7 @@ excerpt: "Framework for data analysis form IBM certificate corse."
 
 classes: wide
 tags: data_science python
-# sidebar:
-#         nav: "machinelearnings"
+
 
 toc_sticky: false
 toc: true
@@ -31,9 +30,7 @@ We have divided the Python data analysis libraries into three groups.
 
   *  **The Matplotlib package** is the most well known library for data visualization. It is great for making graphs and plots. The graphs are also highly customizable.
 
-  * **Seaborn**. It is based on Matplotlib. It's very easy to generate various plots such as heat maps,
-
-    time series and violin plots.
+  * **Seaborn**. It is based on Matplotlib. It's very easy to generate various plots such as heat maps, time series and violin plots.
 
 * Algorithmic Libraries
 
