@@ -16,6 +16,10 @@ img [] {
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
+img [] {
+  max-width: 20%;
+  height: auto; }
+
 @charset "utf-8";
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
