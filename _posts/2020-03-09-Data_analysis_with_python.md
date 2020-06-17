@@ -599,23 +599,24 @@ The F-test in one-way analysis of variance is used to assess whether the expecte
 
 The formula for the one-way ANOVA F-test statistic is
 
-${\displaystyle F={\frac {\text{explained variance}}{\text{unexplained variance}}},}$
+$${\displaystyle F={\frac {\text{explained variance}}{\text{unexplained variance}}},}$$
 
 or
 
-${\displaystyle F={\frac {\text{between-group variability}}{\text{within-group variability}}}.}$
+$${\displaystyle F={\frac {\text{between-group variability}}{\text{within-group variability}}}.}$$
 
 The "explained variance", or "between-group variability" is
-${\displaystyle \sum _{i=1}^{K}n_{i}({\bar {Y}}_{i\cdot }-{\bar {Y}})^{2}/(K-1)}$
 
-where ${\displaystyle {\bar {Y}}_{i\cdot }} $ denotes the sample mean in the i-th group, ${\displaystyle n_{i}}$ is the number of observations in the i-th group,${\displaystyle {\bar {Y}}}$ denotes the overall mean of the data, and ${\displaystyle K}$ denotes the number of groups.
+$${\displaystyle \sum _{i=1}^{K}n_{i}({\bar {Y}}_{i\cdot }-{\bar {Y}})^{2}/(K-1)}$$
+
+where $${\displaystyle {\bar {Y}}_{i \cdot }} $$ denotes the sample mean in the i-th group, ${ n_{i}}$ is the number of observations in the i-th group,${ {\bar {Y}}}$ denotes the overall mean of the data, and ${ K}$ denotes the number of groups.
 The "unexplained variance", or "within-group variability" is
 
-${\displaystyle \sum _{i=1}^{K}\sum _{j=1}^{n_{i}}\left(Y_{ij}-{\bar {Y}}_{i\cdot }\right)^{2}/(N-K),}$
+$${\displaystyle \sum _{i=1}^{K}\sum _{j=1}^{n_{i}}\left(Y_{ij}-{\bar {Y}}_{i\cdot }\right)^{2}/(N-K),}$$
 
-where $Y_{{ij}}$  is the j-th observation in the i-th out of K groups and N is the overall sample size. This F-statistic follows the F-distribution with degrees of freedom ${\displaystyle d_{1}=K-1}$ and ${\displaystyle d_{2}=N-K}$ under the null hypothesis. The statistic will be large if the between-group variability is large relative to the within-group variability, which is unlikely to happen if the population means of the groups all have the same value.
+where $Y_{ij}$  is the j-th observation in the i-th out of K groups and N is the overall sample size. This F-statistic follows the F-distribution with degrees of freedom ${ d_{1}=K-1}$ and ${ d_{2}=N-K}$ under the null hypothesis. The statistic will be large if the between-group variability is large relative to the within-group variability, which is unlikely to happen if the population means of the groups all have the same value.
 
-Note that when there are only two groups for the one-way ANOVA F-test, ${\displaystyle F=t^{2}}$ where t is the Student's t statistic.
+Note that when there are only two groups for the one-way ANOVA F-test, ${F=t^{2}}$ where t is the Student's t statistic.
 
 
 ## Model Development
