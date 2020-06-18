@@ -721,7 +721,7 @@ ypipe[0:4]
 ### Measure for In-sample Evaluation
 Two important measures:
 * Mean Square Error (MSE)
-${\displaystyle \operatorname {MSE} ={\frac {1}{n}}\sum _{i=1}^{n}(Y_{i}-{\hat {Y_{i}}})^{2}}$
+${ \operatorname {MSE} ={\frac {1}{n}}\sum _{i=1}^{n}(Y_{i}-{\hat {Y_{i}}})^{2}}$
 * R-squared
 - The total sum of squares (proportional to the variance of the data):
 $$SS_{\text{tot}}=\sum _{i}(y_{i}-{\bar {y}})^{2}$$
@@ -729,8 +729,11 @@ $$SS_{\text{tot}}=\sum _{i}(y_{i}-{\bar {y}})^{2}$$
 $$SS_{\text{reg}}=\sum _{i}(f_{i}-{\bar {y}})^{2}$$
 
 - The sum of squares of residuals, also called the residual sum of squares
+-
 $${\displaystyle SS_{\text{res}}=\sum _{i}(y_{i}-f_{i})^{2}=\sum _{i}e_{i}^{2}\,}$$
+
 - The most general definition of the coefficient of determination is
+-
 $$ {\displaystyle R^{2}\equiv 1-{SS_{\rm {res}} \over SS_{\rm {tot}}}\,}$$
 
 
@@ -1030,14 +1033,14 @@ Add  penalty function to reduce the overfitting problem.
 
 In order to give preference to a particular solution with desirable properties, a regularization term can be included in this minimization:
 
-${\displaystyle \|A\mathbf {x} -\mathbf {b} \|_{2}^{2}+\|\Gamma \mathbf {x} \|_{2}^{2}}$
+${ \|A\mathbf {x} -\mathbf {b} \|_{2}^{2}+\|\Gamma \mathbf {x} \|_{2}^{2}}$
 
-for some suitably chosen Tikhonov matrix ${\displaystyle \Gamma }$ . In many cases, this matrix is chosen as a multiple of the identity matrix (${\displaystyle \Gamma =\alpha I}$), giving preference to solutions with smaller norms; this is known as L2 regularization.
+for some suitably chosen Tikhonov matrix ${ \Gamma }$ . In many cases, this matrix is chosen as a multiple of the identity matrix (${ \Gamma =\alpha I}$), giving preference to solutions with smaller norms; this is known as L2 regularization.
 
-In other cases, high-pass operators (e.g., a difference operator or a weighted Fourier operator) may be used to enforce smoothness if the underlying vector is believed to be mostly continuous. This regularization improves the conditioning of the problem, thus enabling a direct numerical solution. An explicit solution, denoted by ${\displaystyle {\hat {x}}}$, is given by
-${\displaystyle {\hat {x}}=(A^{\top }A+\Gamma ^{\top }\Gamma )^{-1}A^{\top }\mathbf {b} .}$
+In other cases, high-pass operators (e.g., a difference operator or a weighted Fourier operator) may be used to enforce smoothness if the underlying vector is believed to be mostly continuous. This regularization improves the conditioning of the problem, thus enabling a direct numerical solution. An explicit solution, denoted by ${ {\hat {x}}}$, is given by
+${ {\hat {x}}=(A^{\top }A+\Gamma ^{\top }\Gamma )^{-1}A^{\top }\mathbf {b} .}$
 
-The effect of regularization may be varied by the scale of matrix ${\displaystyle \Gamma }$ . For ${\displaystyle \Gamma =0}$ this reduces to the unregularized least-squares solution, provided that (ATA)−1 exists.
+The effect of regularization may be varied by the scale of matrix ${ \Gamma }$ . For ${ \Gamma =0}$ this reduces to the unregularized least-squares solution, provided that (ATA)−1 exists.
 
 
 L2 regularization is used in many contexts aside from linear regression, such as classification with logistic regression or support vector machines,[14] and matrix factorization.
