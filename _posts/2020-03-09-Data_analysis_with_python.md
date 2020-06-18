@@ -11,6 +11,8 @@ tags: data_science python
 
 toc: true
 ---
+This series of Data Science posts are my notes for the [IBM Data Science Professional Certificate](https://www.coursera.org/professional-certificates/ibm-data-science).
+{: .notice--info}
 
 ## Importing Datasets
 
