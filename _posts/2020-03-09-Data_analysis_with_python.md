@@ -353,7 +353,7 @@ In this module, you will learn about:
 * Correlation
 * Correlation - Statistics
 
-###
+
 
 ### Descriptive Statistics
 
@@ -721,19 +721,24 @@ ypipe[0:4]
 ### Measure for In-sample Evaluation
 Two important measures:
 * Mean Square Error (MSE)
-${ \operatorname {MSE} ={\frac {1}{n}}\sum _{i=1}^{n}(Y_{i}-{\hat {Y_{i}}})^{2}}$
+
+$${ \operatorname {MSE} ={\frac {1}{n}}\sum _{i=1}^{n}(Y_{i}-{\hat {Y_{i}}})^{2}}$$
+
 * R-squared
 - The total sum of squares (proportional to the variance of the data):
+
 $$SS_{\text{tot}}=\sum _{i}(y_{i}-{\bar {y}})^{2}$$
+
 - The regression sum of squares, also called the explained sum of squares:
+
 $$SS_{\text{reg}}=\sum _{i}(f_{i}-{\bar {y}})^{2}$$
 
 - The sum of squares of residuals, also called the residual sum of squares
--
+
 $${\displaystyle SS_{\text{res}}=\sum _{i}(y_{i}-f_{i})^{2}=\sum _{i}e_{i}^{2}\,}$$
 
 - The most general definition of the coefficient of determination is
--
+
 $$ {\displaystyle R^{2}\equiv 1-{SS_{\rm {res}} \over SS_{\rm {tot}}}\,}$$
 
 
@@ -1033,7 +1038,7 @@ Add  penalty function to reduce the overfitting problem.
 
 In order to give preference to a particular solution with desirable properties, a regularization term can be included in this minimization:
 
-${ \|A\mathbf {x} -\mathbf {b} \|_{2}^{2}+\|\Gamma \mathbf {x} \|_{2}^{2}}$
+$${ \| A \mathbf {x} -\mathbf {b} \|_{2}^{2}+\|\Gamma \mathbf {x} \|_{2}^{2}}$$
 
 for some suitably chosen Tikhonov matrix ${ \Gamma }$ . In many cases, this matrix is chosen as a multiple of the identity matrix (${ \Gamma =\alpha I}$), giving preference to solutions with smaller norms; this is known as L2 regularization.
 
@@ -1138,11 +1143,8 @@ for param,mean_test,mean_train in zip(scores['params'],scores['mean_test_score']
 
 ## Final Assignment
 
- <a href="https://www.bigdatauniversity.com"><img src = "https://ibm.box.com/shared/static/ugcqz6ohbvff804xp84y4kqnvvk3bq1g.png" width = 300, align = "center"></a>
 
-<h1 align=center><font size = 5>Data Analysis with Python</font></h1>
-
-# House Sales in King County, USA
+**House Sales in King County, USA**
 
 This dataset contains house sale prices for King County, which includes Seattle. It includes homes sold between May 2014 and May 2015.
 
