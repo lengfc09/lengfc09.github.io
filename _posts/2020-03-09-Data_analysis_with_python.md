@@ -4,7 +4,8 @@ date:   2020-03-3 21:43:16 +0800
 title: Data Analysis With Python
 categories: IBM_certificate
 excerpt: "Framework for data analysis form IBM certificate corse."
-
+header:
+  overlay_color: "#333"
 classes: wide
 tags: data_science python
 

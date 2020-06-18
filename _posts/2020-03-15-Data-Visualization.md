@@ -4,7 +4,8 @@ date:   2020-03-12 20:56:16 +0800
 title: Data Visualization
 categories: IBM_certificate
 excerpt: "Introduction to basic data visualization tools."
-
+header:
+  overlay_color: "#333"
 classes: wide
 tags: data_science python data_visualization
 
