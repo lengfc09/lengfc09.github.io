@@ -20,7 +20,7 @@ excerpt: "Transparency, Sharing, and Lifelong Learning."
 
 Hello world!
 
-This is the place where I will freely talk about things that interest me. For now, I plan to incorporate topics in Finance, Data Science and Mathematics in this blog. I might also occasionally talk about my life story and working experience. I am currently working as a finacial risk manager. Before I join in the financial industry, I studied numerical mathematics and financial mathematics in National University of Singore. In my spare time, I enjoy learning new programming techniques and web developments by myself.
+This is the place where I will freely talk about things that interest me. For now, I plan to incorporate topics in Finance, Data Science and Mathematics in this blog. I might also occasionally talk about my life story and working experience. I am currently working as a finacial risk manager. Before I join in the financial industry, I studied numerical mathematics and financial mathematics in National University of Singapore. In my spare time, I enjoy learning new programming techniques and web developments by myself.
 
 **Topics in Data Science:**
 
