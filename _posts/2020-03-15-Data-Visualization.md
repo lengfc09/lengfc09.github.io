@@ -673,7 +673,8 @@ plt.show()
 
 Sometimes it is more practical to represent the data horizontally, especially if you need more room for labelling the bars. In horizontal bar graphs, the y-axis is used for labelling, and the length of bars on the x-axis corresponds to the magnitude of the variable being measured. As you will see, there is more room on the y-axis to  label categetorical variables.
 
-```pythondf_can.sort_values(by='Total', ascending=True, inplace=True)
+```python
+df_can.sort_values(by='Total', ascending=True, inplace=True)
 df_top15 = df_can['Total'].tail(15)
 
 df_top15.plot(kind='barh', figsize=(12, 12), color='steelblue')
