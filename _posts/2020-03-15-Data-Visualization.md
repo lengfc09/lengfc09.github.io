@@ -234,7 +234,7 @@ plt.savefig('matplotlib_histogram.png')
 plt.show()
 ```
 
-![img](/assets/images/images_for_post//histogram_demo.png){:width="500px"}
+![img](/assets/images/images_for_post/histogram_demo.png){:width="500px"}
 
 `pyplot` is a stateful interface that handles much of the boilerplate for creating figures and axes and connecting them to the backend of your choice, and maintains module-level internal data structures representing the current figure and axes to which to direct plotting commands.
 
