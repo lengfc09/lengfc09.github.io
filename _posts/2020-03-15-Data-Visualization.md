@@ -148,7 +148,7 @@ The abstraction of the underlying UI toolkit's event framework allows both matpl
 
 The `Artist` hierarchy is the middle layer of the matplotlib stack, and is the place where much of the heavy lifting happens. Continuing with the analogy that the `FigureCanvas` from the backend is the paper, the `Artist` is the object that knows how to take the `Renderer` (the paintbrush) and put ink on the canvas. Everything you see in a matplotlib `Figure` is an `Artist` instance; the title, the lines, the tick labels, the images, and so on all correspond to individual `Artist` instances (see [Figure 11.3](http://www.aosabook.org/en/matplotlib.html#fig.matplotlib.artiststree)). The base class is `matplotlib.artist.Artist`, which contains attributes that every `Artist` shares: the transformation which translates the artist coordinate system to the canvas coordinate system (discussed in more detail below), the visibility, the clip box which defines the region the artist can paint into, the label, and the interface to handle user interaction such as "picking"; that is, detecting when a mouse click happens over the artist.
 
-![img](/assets/images/images_for_post/artisits_figure.png){:width="500px"}
+![img](/assets/images/images_for_post/artists_figure.png){:width="500px"}
 
 Figure 11.2: A figure
 
