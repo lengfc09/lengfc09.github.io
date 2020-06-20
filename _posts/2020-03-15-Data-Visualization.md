@@ -148,11 +148,11 @@ The abstraction of the underlying UI toolkit's event framework allows both matpl
 
 The `Artist` hierarchy is the middle layer of the matplotlib stack, and is the place where much of the heavy lifting happens. Continuing with the analogy that the `FigureCanvas` from the backend is the paper, the `Artist` is the object that knows how to take the `Renderer` (the paintbrush) and put ink on the canvas. Everything you see in a matplotlib `Figure` is an `Artist` instance; the title, the lines, the tick labels, the images, and so on all correspond to individual `Artist` instances (see [Figure 11.3](http://www.aosabook.org/en/matplotlib.html#fig.matplotlib.artiststree)). The base class is `matplotlib.artist.Artist`, which contains attributes that every `Artist` shares: the transformation which translates the artist coordinate system to the canvas coordinate system (discussed in more detail below), the visibility, the clip box which defines the region the artist can paint into, the label, and the interface to handle user interaction such as "picking"; that is, detecting when a mouse click happens over the artist.
 
-![img](http://www.aosabook.org/images/matplotlib/artists_figure.png)
+![img](/assets/images/images_for_post/artisits_figure.png)
 
 Figure 11.2: A figure
 
-![img](http://www.aosabook.org/images/matplotlib/artists_tree.png)
+![img](/assets/images/images_for_post/artists_tree.png)
 
 Figure 11.3: The hierarchy of artist instances used to draw [Figure 11.2](http://www.aosabook.org/en/matplotlib.html#fig.matplotlib.artistsfigure).
 
@@ -234,7 +234,7 @@ plt.savefig('matplotlib_histogram.png')
 plt.show()
 ```
 
-![img](http://www.aosabook.org/images/matplotlib/histogram_demo.png)
+![img](/assets/images/images_for_post//histogram_demo.png)
 
 `pyplot` is a stateful interface that handles much of the boilerplate for creating figures and axes and connecting them to the backend of your choice, and maintains module-level internal data structures representing the current figure and axes to which to direct plotting commands.
 
