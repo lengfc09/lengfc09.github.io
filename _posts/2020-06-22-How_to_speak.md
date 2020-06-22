@@ -42,7 +42,7 @@ toc: true
 
 - Props: use them in order to make your ideas visual. Visual perception is the most effective way to interact with listeners.
 
-## For Job Talk. Exposing, Slides
+### For Job Talk. Exposing, Slides
 
 - Don’t put too many words on a slide. Slides should just reflect what you’re saying, not the other way around. Pictures attracts attention and people start to wait for your explanation – use that tip.
 
