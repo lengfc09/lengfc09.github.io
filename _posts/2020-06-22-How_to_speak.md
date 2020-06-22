@@ -5,7 +5,7 @@ title: How to Speak by Patrick Winston
 categories: Ideas
 excerpt: "Patrick Winston's How to Speak talk has been an MIT tradition for over 40 years. Offered every January, the talk is intended to improve your speaking ability in critical situations by teaching you a few heuristic rules."
 header:
-  overlay_color: "#333"
+  overlay_color: "#ff8033"
 # classes: wide
 tags: speaking
 
@@ -14,7 +14,7 @@ toc: true
 
 
 <a href="https://www.youtube.com/watch?v=Unzc731iCUY">
-<img style="width:600px;" src="/assets/images/how_to_speak.jpg">
+<img style="width:600px;" src="/assets/images/images_for_post/how_to_speak.jpg">
 </a>
 
 
