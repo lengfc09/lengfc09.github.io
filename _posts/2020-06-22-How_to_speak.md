@@ -13,14 +13,19 @@ toc: true
 ---
 
 
+<a href="https://www.youtube.com/watch?v=Unzc731iCUY">
+<img style="width:600px;" src="/assets/images/how_to_speak.jpg">
+</a>
+
+
 ## Start
 
 - Do not start a talk with a joke.
 - Promise: Tell them what they gonna learn at the end of your talk.
-- Cycle: Make your idea repeated many times in order to be completely clear for everyone.
+- Cycle: Make your idea repeated many times in order toÎbe completely clear for everyone.
 - Distinguish: Make a “Fence” around your idea so that it can be distinguished from someone else’s idea.
 - Verbal punctuation – sum up information within your talk some times to make listeners get back on.
--  Ask a question - intriguing one
+- Ask a question - intriguing one
 
 ## Place and Time
 
@@ -31,17 +36,16 @@ toc: true
 
 ## Tools
 
-### For teaching.
+### For teaching
 
-- Board – it’s got graphics, speed, target. Watch your hands! Don’t hold them behind your back, it’s better to keep them straight and use for pointing at the board.
--
-- Props – use them in order to make your ideas visual.
-Visual perception is the most effective way to interact with listeners.
+- Board: it’s got graphics, speed, target. Watch your hands! Don’t hold them behind your back, it’s better to keep them straight and use for pointing at the board.
+
+- Props: use them in order to make your ideas visual. Visual perception is the most effective way to interact with listeners.
 
 ## For Job Talk. Exposing, Slides
 
 - Don’t put too many words on a slide. Slides should just reflect what you’re saying, not the other way around. Pictures attracts attention and people start to wait for your explanation – use that tip.
--
+
 - Make slide as easy as you can – no title, no distracting pictures, frames, points and so on.
 
 - Do not use laser pointer – due to that you lose eye contact with the audience. Instead you can make the arrows just upon a slide.
