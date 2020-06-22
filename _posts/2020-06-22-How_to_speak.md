@@ -8,7 +8,7 @@ header:
   overlay_color: "#ff8033"
 # classes: wide
 tags: speaking
-
+author_profile: true
 toc: true
 ---
 
