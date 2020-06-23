@@ -408,7 +408,7 @@ y_hat = sigmoid(test_x, *popt)
 print("Mean absolute error: %.2f" % np.mean(np.absolute(y_hat - test_y)))
 print("Residual sum of squares (MSE): %.2f" % np.mean((y_hat - test_y) ** 2))
 from sklearn.metrics import r2_score
-print("R2-score: %.2f" % r2_score(y_hat , test_y) )
+print("R2-score: %.2f" % r2_score(test_y, y_hat) )
 
 ```
 
