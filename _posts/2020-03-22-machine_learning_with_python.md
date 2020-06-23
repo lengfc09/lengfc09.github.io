@@ -116,15 +116,15 @@ Since the result highly depend on which datasets the data is trained and tested,
 
 **Evaluation Metrics in regression models**
 
-- R square
+- R square：R^2=1-RSE
 - MSE: mean square error
 - MAE: mean absolute error
 - RMES: root of mean square error
 - RSE: relative square error
 - RAE: relative average error
   
-  ![-w260](/media/15842755659220/15842800057018.jpg)\*{:width="600px"}
-   R^2=1-RSE
+  ![-w260](/media/15842755659220/15842800057018.jpg){:width="260px"}
+   
 
 ### Lab section - Linear Regression
 
