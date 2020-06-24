@@ -78,7 +78,7 @@ naver_site_verification  :
 
 # Social Sharing
 twitter:
-  username               : chenyyfan
+  username               :
 facebook:
   username               :
   app_id                 :
@@ -90,7 +90,7 @@ social:
   type                   : Person # Person or Organization (defaults to Person)
   name                   : # If the user or organization name differs from the site's name
   links: # An array of links to social media profiles
-    - "https://twitter.com/chenyyfan"
+    # - "https://twitter.com/chenyyfan"
     - "https://instagram.com/benbenbener"
     - "https://www.linkedin.com/in/yangyifan-chen-576989b9"
 
@@ -116,9 +116,9 @@ author:
     # - label: "Website"
     #   icon: "fas fa-fw fa-link"
     #   url: "www.bensblog.tech"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/chenyyfan"
+    # - label: "Twitter"
+    #   icon: "fab fa-fw fa-twitter-square"
+    #   url: "https://twitter.com/chenyyfan"
     #- label: "Facebook"
     #  icon: "fab fa-fw fa-facebook-square"
       # url: "https://facebook.com/"
