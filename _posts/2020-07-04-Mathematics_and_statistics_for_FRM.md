@@ -323,3 +323,349 @@ $$1\leq \sum_{i=1}^n n w_i^2 $$
 We know the minimum for $\sigma^2 ( \hat{\mu})$ is $\frac{1}{n}$.
 
 This minimum for $\sigma^2 ( \hat{\mu}) =\sum w_i^2 $ is achieved iff $w_i =\frac{1}{n}$.
+
+## Distributions
+
+Distributions can be divided into two broad categories: parametric distributions and nonparametric distributions. A parametric distribution can be described by a mathematical function. In the following sections we explore a number of parametric distributions, including the uniform distribution and the normal distribution. A nonparametric distribution cannot be summarized by a mathematical formula. In its simplest form, a nonparametric distribution is just a collection of data.
+
+Parametric distributions are often easier to work with, but they force us to make assumptions, which may not be supported by real-world data. Nonparametric distributions can fit the observed data perfectly. The drawback of nonparametric distributions is that they are potentially too specific, which can make it difficult to draw any general conclusions.
+
+
+### Bernoulli Distribution
+
+A Bernoulli random variable is equal to either zero or one. If we define p as the probability that X equals one, we have
+
+$P[X=1]=p$ and $P[X=0]=1-p$
+
+We can easily calculate the mean and variance of a Bernoulli variable:
+
+$$
+\begin{aligned}
+\mu &=p \cdot 1+(1-p) \cdot 0=p \\
+\sigma^{2} &=p \cdot(1-p)^{2}+(1-p) \cdot(0-p)^{2}=p(1-p)
+\end{aligned}
+$$
+
+### Binomial Distribution
+
+A binomial distribution can be thought of as a collection of Bernoulli random variables $x_i$:
+
+$$K=\sum_{i=1}^n x_i$$
+
+$$
+P[K=k]=\left(\begin{array}{l}
+n \\
+k
+\end{array}\right) p^{k}(1-p)^{n-k}
+$$
+
+It is easy to prove that $E(K)=np$, and $\sigma_K=np(1-p)$.
+
+For p=0.5, the binomial probability density functions looks like this:
+
+![-w600](media/15938358383413/15938453104800.jpg)
+
+### Poisson Distribution
+
+Another useful discrete distribution is the Poisson distribution, named for the French mathematician Simeon Denis Poisson.
+
+For a Poisson random variable X,
+
+$$
+P[X=n]=\frac{\lambda^{n}}{n !} e^{-\lambda}
+$$
+
+We can prove that the mean and variance for Poisson distribution is both $\lambda$.
+
+If the rate at which events occur over time is constant, and the probability of any one event occurring is independent of all other events, then we say that the events follow a Poisson process, where:
+
+$$
+P[X=n]=\frac{(\lambda t)^{n}}{n !} e^{-\lambda t}
+$$
+
+where t is the amount of time elapsed. In other words, **the expected number of events before time t is equal to λt**.
+
+### Normal Distribution
+
+For a random variable X, the probability density function for the normal distribution is:
+
+$$
+f(x)=\frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^{2}}
+$$
+
+When a normal distribution has a mean of zero and a standard deviation of one, it is referred to as a standard normal distribution.
+
+$$
+\phi=\frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2} x^{2}}
+$$
+
+It is the convention to denote the standard normal PDF by $\phi$, and the cumulative standard normal distribution by $\Phi $.
+
+To create two correlated normal variables, we can combine three independent standard normal variables, $X_1$, $X_2$, and $X_3$, as follows:
+
+$$
+\begin{array}{l}
+X_{A}=\sqrt{\rho} X_{1}+\sqrt{1-\rho} X_{2} \\
+X_{B}=\sqrt{\rho} X_{1}+\sqrt{1-\rho} X_{3}
+\end{array}
+$$
+
+In this formulation, $X_A$ and $X_B$ are also standard normal variables, but with a correlation of ρ.
+
+In risk management it is also useful to know how many standard deviations are needed to encompass 95% or 99% of outcomes.
+
+Notice that for each row in the table, there is a “one-tailed” and “two-tailed” column.
+
+Normal Distribution Confidence Intervals:
+
+$$
+\begin{array}{rcc}
+\hline & \text { One-Tailed } & \text { Two-Tailed } \\
+\hline 1.0 \% & -2.33 & -2.58 \\
+2.5 \% & -1.96 & -2.24 \\
+5.0 \% & -1.64 & -1.96 \\
+10.0 \% & -1.28 & -1.64 \\
+90.0 \% & 1.28 & 1.64 \\
+95.0 \% & 1.64 & 1.96 \\
+97.5 \% & 1.96 & 2.24 \\
+99.0 \% & 2.33 & 2.58 \\
+\hline
+\end{array}
+$$
+
+### Lognormal Distribution
+
+It’s natural to ask: if we assume that log returns are normally distributed, then how are standard returns distributed? To put it another way: rather than modeling log returns with a normal distribution, can we use another distribution and model standard returns **directly**?
+
+$1+R=e^r$ with $r\sim N(\mu, \sigma^2)  $
+
+The answer to these questions lies in the lognormal distribution, whose density function is given by (Chain-rule for derivatives):
+
+$$
+f(x)=\frac{1}{x \sigma \sqrt{2 \pi}} e^{-\frac{1}{2}\left(\frac{\ln x-\mu}{\sigma}\right)^{2}} \text{, for } x>0
+$$
+
+Here $f(x)$ is the density function for $1+R$.
+
+$$E(X)=e^{\mu + \frac{1}{2}\sigma^2 }$$
+
+![-w600](media/15938358383413/15938469911587.jpg)
+
+$$1+R=e^r \approx 1 + r + \frac{1}{2} r^2 +...$$
+
+$$E(X)=E(1+R) \approx 1+ \mu + \frac{1}{2} \sigma^2 +...$$
+
+$$E(X) \approx e^{\mu +\frac{1}{2}\sigma^2}$$
+
+The variance of the lognormal distribution is given by:
+
+$$
+E\left[(X-E[X])^{2}\right]=\left(e^{\sigma^{2}}-1\right) e^{2 \mu+\sigma^{2}}
+$$
+
+It is convenient to be able to describe the re- turns of a financial instrument as being lognormally distributed, rather than having to say the log returns of that instrument are normally distributed.
+
+When it comes to modeling, though, even though they are equivalent, it is often easier to work with log returns and normal distributions than with standard returns and lognormal distributions.
+
+### Chi-squared Distribution
+
+If we have k independent standard normal variables, $Z_1$, $Z_2$,..., $Z_k$, then the sum of their squares, S, has a chi-squared distribution. We write:
+
+$$
+\begin{array}{l}
+S=\sum_{i=1}^{k} Z_{i}^{2} \\
+S \sim \chi_{k}^{2}
+\end{array}
+$$
+
+The variable k is commonly referred to as the degrees of freedom. It follows that the sum of two independent chi-squared variables, with k1 and k2 degrees of freedom, will follow a chi-squared distribution, with (k1 + k2) degrees of freedom.
+
+The mean of the distribution is k, and the variance is 2k.
+
+As k approaches infinity, the chi-squared distribution converges to the normal distribution.
+
+For positive values of x, the probability density function for the chi-squared distribution is:
+
+$$
+f(x)=\frac{1}{2^{k / 2} \Gamma(k / 2)} x^{\frac{k}{2}-1} e^{-\frac{x}{2}}
+$$
+
+where $\Gamma$ is the gamma function:
+
+$$
+\Gamma(n)=\int_{0}^{\infty} x^{n-1} e^{-x} d x
+$$
+
+The chi-squared distribution is widely used in risk management, and in statistics in general, for hypothesis testing.
+
+![-w600](media/15938358383413/15938478356724.jpg)
+
+
+### Student's t Distribution
+
+Another extremely popular distribution in statistics and in risk management is Stu- dent’s t distribution.
+
+If Z is a standard normal variable and U is a chi-square variable with k degrees of freedom, which is independent of Z, then the random variable X,
+
+$$X=\frac{Z}{\sqrt{U/k}}$$
+
+follows a t distribution with k degrees of freedom.
+
+Mathematically, the distribution is quite complicated. The probability density function can be written:
+
+$$
+f(x)=\frac{\Gamma\left(\frac{k+1}{2}\right)}{\sqrt{k \pi} \Gamma\left(\frac{k}{2}\right)}\left(1+\frac{x^{2}}{k}\right)^{-\frac{(k+1)}{2}}
+$$
+
+![-w600](media/15938358383413/15938479720004.jpg)
+
+Very few risk managers will memorize this PDF equation, but it is important to understand the basic shape of the distribution and how it changes with k.
+
+The t distribution is symmetrical around its mean, which is equal to zero. For low values of k, the t distribution looks very similar to a standard normal distribution, except that it displays excess kurtosis. As k increases, this excess kurtosis de- creases. In fact, as k approaches infinity, the t distribution converges to a standard normal distribution.
+
+The variance of the t distribution for k > 2 is k/(k − 2). You can see that as k increases, the variance of the t distribution converges to one, the variance of the standard normal distribution.
+
+As we will see in the following chapter, the t distribution’s popularity derives mainly from its use in hypothesis testing. The t distribution is also a popular choice for modeling the returns of financial assets, **since it displays excess kurtosis.**
+
+### F-distribution
+
+If $U_1$ and $U_2$ are two independent chi-squared distributions with k1 and k2 degrees of freedom, respectively, then X
+
+$$
+X=\frac{U_{1} / k_{1}}{U_{2} / k_{2}} \sim F\left(k_{1}, k_{2}\right)
+$$
+
+follows an F-distribution with parameters k1 and k2.
+
+The probability density function of the F-distribution, as with the chi-squared distribution, is rather complicated:
+
+$$
+f(x)=\frac{\sqrt{\frac{\left(k_{1} x\right)^{k_{1}} k_{2}^{k_{2}}}{\left(k_{1} x+k_{2}\right)^{k_{1}+k_{2}}}}}{x B\left(\frac{k_{1}}{2}, \frac{k_{2}}{2}\right)}
+$$
+
+where B(x, y) is the beta function:
+
+$$
+B(x, y)=\int_{0}^{1} z^{x-1}(1-z)^{y-1} d z
+$$
+
+It is important to understand the general shape and some properties of the distribution.
+
+![-w600](media/15938358383413/15938482040139.jpg)
+
+$$
+\begin{aligned}
+\mu &=\frac{k_{2}}{k_{2}-2} \text { for } k_{2}>2 \\
+\sigma^{2} &=\frac{2 k_{2}^{2}\left(k_{1}+k_{2}-2\right)}{k_{1}\left(k_{2}-2\right)^{2}\left(k_{2}-4\right)} \text { for } k_{2}>4
+\end{aligned}
+$$
+
+As k1 and k2 increase, the mean and mode converge to one. As k1 and k2 approach infinity, the F-distribution converges to a normal distribution.
+
+There is also a **nice relationship between Student’s t distribution and the F-distribution**. From the description of the t distribution, it is easy to see that the square of a variable with a t distribution has an F-distribution.
+
+More specifically, if X is a random variable with a t distribution with k degrees of freedom, then $X_2$ has an F-distribution with 1 and k degrees of freedom:
+
+$$
+X^{2} \sim F(1, k)
+$$
+
+### Triangular Distribution
+
+It is often useful in risk management to have a distribution with a **fixed minimum and maximum**—for example, when modeling default rates and recovery rates, which by definition cannot be less than zero or greater than one.
+
+The triangular distribution is a distribution whose PDF is a triangle. As with the uniform distribution, it has a finite range.
+
+The PDF for a triangular distribution with a minimum of a, a maximum of b, and a mode of c is described by the following two-part function:
+
+$$
+f(x)=\left\{\begin{array}{ll}
+\frac{2(x-a)}{(b-a)(c-a)} & a \leq x \leq c \\
+\frac{2(b-x)}{(b-a)(b-c)} & c<x \leq b
+\end{array}\right.
+$$
+
+![-w600](media/15938358383413/15938484474645.jpg)
+
+Exhibit 4.13 shows a triangular distribution where a, b, and c are 0.0, 1.0, and 0.8, respectively.
+
+The mean, $\mu$, and variance, $\sigma^2$, of a triangular distribution are given by:
+
+$$
+\begin{aligned}
+\mu &=\frac{a+b+c}{3} \\
+\sigma^{2} &=\frac{a^{2}+b^{2}+c^{2}-a b-a c-b c}{18}
+\end{aligned}
+$$
+
+
+### Beta Distribution
+
+The beta distribution is another distribution with **a finite range.** It is more complicated than the triangular distribution mathematically, but it is also much more flexible.
+
+The beta distribution is defined on the interval from zero to one. The PDF is defined as follows, where a and b are two positive constants:
+
+$$
+f(x)=\frac{1}{B(a, b)} x^{a-1}(1-x)^{b-1} \quad 0 \leq x \leq 1
+$$
+
+The mean, $\mu$, and variance, $\sigma^2$, of a beta distribution are given by:
+
+$$
+\begin{aligned}
+\mu &=\frac{a}{a+b} \\
+\sigma^{2} &=\frac{a b}{(a+b)^{2}(a+b+1)}
+\end{aligned}
+$$
+
+![-w600](media/15938358383413/15938486035324.jpg)
+
+
+### Mixture Distribution
+
+Imagine a stock whose log returns follow a normal distribution with low volatility 90% of the time, and a normal distribution with high volatility 10% of the time.
+
+Most of the time the world is relatively dull, and the stock just bounces along. Occasionally, though—maybe there is an earnings announcement or some other news event—the stock’s behavior is more extreme. We could write the combined density function as:
+
+$$
+f(x)=w_{L} f_{L}(x)+w_{H} f_{H}(x)
+$$
+
+where $w_{L}$ = 0.90 is the probability of the return coming from the low-volatility distribution, $f_{L}(x)$, and $w_{H}$ = 0.10 is the probability of the return coming from the high-volatility distribution $f_{H}(x)$.
+
+We can think of this as a two-step process.
+
+First, we randomly choose the high or low distribution, with a 90% chance of picking the low distribution. Second, we generate a random return from the chosen normal distribution.
+
+The final distribution, f(x), is a legitimate probability distribution in its own right, and although it is equally valid to describe a random draw directly from this distribution, it is often helpful to think in terms of this two-step process.
+
+**Note that the two-step process is not the same as the process described in a previous section for adding two random variables together.** In the case we are describing now, the return appears to come from either the low-volatility distribution or the high-volatility distribution.
+
+The distribution that results from a weighted average distribution of density functions is known as a mixture distribution. More generally, we can create a distribution:
+
+$$
+f(x)=\sum_{i=1}^{n} w_{i} f_{i}(x) \text { s.t. } \sum_{i=1}^{n} w_{i}=1
+$$
+
+Mixture distributions are extremely flexible. In a sense they occupy a realm between parametric distributions and nonparametric distributions.
+
+In a typical mixture distribution, the component distributions are parametric, **but the weights are based on empirical data, which is nonparametric.**
+
+Just as there is a trade-off between parametric distributions and nonparametric distributions, there is a trade- off between using a low number and a high number of component distributions.
+
+By adding more and more component distributions, we can approximate any data set with increasing precision. At the same time, as we add more and more component distributions, the conclusions that we can draw tend to become less general in nature.---- **Variance VS Underfitting problem**
+
+Just by adding two normal distributions together, we can develop a large number of interesting distributions.
+
+- Similar to the previous example, if we combine two normal distributions with the same mean but different variances, we can get a symmetrical mixture distribution that displays excess kurtosis.
+- By shifting the mean of one distribution, we can also create a distribution with positive or negative skew.
+- Finally, if we move the means far enough apart, the resulting mixture distribution will be bimodal; that is, the PDF will have two distinct maxima,
+
+
+
+![-w600](media/15938358383413/15938490883813.jpg)
+
+![-w600](media/15938358383413/15938491155081.jpg)
+
+
+Mixture distributions can be extremely useful in risk management. Securities whose return distributions are skewed or have excess kurtosis are often considered riskier than those with normal distributions, since extreme events can occur more frequently. Mixture distributions provide a ready method for modeling these attributes.
