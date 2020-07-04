@@ -207,3 +207,119 @@ While we can easily calculate any central moment, in risk management it is very 
 
 #### Skeness
 
+The third central moment tells us how symmetrical the distribution is around the mean. Rather than working with the third central moment directly, by convention we first standardize the statistic. The **standardized third central moment** is known as **skewness**:
+
+$$\text{Skewness} = \frac{E[(x-\mu)^3]}{\sigma^3}$$
+
+Skewness is a very important concept in risk management. If the distributions of returns of two investments are the same in all respects, with the same mean and standard deviation, but different skews, then the investment with more negative skew is generally considered to be more risky. **Historical data suggest that many financial assets exhibit negative skew**.
+
+![-w600](media/15938358383413/15938405232802.jpg)
+
+![-w600](media/15938358383413/15938405604461.jpg)
+
+**With the population statistic**, the skewness of a random variable X, based on n observations, $x_1, x_2,..., x_n$, can be calculated as:
+
+$$
+\hat{s}=\frac{1}{n} \sum_{i=1}^{n}\left(\frac{x_{i}-\mu}{\sigma}\right)^{3}
+$$
+
+where μ is the population mean and σ is the population standard deviation.
+
+Similar to our calculation of **sample variance**, if we are calculating the **sample skewness** there is going to be an overlap with the calculation of the sample mean and sample standard deviation. We need to correct for that. The sample skewness can be calculated as:
+
+$$
+\tilde{s}=\frac{n}{(n-1)(n-2)} \sum_{i=1}^{n}\left(\frac{x_{i}-\hat{\mu}}{\hat{\sigma}}\right)^{3}
+$$
+
+We also have:
+
+$$E[(X-\mu)^3]=E[X^3]-3\mu \sigma^2 -\mu^3$$
+
+#### Kurtosis
+
+The fourth central moment is similar to the second central moment, in that it tells us how spread out a random variable is, **but it puts more weight on extreme points**.
+
+As with skewness, rather than working with the central moment directly, we typically work with a **standardized statistic**. **This standardized fourth central moment is known as kurtosis**. For a random variable X, we can define the kurtosis as K, where:
+
+$$K=\frac{E[(X-\mu)^4]}{\sigma^4}$$
+
+Because the random variable with higher kurtosis has points further from the mean, we often refer to distribution with high kurtosis as **fat-tailed**.
+
+![-w600](media/15938358383413/15938410478358.jpg)
+![-w600](media/15938358383413/15938410838614.jpg)
+
+
+Like skewness, kurtosis is an important concept in risk management. Many financial assets exhibit high levels of kurtosis.
+
+If the distribution of returns of two assets have the same mean, variance, and skewness but different kurtosis, then the distribution with the higher kurtosis will tend to have more extreme points, and be considered more risky.
+
+**With the population statistic**, the kurtosis of a random variable X, based on n observations, $x_1, x_2,..., x_n$, can be calculated as:
+
+$$
+\hat{K}=\frac{1}{n} \sum_{i=1}^{n}\left(\frac{x_{i}-\mu}{\sigma}\right)^{4}
+$$
+
+where μ is the **population mean** and σ is the **population standard deviation**.
+
+Similar to our calculation of sample variance, if we are calculating the **sample kurtosis** there is going to be an overlap with the calculation of the sample mean and sample standard deviation. We need to correct for that. The **sample kurtosis** can be calculated as:
+
+$$
+\tilde{K}=\frac{n(n+1)}{(n-1)(n-2)(n-3)} \sum_{i=1}^{n}\left(\frac{x_{i}-\hat{\mu}}{\hat{\sigma}}\right)^{4}
+$$
+
+The normal distribution has a kurtosis of 3. Because normal distributions are so common, many people refer to “**excess kurtosis**”, which is simply the kurtosis minus 3.
+
+$$K_{excess}=K-3$$
+
+When we are also using the sample mean and variance, calculating the sample excess kurtosis is somewhat more complicated than just subtracting 3. If we have n points, then the correct formula is
+
+$$
+\tilde{K}_{\mathrm{excess}}=\tilde{K}-3 \frac{(n-1)^{2}}{(n-2)(n-3)}
+$$
+
+### Best Linear Unbiased Estimator (BLUE)
+
+In this chapter we have been careful to differentiate between the true parameters of a distribution and estimates of those parameters based on a sample of population data. In statistics we refer to these parameter estimates, or to the method of obtaining the estimate, as an estimator.
+
+For example, at the start of the chapter, we intro- duced an estimator for the sample mean:
+
+$$\hat{\mu}=\frac{1}{n}\sum_{i=1}^n x_i$$
+
+One justification that we gave earlier is that this particular estimator provides an unbiased estimate of the true mean. That is:
+
+$$E[\hat{\mu}]=\mu$$
+
+Clearly, a good estimator should be unbiased. But we can have many unbiased estimator:
+
+$$\hat{\mu}=0.75x_1 + 0.25 x_2$$
+
+Therefore, we need an objective measure for comparing different unbiased estimators. As we will see in coming chapters, just as we can measure the variance of random variables, we can measure the variance of parameter estimators as well.
+
+When choosing among all the unbiased estimators, statisticians typically try to come up with the estimator with the minimum variance. In other words, we want to choose a formula that produces estimates for the parameter that are **consistently close to the true value of the parameter**.
+
+If we limit ourselves to estimators that can be written as a linear combination of the data, we can often prove that a particular candidate has the minimum variance among all the potential unbiased estimators. **We call an estimator with these properties the best linear unbiased estimator**, or BLUE.
+
+
+E.g.:
+
+$$\hat{\mu}= \sum_{i=1}^n w_i x_i$$
+
+where $\sum w_i =1$
+
+Then
+
+$$E[\hat{\mu}]=\mu$$
+
+$$\sigma^2 ( \hat{\mu}) = w^T Cov(X,X)w=\sum w_i^2 $$
+
+since $\sum w_i =1$, we know that
+
+$$1=\sum_{i=1}^n w_i^2 +2 \sum_{i<j}w_i w_j \leq \sum_{i=1}^n w_i^2+ \sum_{i<j}(w_i^n +w_j^2 )$$
+
+Rewrite it, we have:
+
+$$1\leq \sum_{i=1}^n n w_i^2 $$
+
+We know the minimum for $\sigma^2 ( \hat{\mu})$ is $\frac{1}{n}$.
+
+This minimum for $\sigma^2 ( \hat{\mu}) =\sum w_i^2 $ is achieved iff $w_i =\frac{1}{n}$.
