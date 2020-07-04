@@ -53,7 +53,7 @@ $$r_t=ln(P_t/P_{t-1})=p_t-p_{t-1}$$
 
 As a result, we can check the log(price)-Time plot, to see whether the return is increasing:
 
-![-w600](media/15938358383413/15938365361053.jpg)
+![-w600](/media/15938358383413/15938365361053.jpg){:width="600px"}
 
 According to the graph above, the log return is constant, even though the price is increasing faster than a linear speed.
 
@@ -213,9 +213,9 @@ $$\text{Skewness} = \frac{E[(x-\mu)^3]}{\sigma^3}$$
 
 Skewness is a very important concept in risk management. If the distributions of returns of two investments are the same in all respects, with the same mean and standard deviation, but different skews, then the investment with more negative skew is generally considered to be more risky. **Historical data suggest that many financial assets exhibit negative skew**.
 
-![-w600](media/15938358383413/15938405232802.jpg)
+![-w600](/media/15938358383413/15938405232802.jpg){:width="600px"}
 
-![-w600](media/15938358383413/15938405604461.jpg)
+![-w600](/media/15938358383413/15938405604461.jpg){:width="600px"}
 
 **With the population statistic**, the skewness of a random variable X, based on n observations, $x_1, x_2,..., x_n$, can be calculated as:
 
@@ -245,8 +245,8 @@ $$K=\frac{E[(X-\mu)^4]}{\sigma^4}$$
 
 Because the random variable with higher kurtosis has points further from the mean, we often refer to distribution with high kurtosis as **fat-tailed**.
 
-![-w600](media/15938358383413/15938410478358.jpg)
-![-w600](media/15938358383413/15938410838614.jpg)
+![-w600](/media/15938358383413/15938410478358.jpg){:width="600px"}
+![-w600](/media/15938358383413/15938410838614.jpg){:width="600px"}
 
 
 Like skewness, kurtosis is an important concept in risk management. Many financial assets exhibit high levels of kurtosis.
@@ -363,7 +363,7 @@ It is easy to prove that $E(K)=np$, and $\sigma_K=np(1-p)$.
 
 For p=0.5, the binomial probability density functions looks like this:
 
-![-w600](media/15938358383413/15938453104800.jpg)
+![-w600](/media/15938358383413/15938453104800.jpg){:width="600px"}
 
 ### Poisson Distribution
 
@@ -449,7 +449,7 @@ Here $f(x)$ is the density function for $1+R$.
 
 $$E(X)=e^{\mu + \frac{1}{2}\sigma^2 }$$
 
-![-w600](media/15938358383413/15938469911587.jpg)
+![-w600](/media/15938358383413/15938469911587.jpg){:width="600px"}
 
 $$1+R=e^r \approx 1 + r + \frac{1}{2} r^2 +...$$
 
@@ -498,7 +498,7 @@ $$
 
 The chi-squared distribution is widely used in risk management, and in statistics in general, for hypothesis testing.
 
-![-w600](media/15938358383413/15938478356724.jpg)
+![-w600](/media/15938358383413/15938478356724.jpg){:width="600px"}
 
 
 ### Student's t Distribution
@@ -517,7 +517,7 @@ $$
 f(x)=\frac{\Gamma\left(\frac{k+1}{2}\right)}{\sqrt{k \pi} \Gamma\left(\frac{k}{2}\right)}\left(1+\frac{x^{2}}{k}\right)^{-\frac{(k+1)}{2}}
 $$
 
-![-w600](media/15938358383413/15938479720004.jpg)
+![-w600](/media/15938358383413/15938479720004.jpg){:width="600px"}
 
 Very few risk managers will memorize this PDF equation, but it is important to understand the basic shape of the distribution and how it changes with k.
 
@@ -551,7 +551,7 @@ $$
 
 It is important to understand the general shape and some properties of the distribution.
 
-![-w600](media/15938358383413/15938482040139.jpg)
+![-w600](/media/15938358383413/15938482040139.jpg){:width="600px"}
 
 $$
 \begin{aligned}
@@ -585,7 +585,7 @@ f(x)=\left\{\begin{array}{ll}
 \end{array}\right.
 $$
 
-![-w600](media/15938358383413/15938484474645.jpg)
+![-w600](/media/15938358383413/15938484474645.jpg){:width="600px"}
 
 Exhibit 4.13 shows a triangular distribution where a, b, and c are 0.0, 1.0, and 0.8, respectively.
 
@@ -618,7 +618,7 @@ $$
 \end{aligned}
 $$
 
-![-w600](media/15938358383413/15938486035324.jpg)
+![-w600](/media/15938358383413/15938486035324.jpg){:width="600px"}
 
 
 ### Mixture Distribution
@@ -663,9 +663,9 @@ Just by adding two normal distributions together, we can develop a large number 
 
 
 
-![-w600](media/15938358383413/15938490883813.jpg)
+![-w600](/media/15938358383413/15938490883813.jpg){:width="600px"}
 
-![-w600](media/15938358383413/15938491155081.jpg)
+![-w600](/media/15938358383413/15938491155081.jpg){:width="600px"}
 
 
 Mixture distributions can be extremely useful in risk management. Securities whose return distributions are skewed or have excess kurtosis are often considered riskier than those with normal distributions, since extreme events can occur more frequently. Mixture distributions provide a ready method for modeling these attributes.
