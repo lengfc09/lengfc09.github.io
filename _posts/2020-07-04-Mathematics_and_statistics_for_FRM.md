@@ -669,3 +669,244 @@ Just by adding two normal distributions together, we can develop a large number 
 
 
 Mixture distributions can be extremely useful in risk management. Securities whose return distributions are skewed or have excess kurtosis are often considered riskier than those with normal distributions, since extreme events can occur more frequently. Mixture distributions provide a ready method for modeling these attributes.
+
+## Chapter 3: Copulas
+
+In this chapter we explore distributions involving more than one variable, and pro- vide a brief overview of copulas. Multivariate distributions are an important tool for modeling portfolios.
+
+In everyday parlance, a copula is simply something that joins or couples. In statistics, a copula is a function used to combine two or more cumulative distribution functions in order to produce one joint cumulative distribution function.
+
+A copula only defines a relationship between univariate distributions. **The underlying distributions themselves can be any shape or size.**
+
+Mechanically, copulas take as their inputs two or more cumulative distributions and output a joint cumulative distribution. The advantage of working with cumulative distributions is that the range is always the same. **No matter what the distribution is, the output of a cumulative distribution always ranges from 0% to 100%.**
+
+Say we have two random variable X and Y, with the cumulative distribution function as $u=F_X(x)$ and $v=F_Y(y)$.
+
+A copula gives a joint cumulative distribution function as $C(u,v)$ s.t.:
+
+$$
+\begin{aligned}
+C(1,1) &=1 \\
+C(0,0) &=0\\
+\frac{\partial C }{\partial u} &\geq 0\\
+\frac{\partial C }{\partial v} &\geq 0
+\end{aligned}
+$$
+
+For example, given two cumulative distributions, u and v, and a constant, $\alpha$, we can write **Frank’s copula** as:
+
+$$
+C(u, v)=\frac{1}{\alpha} \ln \left[1+\frac{\left(e^{\alpha u}-1\right)\left(e^{\alpha v}-1\right)}{e^{\alpha}-1}\right]
+$$
+
+To calculate the joint PDF (probability density function) of a copula, we can use the chain rule:
+
+$$
+f(x, y)=\frac{\partial^{2} C(u, v)}{\partial x \partial y}=\frac{\partial^{2} C(u, v)}{\partial u \partial v} \frac{\partial u}{d x} \frac{\partial v}{d y}=c(u, v) f(x) f(y)
+$$
+
+Here we have denoted the second cross partial derivative of $C(u,v)$ by $c(u,v)$. $c(u,v)$ is often referred to as the density function of the copula. Because $c(u,v)$ depends on only the copula and not the marginal distributions, we can calculate $c(u,v)$ once and then apply it to many different problems.
+
+
+If we work on the x-y space, we should have
+
+$$
+\begin{aligned}
+\int_x \int_y f(x,y)dxdy=1
+\end{aligned}
+$$
+
+since
+
+$$
+\begin{aligned}
+du&=f_X(x)dx\\
+dv&=f_Y(y)dy
+\end{aligned}
+$$
+
+we have:
+
+$$
+\begin{aligned}
+\int_0^1 \int_0^1 c(u,v)dudv=1
+\end{aligned}
+$$
+
+Moreover, since that u and v are both uniformly distributed in [0,1], we know that the marginal PDF is always $I_{[0,1]}$.
+
+In other words, for $\forall u^*,v^*$, we must have
+
+$$
+\begin{aligned}
+\int_0^1 c(u^*,v)dv&=1\\
+\int_0^1 c(u,v^*)du&=1
+\end{aligned}
+$$
+
+**In summary**, a copulas $C(u,v)$ is defined by
+
+$$
+C(u^*,v^*)=\int_0^{u^*} \int_0^{v^*} c(u,v)dvdu
+$$
+
+where $c(u,v): [0,1]\times[0,1] \to [0,+\infty) $ satisfies
+
+$$
+\begin{aligned}
+\int_0^1 c(u^*,v)dv&=1\\
+\int_0^1 c(u,v^*)du&=1
+\end{aligned}
+$$
+
+
+### Steps to calculate the PDF of a copula
+
+**Step 1:**
+
+For any point on the graph, (x,y), we first calculate values for both the PDF and the CDF of X and Y.
+
+**Step 2:**
+
+Use the CDF (u,v) of X and Y at (x,y), we can calculate the $c(u,v)$.
+
+**Step 3:**
+
+$$
+\begin{aligned}
+f(x, y)&=c(u, v)f(x) f(y) \\
+c(u, v)&=\frac{\partial^{2} C(u, v)}{\partial u \partial v}
+\end{aligned}
+$$
+
+![-w600](/media/15938358383413/15940456901104.jpg){:width="600px"}
+
+### Using Copulas in simulations
+
+In this section, we demonstrate how copulas can be used in Monte Carlo simulations.
+
+In order to use copulas in a Monte Carlo simulation, we need to calculate the **inverse marginal CDFs** for the copula.
+
+To determine the marginal CDFs of a copula, we take the first derivative of the copula function with respect to one of the under- lying distributions. For two cumulative distributions u and v, the marginal CDFs would be:
+
+$$
+C(u^*,v^*)=\int_0^{u^*} \int_0^{v^*} c(u,v)dv du
+$$
+
+$$
+\begin{array}{l}
+C_{1}(u^*,v^*)=\frac{\partial C}{\partial u}(u^*,v^*)=\int_0^{v^*} c(u^*, v) d v \\
+C_{2}(u^*,v^*)=\frac{\partial C}{\partial v}(u^*,v^*)=\int_0^{u^*} c(u, v^*) d u
+\end{array}
+$$
+
+Note that $c(u^*, v)$ is the conditional PDF for $v^* \in [0,1]$:
+
+$$
+\int_0^{1} c(u^*, v) d v=1
+$$
+
+As a result, $C_1$ is a conditional CDF for $v^*$. Therefore, under the condition that $u=u^*$, $C_1(u^*, v^*)$ is uniformly distributed on $[0,1]$.
+
+
+
+
+For example, for Frank’s copula the marginal CDF for u would be:
+
+$$
+C_{1}=\frac{\partial C}{\partial u}=\frac{\left(e^{-\alpha u}-1\right)\left(e^{-\alpha v}-1\right)+\left(e^{-\alpha v}-1\right)}{\left(e^{-\alpha u}-1\right)\left(e^{-\alpha v}-1\right)+\left(e^{-\alpha}-1\right)}
+$$
+
+$C_1$ is a proper CDF, and varies between 0% and 100%. To determine the inverse of $C_1$, we solve for $v$:
+
+$$
+v=-\frac{1}{\alpha} \ln \left[1+\frac{C_{1}\left(e^{-\alpha}-1\right)}{1+\left(e^{-\alpha u}-1\right)\left(1-C_{1}\right)}\right]
+$$
+
+Each iteration in the Monte Carlo simulation then involves three steps:
+
+1. Generate two independent random draws from a standard uniform distribution. These are the values for $u$ and $C_1$.
+2. Use the inverse CDF of the copula to determine v. This is the essential step. Depending on the copula, different values of v will be more or less likely, given u.
+3. Calculate values for x and y, using inverse cumulative distribution functions for the underlying distributions. For example, if the underlying distributions are normal, use the inverse normal CDF to calculate x and y based on u and v.
+
+
+### Parameterization of Copulas
+
+Given a copula, we know how to calculate values for that copula, but how do we know which copula to use in the first place? The answer is a mixture of art and science.
+
+If the data seem to exhibit increased correlation in crashes, then you should choose a copula that displays **a higher probability in the negative-negative region** such as the **Clayton copula.**
+
+Once we know which type of copula we are going to use, we need to determine the parameters of the copula. Take for example the Farlie-Gumbel-Morgenstern (FGM) copula, given by:
+
+$$
+C=uv[1+\alpha (1-u)(1-v)]
+$$
+
+We can prove that
+
+$$
+c(u,v)=1+\alpha-2\alpha u -2\alpha v +4 \alpha uv
+$$
+
+As with most copulas, there is a single parameter, α, which needs to be determined, and this parameter is related to how closely the two underlying random variables are **related to each other.**
+
+In statistics, the popular methods for measuring how closely two variables are related to each other include:
+
+**1) Pearson’s correlation or linear correlation**
+
+$$
+\text { Correlation }=\frac{E[(X-E[X])(Y-E[Y])]}{\sigma_{X} \sigma_{Y}}
+$$
+
+**2)  Kendall’s tau**
+
+If we have $(X_i-X_j)(Y_i - Y_j)>0 $, we say that the two points are concordant.
+
+Kendall’s tau is defined as the probability of concordance minus the probability of discordance.
+
+$$
+\tau = P[\text{concordance}] – P[\text{discordance}]
+$$
+
+If P[concordance] is 100%, then P[discordance] must be 0%. Similarly, if P[discordance] is 100%, P[concordance] must be 0%. Because of this, like our standard correlation measure, Kendall’s tau must vary between −100% and +100%.
+
+$$
+\tau=\frac{\text{# of concordant pairs − # of discordant pairs}}{C_n^2}
+$$
+
+Characteristics of Kendall's tau:
+1. It is less sensitive to outliers than Pearson’s correlation.
+2. Measures of dependence based on rank are in- variant under strictly increasing transformations
+
+![-w600](/media/15938358383413/15941343079344.jpg){:width="600px"}
+
+
+As long as the transformation does not change the relative order of the points, Kendall's tau won't change, while the Linear Correlation changes.
+
+As it turns out, for many copulas, changing the value of the shape parameter, α, will transform the data in a way that is similar to the way the data was trans- formed in Exhibit 5.14.
+
+Changing α will change the shape of the data, but it will not change the order. For a given type of copula, then, **Kendall’s tau is often a function of the copula’s parameter, α, and does not depend on what type of marginal distributions are being used.**
+
+
+This leads to a simple method for setting the parameter of the copula. First, calculate Kendall’s tau, and then set the shape parameter based on the appropriate formula for that copula relating Kendall’s tau and the shape parameter.
+
+Given an equation for a copula, C(u,v) and its density function c(u,v), Kendall’s tau can be determined as follows:
+
+$$
+\tau=4 E[C(u, v)]-1=4 \int_{0}^{1} \int_{0}^{1} C(u, v) c(u, v) d u d v-1
+$$
+
+
+
+**3) Spearman’s rho**
+
+To calculate Spear- man’s rho from sample data, we simply calculate our standard correlation measure using the ranks of the data.
+
+We can also calculate Spearman’s rho from a copula function:
+
+$$
+\rho_{s}=12 \int_{0}^{1} \int_{0}^{1} C(u, v) d u d v-3
+$$
+
+
+Rather than being based directly on the values of the variables, both Kendall’s tau and Spearman’s rho are based on the **order or rank of the variables**.
