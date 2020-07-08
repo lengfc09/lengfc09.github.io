@@ -735,7 +735,7 @@ $$
 
 Moreover, since that u and v are both uniformly distributed in [0,1], we know that the marginal PDF is always $I_{[0,1]}$.
 
-In other words, for any $ u^*,v^* $, we must have
+In other words, for $\forall u,v $, we must have
 
 $$
 \begin{aligned}
@@ -800,13 +800,13 @@ C_{2}(u^*,v^*)=\frac{\partial C}{\partial v}(u^*,v^*)=\int_0^{u^*} c(u, v^*) d u
 \end{array}
 $$
 
-Note that $c(u^*, v)$ is the conditional PDF for $v^* \in [0,1]$:
+Note that $c(u^0, v)$ is the conditional PDF for $v^0 \in [0,1]$:
 
 $$
 \int_0^{1} c(u^*, v) d v=1
 $$
 
-As a result, $C_1$ is a conditional CDF for $v^*$. Therefore, under the condition that $u=u^*$, $C_1(u^*, v^*)$ is uniformly distributed on $[0,1]$.
+As a result, $C_1$ is a conditional CDF for $v^0$. Therefore, under the condition that $u=u^0$, $C_1(u^0, v^0)$ is uniformly distributed on $[0,1]$.
 
 
 
