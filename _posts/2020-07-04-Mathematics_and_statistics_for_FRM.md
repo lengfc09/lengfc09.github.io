@@ -735,7 +735,7 @@ $$
 
 Moreover, since that u and v are both uniformly distributed in [0,1], we know that the marginal PDF is always $I_{[0,1]}$.
 
-In other words, for $\forall u^*,v^*$, we must have
+In other words, for $\forall u^*,v^* $, we must have
 
 $$
 \begin{aligned}
