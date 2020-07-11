@@ -22,7 +22,7 @@ $$
 P(B|A)=\frac{P(A|B)* P(B)}{P(A)}
 $$
 
-1. The conditional probability $$P(A|B)$$ is called the *likelihood* or *evidence*.
+1. The conditional probability $$P(A|B)$$ is called the likelihood* or evidence.
 2. $$P(B)$$ is the prior belief.
 3. $$P(B|A)$$ is the posterior belief.
 
