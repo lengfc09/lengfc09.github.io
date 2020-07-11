@@ -19,13 +19,13 @@ Bayes’ theorem is often described as a procedure for **updating beliefs about 
 Say our prior belief for the probability of event B is $P(B)$. After we observe another event A which has happened, e.g. **new information**, we want to update our estimation of the probability of event B.
 
 $$
-P(B|A)=\frac{P(A|B)* P(B)}{P(A)}
+P(B\|A)=\frac{P(A\|B)* P(B)}{P(A)}
 $$
 
 
-1. The conditional probability $$P(A|B)$$ is called the likelihood or evidence.
+1. The conditional probability $$P(A\|B)$$ is called the likelihood or evidence.
 2. $$P(B)$$ is the prior belief.
-3. $$P(B|A)$$ is the posterior belief.
+3. $$P(B\|A)$$ is the posterior belief.
 
 ### Bayes versus Frequentists
 
@@ -50,7 +50,7 @@ $$
 f(A \mid B)=\frac{g(B \mid A) f(A)}{\int_{-\infty}^{+\infty} g(B \mid A) f(A) d A}
 $$
 
-Here f(A) is the prior probability density function, and f(A|B) is the posterior PDF. g(B|A) is the likelihood.
+Here f(A) is the prior probability density function, and f(A\|B) is the posterior PDF. g(B\|A) is the likelihood.
 
 
 ### Conjugate Distribution
@@ -70,17 +70,17 @@ A Bayesian network illustrates the causal relationship between different random 
 
 Exhibit 6.4 shows a Bayesian network with two nodes that represent the economy go up, E, and a stock go up, S.
 
-Exhibit 6.4 also shows three probabilities: the probability that E is up, $P[E]$; the probability that S is up given that E is up, $P[S | E]$; and the probability that S is up given that E is not up, $P[S | E]$.
+Exhibit 6.4 also shows three probabilities: the probability that E is up, $P[E]$; the probability that S is up given that E is up, $P[S \| E]$; and the probability that S is up given that E is not up, $P[S \| E]$.
 
 
 ![-w600](/media/15940441031797/15944709528677.jpg){:width="600px"}
-Using Bayes’ theorem, we can also calculate $P[E | S]$. This is the probability that E is up given that we have observed S being up:
+Using Bayes’ theorem, we can also calculate $P[E \| S]$. This is the probability that E is up given that we have observed S being up:
 
 $$
 P[E \mid S]=\frac{P[S \mid E] P[E]}{P[S]}=\frac{P[S \mid E] P[E]}{P[S \mid E] P[E]+P[S \mid \bar{E}] P[\bar{E}]}
 $$
 
-**Causal reasoning**, $P[S | E]$, follows the cause-and-effect arrow of our Bayesian network. **Diagnostic reasoning**, $P[E | S]$, works in reverse.
+**Causal reasoning**, $P[S \| E]$, follows the cause-and-effect arrow of our Bayesian network. **Diagnostic reasoning**, $P[E \| S]$, works in reverse.
 
 For most people, causal reasoning is much more intuitive than diagnostic reasoning. Diagnostic reasoning is one reason why people often find Bayesian logic to be confusing. Bayesian networks do not eliminate this problem, but they do implicitly model cause and effect, allowing us to differentiate easily between causal and diagnostic relationships.
 
@@ -131,4 +131,4 @@ Another advantage of Bayesian networks is that **they are more intuitive**. It i
 
 An equity analyst covering the two companies represented by S1 and S2 might be able to look at the Bayesian networks and say that the linkages and probabilities seem reasonable, but the analyst is unlikely to be able to say the same about the two covariance matrices.
 
-Because Bayesian networks are more intuitive, they might be easier to update in the face of a structural change or regime change. In the second network, where we have described S2 as being a supplier to S1, suppose that S2 announces that it has signed a contract to supply another large firm, thereby making it less reliant on S1? With the help of our equity analyst, we might be able to update the Bayesian network im/mediately (for example, by decreasing the {:width="600px"}probabilities $P[S2 | S1]$ and $P[S2 | S1]$), but it is not as obvious how we would directly update the covariance matrices.
+Because Bayesian networks are more intuitive, they might be easier to update in the face of a structural change or regime change. In the second network, where we have described S2 as being a supplier to S1, suppose that S2 announces that it has signed a contract to supply another large firm, thereby making it less reliant on S1? With the help of our equity analyst, we might be able to update the Bayesian network im/mediately (for example, by decreasing the {:width="600px"}probabilities $P[S2 \| S1]$ and $P[S2 \| S1]$), but it is not as obvious how we would directly update the covariance matrices.
