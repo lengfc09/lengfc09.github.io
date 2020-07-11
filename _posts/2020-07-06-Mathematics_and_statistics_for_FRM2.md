@@ -22,9 +22,9 @@ $$
 P(B|A)=\frac{P(A|B)* P(B)}{P(A)}
 $$
 
-* The conditional probability $P(A|B)$ is called the *likelihood* or *evidence*.
-* P(B) is the prior belief.
-* P(B|A) is the posterior belief.
+* The conditional probability $$P(A|B)$$ is called the *likelihood* or *evidence*.
+* $$P(B)$$ is the prior belief.
+* $$P(B|A)$$ is the posterior belief.
 
 ### Bayes versus Frequentists
 
