@@ -1,6 +1,6 @@
 ---
 layout: mysingle
-date: 2020-07-06 22:02:16 +0800
+date: 2020-07-01 22:02:16 +0800
 title: Mathematics and Statistics for Financial Risk Management by Michael B. Miller --- Part 2
 categories: Quantitative_Financial_Risk_Management
 excerpt: "Notes for the book by Michael B. Miller. It includes basic concepts in mathemtacs and statistics which are commonly used in the risk mangement process."
@@ -21,6 +21,7 @@ Say our prior belief for the probability of event B is $P(B)$. After we observe 
 $$
 P(B|A)=\frac{P(A|B)* P(B)}{P(A)}
 $$
+
 
 1. The conditional probability $$P(A|B)$$ is called the likelihood or evidence.
 2. $$P(B)$$ is the prior belief.
