@@ -527,6 +527,58 @@ The variance of the t distribution for k > 2 is k/(k − 2). You can see that as
 
 As we will see in the following chapter, the t distribution’s popularity derives mainly from its use in hypothesis testing. The t distribution is also a popular choice for modeling the returns of financial assets, **since it displays excess kurtosis.**
 
+Example:
+
+The BLUE for population mean is the sample mean:
+
+$$
+\hat{\mu}=\frac{1}{n} \sum_{i=1}^{n} r_{i}=\frac{1}{n}\left(r_{1}+r_{2}+\cdots+r_{n-1}+r_{n}\right)
+$$
+
+The mean and variance of this sample mean is:
+
+$$
+E[\hat{\mu}]=\mu \\
+V[\hat{\mu}]=\sigma^2_{\hat{\mu}} = E[(\hat{\mu}-\mu)^2]=\frac{\sigma^2}{n}
+$$
+
+Whereas the sample variance:
+
+$$
+\begin{equation}
+\begin{array}{l}
+\hat{\sigma}^{2}=\frac{1}{n-1} \sum_{i=1}^{n}\left(x_{i}-\hat{\mu}\right) \\
+E\left[\hat{\sigma}^{2}\right]=\sigma^{2}
+\end{array}
+\end{equation}
+$$
+
+we have
+
+$$
+(n-1) \frac{\hat{\sigma}^{2}}{\sigma^{2}} \sim \chi_{n-1}^{2}
+$$
+
+Therefore, we can prove that $$t=\frac{\hat{\mu}-\mu}{\hat{\sigma} / \sqrt{n}}$$ follow a Student’s t distribution with (n − 1) degrees of freedom.
+
+**Proof:**
+
+$$
+t=\frac{\frac{\hat{\mu}-\mu}{\sigma / \sqrt{n}} }{(\hat{\sigma} /\ \sigma)}
+$$
+
+As we know:
+
+$$
+\frac{\hat{\mu}-\mu}{\sigma / \sqrt{n}} \sim N(0,1)
+$$
+
+$$
+ \frac{\hat{\sigma}^{2}}{\sigma^{2}} \sim \frac{1}{n-1} \chi_{n-1}^{2}
+$$
+
+By definition, t follow a Student’s t distribution with (n − 1) degrees of freedom.
+
 ### F-distribution
 
 If $U_1$ and $U_2$ are two independent chi-squared distributions with k1 and k2 degrees of freedom, respectively, then X
