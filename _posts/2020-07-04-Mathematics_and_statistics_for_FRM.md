@@ -579,6 +579,23 @@ $$
 
 By definition, t follow a Student’s t distribution with (n − 1) degrees of freedom.
 
+**Common Critical Values for Student’s t Distribution:**
+
+$$
+\begin{array}{rrrrr}
+\hline & t_{10} & t_{100} & t_{1,000} & N \\
+\hline 1.0 \% & -2.76 & -2.36 & -2.33 & -2.33 \\
+2.5 \% & -2.23 & -1.98 & -1.96 & -1.96 \\
+5.0 \% & -1.81 & -1.66 & -1.65 & -1.64 \\
+10.0 \% & -1.37 & -1.29 & -1.28 & -1.28 \\
+90.0 \% & 1.37 & 1.29 & 1.28 & 1.28 \\
+95.0 \% & 1.81 & 1.66 & 1.65 & 1.64 \\
+97.5 \% & 2.23 & 1.98 & 1.96 & 1.96 \\
+99.0 \% & 2.76 & 2.36 & 2.33 & 2.33 \\
+\hline
+\end{array}
+$$
+
 ### F-distribution
 
 If $U_1$ and $U_2$ are two independent chi-squared distributions with k1 and k2 degrees of freedom, respectively, then X
