@@ -159,7 +159,7 @@ Rather than working directly with the confidence level, we often work with the q
 In practice, the population mean, $\mu$, is often unknown. By rearranging the previous equation we come to an equation with a more interesting form:
 
 $$
-P\left[\hat{\mu}-\frac{x_{L} \hat{\sigma}}{\sqrt{n}} \leq \mu \leq \hat{\mu}+\frac{x_{U} \hat{\sigma}}{\sqrt{n}}\right]=\gamma
+P\left[\hat{\mu}-\frac{x_{U} \hat{\sigma}}{\sqrt{n}} \leq \mu \leq \hat{\mu}-\frac{x_{L} \hat{\sigma}}{\sqrt{n}}\right]=\gamma
 $$
 
 Looked at this way, we are now giving the probability that the population mean will be contained within the defined range.
@@ -314,3 +314,229 @@ Expected shortfall does answer an important question. What’s more, expected sh
 
 As our discussion on backtesting suggests, though, **because it is concerned with the tail of the distribution, the reliability of our expected shortfall measure may be difficult to gauge.**
 
+
+
+## Chapter 6: Matrix Algebra
+
+### Cholesky Decomposition
+
+In risk management, it is often useful to generate simulations in which we can specify the covariance between different variables.
+
+Imagine that we have N random variables, X1, X2, . . ., XN, representing the returns of different stocks. In order to describe the relationships between each of the variables, we could form an N × N covariance matrix, where each element, $\sigma_{i,j}$ , corresponds to the covariance between the ith and jth random variables:
+
+$$
+\boldsymbol{\Sigma}=\left[\begin{array}{cccc}
+\sigma_{1,1} & \sigma_{1,2} & \cdots & \sigma_{1, n} \\
+\sigma_{2,1} & \sigma_{2,2} & \cdots & \sigma_{2, n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\sigma_{n, 1} & \sigma_{n, 2} & \cdots & \sigma_{n, n}
+\end{array}\right] \text { s.t. } \sigma_{i, j}=E\left[\left(X_{i}-E\left[X_{i}\right]\right)\left(X_{j}-E\left[X_{j}\right]\right)\right]
+$$
+
+If the covariance matrix satisfies certain minimum requirements, we can decompose the covariance matrix, rewriting it in terms of a lower triangular matrix, L, and its transpose, L′, which is an upper triangular matrix:
+
+$$
+\Sigma = LL'
+$$
+
+This is what is known as a Cholesky decomposition. We can create a random vector which has exactly the covariance matrix as $\Sigma$:
+
+
+Designate an N × 1 vector of i.i.d. standard normal variables as $\Phi$, then $C=L\Phi$ is the random vector we are looking for.
+
+Proof:
+
+$$E( C ) =\vec{0} \\
+Cov(C,C)=E(CC')=E(L\Phi \Phi'L')=LE(\Phi \Phi')L'=LL'=\Sigma
+$$
+
+
+### Principle Component Analysis
+
+#### Difference between linear regression and PCA
+
+For the linear regression:
+
+$$min ||Ax-y||^2$$
+
+since $Ax=(a1,a2,...,a_n)x$, the linear regression is essentially the projection of y onto the linear space of column vectors of A.
+
+For the PCA, the first principle component is the one that:
+
+$$\max ||A\mu||^2 $$
+
+Mathematically, for the linear regression, it is a problem of project a point in $R^m $ into the linear space of $\{x_0,x_1,...,x_n\}$. In other words, the base is given.
+
+for the PCA, however, it is a problem of find a sub-space for the data given, so that most of the information can be maintained. In other words, the task is to find the base of the sub-space.:
+
+$$\mu_1, ..., \mu_k \in R^n$$
+
+#### Details in Mathematics
+
+**First Component**
+In order to maximize variance, the first weight vector w(1) thus has to satisfy:
+
+$${\mathbf  {w}}_{{(1)}}={\underset  {\Vert {\mathbf  {w}}\Vert =1}{\operatorname {\arg \,max}}}\,\left\{\sum _{i}\left(t_{1}\right)_{{(i)}}^{2}\right\}={\underset  {\Vert {\mathbf  {w}}\Vert =1}{\operatorname {\arg \,max}}}\,\left\{\sum _{i}\left({\mathbf  {x}}_{{(i)}}\cdot {\mathbf  {w}}\right)^{2}\right\}$$
+
+Equivalently, writing this in matrix form gives
+
+$${\displaystyle \mathbf {w} _{(1)}={\underset {\Vert \mathbf {w} \Vert =1}{\operatorname {\arg \,max} }}\,\{\Vert \mathbf {Xw} \Vert ^{2}\}={\underset {\Vert \mathbf {w} \Vert =1}{\operatorname {\arg \,max} }}\,\left\{\mathbf {w} ^{T}\mathbf {X^{T}} \mathbf {Xw} \right\}}$$
+Since w(1) has been defined to be a unit vector, it equivalently also satisfies
+
+$${\displaystyle \mathbf {w} _{(1)}={\operatorname {\arg \,max} }\,\left\{{\frac {\mathbf {w} ^{T}\mathbf {X^{T}} \mathbf {Xw} }{\mathbf {w} ^{T}\mathbf {w} }}\right\}}$$
+
+The quantity to be maximised can be recognised as a Rayleigh quotient. A standard result for a positive semidefinite matrix such as $X^TX$  is that the quotient's maximum possible value is the largest **eigenvalue** of the matrix, which occurs when w is the corresponding **eigenvector**.
+
+With $w_{(1)}$ found, the first principal component of a data vector $x_{(i)}$ can then be given as a score $t_{1(i)} = x_{(i)} ⋅ w_{(1)}$ in the transformed co-ordinates,  or as the corresponding vector in the original variables $t_{1(i)}w_{(1)} = <x_{(i)} * w_{(1)}>w_{(1)}$
+
+**Further Component**
+
+The k-th component can be found by subtracting the first k − 1 principal components from X:
+
+$${\mathbf  {{\hat  {X}}}}_{{k}}={\mathbf  {X}}-\sum _{{s=1}}^{{k-1}}{\mathbf  {X}}{\mathbf  {w}}_{{(s)}}{\mathbf  {w}}_{{(s)}}^{{{\rm {T}}}}$$
+
+and then finding the weight vector which extracts the maximum variance from this new data matrix
+
+$${\mathbf  {w}}_{{(k)}}={\underset  {\Vert {\mathbf  {w}}\Vert =1}{\operatorname {arg\,max}}}\left\{\Vert {\mathbf  {{\hat  {X}}}}_{{k}}{\mathbf  {w}}\Vert ^{2}\right\}={\operatorname {\arg \,max}}\,\left\{{\tfrac  {{\mathbf  {w}}^{T}{\mathbf  {{\hat  {X}}}}_{{k}}^{T}{\mathbf  {{\hat  {X}}}}_{{k}}{\mathbf  {w}}}{{\mathbf  {w}}^{T}{\mathbf  {w}}}}\right\}$$
+
+It turns out that this gives the remaining eigenvectors of $X^TX$, with the maximum values for the quantity in brackets given by their corresponding eigenvalues. Thus the weight vectors are eigenvectors of $X^TX$.
+The full principal components decomposition of X can therefore be given as
+
+$$\mathbf{T} = \mathbf{X} \mathbf{W}$$
+
+where W is a p-by-p matrix of weights whose columns are the eigenvectors of $X^TX$.  The transpose of W is sometimes called the whitening or sphering transformation.
+Columns of W multiplied by the square root of corresponding eigenvalues, i.e. eigenvectors scaled up by the variances, are called loadings in PCA or in Factor analysis.
+
+
+#### PCA algorithm
+
+**Step 1: Data Preprocessing**
+Mean Normalization, so that the features centers in the original point.
+Feature scaling is necessary;
+
+$$X=\frac{[X-mean(X)]}{std(X)}$$
+
+![-w600](/media/15718172032236/15718483847487.jpg){:width="600px"}
+![-w600](/media/15718172032236/15718487654558.jpg){:width="600px"}
+
+#### Vectorization:
+
+Mean normalization and optionally feature scaling:
+
+$$X= \text{bsxfun}(@minus, X, mean(X,1))$$
+
+In matlab, mean(X,1) returns a row vector.
+
+$$\sum =\frac{1}{m} X^TX$$
+
+$$[U,S,V]=svd(\sum )$$
+Then we have:
+
+$$
+U=\left[\begin{array}{cccc}{|} & {|} & {} & {|} \\ {u^{(1)}} & {u^{(2)}} & {\ldots} & {u^{(n)}} \\ {|} & {|} & {} & {|}\end{array}\right] \in \mathbb{R}^{n \times n}
+$$
+
+$$x\in R^n \to z\in R^k: $$
+
+$$\text{Ureduce}=U(~: ~, 1:k)$$
+
+$$z=X*Ureduce$$
+
+Note 1: $x_0^{i} \neq 0$ for this convention.
+Note 2: $U$ is from $$USV^*=X^TX$$, therefore U is $$R^{n\times n}$$. It is the eigenvector of X.
+
+
+#### Application 1: the dynamic term structure of Interest rates
+
+A yield curve plots the relationship between yield to maturity and time to maturity for a given issuer or group of issuers. A typical yield curve is concave and upwardsloping.
+
+Over time, as interest rates change, the shape of the yield curve will change, too.  **A shift** in the yield curve occurs when all of the points along the curve increase or decrease by an equal amount. **A tilt** occurs when the yield curve either steepens (points further out on the curve increase relative to those closer in) **or flattens** (points further out decrease rela- tive to those closer in). The yield curve is said to **twist** when the points in the middle of the curve move up or down relative to the points on either end of the curve. Exhibits 9.13, 9.14, and 9.15 show examples of these dynamics.
+
+These three prototypical patterns—**shifting, tilting, and twisting**—can often be seen in PCA.
+
+
+
+![-w600](/media/15940441031797/15946440392421.jpg){:width="600px"}
+
+![-w600](/media/15940441031797/15946440500768.jpg){:width="600px"}
+
+![-w600](/media/15940441031797/15946440596076.jpg){:width="600px"}
+
+The following is a principal component matrix obtained from daily U.S. government rates from March 2000 through August 2000.
+
+For each day, there were six points on the curve representing maturities of 1, 2, 3, 5, 10, and 30 years. Before calculating the covariance matrix, all of the data were centered and standardized.
+
+$$\frac{1}{N}X'X = \Sigma = PDP'$$
+
+$$
+\mathbf{P}=\left[\begin{array}{rrrrrr}
+0.39104 & -0.53351 & -0.61017 & 0.33671 & 0.22609 & 0.16020 \\
+0.42206 & -0.26300 & 0.03012 & -0.30876 & -0.26758 & -0.76476 \\
+0.42685 & -0.16318 & 0.19812 & -0.35626 & -0.49491 & 0.61649 \\
+0.42853 & 0.01135 & 0.46043 & -0.17988 & 0.75388 & 0.05958 \\
+0.41861 & 0.29495 & 0.31521 & 0.75553 & -0.24862 & -0.07604 \\
+0.35761 & 0.72969 & -0.52554 & -0.24737 & 0.04696 & 0.00916
+\end{array}\right]
+$$
+
+
+- The first column is the first principle component. We can see this if we plot the elements in a chart, as in Exhibit 9.16. This flat, equal weighting represents the shift of the yield curve.
+
+- Similarly, the second principal component shows an upward trend. A movement in this component tends to tilt the yield curve.
+
+- Finally, if we plot the third principal component, it is bowed, high in the center and low on the ends. A shift in this component tends to twist the yield curve.
+
+
+
+![-w600](/media/15940441031797/15946442669316.jpg){:width="600px"}
+
+
+Not only can we see the shift, tilt, and twist in the principal components, but we can also see their relative importance in explaining the variability of interest rates.
+
+In this example, the first principal component explains 90% of the variance in interest rates.
+
+If we incorporate the second and third principal components, fully 99.9% of the variance is explained. The two charts in Exhibits 9.17 and 9.18 show approximations to the 1-year and 30-year rates, using just the first three principal components.
+
+![-w600](/media/15940441031797/15946443608498.jpg){:width="600px"}
+
+![-w600](/media/15940441031797/15946443723800.jpg){:width="600px"}
+
+Because the first three principal components explain so much of the dynamics of the yield curve, they could serve as a basis for an interest rate model or as the basis for a risk report. A portfolio’s correlation with these principal components might also be a meaningful risk metric.
+
+#### Application 2: the structure of global equity markets
+
+Global equity markets are increasingly linked. Due to similarities in their economies or because of trade relationships, equity markets in different countries will be more or less correlated. PCA can highlight these relationships.
+
+Within countries, PCA can be used to describe the relationships between groups of companies in industries or sectors. In a novel application of PCA, Kritzman, Li, Page, and Rigobon (2010) suggest that the amount of variance explained by the first principal components can be used to gauge systemic risk within an economy. The basic idea is that as more and more of the variance is explained by fewer and fewer principal com- ponents, the economy is becoming less robust and more susceptible to systemic shocks. In a similar vein, Meucci (2009) proposes a general measure of portfolio diversification based in part on principal component analysis. In this case, a portfolio can range from undiversified (all the variance is explained by the first principal component) to fully diversified (each of the principal components explains an equal amount of variance).
+
+
+The following matrix is the principal component matrix formed from the analysis of nine broad equity market indexes, three each from North America, Europe, and Asia. The original data consisted of monthly log returns from January 2000 through April 2011. The returns were centered and standardized.
+
+$$
+\mathbf{P}=\left[
+\begin{array}{rrrrrrrr}
+0.3604 & -0.1257 & 0.0716 & -0.1862 & 0.1158 & -0.1244 & 0.4159 & 0.7806 & 0.0579 \\
+0.3302 & -0.0197 & 0.4953 & -0.4909 & -2.1320 & 0.4577 & 0.2073 & -0.3189 & -0.0689 \\
+0.3323 & 0.2712 & 0.3359 & -0.2548 & 0.2298 & -0.5841 & -0.4897 & -0.0670 & -0.0095 \\
+0.3520 & -0.3821 & -0.2090 & 0.1022 & -0.1805 & 0.0014 & -0.2457 & 0.0339 & -0.7628 \\
+0.3472 & -0.2431 & -0.1883 & 0.1496 & 0.2024 & -0.3918 & 0.5264 & -0.5277 & 0.1120 \\
+0.3426 & -0.4185 & -0.1158 & 0.0804 & -0.3707 & 0.0675 & -0.3916 & 0.0322 & 0.6256 \\
+0.2844 & 0.6528 & -0.4863 & -0.1116 & -0.4782 & -0.0489 & 0.1138 & -0.0055 & -0.0013 \\
+0.3157 & 0.2887 & 0.4238 & 0.7781 & -0.0365 & 0.1590 & 0.0459 & 0.0548 & -0.0141 \\
+0.3290 & 0.1433 & -0.3581 & -0.0472 & 0.6688 & 0.4982 & -0.1964 & -0.0281 & 0.0765
+\end{array}\right]
+$$
+
+As before, we can graph the first, second, and third principal components. In Exhibit 9.19, the different elements have been labeled with either N, E, or A for North America, Europe, and Asia, respectively.
+
+As before, the first principal component appears to be composed of an approximately equal weighting of all the component time series. This suggests that these equity markets are highly integrated, and most of their movement is being driven by  common factor. The first component explains just over 75% of the total variance in the data. Diversifying a portfolio across different countries might not prove as risk-reducing as one might hope.
+
+The second factor could be described as long North America and Asia and short Europe.
+
+By the time we get to the third principal component, it is difficult to posit any fundamental rationale for the component weights. Unlike our yield curve example, in which the first three components explained 99.9% of the variance in the series, in this example the first three components explain only 87% of the total variance. This is still a lot, but it suggests that these equity returns are much more distinct.
+
+Trying to ascribe a fundamental explanation to the third and possibly even the second principal component highlights **one potential pitfall of PCA analysis: identification.**
+
+**When the principal components account for a large part** of the variance and conform to our prior expectations, they likely correspond to **real fundamental risk factors.** **When the principal components account for less variance** and we can- not associate them with any known risk factors, **they are more likely to be spurious.** Unfortunately, it is these components, which do not correspond to any previously known risk factors, which we are often hoping that PCA will identify.
+
+**Another closely related problem is stability**. If we are going to use PCA for risk analysis, we will likely want to update our principal component matrix on a regular basis. The changing weights of the components over time might be interesting, illuminating how the structure of a market is changing. If the weights are too unstable, tracking components over time can be difficult or impossible.
