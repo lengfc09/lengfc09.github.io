@@ -389,7 +389,7 @@ $$
 Since w(1) has been defined to be a unit vector, it equivalently also satisfies
 
 $$
-{\displaystyle \mathbf {w} _{(1)}={\operatorname {\arg \,max} }\,\left\{{\frac {\mathbf {w} ^{T}\mathbf {X^{T}} \mathbf {Xw} }{\mathbf {w} ^{T}\mathbf {w} }}\right\}}
+\mathbf{w}_{(1)}=\arg \max \left\{\frac{\mathbf{w}^{T} \mathbf{X}^{\mathrm{T}} \mathbf{X} \mathbf{w}}{\mathbf{w}^{T} \mathbf{w}}\right\}
 $$
 
 The quantity to be maximised can be recognised as a Rayleigh quotient. A standard result for a positive semidefinite matrix such as $X^TX$  is that the quotient's maximum possible value is the largest **eigenvalue** of the matrix, which occurs when w is the corresponding **eigenvector**.
