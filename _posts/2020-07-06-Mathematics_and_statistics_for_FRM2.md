@@ -376,14 +376,21 @@ $$\mu_1, ..., \mu_k \in R^n$$
 **First Component**
 In order to maximize variance, the first weight vector w(1) thus has to satisfy:
 
-$${\mathbf  {w}}_{{(1)}}={\underset  {\Vert {\mathbf  {w}}\Vert =1}{\operatorname {\arg \,max}}}\,\left\{\sum _{i}\left(t_{1}\right)_{{(i)}}^{2}\right\}={\underset  {\Vert {\mathbf  {w}}\Vert =1}{\operatorname {\arg \,max}}}\,\left\{\sum _{i}\left({\mathbf  {x}}_{{(i)}}\cdot {\mathbf  {w}}\right)^{2}\right\}$$
+$$
+{\mathbf  {w}}_{{(1)}}={\underset  {\Vert {\mathbf  {w}}\Vert =1}{\operatorname {\arg \,max}}}\,\left\{\sum _{i}\left(t_{1}\right)_{{(i)}}^{2}\right\}={\underset  {\Vert {\mathbf  {w}}\Vert =1}{\operatorname {\arg \,max}}}\,\left\{\sum _{i}\left({\mathbf  {x}}_{{(i)}}\cdot {\mathbf  {w}}\right)^{2}\right\}
+$$
 
 Equivalently, writing this in matrix form gives
 
-$${\displaystyle \mathbf {w} _{(1)}={\underset {\Vert \mathbf {w} \Vert =1}{\operatorname {\arg \,max} }}\,\{\Vert \mathbf {Xw} \Vert ^{2}\}={\underset {\Vert \mathbf {w} \Vert =1}{\operatorname {\arg \,max} }}\,\left\{\mathbf {w} ^{T}\mathbf {X^{T}} \mathbf {Xw} \right\}}$$
+$$
+{\displaystyle \mathbf {w} _{(1)}={\underset {\Vert \mathbf {w} \Vert =1}{\operatorname {\arg \,max} }}\,\{\Vert \mathbf {Xw} \Vert ^{2}\}={\underset {\Vert \mathbf {w} \Vert =1}{\operatorname {\arg \,max} }}\,\left\{\mathbf {w} ^{T}\mathbf {X^{T}} \mathbf {Xw} \right\}}
+$$
+
 Since w(1) has been defined to be a unit vector, it equivalently also satisfies
 
-$${\displaystyle \mathbf {w} _{(1)}={\operatorname {\arg \,max} }\,\left\{{\frac {\mathbf {w} ^{T}\mathbf {X^{T}} \mathbf {Xw} }{\mathbf {w} ^{T}\mathbf {w} }}\right\}}$$
+$$
+{\displaystyle \mathbf {w} _{(1)}={\operatorname {\arg \,max} }\,\left\{{\frac {\mathbf {w} ^{T}\mathbf {X^{T}} \mathbf {Xw} }{\mathbf {w} ^{T}\mathbf {w} }}\right\}}
+$$
 
 The quantity to be maximised can be recognised as a Rayleigh quotient. A standard result for a positive semidefinite matrix such as $X^TX$  is that the quotient's maximum possible value is the largest **eigenvalue** of the matrix, which occurs when w is the corresponding **eigenvector**.
 
@@ -397,7 +404,9 @@ $${\mathbf  {{\hat  {X}}}}_{{k}}={\mathbf  {X}}-\sum _{{s=1}}^{{k-1}}{\mathbf  {
 
 and then finding the weight vector which extracts the maximum variance from this new data matrix
 
-$${\mathbf  {w}}_{{(k)}}={\underset  {\Vert {\mathbf  {w}}\Vert =1}{\operatorname {arg\,max}}}\left\{\Vert {\mathbf  {{\hat  {X}}}}_{{k}}{\mathbf  {w}}\Vert ^{2}\right\}={\operatorname {\arg \,max}}\,\left\{{\tfrac  {{\mathbf  {w}}^{T}{\mathbf  {{\hat  {X}}}}_{{k}}^{T}{\mathbf  {{\hat  {X}}}}_{{k}}{\mathbf  {w}}}{{\mathbf  {w}}^{T}{\mathbf  {w}}}}\right\}$$
+$$
+{\mathbf  {w}}_{{(k)}}={\underset  {\Vert {\mathbf  {w}}\Vert =1}{\operatorname {arg\,max}}}\left\{\Vert {\mathbf  {{\hat  {X}}}}_{{k}}{\mathbf  {w}}\Vert ^{2}\right\}={\operatorname {\arg \,max}}\,\left\{{\tfrac  {{\mathbf  {w}}^{T}{\mathbf  {{\hat  {X}}}}_{{k}}^{T}{\mathbf  {{\hat  {X}}}}_{{k}}{\mathbf  {w}}}{{\mathbf  {w}}^{T}{\mathbf  {w}}}}\right\}
+$$
 
 It turns out that this gives the remaining eigenvectors of $X^TX$, with the maximum values for the quantity in brackets given by their corresponding eigenvalues. Thus the weight vectors are eigenvectors of $X^TX$.
 The full principal components decomposition of X can therefore be given as
