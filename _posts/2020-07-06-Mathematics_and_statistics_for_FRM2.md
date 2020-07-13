@@ -377,7 +377,7 @@ $$\mu_1, ..., \mu_k \in R^n$$
 In order to maximize variance, the first weight vector w(1) thus has to satisfy:
 
 $$
-{\mathbf  {w}}_{{(1)}}={\underset  {\Vert {\mathbf  {w}}\Vert =1}{\operatorname {\arg \,max}}}\,\left\{\sum _{i}\left(t_{1}\right)_{{(i)}}^{2}\right\}={\underset  {\Vert {\mathbf  {w}}\Vert =1}{\operatorname {\arg \,max}}}\,\left\{\sum _{i}\left({\mathbf  {x}}_{{(i)}}\cdot {\mathbf  {w}}\right)^{2}\right\}
+\mathbf{w}_{(1)}=\underset{\|\mathbf{w}\|=1}{\arg \max }\left\{\sum_{i}\left(t_{1}\right)_{(i)}^{2}\right\}=\underset{\|\mathbf{w}\|=1}{\arg \max }\left\{\sum_{i}\left(\mathbf{x}_{(i)} \cdot \mathbf{w}\right)^{2}\right\}
 $$
 
 Equivalently, writing this in matrix form gives
@@ -400,12 +400,14 @@ With $w_{(1)}$ found, the first principal component of a data vector $x_{(i)}$ c
 
 The k-th component can be found by subtracting the first k − 1 principal components from X:
 
-$${\mathbf  {{\hat  {X}}}}_{{k}}={\mathbf  {X}}-\sum _{{s=1}}^{{k-1}}{\mathbf  {X}}{\mathbf  {w}}_{{(s)}}{\mathbf  {w}}_{{(s)}}^{{{\rm {T}}}}$$
+$$
+\hat{\mathbf{X}}_{k}=\mathbf{X}-\sum_{s=1}^{k-1} \mathbf{X} \mathbf{w}_{(s)} \mathbf{w}_{(s)}^{\mathrm{T}}
+$$
 
 and then finding the weight vector which extracts the maximum variance from this new data matrix
 
 $$
-{\mathbf  {w}}_{{(k)}}={\underset  {\Vert {\mathbf  {w}}\Vert =1}{\operatorname {arg\,max}}}\left\{\Vert {\mathbf  {{\hat  {X}}}}_{{k}}{\mathbf  {w}}\Vert ^{2}\right\}={\operatorname {\arg \,max}}\,\left\{{\tfrac  {{\mathbf  {w}}^{T}{\mathbf  {{\hat  {X}}}}_{{k}}^{T}{\mathbf  {{\hat  {X}}}}_{{k}}{\mathbf  {w}}}{{\mathbf  {w}}^{T}{\mathbf  {w}}}}\right\}
+\mathbf{w}_{(k)}=\underset{\|\mathbf{w}\|=1}{\arg \max }\left\{\left\|\hat{\mathbf{X}}_{k} \mathbf{w}\right\|^{2}\right\}=\arg \max \left\{\frac{\mathbf{w}^{T} \hat{\mathbf{X}}_{k}^{T} \hat{\mathbf{X}}_{k} \mathbf{w}}{\mathbf{w}^{T} \mathbf{w}}\right\}
 $$
 
 It turns out that this gives the remaining eigenvectors of $X^TX$, with the maximum values for the quantity in brackets given by their corresponding eigenvalues. Thus the weight vectors are eigenvectors of $X^TX$.
@@ -445,11 +447,11 @@ $$
 U=\left[\begin{array}{cccc}{|} & {|} & {} & {|} \\ {u^{(1)}} & {u^{(2)}} & {\ldots} & {u^{(n)}} \\ {|} & {|} & {} & {|}\end{array}\right] \in \mathbb{R}^{n \times n}
 $$
 
-$$x\in R^n \to z\in R^k: $$
+$$X\in R^{m,n} \to Z\in R^{m,k}: $$
 
 $$\text{Ureduce}=U(~: ~, 1:k)$$
 
-$$z=X*Ureduce$$
+$$Z=X*Ureduce$$
 
 Note 1: $x_0^{i} \neq 0$ for this convention.
 Note 2: $U$ is from $$USV^*=X^TX$$, therefore U is $$R^{n\times n}$$. It is the eigenvector of X.
