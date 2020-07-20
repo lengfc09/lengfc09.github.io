@@ -20,7 +20,8 @@ $$Y=\alpha +\beta X  + \varepsilon $$
 
 As specified, X is known as the **regressor** or independent variable. Similarly, Y is known as the **regressand** or dependent variable. As dependent implies, traditionally we think of X as causing Y. This relationship is not necessary, and in practice, especially in finance, this cause-and-effect relationship is either ambiguous or entirely absent. In finance, it is often the case that both X and Y are being driven by a common underlying factor.
 
-Note that, even it is called univariate linear regression, there are actually two features {: .notice}(1,X).
+Note that, even it is called univariate linear regression, there are actually two features (1,X).
+{: .notice}
 
 In our regression model, Y is divided into a systematic component, $\alpha + \beta X$, and an idiosyncratic component, $\varepsilon$.
 
