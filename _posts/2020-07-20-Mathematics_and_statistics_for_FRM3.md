@@ -24,7 +24,7 @@ Note that, even it is called univariate linear regression, there are actually tw
 
 In our regression model, Y is divided into a systematic component, $\alpha + \beta X$, and an idiosyncratic component, $\varepsilon$.
 
-![-w300](/media/15951262104465/15952518112811.jpg){:width="300px"}
+![-w300](/media/15951262104465/15952518112811.jpg){:width="300px"}{: .align-center}
 
 #### Ordinary Least Square
 
