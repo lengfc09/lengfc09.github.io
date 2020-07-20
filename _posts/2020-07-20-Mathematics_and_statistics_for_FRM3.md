@@ -33,17 +33,17 @@ The univariate regression model is conceptually simple. In order to **uniquely d
 
 By far the most popular linear regression model is ordinary least squares (OLS). OLS makes several assumptions about the form of the regression model, which can be summarized as follows:
 
-A1 The relationship between the regressor and the regressand is linear.
+A1: The relationship between the regressor and the regressand is linear.
 
 A2: $$E[\varepsilon\|X]=0$$
 
-A3 $$Var[\varepsilon\|X]=\sigma^2$$
+A3: $$Var[\varepsilon\|X]=\sigma^2$$
 
-A4 $$Cov[\varepsilon_i , \varepsilon_j ] = 0~ ∀i \neq j$$
+A4: $$Cov[\varepsilon_i , \varepsilon_j ] = 0~ ∀i \neq j$$
 
-A5 $$\varepsilon_i  ∼ N(0,\sigma^2 )~\forall \varepsilon_i$$
+A5: $$\varepsilon_i  ∼ N(0,\sigma^2 )~\forall \varepsilon_i$$
 
-A6 The regressor is nonstochastic.
+A6: The regressor is nonstochastic.
 
 
 ##### A1: Linear
