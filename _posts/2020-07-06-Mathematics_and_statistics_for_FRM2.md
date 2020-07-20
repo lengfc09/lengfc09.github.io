@@ -221,7 +221,7 @@ If a variable is normally distributed, the probability of a three standard devia
 
 ### Value at Risk
 
-alue at risk (VaR) is one of the most widely used risk measures in finance. VaR was popularized by J.P. Morgan in the 1990s.
+Value at risk (VaR) is one of the most widely used risk measures in finance. VaR was popularized by J.P. Morgan in the 1990s.
 
 In order to formally define VaR, we begin by defining a random variable L, which represents the loss to our portfolio. L is simply the negative of the return to our portfolio. If the return of our portfolio is −600, then the loss, L, is +600. For a given confidence level, $\gamma$, then, we can define value at risk as Equation 7.15:
 
