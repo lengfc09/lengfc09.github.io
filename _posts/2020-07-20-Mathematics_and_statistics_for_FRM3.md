@@ -55,7 +55,7 @@ $$D=\alpha +\beta R^{3/4} + \varepsilon $$
 
 Because of the exponent on R, the relationship between D and R is clearly nonlinear. Still, the relationship between D and $R^{3/4}$ is linear.
 
-2) As specified, the model implies that the linear relationship should **be true for all values of D and R**. In practice, we often **only require that the relationship is linear within a given range**.
+2) As specified, the model implies that the linear relationship should *be true for all values of D and R*. In practice, we often only require that the relationship is linear within a given range.
 
 ##### A2: independence between ε and X
 
