@@ -438,6 +438,7 @@ The first step in stress testing is defining a scenario. Scenarios can be either
 In the second step, we need to define **how all other underlying financial instruments react, given our scenario**. In order to do this, we construct multivariate regressions. We regress the returns of each underlying financial instrument against the returns of the instruments that define our scenario.
 
 What might seem strange is that, even in the case of the historical scenarios, we use recent returns in our regression. In the case of the historical scenarios, why don’t we just use the actual returns from that period?
+{: .notice--warning}
 
 - some securities or companies may not exist
 - the relationship between variables has changed significantly
