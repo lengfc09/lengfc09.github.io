@@ -64,7 +64,9 @@ Assumption A2 implies that the error term is independent of X, i.e.:
 
 $$Cov[X,\varepsilon]=0$$
 
-This because $E[\varepsilon X]=E[X* E_X [\varepsilon]]=E[X*0]=0$
+This because 
+
+$$E[\varepsilon X]=E[X* E_X [\varepsilon]]=E[X*0]=0$$
 
 ##### A3: homoscedasticity
 
