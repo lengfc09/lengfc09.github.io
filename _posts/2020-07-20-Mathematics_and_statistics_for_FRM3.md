@@ -747,7 +747,7 @@ In the GARCH model, volatility changes gradually over time. In financial markets
 
 One popular way to generate this type of extreme return is to add a so-called jump term to our standard time series model. This can be done by adding a second disturbance term:
 
-$r_t =\alpha +\varepsilon_t + [I_t]\mu_t$
+$$r_t =\alpha +\varepsilon_t + [I_t]\mu_t$$
 
 Here, $r_t$ is the market return at time t, $\alpha $ is a constant drift term, and $\varepsilon_t $ is our standard mean zero diffusion term.
 
