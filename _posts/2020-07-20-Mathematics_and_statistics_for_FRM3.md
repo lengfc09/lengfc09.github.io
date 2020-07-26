@@ -91,7 +91,7 @@ Finally, assumption A6 assumes that the **regressor is nonstochastic**, or nonra
 In reality, both the index’s return and the stock’s return are random variables, determined by a number of factors, some of which they might have in common. At some point, the discussion around assumption A6 tends to become deeply philosophical. From a practical standpoint, most of the results of OLS hold true, regardless of assumption A6. In many cases the conclusion needs to be modified only slightly.
 
 
-##### An application of A2
+**An application of A2**
 
 $$
 \beta=\frac{\operatorname{Cov}[X, Y]}{\sigma_{X}^{2}}=\rho_{X Y} \frac{\sigma_{Y}}{\sigma_{X}}
