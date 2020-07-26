@@ -64,7 +64,7 @@ Assumption A2 implies that the error term is independent of X, i.e.:
 
 $$Cov[X,\varepsilon]=0$$
 
-This because 
+This because
 
 $$E[\varepsilon X]=E[X* E_X [\varepsilon]]=E[X*0]=0$$
 
@@ -638,9 +638,9 @@ This *dichotomy*, between series that tend to grow without limit and those serie
 
 To be more precise, we say that a random variable X is stationary if for all t and n:
 
-1. $E\left[x_{t}\right]=\mu$ and $|\mu|<\infty$
-2. $\operatorname{Var}\left[x_{t}\right]=\sigma^{2}$ and $\left|\sigma^{2}\right|<\infty$
-3. $\operatorname{Cov}\left[x_{t}, x_{t-n}\right]=\sigma_n^2, \forall n$
+1. $E\left[x_{t}\right]=\mu$ and $\|\mu\|<\infty$
+2. $\operatorname{Var}[x_{t}]=\sigma^{2}$ and $\|\sigma^{2}\|<\infty$
+3. $\operatorname{Cov}[x_{t}, x_{t-n}]=\sigma_n^2, \forall n$
 
 where $\mu$, $\sigma^2$, and $$\sigma_n, n\in \mathcal{Z}^{+}$$ are constants. These three conditions state that the mean, variance, and serial correlation should be constant over time. We also require that the mean and variance be finite.
 
