@@ -442,3 +442,314 @@ What might seem strange is that, even in the case of the historical scenarios, w
 
 In the final step, after we have generated the returns for all of the underlying financial instruments, we price any options or other derivatives. While using **delta approximations** might have been acceptable for calculating value at risk statistics at one point in time, **it should never have been acceptable for stress testing**. By definition, stress testing is the examination of extreme events, and the accurate pricing of nonlinear instruments is critical.
 
+## Chapter 8: Time Series Models
+
+Time series describe how random variables evolve over time and form the basis of many financial models.
+
+### Random Walks
+
+For a random variable X, with a realization $X_t$ at time t, the following conditions describe a random walk:
+
+$$
+\begin{aligned} x_{t} &=x_{t-1}+\varepsilon_{t} \\ E\left[\varepsilon_{t}\right] &=0 \\ E\left[\varepsilon_{t}^{2}\right] &=\sigma^{2} \\ E\left[\varepsilon_{s} \varepsilon_{t}\right] &=0 ~~\forall s \neq t \end{aligned}
+$$
+
+By definition, we can see how the equation evolves over
+multiple periods:
+
+$$x_t=x_{t-1} + \varepsilon_t =x_{t-2}+ \varepsilon_{t}+ \varepsilon_{t-1} =x_0 +\sum_{i=1}^t \varepsilon_i$$
+
+Using this formula, it is easy to calculate the conditional mean and variance of $x_t$:
+
+$$\begin{aligned} E\left[x_{t} \mid x_{0}\right] &=x_{0} \\ \operatorname{Var}\left[x_{t} \mid x_{0}\right] &=t \sigma^{2} \end{aligned}$$
+
+For a random walk, our best guess for the future value of the variable is simply the current value, but the probability of finding it near the current value becomes increasingly small.
+{: .notice--primary}
+
+For a random walk, skewness is proportional to $t^{-0.5}$, and kurtosis is proportional to $t^{-1}$.
+{: .notice--primary}
+
+
+### Drift-Diffusion Model
+
+The simple random walk is not a great model for equities, where we expect prices to increase over time, or for interest rates, which cannot be negative. With some rather trivial modification, though, we can accommodate both of these requirements.
+
+One simple modification we can make to the random walk is to add a constant term, in the following way:
+
+$$p_t=\alpha + p_{t-1} + \varepsilon_t$$
+
+Just as before, the variance of $ \varepsilon_t$ is constant over time, and the various $ \varepsilon_t$’s are uncorrelated with each other.
+
+The choice of pt for our random variable is intentional. If $p_t$ is the log price, then rearranging terms, we obtain an equation for the log return:
+
+$$r_t=\Delta p_t = \alpha +\varepsilon_t$$
+
+The constant term, $\alpha$, is often referred to as the *drift term*, for reasons that will become apparent. In these cases, $\varepsilon_t$ is typically referred to as the *diffusion term*.
+
+Putting these two terms together, the entire equation is known as a *drift-diffusion model*.
+
+When equity returns follow a drift-diffusion process, we say that equity markets are perfectly efficient. We say they are efficient because the return is impossible to forecast based on past prices or returns. Put another way, the conditional and unconditional returns are equal. Mathematically:
+
+$$E[r_t \mid r_{t-1}]=E[r_t]=\alpha$$
+
+As with the random walk equation, we can iteratively substitute the drift-diffusion model into itself:
+
+$$p_{t}=2 \alpha+p_{t-2}+\varepsilon_{t}+\varepsilon_{t-1}=t \alpha+p_{0}+\sum_{i=1}^{t} \varepsilon_{i}$$
+
+And just as before, we can calculate the conditional mean and variance of our drift-diffusion model:
+
+$$
+\begin{aligned}
+E[p_t \mid p_{t-1}]&=p_0 +t\alpha \\
+Var[p_t \mid p_{t-1}]&=t\sigma^2
+\end{aligned}
+$$
+
+
+### Autoregression
+
+The next modification we’ll make to our time series model is to multiply the lagged term by a constant:
+
+$$r_t=\alpha +\lambda r_{t_1}+\varepsilon_t$$
+
+The equation above is known as an autoregressive (AR) model. More specifically, it is known as an AR(1) model, since $r_t$ depends only on its first lag. The random walk is then just a special case of the AR(1) model, where $\alpha$ is zero and $\lambda $ is equal to one. Although our main focus will be on AR(1) models, we can easily construct an AR(n) model as follows:
+
+$$r_{t}=\alpha+\lambda_{1} r_{t-1}+\lambda_{2} r_{t-2}+\cdots+\lambda_{n} r_{t-n}+\varepsilon_{t}$$
+
+We can iteratively substitute our AR(1) model into itself to obtain the following equation:
+
+$$r_{t}=\alpha \sum_{i=0}^{n-1} \lambda^{i}+\lambda^{n} r_{t-n}+\sum_{i=0}^{n-1} \lambda^{i} \varepsilon_{t-i}$$
+
+![-w600](/media/15951262104465/15957448764443.jpg){:width="600px"}
+
+![-w600](/media/15951262104465/15957450336521.jpg){:width="600px"}
+
+
+#### Propositions for AR(1) model
+
+$$r_t=\alpha +\lambda r_{t-1}+\varepsilon_t $$
+
+**P1 - the long-term trend**: If there exists a long-term limit or trend $r^\star$, it must be
+
+$$r^\star = \frac{\alpha }{1-\lambda}$$
+
+**P2 - existence of long-term stability**: The series has  convergence iff $\| \lambda \|<1$.
+
+$$r_t-\frac{\alpha }{1-\lambda} =\lambda (r_{t-1}-\frac{\alpha }{1-\lambda})+\varepsilon _t $$
+
+**P3 - Overshooting**
+
+Here overshooting means $r_t - r^\star$ has different sign with $r_{t-1} - r^\star$.
+
+If and only if $\lambda \in (0,1)$, there is no overshooting.
+
+![-w600](/media/15951262104465/15957455203261.jpg){:width="600px"}
+
+
+**P4 - Linear Combination**
+
+$$r_t=\frac{\alpha }{1-\lambda} (1-\lambda  ) + \lambda r_{t-1} + \varepsilon _t$$
+
+If $\lambda \in (0,1)$, the expectation of $r_t$ is a linear combination of $r^\star$ and $r_{t-1}$. Moreover, $1-\lambda$ is the speed of convergence.
+
+**P5 - Mean and Vairance**
+
+As mentioned, AR(1) can be expressed as:
+
+$$r_{t}=\alpha \sum_{i=0}^{n-1} \lambda^{i}+\lambda^{n} r_{t-n}+\sum_{i=0}^{n-1} \lambda^{i} \varepsilon_{t-i}$$
+
+To proceed further, we can use methods developed in Chapter 1 for summing geometric series. The conditional mean and variance are now:
+
+$$\begin{aligned} E\left[r_{t} \mid r_{t-n}\right] &=\frac{1-\lambda^{n}}{1-\lambda} \alpha+\lambda^{n} r_{t-n} \\ \operatorname{Var}\left[r_{t} \mid r_{t-n}\right] &=\frac{1-\lambda^{2 n}}{1-\lambda^{2}} \sigma^{2} \end{aligned}$$
+
+
+For values of $\|\lambda \|$ less than one, the AR(1) process is stable. If we continue to ex- tend the series back in time, as n approaches infinity, $\lambda ^n$ becomes increasingly small, causing $\lambda ^n r_{t–n}$ to approach zero. In this case:
+
+$$r_t=\frac{1}{1-\lambda}\alpha  + \sum _{i=0}^{\infty} \lambda ^i \varepsilon_{t-i}$$
+
+Continuing to use our geometric series techniques, we then arrive at the following results for the mean and variance:
+
+$$
+\begin{aligned}
+E[r_t] & = \frac{1}{1-\lambda}\alpha \\
+Var[r_t] &=\frac{1}{1-\lambda^2} \sigma^2
+\end{aligned}
+$$
+
+So, for values of $\|\lambda\|$ less than one, as n approaches infinity, the initial state of the system ceases to matter. The mean and variance are only a function of the constants.
+{: .notice--info}
+
+**P6 - autocorrelation**
+
+We can quantify the level of mean reversion by calculating the correlation of $r_t$ with its first lag. This is known as autocorrelation or serial correlation. For our AR(1) series, we have:
+
+$$\rho_{t,t-1}=1-\theta =\lambda$$
+
+If $\lambda >0 $, we expect $r_t - r^\star $ tends to have the same sign as $r_{t-1} - r^\star $, and vice versa.
+
+
+
+### Variance and Autocorrelation
+
+For a random work $r_t=\varepsilon_t$, the n-period return is:
+
+$$y_{n,t}=\sum_{i=0}^{n-1}r_{t-i}=\sum_{i=0}^{n-1} \varepsilon_{t-i}$$
+
+As stated before, the variance of $y_{n,t}$ is proportional to n:
+
+$$Var[y_{n,t}]=n\sigma^2_{\varepsilon}$$
+
+and the standard deviation of $y_{n,t}$ is proportional to the square root of n.
+
+When we introduce autocorrelation, this square root rule no longer holds.
+{: .notice--warning}
+
+
+Instead of a random walk, assume returns follow an AR(1) series:
+
+$$r_{t}=\alpha+\lambda r_{t-1}+\varepsilon_{t}=\frac{\alpha}{1-\lambda}+\sum_{i=0}^{\infty} \lambda^{i} \varepsilon_{t-i}$$
+
+Now define a two-period return:
+
+$$y_{2, t}=r_{t}+r_{t-1}=\frac{2 \alpha}{1-\lambda}+\varepsilon_{t}+\sum_{i=0}^{\infty} \lambda^{i}(1+\lambda) \varepsilon_{t-i-1}$$
+
+With just two periods, the introduction of autocorrelation has already made the description of our multi-period return noticeably more complicated. The variance of this series is now:
+
+$$Var[y_{2,t}]=\frac{2}{1-\lambda }\sigma^2_{\varepsilon}$$
+
+If $\lambda$ is zero, then our time series is equivalent to a random walk and our new variance formula gives the correct answer: that the variance is still proportional to the length of our multiperiod return.
+{: .notice--primary}
+
+If $\lambda$ is greater than zero, and serial correlation is positive, then the two-period variance will be more than twice as great as the single-period variance.
+{: .notice--primary}
+
+Time series with slightly positive or negative serial correlation abound in finance. It is a common mistake to assume that variance is linear in time, when in fact it is not. Assuming no serial correlation when it does exist can lead to a serious overestimation or underestimation of risk.
+
+
+### Stationarity
+
+In the preceding section we discussed unstable series whose means and variances tend to grow without bound. There are many series in the real world that tend to grow exponentially—stock market indexes and gross domestic product (GDP), for example—while other series such as interest rates, inflation, and exchange rates typically fluctuate in narrow bands.
+
+This *dichotomy*, between series that tend to grow without limit and those series that tend to fluctuate around a constant level, is extremely important in statistics. We call series that tend to fluctuate around a constant level stationary time series. In contrast, series that are divergent are known as nonstationary. Determining whether a series is stationary is often the first step in time series analysis.
+{: .notice--primary}
+
+To be more precise, we say that a random variable X is stationary if for all t and n:
+
+1. $E\left[x_{t}\right]=\mu$ and $|\mu|<\infty$
+2. $\operatorname{Var}\left[x_{t}\right]=\sigma^{2}$ and $\left|\sigma^{2}\right|<\infty$
+3. $\operatorname{Cov}\left[x_{t}, x_{t-n}\right]=\sigma_n^2, \forall n$
+
+where $\mu$, $\sigma^2$, and $$\sigma_n, n\in \mathcal{Z}^{+}$$ are constants. These three conditions state that the mean, variance, and serial correlation should be constant over time. We also require that the mean and variance be finite.
+
+While we can calculate a sample mean or variance for a nonstationary series, these statistics are not very useful. Because the mean and variance are changing, by definition, these sample statistics will not tell us anything about the mean and variance of the distribution in general.
+
+Regression analysis on nonstationary series is likely to be even more meaningless. If a series is nonstationary because its volatility varies over time, then it violates the ordinary least squares (OLS) requirement of homoscedasticity. Even if the variance is constant, but the mean is drifting, any conclusions we might draw about the relationship between two nonstationary series will almost certainly be spurious.
+
+#### Example of nonstationary time series analyis
+
+As an example of this type of spurious correlation, imagine two AR(1) series with nonzero drifts. To make the calculations easier, we also assume that both series start at zero:
+
+$$\begin{array}{ll}p_{t}=\alpha_{p}+p_{t-1}+\varepsilon_{p, t} & \text { where } \quad \alpha_{p} \neq 0, p_{0}=0 \\ q_{t}=\alpha_{q}+q_{t-1}+\varepsilon_{q, t} & \text { where } \quad \alpha_{q} \neq 0, q_{0}=0\end{array}$$
+
+We assume that both disturbance terms are mean zero and uncorrelated, and therefore the two series are independent by design. In other words, the two series have no causal relationship.
+
+Imagine that we tried to calculate the correlation of p and q between 0 and t:
+
+$$\tilde{\sigma}_{p, q}=\frac{1}{t+1} \sum_{i=0}^{t} p_{i} q_{i}-E[\tilde{p}] E[\tilde{q}]=\frac{1}{t+1} \sum_{i=0}^{t} p_{i} q_{i}-\alpha_{p} \alpha_{q} \frac{t^{2}}{4}$$
+
+$$\beta=\frac{\tilde{\sigma}_{p, q}}{\tilde{\sigma}_{p}^{2}}=\frac{\alpha_{p} \alpha_{q} \frac{t^{2}+2 t}{12}}{\alpha_{p}^{2} \frac{t^{2}+2 t}{12}}=\frac{\alpha_{q}}{\alpha_{p}}$$
+
+Though it was a long time in coming, this result is rather intuitive. If αp is twice the value of αq, then at any point in time we will expect p to be twice the value of q.
+
+![-w600](/media/15951262104465/15957530986540.jpg){:width="600px"}
+
+This should all seem very wrong. If two variables are independent, we expect them to have zero covariance, but because these series both have nonzero drift terms, the sample covariance and beta will also tend to be nonzero. The results are clearly spurious.
+{: .notice--danger}
+
+In a situation such as our sample problem, you could argue that even though the two AR(1) series are independent, the positive sample covariance is telling us something meaningful: that both series have nonzero drift terms. *How meaningful is this?* Not very, as it turns out. Any random variable with a nonzero mean can be turned into a nonstationary series. Log returns of equities tend to be stationary, but the addition of those returns over time, log prices, are nonstationary.
+
+To show just how silly all of this can get, in a classic example, Hendry (1980) showed how, if statistical analysis is done incorrectly, you might conclude that cumulative rainfall in the United Kingdom and the UK price index where causally related.
+
+![-w600](/media/15951262104465/15957532052996.jpg){:width="600px"}
+
+The remedy for stationarity in statistical analysis is clear. Just as we can construct a nonstationary series from a stationary one by summing over time, we can usually create a stationary series from a nonstationary series by *taking its difference*. Transforming a price series into returns is by now a familiar example. Occasionally additional steps will need to be taken (e.g., differencing twice), but for most financial and economic series, this will suffice.
+
+
+![-w600](/media/15951262104465/15957532236555.jpg){:width="600px"}
+
+Exhibit 11.6 shows a regression based on the same data set we used in Exhibit 11.5, only now instead of cumulative rainfall we are using annual rainfall, and instead of the log price level we are using changes in the log price index. This new chart looks very different. The regression line is very close to being flat, and the slope parameter is in fact not significant. In other words, rainfall has no meaningful impact on inflation, just as we would expect.
+
+Ascribing a causal relationship when none exists is a serious mistake. Unfortunately, in this day and age, it is easy to gather massive amounts of data and perform a quick regression analysis. When performing statistical analysis of time series data, it is important to check for stationarity.
+{: .notice--primary}
+
+### Moving Average
+
+Besides autoregressive (AR) series, the other major class of time series is moving averages (MAs). An MA(n) series takes the form:
+
+$$x_t=\varepsilon_t + \theta_1 \varepsilon_{t-1}+\theta_2 \varepsilon_{t-2} + \cdots +\theta_n \varepsilon_{t-n}$$
+
+Moving average series can be combined with autoregressive series to form ARMA(p,q) processes:
+
+$$x_{t}=\lambda_{1} x_{t-1}+\lambda_{2} x_{t-2}+\cdots+\lambda_{p} x_{t-p}+\varepsilon_{t}+\theta_{1} \varepsilon_{t-1}+\cdots+\theta_{q} \varepsilon_{t-q}$$
+
+Moving averages and ARMA processes are important in statistics, but are less common in finance.
+{: .notice--info}
+
+### Application 1: GARCH
+
+Up until this point, all of our time series models have assumed that the *variance of the disturbance term remains constant over time*. In financial markets, variance appears to be far from constant. Both prolonged periods of high variance and prolonged periods of low variance are observed.
+
+*While the transition from low to high variance can be sudden*, more often we observe serial correlation in variance, with gradual mean reversion. When this is the case, periods of above-average variance are more likely to be followed by periods of above-average variance, and periods of below-average variance are likely to be followed by periods of below-average variance.
+
+Exhibit 11.8 shows the rolling annualized 60-day standard deviation of the S&P 500 index between 1928 and 2008. Notice how the level of the standard deviation is far from random. There are periods of sustained high volatility (e.g., 1996–2003) and periods of sustained low volatility (e.g., 1964–1969).
+
+![-w600](/media/15951262104465/15957535533763.jpg){:width="600px"}
+
+One of the most popular models of time-varying volatility is the **autoregressive conditional heteroscedasticity** (ARCH) model. We start by defining a disturbance term at time t, $\varepsilon_t$, in terms of an independent and identically distributed (i.i.d.) standard normal variable, $\mu_t$, and a time varying standard deviation, $\sigma_t$:
+
+$$\varepsilon_t= \sigma_t \mu_t$$
+
+In the simplest ARCH model, we can model the evolution of the variance as:
+
+$$\sigma_{t}^{2}=\alpha_{0} \bar{\sigma}^{2}+\alpha_{1} \sigma_{t-1}^{2} u_{t-1}^{2}=\alpha_{0} \bar{\sigma}^{2}+\alpha_{1} \varepsilon_{t-1}^{2}$$
+
+where $\alpha_0$ and $\alpha_1$ are constants, and $\bar{\sigma}^2$ is the long-run variance. To ensure $\sigma^2$ remains positive,  we require $\alpha_0>0$, $\alpha_1>0$, and $\bar{\sigma}^2 > 0$.
+
+For long-run convergence $\bar{\sigma^2} $ to exist, we require that $\alpha_0+ \alpha_1 = 1$.
+
+To prove this, we just have to notice that $\mu_t$ and $\sigma_t$ are independent, and therefore
+
+$$E\left[\sigma_{t-1}^{2} u_{t-1}^{2}\right]=E\left[\sigma_{t-1}^{2}\right] E\left[u_{t-1}^{2}\right]$$
+
+Then we have
+
+$$E[\sigma_{t}^{2}]=\alpha_0 \bar{\sigma}^2+ \alpha_1 E[\sigma_{t-1}^{2}]$$
+
+Take both side to the limit, we have $\alpha_0+ \alpha_1 = 1$.
+
+The equation above is typically referred to as an ARCH(1) model. By adding more lagged terms containing $\sigma^2$
+and $\mu^2$, we can generalize to an ARCH(n) specification:
+
+$$\sigma_t^2=\alpha_0 \bar{\sigma}^2 + \sum_{i=1}^n \alpha_i \sigma_{t-i}^2\mu_{t-i}^2$$
+
+Besides the additional disturbance terms, we can also add lags of $\sigma^2$ itself to the equation. In this form, the process is known as generalized autoregressive conditional heteroscedasticity (GARCH). The following describes a GARCH(1,1) process:
+
+$$\sigma_t^2=\alpha_0 \bar{\sigma}^2 +  \alpha_1 \sigma_{t-1}^2\mu_{t-1}^2 + \beta \sigma^2_{t-1}$$
+
+For the GARCH(1,1) to be stable, we require that $\alpha_0+ \alpha_1 +\beta = 1$. Just as with the ARCH model, by adding additional terms we can build a more general GARCH(n,m) process.
+
+### Application 2: Jump-Diffusion Model
+
+In the GARCH model, volatility changes gradually over time. In financial markets we do observe this sort of behavior, but we also see extreme events that seem to come out of nowhere. For example, on February 27, 2007, in the midst of otherwise calm markets, rumors that the Chinese central bank might raise interest rates, along with some bad economic news in the United States, contributed to what, by some measures, was a –8 standard deviation move in U.S. equity markets. A move of this many standard deviations would be extremely rare in most standard parametric distributions.
+
+One popular way to generate this type of extreme return is to add a so-called jump term to our standard time series model. This can be done by adding a second disturbance term:
+
+$r_t =\alpha +\varepsilon_t + [I_t]\mu_t$
+
+Here, $r_t$ is the market return at time t, $\alpha $ is a constant drift term, and $\varepsilon_t $ is our standard mean zero diffusion term.
+
+As specified, our jump term has two components: $[I_t]$, an indicator variable that is either zero or one, and $u_t$, an additional disturbance term. Not surprisingly, as specified, this time series model is referred to as a jump-diffusion model.
+
+The jump-diffusion model is really just a mixture model. To get the type of behavior we want—moderate volatility punctuated by rare extreme events—we can set the variance of $\varepsilon_t $ to relatively modest levels. We then specify the probability of $[I_t]$ equaling one at some relatively low level, and set the variance of $\mu_t$ at a relatively high level. If we believe that extreme negative returns are more likely than extreme positive returns, we can also make the distribution of ut asymmetrical.
+
+GARCH and jump-diffusion are not mutually exclusive. By combining GARCH and jump-diffusion, we can model and understand a wide range of market environ- ments and dynamics.
