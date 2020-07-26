@@ -46,7 +46,7 @@ A5: $$\varepsilon_i  ∼ N(0,\sigma^2 )~\forall \varepsilon_i$$
 A6: The regressor is nonstochastic.
 
 
-##### A1: Linear
+**A1: Linear**
 
 This assumption is not nearly as restrictive as it sounds.
 
@@ -58,7 +58,7 @@ Because of the exponent on R, the relationship between D and R is clearly nonlin
 
 2) As specified, the model implies that the linear relationship should *be true for all values of D and R*. In practice, we often only require that the relationship is linear within a given range.
 
-##### A2: independence between ε and X
+**A2: independence between ε and X**
 
 Assumption A2 implies that the error term is independent of X, i.e.:
 
@@ -68,23 +68,23 @@ This because
 
 $$E[\varepsilon X]=E[X* E_X [\varepsilon]]=E[X*0]=0$$
 
-##### A3: homoscedasticity
+**A3: homoscedasticity**
 
 Assumption A3 states that the variance of the error term is constant. This property of constant variance is known as **homoscedasticity**, in contrast to **heteroscedasticity,** where the variance is nonconstant.
 
 In finance, many models that appear to be linear often violate this assumption. As we will see in the next chapter, interest rate models often specify an error term that varies in relation to the level of interest rates.
 
-##### A4: spherical errors
+**A4: spherical errors**
 
 Assumption A4 states that the error terms for various data points should be uncorrelated with each other.
 
 A random variable that has constant variance and is uncorrelated with itself is termed spherical. OLS assumes spherical errors.
 
-##### A5: normally distributed
+**A5: normally distributed**
 
 Assumption A5 states that the error terms in the model should be normally distributed. Many of the results of the OLS model are true, regardless of this assumption. This assumption is most useful when it comes to defining confidence levels for the model parameters.
 
-##### A6: Nonstochastic
+**A6: Nonstochastic**
 
 Finally, assumption A6 assumes that the **regressor is nonstochastic**, or nonrandom.
 
