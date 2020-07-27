@@ -396,7 +396,7 @@ This is why it is important to monitor the F-statistic as well.
 When applied systematically, this process of adding or remov ing variables from a regression model is referred to as **stepwise regression.**
 
 
-![-w600](/media/15951262104465/15952601866871.jpg){:width="600px"}
+![-w600](/media/15951262104465/15952601866871.jpg){:width="600px"}{: .align-center}
 
 
 ### Application of linear regression
@@ -523,9 +523,9 @@ We can iteratively substitute our AR(1) model into itself to obtain the followin
 
 $$r_{t}=\alpha \sum_{i=0}^{n-1} \lambda^{i}+\lambda^{n} r_{t-n}+\sum_{i=0}^{n-1} \lambda^{i} \varepsilon_{t-i}$$
 
-![-w600](/media/15951262104465/15957448764443.jpg){:width="600px"}
+![-w600](/media/15951262104465/15957448764443.jpg){:width="600px"}{: .align-center}
 
-![-w600](/media/15951262104465/15957450336521.jpg){:width="600px"}
+![-w600](/media/15951262104465/15957450336521.jpg){:width="600px"}{: .align-center}
 
 
 #### Propositions for AR(1) model
@@ -546,7 +546,7 @@ Here overshooting means $r_t - r^\star$ has different sign with $r_{t-1} - r^\st
 
 If and only if $\lambda \in (0,1)$, there is no overshooting.
 
-![-w600](/media/15951262104465/15957455203261.jpg){:width="600px"}
+![-w600](/media/15951262104465/15957455203261.jpg){:width="600px"}{: .align-center}
 
 
 **P4 - Linear Combination**
@@ -664,7 +664,7 @@ $$\beta=\frac{\tilde{\sigma}_{p, q}}{\tilde{\sigma}_{p}^{2}}=\frac{\alpha_{p} \a
 
 Though it was a long time in coming, this result is rather intuitive. If αp is twice the value of αq, then at any point in time we will expect p to be twice the value of q.
 
-![-w600](/media/15951262104465/15957530986540.jpg){:width="600px"}
+![-w600](/media/15951262104465/15957530986540.jpg){:width="600px"}{: .align-center}
 
 This should all seem very wrong. If two variables are independent, we expect them to have zero covariance, but because these series both have nonzero drift terms, the sample covariance and beta will also tend to be nonzero. The results are clearly spurious.
 {: .notice--danger}
@@ -673,12 +673,12 @@ In a situation such as our sample problem, you could argue that even though the 
 
 To show just how silly all of this can get, in a classic example, Hendry (1980) showed how, if statistical analysis is done incorrectly, you might conclude that cumulative rainfall in the United Kingdom and the UK price index where causally related.
 
-![-w600](/media/15951262104465/15957532052996.jpg){:width="600px"}
+![-w600](/media/15951262104465/15957532052996.jpg){:width="600px"}{: .align-center}
 
 The remedy for stationarity in statistical analysis is clear. Just as we can construct a nonstationary series from a stationary one by summing over time, we can usually create a stationary series from a nonstationary series by *taking its difference*. Transforming a price series into returns is by now a familiar example. Occasionally additional steps will need to be taken (e.g., differencing twice), but for most financial and economic series, this will suffice.
 
 
-![-w600](/media/15951262104465/15957532236555.jpg){:width="600px"}
+![-w600](/media/15951262104465/15957532236555.jpg){:width="600px"}{: .align-center}
 
 Exhibit 11.6 shows a regression based on the same data set we used in Exhibit 11.5, only now instead of cumulative rainfall we are using annual rainfall, and instead of the log price level we are using changes in the log price index. This new chart looks very different. The regression line is very close to being flat, and the slope parameter is in fact not significant. In other words, rainfall has no meaningful impact on inflation, just as we would expect.
 
@@ -706,7 +706,7 @@ Up until this point, all of our time series models have assumed that the *varian
 
 Exhibit 11.8 shows the rolling annualized 60-day standard deviation of the S&P 500 index between 1928 and 2008. Notice how the level of the standard deviation is far from random. There are periods of sustained high volatility (e.g., 1996–2003) and periods of sustained low volatility (e.g., 1964–1969).
 
-![-w600](/media/15951262104465/15957535533763.jpg){:width="600px"}
+![-w600](/media/15951262104465/15957535533763.jpg){:width="600px"}{: .align-center}
 
 One of the most popular models of time-varying volatility is the **autoregressive conditional heteroscedasticity** (ARCH) model. We start by defining a disturbance term at time t, $\varepsilon_t$, in terms of an independent and identically distributed (i.i.d.) standard normal variable, $\mu_t$, and a time varying standard deviation, $\sigma_t$:
 
@@ -755,4 +755,188 @@ As specified, our jump term has two components: $[I_t]$, an indicator variable t
 
 The jump-diffusion model is really just a mixture model. To get the type of behavior we want—moderate volatility punctuated by rare extreme events—we can set the variance of $\varepsilon_t $ to relatively modest levels. We then specify the probability of $[I_t]$ equaling one at some relatively low level, and set the variance of $\mu_t$ at a relatively high level. If we believe that extreme negative returns are more likely than extreme positive returns, we can also make the distribution of ut asymmetrical.
 
-GARCH and jump-diffusion are not mutually exclusive. By combining GARCH and jump-diffusion, we can model and understand a wide range of market environ- ments and dynamics.
+GARCH and jump-diffusion are not mutually exclusive. By combining GARCH and jump-diffusion, we can model and understand a wide range of market environments and dynamics.
+
+
+## Chapter 9: Decay Factors
+
+In this chapter we explore a class of estimators that has become very popular in finance and risk management for analyzing historical data. These models hint at the limitations of the type of analysis that we have explored in previous chapters.
+
+### Mean
+
+In previous chapters, we showed that the best linear unbiased estimator (BLUE) for the sample mean of a random variable was given by:
+
+$$\bar{\mu}=\frac{1}{n}\sum_{i=0}^{n-1}x_{t-i}$$
+
+For a practitioner, this formula immediately raises the question of what value to use for n. {: .align-center}Should we use 10 years of data? One year? Thirty days? A popular choice in many fields is simply to use all available data. While this can be a sensible approach in some circumstances, it is much less common in modern finance. Using all available data has three potential drawbacks.
+
+First, the amount of available data for different variables may vary dramatically. If we are trying to calculate the mean return for two fixed-income portfolio managers, and we have 20 years of data for one and only two years of data for another, and the last two years have been particularly good years for fixed-income portfolio managers, a direct comparison of the means will naturally favor the manager with only two years of data.
+
+The second problem that arises when we use all available data is that our series length changes over time. If we have 500 days of data today, we will have 501 tomorrow, 502 the day after that, and so on. This is not necessarily a bad thing— more data may lead to a more accurate forecast—but, in practice, it is often convenient to maintain *a constant window length*.
+
+Finally, there is the problem that the world is constantly changing. The Dow Jones Industrial Average has been available since 1896. There were initially just 12 companies in the index, including American Cotton Oil Company and Distilling & Cattle Feeding Company. It is easy to argue that the world was so different in the distant past—and in finance, the distant past is not necessarily that distant—that using extremely old data makes little sense.
+
+If we are not going to use all available data, then a logical alternative is a *constant window length.* If we use Equation 12.1 with a constant window length, then in each successive period, we add the most recent point to our data set and drop the oldest.
+
+![-w600](/media/15951262104465/15958587907096.jpg){:width="600px"}{: .align-center}
+
+
+![-w600](/media/15951262104465/15958588014446.jpg){:width="600px"}{: .align-center}
+
+The first objection to this method is philosophical. How can it be that the oldest point in our data set is considered just as legitimate as all the other points in our data set today (they have the same weight), yet in the very next period, the oldest point becomes completely illegitimate (zero weight)?
+
+The second objection is more aesthetic. As extreme points enter and leave our data set, this can cause dramatic changes in our estimator. Exhibit 12.1 shows a sample time series. Notice the outlier in the series at time t = 50. Exhibit 12.2 shows the rolling 40-day mean for the series.
+
+Notice how the spike in the original time series causes a sudden rise and drop in our estimate of the mean in Exhibit 12.2. Because of its appearance, this phenomenon is often referred to as *plateauing*. Technically, there is nothing wrong with plateauing, but many practitioners find this type of behavior unappealing.
+
+In the end, the window length chosen is often arbitrary.  While they are convenient and widely used, it is difficult to see why these common window lengths are better than, say, one year plus five days or 142 days.
+
+One approach that addresses many of these objections is known as an *exponentially weighted moving average (EWMA)*. An EWMA is a weighted mean in which the weights decrease exponentially as we go back in time. The EWMA estimator of the mean can be formulated as:
+
+$$\hat{\mu}_{t}=\frac{1-\delta}{1-\delta^{n}} \sum_{i=0}^{n-1} \delta^{i} x_{t-i}$$
+
+Here, $\delta$ is a decay factor, where $0 < \delta < 1$. For the remainder of this chapter, unless noted otherwise, assume that any decay factor, $\delta$, is between zero and one. The term in front of the summation is the—by now familiar—inverse of the summation of δ from 0 to n − 1.
+
+![-w600](/media/15951262104465/15958589629672.jpg){:width="600px"}{: .align-center}
+
+Exhibit 12.4 plots these weights against time, as well as the corresponding weights for the standard equally weighted BLUE.
+
+As you can see, the EWMA weights form a smooth exponential curve that fades at a constant rate as we go back in time. By contrast, because of the shape of the chart, we often refer to the *equally weighted estimator as a rectangular window*.
+
+![-w600](/media/15951262104465/15958589955726.jpg){:width="600px"}{: .align-center}
+
+One way we can characterize an EWMA is by its *half-life*. Half of the weight of the average comes before the half-life, and half after. We can find the half-life by solving for h in the following equation:
+
+$$
+\sum_{i=0}^{h-1}\delta^i=\frac{1}{2}\sum_{i=0}^{n-1}\delta^i
+$$
+
+The solution is:
+
+$$h=\frac{ln(0.5+0.5\delta^n)}{ln(\delta)}$$
+
+For a sample of 250 data points and a decay factor of 0.98, the half-life is approximately 34.
+
+The EWMA can solve the problem of plateauing. The addition of an extreme data point to our data set can still cause a sudden change in our estimator, but the impact of that data point will slowly fade over time.
+
+![-w600](/media/15951262104465/15958591391014.jpg){:width="600px"}{: .align-center}
+
+Besides addressing the aesthetic issue of plateauing, the EWMA estimator also addresses our philosophical objection to fixed windows. Rather than suddenly dropping out of the data set, the weight on any point is slowly reduced over time.
+
+Finally, a fixed window length with a decay factor can be viewed as a *compromise between a rectangular window of arbitrary length and using all available data*. Because $\|\delta\|$ is less than one, as n goes to infinity, $\bar{\mu}_t$ can be rewritten as:
+
+$$\bar{\mu}_t=(1-\delta)\sum_{i=0}^{\infty} \delta^i x_{t-i}$$
+
+Clearly an infinite series, if it did exist, would be using all available data. In practice, though, for reasonable decay factors, there will be very little weight on points from the distant past. Because of this, we can use a finite window length, but capture almost all of the weight of the infinite series. Using our geometric series math:
+
+$$\frac{\text { Weight of finite series }}{\text { Weight of infinite series }}=\frac{\frac{1-\delta^{n}}{1-\delta}}{\frac{1}{1-\delta}}=1-\delta^{n}$$
+
+For a decay factor of 0.98, if our window length is 250, we would capture 99.4% of the weight of the infinite series.
+
+By carefully rearranging the Equation, we can express the EWMA estimator as a weighted average of its previous value and the most recent observation:
+
+$$\hat{\mu}_{t}=(1-\delta) \sum_{i=0}^{\infty} \delta^{i} x_{t-i}=(1-\delta) x_{t}+\delta \sum_{i=0}^{\infty} \delta^{i} x_{t-i-1}=(1-\delta) x_{t}+\delta \hat{\mu}_{t-1}$$
+
+Viewed this way, our EWMA is a formula for updating our beliefs about the mean over time. As new data become available, we slowly refine our estimate of the mean. This updating approach seems very logical, and could be used as a justification for the EWMA approach.
+{: .notice--success}
+
+### Variance
+
+Just as we used a decay factor when calculating the mean, we can use a decay factor when calculating other estimators. For an estimator of the sample variance, when the mean is known, the following is an unbiased estimator:
+
+$$
+\hat{\sigma}_{t}^{2}=\frac{1-\delta}{1-\delta^{n}} \sum_{i=0}^{n-1} \delta^{i}\left(r_{t-i}-\mu\right)^{2} \quad 0<\delta<1
+$$
+
+If we imagine an estimator of infinite length, then the term δn goes to zero, and we have:
+
+$$
+\hat{\sigma}_{t}^{2}=(1-\delta) \sum_{i=0}^{\infty} \delta^{i}\left(r_{t-i}-\mu\right)^{2} \quad 0<\delta<1
+$$
+
+This formula, in turn, leads to a useful updating rule:
+
+$$
+\hat{\sigma}_{t}^{2}=(1-\delta) \left(r_{t}-\mu\right)^{2}+\delta \hat{\sigma}_{t-1}^{2}
+$$
+
+As with our estimator of the mean, using a decay factor is equivalent to an updating rule. In this case, the new value of our estimator is a weighted average of the previous estimator and the most recent squared deviation.
+{: .notice--success}
+
+As mentioned in connection with the standard estimator for variance, it is not uncommon in finance for the mean to be close to zero and much smaller than the standard deviation of returns. If we assume the mean is zero, then our updating rule simplifies even further to:
+
+$$
+\hat{\sigma}_{t}^{2}=(1-\delta) r_{t}^{2}+\delta \hat{\sigma}_{t-1}^{2}
+$$
+
+In the case where the mean is unknown and must also be estimated, our estimator takes on a slightly more complicated form:
+
+$$
+\hat{\sigma}_{t}^{2}=A\sum_{i=0}^{n-1}\delta^i r^2_{t-i} -B\bar{\mu}_t^2
+$$
+
+where $\bar{\mu}_t$ is the sample mean, based on the same decay factor, $\delta$, and A and B are constants defined as:
+
+$$\begin{aligned} A &=\frac{S_{1}}{S_{1}^{2}-S_{2}} \\ B &=S_{1} A \\ S_{1} &=\frac{1-\delta^{n}}{1-\delta} \\ S_{2} &=\frac{1-\delta^{2 n}}{1-\delta^{2}} \end{aligned}$$
+
+It is not too difficult to prove that in the limit, as $\delta$ approaches one—that is, as our estimator becomes a rectangular window—A approaches 1/(n − 1) and B converges to n/(n − 1). Just as we would expect, in the limit our new estimator converges to the standard variance estimator.
+
+### Weighted Least Squares
+
+To apply the same decay factor logic to linear regression analysis, we simply need to multiply all of the sample data, both the regressors and regressands, by the appropriate decay factors. Recall that, for a multivariate regression, the ordinary least squares (OLS) estimator is defined as:
+
+$$\bar{\beta}=(X'X)^{-1}X'Y$$
+
+To integrate our decay factor into this analysis, we start by defining $\lambda$ **as the square root of our decay factor**, $\delta$. Next, we construct a diagonal weight matrix, W, whose diagonal elements are a geometric progression of $\lambda$:
+
+$$\mathbf{W}=\left[\begin{array}{cccc}\lambda^{n-1} & \cdots & 0 & 0 \\ \vdots & \ddots & 0 & 0 \\ 0 & 0 & \lambda & 0 \\ 0 & 0 & 0 & 1\end{array}\right]$$
+
+We can then form a new estimator for our regression parameters:
+
+$$\bar{\beta}=(X'W'WX)^{-1}X'W'WY$$
+
+This estimator is known as the weighted least squares estimator.
+
+One way to view what we are doing is to redefine our regressors and regressands as follows:
+
+$$
+\begin{aligned}
+X^\star&=WX\\
+Y^\star&=WY
+\end{aligned}
+$$
+
+The new matrices take our original data, and multiply the data at time t − i by $\lambda^i$. The effect is to make data points from the distant past smaller, which decreases their variance and decreases their impact on our parameter estimates. With these new matrices in hand, our weighted least squares estimator can now be written as:
+
+$$
+\bar{\beta}=({X^{\star}}'X^\star)^{-1}{X^{\star}}'Y^\star
+$$
+
+In this way, our weighted least squares estimator can be viewed as the OLS estimator of our transformed data.
+
+One potential problem with the weighted least squares approach, as described here, involves heteroscedasticity. If the initial data set is homoscedastic, then clearly the transformed data will be heteroscedastic. As with our mean and variance estima- tors, when we use a decay factor, the resulting estimator will be unbiased, but it will not be the BLUE.
+
+### CrashMetrics approach
+
+In theory, there is an infinite number of possible weighting schemes we could use, but one novel approach pioneered by Philip Hua and Paul Wilmott is worth mentioning (Hua and Wilmott 1997).
+
+As risk managers, if we are ultimately concerned with extreme markets, then the suggestion is that we should be placing more weight on data from extreme markets, and little or no weight on data from normal markets. This approach seems particularly appropriate for stress testing, where, by definition, we are dealing with extreme events.
+
+One way to implement this approach would be to define a cutoff return that separates extreme markets and normal markets, and use only the data from extreme markets to calculate statistics (weights are zero or one). Alternatively, we could define weights as a function of how extreme the returns are (e.g., the weights are equal to the square of the return of a given index). When applied to stress testing or value at risk (VaR), Hua and Wilmott refer to this as the CrashMetrics approach. Looked at more generally, it provides a novel third way of calculating sample parameters.
+
+### Application: Hybrid VaR
+
+One of the simplest approaches to estimating value at risk (VaR) is the historical method or historical simulation. In this approach, we calculate the backcast returns of a portfolio of assets, and take these as the portfolio’s return distribution. To calculate the 95th percentile VaR, we would simply find the least worst of the worst 5% of returns. For example, suppose we have 100 returns, ranked from lowest to highest:
+
+![-w600](/media/15951262104465/15958604028826.jpg){:width="600px"}{: .align-center}
+
+Here the 95th percentile VaR would correspond to the fifth return, −0.68%.
+
+*Instead of giving equal weight to all data, we can use a decay factor to weight more recent data more heavily.* Rather than finding the fifth worst return, we would order the returns and find the point where we have 5% of the total weight:
+
+![-w600](/media/15951262104465/15958604677383.jpg){:width="600px"}{: .align-center}
+
+In this case, we get to 5% of the total weight between the third and fourth returns. At this point there are two approaches. The more conservative approach is to take the third return, −0.75%. The alternative is to interpolate between the third and fourth returns, to come up with −0.74%.
+
+This general approach, using historical returns with decreasing weights, is often called the hybrid approach because it combines aspects of standard historical simulation and weighted parametric approaches; see, for example, Allen, Boudoukh, and Saunders (2004).
+
