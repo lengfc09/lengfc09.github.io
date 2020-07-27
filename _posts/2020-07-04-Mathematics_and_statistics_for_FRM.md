@@ -205,7 +205,7 @@ We refer to $μ_k$ as the kth **central moment** of X.
 
 While we can easily calculate any central moment, in risk management it is very rare that we are interested in anything beyond the fourth central moment.
 
-#### Skeness
+#### Skewness
 
 The third central moment tells us how symmetrical the distribution is around the mean. Rather than working with the third central moment directly, by convention we first standardize the statistic. The **standardized third central moment** is known as **skewness**:
 
