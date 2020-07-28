@@ -1,5 +1,5 @@
 ---
-layout: mysingle
+layout: single
 date: 2020-07-04 11:47:16 +0800
 title: Mathematics and Statistics for Financial Risk Management---Part 1
 categories: Quantitative_Financial_Risk_Management
