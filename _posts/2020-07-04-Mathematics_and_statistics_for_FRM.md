@@ -1,7 +1,11 @@
 ---
 layout: mysingle
 date: 2020-07-04 11:47:16 +0800
+<<<<<<< HEAD
 title: Mathematics and Statistics for Financial Risk Management --- Part 1
+=======
+title: Mathematics and Statistics for Financial Risk Management---Part 1
+>>>>>>> bb2d757aaf81735840056206be48951e57c55cb1
 categories: Quantitative_Financial_Risk_Management
 excerpt: "Notes for the book by Michael B. Miller. It includes basic concepts in mathemtacs and statistics which are commonly used in the risk mangement process."
 header:

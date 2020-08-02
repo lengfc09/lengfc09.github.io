@@ -1,7 +1,7 @@
 ---
 layout: mysingle
 date: 2020-07-20 23:59:16 +0800
-title: Mathematics and Statistics for Financial Risk Management by Michael B. Miller --- Part 3
+title: Mathematics and Statistics for Financial Risk Management---Part 3
 categories: Quantitative_Financial_Risk_Management
 excerpt: "Notes for the book by Michael B. Miller. It includes basic concepts in mathemtacs and statistics which are commonly used in the risk mangement process."
 header:
@@ -835,7 +835,7 @@ For a decay factor of 0.98, if our window length is 250, we would capture 99.4% 
 
 By carefully rearranging the Equation, we can express the EWMA estimator as a weighted average of its previous value and the most recent observation:
 
-$$\hat{\mu}_{t}=(1-\delta) \sum_{i=0}^{\infty} \delta^{i} x_{t-i}=(1-\delta) x_{t}+\delta \sum_{i=0}^{\infty} \delta^{i} x_{t-i-1}=(1-\delta) x_{t}+\delta \hat{\mu}_{t-1}$$
+$$\hat{\mu}_{t}=(1-\delta) \sum_{i=0}^{\infty} \delta^{i} x_{t-i}=(1-\delta) x_{t}+\delta (1-\delta) \sum_{i=0}^{\infty} \delta^{i} x_{t-i-1}=(1-\delta) x_{t}+\delta \hat{\mu}_{t-1}$$
 
 Viewed this way, our EWMA is a formula for updating our beliefs about the mean over time. As new data become available, we slowly refine our estimate of the mean. This updating approach seems very logical, and could be used as a justification for the EWMA approach.
 {: .notice--success}
