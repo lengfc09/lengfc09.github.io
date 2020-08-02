@@ -11,8 +11,6 @@ tags: risk_management mathematics statistics
 toc: true
 ---
 
-# Mathematics and Statistics for Financial Risk Management by Michael B. Miller
-
 ## Chapter 1: Some Basic Math
 
 ### Log return and standard return
