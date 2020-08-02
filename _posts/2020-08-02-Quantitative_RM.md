@@ -387,9 +387,13 @@ Based on the 2,000 maxima generated from the t-distribution, as described earlie
 Answer:
 We can use the CDF of the Fréchet distribution from Table 4.1 to solve this problem.
 
-$$P[L>0.07]=e^{-\left(\frac{x-m}{s}\right)^{-k}}=e^{-\left(\frac{0.07-0.00}{0.015}\right)^{-2.368}}=0.9743$$
+$$
+P[L>0.07]=e^{-\left(\frac{x-m}{s}\right)^{-k}}=e^{-\left(\frac{0.07-0.00}{0.015}\right)^{-2.368}}=0.9743
+$$
+
 
 That is, given our distribution assumption, 97.43% of the distribution is less than 7.00%, meaning 2.57% of the distribution is greater or equal 7.00%. The probability that the maximum loss over the next 20 days will be greater than 7.00% is 2.57%.
+
 ---
 
 Be careful how you interpret the EVT results. In the preceding example, there is a 2.57% chance that the maximum loss over the next 20 days will exceed 7%. It is tempting to believe that there is only a 2.57% chance that a loss in excess of 7% will occur tomorrow.
