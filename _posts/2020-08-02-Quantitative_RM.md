@@ -341,23 +341,31 @@ Consider a random outcome ${\displaystyle X}$ viewed as an element of a linear s
 
 **Normalized**
 
-$$\varrho(0) = 0$$
+$$
+\varrho(0) = 0
+$$
 
 That is, the risk of holding no assets is zero.
 
 **Monotonicity**
 
-$$\mathrm{If}\; Z_1,Z_2 \in \mathcal{L} \;\mathrm{and}\; Z_1 \leq Z_2 \; \mathrm{a.s.} ,\; \mathrm{then} \; \varrho(Z_1) \geq \varrho(Z_2)$$
+$$
+\mathrm{If}\; Z_1,Z_2 \in \mathcal{L} \;\mathrm{and}\; Z_1 \leq Z_2 \; \mathrm{a.s.} ,\; \mathrm{then} \; \varrho(Z_1) \geq \varrho(Z_2)
+$$
 
 **Sub-additivity**
 
-$$\mathrm{If}\; Z_1,Z_2 \in \mathcal{L} ,\; \mathrm{then}\; \varrho(Z_1 + Z_2) \leq \varrho(Z_1) + \varrho(Z_2)$$
+$$
+\mathrm{If}\; Z_1,Z_2 \in \mathcal{L} ,\; \mathrm{then}\; \varrho(Z_1 + Z_2) \leq \varrho(Z_1) + \varrho(Z_2)
+$$
 
 Indeed, the risk of two portfolios together cannot get any worse than adding the two risks separately: this is the diversification principle. In financial risk management, sub-additivity implies diversification is beneficial. The sub-additivity principle is sometimes also seen as problematic.
 
 **Positive homogeneity**
 
-$$\mathrm{If}\; \alpha \ge 0 \; \mathrm{and} \; Z \in \mathcal{L} ,\; \mathrm{then} \; \varrho(\alpha Z) = \alpha \varrho(Z)$$
+$$
+\mathrm{If}\; \alpha \ge 0 \; \mathrm{and} \; Z \in \mathcal{L} ,\; \mathrm{then} \; \varrho(\alpha Z) = \alpha \varrho(Z)
+$$
 
 Loosely speaking, if you double your portfolio then you double your risk. In financial risk management, positive homogeneity implies the risk of a position is proportional to its size.
 
@@ -365,7 +373,9 @@ Loosely speaking, if you double your portfolio then you double your risk. In fin
 
 If A is a deterministic portfolio with guaranteed return a and $Z \in \mathcal{L}$ then
 
-$$\varrho(Z + A) = \varrho(Z) - a $$
+$$
+\varrho(Z + A) = \varrho(Z) - a
+$$
 
 
 ## Market Risk: Extreme Value Theory
