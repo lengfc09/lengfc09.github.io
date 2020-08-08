@@ -46,3 +46,30 @@ Watch out! This paragraph of text has been emphasized with the {: .notice--warni
 Watch out! This paragraph of text has been emphasized with the {: .notice--success} class.
 
 Watch out! This paragraph of text has been emphasized with the {: .notice--danger} class.
+
+**Definition**
+<div  class="definition">
+</div>
+
+**Theorem**
+<div btit="Theorem_Name" blab="mylabel" class="theorem">
+</div>
+{: #mylabel}
+
+**Lemma**
+<div btit="Lemma_name" blab="mylabel" class="lemma">
+</div>
+{: #mylabel}
+
+**Example**
+<div  class="exampl">
+</div>
+
+**Proposition**
+<div btit="Proposition_name" blab="mylabel" class="proposition">
+</div>
+{: #mylabel}
+
+**Proof**
+<div  class="proof">
+</div>
