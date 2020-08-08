@@ -490,3 +490,336 @@ One requirement of EVT that is unlikely to be met in most financial settings is 
 
 Though we did not mention it before, the EVT results are only strictly true in the limit, as the frequency of the extreme values approaches zero. In theory, the EVT distributions should describe the distribution of the maxima reasonably well as long as the frequency of the extreme values is sufficiently low. Unfortunately, defining “sufficiently low” is not easy, and EVT can perform poorly in practice for **frequencies as low as 5%.**
 
+## Market Risk: Beyond Correlation
+
+### Coskewness and Cokurtosis
+
+Just as we generalized the concept of mean and variance to moments and central moments, we can generalize the concept of covariance to cross-central moments. The third and fourth standardized cross-central moments are referred to as coskewness and cokurtosis, respectively. Though used less frequently, higher-order cross moments can be very important in risk management.
+
+<div  class="exampl">
+As an example of how higher-order cross moments can impact risk assessment, take the series of returns shown in Table 6.1 for four fund managers, A, B, C, and D.
+
+</div>
+
+
+![-w600](/media/15963510819286/15968997085086.jpg){:width="600px"}{: .align-center}
+
+The two portfolios have the same mean and standard deviation, but the skews of the portfolios are different. Whereas the worst return for A + B is −9.5%, the worst return for C + D is −15.3%. As a risk manager, knowing that the worst outcome for portfolio C + D is more than 1.6 times as bad as the worst outcome for A + B could be very important.
+
+It is very important to note that there is no way for us to differentiate between A + B and C + D, based solely on the standard deviation, variance, covariance, or correlation of the original four funds. That is, there is no way for us to differentiate between the two combined portfolios based solely on the information contained in a covariance matrix. As risk managers, we need to be on the lookout for these types of models, and to be aware of their limitations.
+
+So how did two portfolios whose constituents seemed so similar end up being so differ- ent? One way to understand what is happening is to graph the two sets of returns for each portfolio against each other, as shown in Figures 6.1 and 6.2.
+
+The two graphs share a certain symmetry, but are clearly different. In the first portfolio, A + B, the two managers’ best positive returns occur during the same time period, but their worst negative returns occur in different periods. This causes the distribution of points to be skewed toward the top-right of the chart. The situation is reversed for managers C and D:
+
+![-w600](/media/15963510819286/15968998917794.jpg){:width="600px"}{: .align-center}
+
+The reason the charts look different, and the reason the returns of the two portfolios are different, is because the coskewness between the managers in each of the portfolios is different. For two random variables, there are actually two nontrivial coskewness statistics.
+
+For example, for managers A and B, we have
+
+$$\begin{aligned} S_{A A B} &=\frac{\mathrm{E}\left[\left(A-\mu_{A}\right)^{2}\left(B-\mu_{B}\right)\right]}{\sigma_{A}^{2} \sigma_{B}} \\ S_{A B B} &=\frac{\mathrm{E}\left[\left(A-\mu_{A}\right)\left(B-\mu_{B}\right)^{2}\right]}{\sigma_{A} \sigma_{B}^{2}} \end{aligned}$$
+
+The complete set of sample coskewness statistics for the sets of managers is shown in Table 6.3.
+
+![-w400](/media/15963510819286/15968999636520.jpg){:width="400px"}{: .align-center}
+
+Both coskewness values for A and B are positive, whereas they are both negative for C and D. Just as with skewness, negative values of coskewness tend to be associated with greater risk.
+
+Just as we defined coskewness, we can define cokurtosis. For two random variables, X and Y, there are three nontrivial cokurtosis statistics,
+
+$$\begin{aligned} K_{X X X Y} &=\frac{\mathrm{E}\left[\left(X-\mu_{X}\right)^{3}\left(Y-\mu_{Y}\right)\right]}{\sigma_{X}^{3} \sigma_{Y}} \\ K_{X X Y Y} &=\frac{\mathrm{E}\left[\left(X-\mu_{X}\right)^{2}\left(Y-\mu_{Y}\right)^{2}\right]}{\sigma_{X}^{2} \sigma_{Y}^{2}} \\ K_{X Y Y Y} &=\frac{\mathrm{E}\left[\left(X-\mu_{X}\right)\left(Y-\mu_{Y}\right)^{3}\right]}{\sigma_{X} \sigma_{Y}^{3}} \end{aligned}$$
+
+
+<div btit="Number of cross-central moments" blab="Prop1" class="proposition">
+In general, for n random variables, the number of nontrivial cross-central moments of order m is
+
+$$k(m,n)=\frac{(m+n-1)!}{m!(n-1)!}-n$$
+
+</div>
+{: #Prop1}
+
+Despite their obvious relevance to risk management, many standard risk models do not explicitly define coskewness or cokurtosis. One reason that many models avoid these higher-order cross moments is practical. As the number of variables increases, the number of nontrivial cross moments increases rapidly. With 10 variables there are 30 coskewness parameters and 65 cokurtosis parameters.
+
+![-w569](/media/15963510819286/15969008114338.jpg){:width="569px"}{: .align-center}
+
+Table 6.4 compares the number of nontrivial cross moments for a variety of sample sizes. In most cases there is simply not enough data to calculate all of these higher-order cross moments.
+
+<div class="info">
+Risk models with time-varying volatility (e.g., GARCH) or time-varying correlation can display a wide range of behaviors with very few free parameters. Copulas can also be used to describe complex interactions between variables that go beyond covariances, and have become popular in risk management in recent years. All of these approaches capture the essence of coskewness and cokurtosis, but in a more tractable framework. As a risk manager, it is important to differentiate between these models—which address the higher-order cross moments indirectly—and models that simply omit these risk factors altogether.
+</div>
+
+
+### Independent and Identically Distributed Random Variables
+
+For a set of i.i.d. draws from a random variable, $x1, x_2, \cdots , x_n$, we define the sum, S, and mean, 𝜇, as
+
+$$
+\begin{aligned}
+S&=\sum_{i=1}^n x_i\\
+\mu &= \frac{S}{n}
+\end{aligned}
+$$
+
+Denoting the variance, standard deviation, third central moment, fourth central moment, skewness and kurtosis of a random variable x by $f (x)$, we define two constants, a and b, such that
+
+$$
+\begin{aligned}
+f(S)&=af(x)\\
+f(\mu) &= bf(x)
+\end{aligned}
+$$
+
+Table 6.10 provides values for a and b for each statistic. The second row contains the familiar square-root rule for standard deviation.
+
+![-w539](/media/15963510819286/15969015279142.jpg){:width="539px"}{: .align-center}
+
+The last row tells us that the kurtosis of both the sum and mean of n i.i.d. variables is 1/n times the kurtosis of the individual i.i.d. variables. Interestingly, while the standard deviation and variance of the sum of n i.i.d. variable is greater than the standard deviation or variance of the individual random variables, respectively, the skewness and kurtosis are smaller. It is easy to understand why this is the case by noting that the value of a is n for all central moments.
+
+By being familiar with the formulas in Table 6.10 you can often get a sense of whether or not financial variables are independent of each other. For example, consider the Russell 2000 stock index, which is a weighted average of 2,000 small-cap U.S. stocks. Even if the return distribution for each stock in the index was highly skewed, we would expect the distribution of the index to have very little skew if the stocks were independent (by table 6.10, the skewness of the index should be roughly $1/ \sqrt{2,000}≈1/45$ the mean skewness of the individual stocks).
+
+In fact, the daily returns of the Russell 2000 exhibit significant negative skewness, as do the returns of most major stock indexes. This is possible because most stocks are influenced by a host of shared risk factors, and far from being independent of each other. In particular, stocks are significantly more likely to have large negative returns together, than they are to have large positive returns at the same time.
+
+## Market Risk: Risk Attribution
+
+### Factor Analysis
+
+In risk management, factor analysis is a form of risk attribution, which attempts to identify and measure common sources of risk within large and complex portfolios. In a large, complex portfolio, it is sometimes far from obvious how much exposure a portfolio has to a given factor.
+
+
+The classic approach to factor analysis can best be described as risk taxonomy. For each type of factor, each security is associated with one and only one factor. If we were trying to measure country exposures, each security would be assigned to a specific country—France, South Korea, the United States, and so on.
+
+A limitation of the classic approach is that it is binary. A security is an investment in either China or Germany. This creates a problem in the real world. What do you do with a company that is headquartered in France, has all of its manufacturing capacity in China, sells its products in North America, and has listed shares on the London Stock Exchange? Is a company that sells consumer electronics a technology company or a retailer?
+
+These kinds of obvious questions led to the development of various statistical approaches to factor analysis. One very popular approach is to associate each factor with an index, and then to use that index in a regression analysis to measure a portfolio’s exposure to that factor.
+
+<div  class="exampl">
+For example, if we want to measure a portfolio’s exposure to Japan, we would run a regression of our portfolio’s returns against the returns of a Japanese equity index, using a calculation like
+
+$$R_{portfolio}= \alpha + \beta R_{JpIndex}+\varepsilon$$
+</div>
+
+
+Another nice thing about factor analysis is that the factor exposures can be added across portfolios.
+
+$$R_{\mathrm{A}}=\alpha_{A}+\beta_{A} R_{\mathrm{index}}+\varepsilon_{A}$$
+
+$$R_{\mathrm{B}}=\alpha_{B}+\beta_{B} R_{\mathrm{index}}+\varepsilon_{B}$$
+
+$$R_{\mathrm{A}+\mathrm{B}}=\left(\alpha_{A}+\alpha_{B}\right)+\left(\beta_{A}+\beta_{B}\right) R_{\mathrm{index}}+\left(\varepsilon_{A}+\varepsilon_{B}\right)$$
+
+Table 7.2 shows a sample exposure breakdown for an unspecified factor. Notice how the factor exposures are not necessarily proportional to the market values or even of the same sign
+
+![-w557](/media/15963510819286/15969020710779.jpg){:width="557px"}{: .align-center}
+
+In addition to giving us the factor exposure, the factor analysis allows us to divide the risk of a portfolio into systematic and idiosyncratic components.
+
+In this case, systematic risk refers to the risk in a portfolio that can be attributed to a factor. The risk that is not systematic (i.e., the risk that cannot be attributed to a factor) is referred to as idiosyncratic risk.
+
+From our OLS assumptions, we know that $R_{index}$ and $\varepsilon$ are not correlated. Calculating the variance of $R_{portfolio}$ , we arrive at
+
+$$\sigma^2_{portfolio}=\beta^2 \sigma^2_{index} +\sigma^2_{\varepsilon}$$
+
+#### Avoid multicollinearity
+In theory, there is no reason why we cannot extend our factor analysis using multivariate regression analysis. In practice, many of the factors we are interested in will be highly correlated (e.g., most equity indexes are highly correlated with each other).
+
+<div  class="info">
+This leads naturally to the use of spreads between indexes for secondary factors in order to avoid multicollinearity.
+</div>
+
+For example, if we are using a broad market index as a primary factor, then the spread between that index and a country factor might be an interesting secondary factor.
+
+As outlined in the section on multicollinearity in Chapter 5, we can use the residuals from the regression of our secondary index on the primary index to construct a return series that is uncorrelated with the primary series.
+
+
+#### Risks not Captured by public indexes
+
+In theory, factors can be based on almost any kind of return series. The advantage of indexes based on publicly traded securities is that it makes hedging very straightforward. At the same time, there might be some risks that are not captured by any publicly traded index.
+
+Some risk managers have attempted to resolve this problem by using statistical techniques, such as principal component analysis (PCA) or cluster analysis, to develop more robust factors. Besides the fact that these factors might be difficult to hedge, they might also be unstable, and it might be difficult to associate these factors with any identifiable macroeconomic variable.
+
+Even using these statistical techniques, there is always the possibility that we have failed to identify a factor that is an important source of risk for our portfolio. Factor analysis is a very powerful tool, but it is not without its shortcomings.
+
+### Incremental VaR
+
+A number of statistics have been developed to quantify the impact of a position or sub-portfolio on the total value at risk (VaR) of a portfolio. One such statistic is incremental VaR (iVaR). For a position with exposure wi, we define the iVaR of the position as
+
+$$iVaR_i=\frac{d(VaR)}{dw_i} w_i \tag{7.4}\label{7.4}$$
+
+
+Here VaR is the total VaR of the portfolio. It is easier to get an intuition for iVaR if we rearrange Equation 7.4 as
+
+$$d(VaR)=\frac{dw_i}{w_i}  iVaR_i\tag{7.5}\label{7.5}$$
+
+If we have 200 of a security, and we add 2 to the position, then dwi/wi is 2/200 = 1%. On the left-hand side of the equation, d(VaR) is just the change in the VaR of the portfolio. Equation 7.5 is really only valid for infinitely small changes in wi, but for small changes it can be used as an approximation.
+
+<div btit="Sum of iVaR" blab="Prop2" class="proposition">
+The sum of the iVaRs in a portfolio are equal to the total VaR of the portfolio.
+</div>
+
+That iVaR is additive is true no matter how we calculate VaR, but it is easiest to prove for the parametric case, where we define our portfolio’s VaR as a multiple, m, of the portfolio’s standard deviation, $\sigma_P$.
+
+<div  class="proof">
+Without loss of generality, we can divide the portfolio into two positions: first, the position for which we are calculating the iVaR with size and standard deviation $w_1$ and $\sigma_1$, and second, the rest of the portfolio with size and standard deviation $w_2$ and $\sigma_2$. If the correlation between the two parts of the portfolio is $\rho$, we have
+
+$$\mathrm{VaR}=m \sigma_{p}=m\left(w_{1}^{2} \sigma_{1}^{2}+w_{2}^{2} \sigma_{2}^{2}+2 \rho w_{1} w_{2} \sigma_{1} \sigma_{2}\right)^{1 / 2}$$
+
+Taking the derivative with respect to $w_1$, we have
+
+$$\frac{d(\mathrm{VaR})}{d w_{1}}=\frac{m}{\sigma_{p}}\left(w_{1} \sigma_{1}^{2}+\rho w_{2} \sigma_{1} \sigma_{2}\right)$$
+
+We then multiply this result by the weight of the position to get
+
+$$iVaR_1=w_1 \frac{d(\mathrm{VaR})}{d w_{1}}=\frac{m}{\sigma_{p}}\left(w_{1}^2 \sigma_{1}^{2}+\rho w_{1} w_{2} \sigma_{1} \sigma_{2}\right)$$
+
+Adding together the iVaRs of both parts of the portfolios, we have
+
+$$\begin{aligned} \mathrm{iVaR}_{1}+\mathrm{iVaR}_{2} &=\frac{m}{\sigma_{p}}\left(w_{1}^{2} \sigma_{2}^{2}+w_{2}^{2} \sigma_{2}^{2}+2 \rho w_{1} w_{2} \sigma_{1} \sigma_{2}\right) \\ &=\frac{m}{\sigma_{p}} \sigma_{p}^{2} \\ &=m \sigma_{p} \\ &=\mathrm{VaR} \end{aligned}$$
+
+
+</div>
+
+
+### Diversification
+
+#### diversification score
+
+One way to measure diversification is to compare the standard deviation of the securities in a portfolio to the standard deviation of the portfolio itself.
+
+<div  class="definition">
+Given a portfolio with standard deviation 𝜎p and consisting of n securities, i = 1, 2, ... n, with corresponding standard deviations $\sigma_i$, we define the diversification score, h, as
+
+$$h=1-\frac{\sigma_p}{\sum_{i=1}^n \sigma_i}$$
+</div>
+
+The diversification score is far from being a perfect measure of diversification. One shortcoming is that it is sensitive to how you group a portfolio.
+
+<div  class="exampl">
+If one portfolio contains 100 million of an S&P 500 exchange-traded fund (ETF), and a second contains $100 million invested directly in the constituent stocks of the S&P 500, the second portfolio will have a higher diversification score, even though the risk profiles of the portfolios are exactly the same.
+</div>
+
+
+#### diversification index
+
+Meucci (2009) proposed measuring diversification using principal component analysis. More specifically, a portfolio with n securities will have n principal components. Of all of the principal components, the first explains the greatest amount of the variance in the portfolio, the second the second most, and so on.
+
+<div  class="definition">
+If we define $p_i$ as the percentage of the variance explained by the i-th principal component, then we can define the diversification index, N, as the entropy of the $p_i$:
+
+$$N=e^{-\sum_{i=1}^{n} p_{i} \ln \left(p_{i}\right)}$$
+
+where  $\sum_{i=1}^{n} p_{i}=1$
+
+</div>
+
+
+When the portfolio has no diversification, either because the portfolio has only one security, or all of the securities are perfectly correlated with the same underlying risk factor, then the first principal component will explain all of the variance in the portfolio and N = 1.
+
+At the other extreme, when the portfolio is maximally diversified, all of the principal components will explain an equal amount of the variance, and N = n.
+
+Intuitively, N represents the actual number of diversified securities. Put another way, rather than counting securities, we should be counting how many independent sources of risk we have using our diversification index.
+
+### Risk-Adjusted Performance
+
+For a security with expected return, $R_i$, and standard deviation, $\sigma_i$, given the risk-free rate, $R_rf$, the Sharpe ratio is
+
+$$S_i=\frac{R_i-R_{rf}}{\sigma_i}=\frac{\mu_i}{\sigma_i}$$
+
+<div  class="info">
+The Sharpe ratio is immune to leverage. Assuming we can borrow and lend at the risk-free rate, we can increase and decrease the standard deviation of a portfolio and the sharpe ratio will remain the same.
+</div>
+
+Naturally, if we wish to maximize the Sharpe ratio of our portfolio, at the margin we should choose the security with the highest incremental Sharpe $\Delta S_P= S_{P+\delta i}-S_P$.
+
+<div btit="Incremental Sharpe Ratio" blab="thm1" class="theorem">
+When adding an adequately small amount of security i to the portfolio P, the Sharpe ratio of portfolio increases iff $S_i^{\star}>0$, where the incremental Sharpe ratio, $S_i^{\star}$, is defined as
+
+$$S_i^{\star} = S_i -\rho S_P$$
+
+Here, $\rho$ is the correlation between i and P, $S_i$ and $S_P$ are the sharpe ratio for i and P, respectively.
+
+</div>
+{: #thm1}
+
+
+<div  class="proof">
+If we add a small amount, 𝛿, of security i to a portfolio.
+The change in the Sharpe ratio will be
+
+$$
+\begin{aligned}
+\Delta S_{P} &=S_{P+\delta i}-S_{P} \\
+&=\frac{\mu_{P+\delta i}}{\sigma_{P+\delta i}}-\frac{\mu_{P}}{\sigma_{P}} \\
+&=\frac{\mu_{P}+\delta \mu_{i}}{\sqrt{\sigma_{P}^{2}+\delta^{2} \sigma_{i}^{2}+2 \delta \rho \sigma_{P} \sigma_{i}}}-\frac{\mu_{P}}{\sigma_{P}}
+\end{aligned}
+\tag{7.15}\label{7.15}
+$$
+
+
+Without loss of generality, we can assume that $\sigma_P = \sigma_i$. Remember, if we can borrow at the risk-free rate, then we can always transform a security with one volatility into another security with a different volatility but the same Sharpe ratio.
+
+Looked at another way, rather than adding 𝛿 of the security, we could always add a small amount $\sigma^{\star} = \sigma k$, where $k \sigma_i = \sigma_P$.
+
+Defining $\sigma_P = \sigma_i=\sigma$, then, Equation 7.15 simplifies to
+
+$$
+\Delta S_{P}=\frac{\mu_{P}+\delta \mu_{i}}{\sigma \sqrt{1+\delta^{2}+2 \delta \rho}}-\frac{\mu_{P}}{\sigma}
+$$
+
+We can approximate the square root in the denominator in Equation 7.16 using a first-order Taylor expansion. Expanding around $\sigma = 0$,
+
+$$(1+\delta^{2}+2 \delta \rho)^{0.5} \approx 1+ \delta P $$
+
+Putting this back
+
+$$
+\begin{aligned}
+\Delta S_{P} & \approx \frac{\mu_{P}+\delta \mu_{i}}{\sigma(1+\delta \rho)}-\frac{\mu_{P}}{\sigma} \\
+& \approx \frac{\mu_{P}+\delta \mu_{i}-\mu_{P}(1+\delta \rho)}{\sigma(1+\delta \rho)} \\
+& \approx \frac{\delta \mu_{i}-\mu_{P} \delta \rho}{\sigma(1+\delta \rho)} \\
+& \approx \frac{\delta}{(1+\delta \rho)}\left(\frac{\mu_{i}}{\sigma}-\rho \frac{\mu_{P}}{\sigma}\right) \\
+& \approx \frac{\delta}{(1+\rho \delta)} S_{i}^{*}
+\end{aligned}
+$$
+
+Because $\|\rho\| \leq 1 $, when $\delta $ is small , $1+\rho \delta \approx 1$, and
+
+$$\Delta S_{P}  \approx \delta S_i^{\star}$$
+
+</div>
+
+#### Intuition
+
+Intuitively, if a security and a portfolio are perfectly correlated, then it will only make sense to add the security to the portfolio if the security has a higher Sharpe ratio than the existing portfolio.
+
+If the security has a lower Sharpe ratio, it might still make sense to add it if it provides enough diversification, if $\rho$ is low enough.
+
+If $S_i^{\star}$ is negative, then adding the security to your portfolio will actually decrease the overall Sharpe ratio.
+
+
+
+### Choosing Statistics
+
+This was the last of six chapters on market risk. Among other topics, we have looked at standard deviation, VaR, expected shortfall, extreme value theory (EVT), correlation, coskewness, copulas, stress testing, incremental VaR and diversification.
+
+As we said before, no single risk statistic is perfect. All have their strengths and weaknesses. Standard deviation is very easy to understand and to calculate, but does not take into account the shape of the distribution. Expected shortfall places more emphasis on extreme negative outcomes, but it requires us to make certain model assumptions and is difficult to backtest.
+
+Not all of these concepts are mutually exclusive. For example, we might be able to use copulas and EVT to improve our VaR forecast.
+
+While there is not always one right answer, there is often a wrong answer. As our discussion of coskewness and copulas makes clear, if a joint distribution is not elliptical and we assume that it is, then we may severely underestimate risk. All of our models and statistics make certain assumptions. It is important that both the risk manager and portfolio manager understand the assumptions that underlie our models.
+
+Modern financial markets are complex and move very quickly. The decision makers at large financial firms need to consider many variables when making decisions, often under considerable time pressure. Risk—even though it is a very important variable—will likely be only one of many variables that go into this decision-making process.
+
+
+<div  btit="Dimenstionality Reduction" blab="rmk 1" class="remark">
+As we mentioned in Chapter 1, an important task of risk managers is dimensionality reduction: taking very complicated financial portfolios and boiling them down to a few key risk statistics. This is not easy, but it is extremely important. Understanding the strengths and weaknesses of various risk statistics is the first step in deciding which statistics to calculate and how to report them.
+</div>
+
+
+
+
+
+
+
+
+
