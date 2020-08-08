@@ -325,6 +325,49 @@ Positive correlation between exceedances and risk levels can happen when a model
 
 To test for correlation between exceedances and the level of risk, we can divide our exceedances into two or more buckets, based on the level of risk. As an example, pretend we have been calculating the one-day 95% VaR for a portfolio over the past 800 days. We could divide the sample period in two, placing the 400 days with the highest forecasted VaR in one bucket and the 400 days with the lowest forecasted VaR in the other. We would expect each 400-day bucket to contain 20 exceedances: 5% × 400 = 20. The actual number of exceedances in each bucket should follow a binomial distribution with n = 400, and p = 5%.
 
+
+## Coherent Risk Measures
+
+At this point we have introduced two widely used measures of risk, standard deviation and value at risk (VaR). Before we introduce any more, it might be worthwhile to ask what qualities a good risk measure should have.
+
+In 1999 Philippe Artzner and his colleagues proposed a set of axioms that they felt any logical risk measure should follow. They termed a risk measure that obeyed all of these axioms **coherent**. As we will see, while VaR has a number of attractive qualities, it is not a coherent risk measure.
+
+A coherent risk measure is a function $\varrho$ that satisfies properties of monotonicity, sub-additivity, homogeneity, and translational invariance.
+{: .notice}
+
+### Properties of Coherent Risk Measures
+
+Consider a random outcome ${\displaystyle X}$ viewed as an element of a linear space $\mathcal{L}$ of measurable functions, defined on an appropriate probability space. A functional  $\varrho : \mathcal{L} → {\displaystyle \mathbb {R} \cup \{+\infty \}}$ is said to be coherent risk measure for $ \mathcal{L}$ if it satisfies the following properties:
+
+**Normalized**
+
+$$\varrho(0) = 0$$
+
+That is, the risk of holding no assets is zero.
+
+**Monotonicity**
+
+$$\mathrm{If}\; Z_1,Z_2 \in \mathcal{L} \;\mathrm{and}\; Z_1 \leq Z_2 \; \mathrm{a.s.} ,\; \mathrm{then} \; \varrho(Z_1) \geq \varrho(Z_2)$$
+
+**Sub-additivity**
+
+$$\mathrm{If}\; Z_1,Z_2 \in \mathcal{L} ,\; \mathrm{then}\; \varrho(Z_1 + Z_2) \leq \varrho(Z_1) + \varrho(Z_2)$$
+
+Indeed, the risk of two portfolios together cannot get any worse than adding the two risks separately: this is the diversification principle. In financial risk management, sub-additivity implies diversification is beneficial. The sub-additivity principle is sometimes also seen as problematic.
+
+**Positive homogeneity**
+
+$$\mathrm{If}\; \alpha \ge 0 \; \mathrm{and} \; Z \in \mathcal{L} ,\; \mathrm{then} \; \varrho(\alpha Z) = \alpha \varrho(Z)$$
+
+Loosely speaking, if you double your portfolio then you double your risk. In financial risk management, positive homogeneity implies the risk of a position is proportional to its size.
+
+**Translation invariance**
+
+If A is a deterministic portfolio with guaranteed return a and $Z \in \mathcal{L}$ then
+
+$$\varrho(Z + A) = \varrho(Z) - a $$
+
+
 ## Market Risk: Extreme Value Theory
 
 For example, if you had 2,000 historical daily returns, then there would be 100 20-day periods, each with a worst day. You could then use this worst-day series to make a prediction for what the worst day will be over the next 20 days.
