@@ -337,23 +337,24 @@ A coherent risk measure is a function $\varrho$ that satisfies properties of mon
 
 ### Properties of Coherent Risk Measures
 
-Consider a random outcome ${\displaystyle X}$ viewed as an element of a linear space $\mathcal{L}$ of measurable functions, defined on an appropriate probability space. A functional  $$\varrho : \mathcal{L} → \displaystyle \mathbb {R} \cup \{ +\infty \}$$ is said to be coherent risk measure for $ \mathcal{L}$ if it satisfies the following properties:
+Consider a random outcome ${\displaystyle X}$ viewed as an element of a linear space $\mathcal{L}$ of measurable functions, defined on an appropriate probability space. A functional  $$\varrho : \mathcal{L} → {\displaystyle \mathbb {R} \cup \{ +\infty \}}$$ is said to be coherent risk measure for $ \mathcal{L}$ if it satisfies the following properties:
 
 **Normalized**
 
-$$
-\varrho(0) = 0
-$$
+
+$$\varrho(0) = 0$$
 
 That is, the risk of holding no assets is zero.
 
 **Monotonicity**
+
 
 $$
 \mathrm{If}\; Z_1,Z_2 \in \mathcal{L} \;\mathrm{and}\; Z_1 \leq Z_2 \; \mathrm{a.s.} ,\; \mathrm{then} \; \varrho(Z_1) \geq \varrho(Z_2)
 $$
 
 **Sub-additivity**
+
 
 $$
 \mathrm{If}\; Z_1,Z_2 \in \mathcal{L} ,\; \mathrm{then}\; \varrho(Z_1 + Z_2) \leq \varrho(Z_1) + \varrho(Z_2)
@@ -362,6 +363,7 @@ $$
 Indeed, the risk of two portfolios together cannot get any worse than adding the two risks separately: this is the diversification principle. In financial risk management, sub-additivity implies diversification is beneficial. The sub-additivity principle is sometimes also seen as problematic.
 
 **Positive homogeneity**
+
 
 $$
 \mathrm{If}\; \alpha \ge 0 \; \mathrm{and} \; Z \in \mathcal{L} ,\; \mathrm{then} \; \varrho(\alpha Z) = \alpha \varrho(Z)
@@ -372,6 +374,7 @@ Loosely speaking, if you double your portfolio then you double your risk. In fin
 **Translation invariance**
 
 If A is a deterministic portfolio with guaranteed return a and $Z \in \mathcal{L}$ then
+
 
 $$
 \varrho(Z + A) = \varrho(Z) - a
