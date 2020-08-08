@@ -337,7 +337,7 @@ A coherent risk measure is a function $\varrho$ that satisfies properties of mon
 
 ### Properties of Coherent Risk Measures
 
-Consider a random outcome ${\displaystyle X}$ viewed as an element of a linear space $\mathcal{L}$ of measurable functions, defined on an appropriate probability space. A functional  $\varrho : \mathcal{L} → {\displaystyle \mathbb {R} \cup \{+\infty \}}$ is said to be coherent risk measure for $ \mathcal{L}$ if it satisfies the following properties:
+Consider a random outcome ${\displaystyle X}$ viewed as an element of a linear space $\mathcal{L}$ of measurable functions, defined on an appropriate probability space. A functional  $$\varrho : \mathcal{L} → {\displaystyle \mathbb {R} \cup \{ +\infty \}}$$ is said to be coherent risk measure for $ \mathcal{L}$ if it satisfies the following properties:
 
 **Normalized**
 
