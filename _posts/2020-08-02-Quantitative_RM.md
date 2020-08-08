@@ -9,7 +9,7 @@ header:
 classes: wide
 tags: risk_management mathematics statistics
 toc: true
-mathjax: false
+
 ---
 
 
