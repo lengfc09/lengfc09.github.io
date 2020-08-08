@@ -45,7 +45,7 @@ Probably not that much as it is less interesting.
 - Asset liability management
 - Application of machine learning in finance
 
-**Certificates I am currently issued with:**
+**Certificates I have been issued with:**
 
 <table><tr>
 <td>
