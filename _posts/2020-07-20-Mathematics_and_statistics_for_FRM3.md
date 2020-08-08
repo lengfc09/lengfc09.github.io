@@ -35,9 +35,9 @@ By far the most popular linear regression model is ordinary least squares (OLS).
 
 A1: The relationship between the regressor and the regressand is linear.
 
-A2: $$E[\varepsilon\|X]=0$$
+A2: $$E[\varepsilon \vert X]=0$$
 
-A3: $$Var[\varepsilon\|X]=\sigma^2$$
+A3: $$Var[\varepsilon\vert X]=\sigma^2$$
 
 A4: $$Cov[\varepsilon_i , \varepsilon_j ] = 0~ ∀i \neq j$$
 
