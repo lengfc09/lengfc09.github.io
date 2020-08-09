@@ -2,8 +2,6 @@ main:
 
   # - title: "Home"
   #   url: /
-  - title : "About"
-    url: /about/
   - title: "Posts"
     url: /year-archive/
   - title: "Categories"
@@ -14,6 +12,8 @@ main:
   #   url: /page-archive/
   - title: "Collections"
     url: /collection-archive/
+  - title : "About"
+    url: /about/
   # - title: "External Link"
   #   url: https://google.com
 
