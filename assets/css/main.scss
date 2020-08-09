@@ -81,7 +81,7 @@
             font-style: normal;
             text-decoration: underline;
         }
-        .proposition:after {
+     /*   .proposition:after {
             content: "#REF:    "  attr(blab);
             text-align: right;
             float:right;
@@ -92,7 +92,7 @@
             border-color:    #b181b1;
             padding: 5px 15px 5px 15px;
         }
-
+*/
         .remark {
             display: block;
             margin: 20px 0 40px 0;
@@ -108,7 +108,7 @@
             font-style: normal;
             text-decoration: underline;
         }
-        .remark:after {
+       /* .remark:after {
             content: "#REF:    "  attr(blab);
             text-align: right;
             float:right;
@@ -118,7 +118,7 @@
             border-right: 6px solid;
             border-color:    #b181b1;
             padding: 5px 15px 5px 15px;
-        }
+        }*/
 
         .theorem {
             display: block;
@@ -135,7 +135,7 @@
             font-style: normal;
             text-decoration: underline;
         }
-
+/*
         .theorem:after {
             content: "#REF:    "  attr(blab);
             text-align: right;
@@ -146,7 +146,7 @@
             border-right: 6px solid;
             border-color:    #b181b1;
             padding: 5px 15px 5px 15px;
-        }
+        }*/
 
         .lemma {
             display: block;
@@ -162,7 +162,7 @@
             font-weight: bold;
             font-style: normal;
         }
-        .lemma:after {
+        /*.lemma:after {
             content: "#REF:    "  attr(blab);
             text-align: right;
             float:right;
@@ -172,7 +172,7 @@
             border-right: 6px solid;
             border-color:    #b181b1;
             padding: 5px 15px 5px 15px;
-        }
+        }*/
         .proof {
             display: block;
             margin: 20px 0 0 30px;
@@ -208,10 +208,10 @@
         .info {
             display: block;
             margin: 20px 0 40px 0;
-            font-style: normal;
-            background-color: LightCyan;
+            font-style: italic;
+            background-color: #ffd9e6;
             border-left: 6px solid;
-            border-color: DarkCyan;
+            border-color: #c19bba;
             padding:10px 20px 10px 20px;
         }
         .info:before {
