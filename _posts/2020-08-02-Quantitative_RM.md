@@ -816,7 +816,282 @@ As we mentioned in Chapter 1, an important task of risk managers is dimensionali
 </div>
 
 
+## Credit Risk
 
+### Default Risk and Pricing
+
+For a one-year zero-coupon bond, with probability of default D, and a loss given default L, the initial price is
+
+$$V_0= (1-D)\frac{N}{1+R}+ D(1-L)\frac{N}{1+R}=(1-DL)\frac{N}{1+R}$$
+
+For the YTM (denoted as Y):
+
+$$V_0=\sum_{t=1}^T \frac{c}{(1+Y)^t}+\frac{N}{(1+Y)^T}$$
+
+We have
+
+$$1+Y=\frac{1+R}{1-DL} \implies  Y=\frac{R+DL}{1-DL} \tag{8.7}\label{8.7}$$
+
+
+<div  class="info">
+All else being equal, a risky bond will need to offer a higher yield in order to compensate investors for bearing the additional risk of default. For a bond with sufficientaly small probability of default, the YTM can be approximated by
+
+$$Y\approx R+DL$$
+</div>
+
+
+
+
+### Determine the Probability of default
+
+How do we determine the probability of default for a given bond issuer?
+
+**PD implied by market price**
+
+We could try to back out the default rate, based on observed market prices using an equation similar to Equation $\eqref{8.7}$. But, as discussed, because investors are risk averse, this will only give us the risk-neutral implied default rate, not the actual default rate.
+
+**Historical rate**
+
+We could look at the historical default rate for a bond issuer, but for any particular bond issuer, defaults are likely to be rare. Many bond issuers have never defaulted. If we are going to forecast the probability of default for a given issuer, we cannot rely on the history of defaults for that issuer. We will need some other approach.
+
+#### Traditional Ratings Approach
+
+The traditional approach to forecasting defaults is for rating agencies to assess the creditworthiness of an issuer.
+
+To the extent that more highly rated issuers have been less likely to default than lower-rated issuers, the traditional approach seems to have worked historically. Table 8.2 shows the average five-year default rate for corporate bonds rated by Moody’s from 1920 to 2011. As expected, AAA bonds have defaulted at a lower rate than AA bonds, which have defaulted at a lower rate than A bonds, and so on.
+
+![-w392](/media/15963510819286/15969466221424.jpg){:width="392px"}{: .align-center}
+
+Over time default rates vary widely, overall and for individual letter ratings. Figure 8.1 shows the default rate for all corporate bonds between 1920 and 2011. The variation in default rates is driven largely by changes in the economic environment. As risk managers, if we were to base our forecast of default rates over the next year on long-run average default rates, our forecasts would be very inaccurate most of the time. Fortunately, some of the variation over time in default rates is predictable. The various rating agencies issue default forecasts on a regular basis. As with the ratings, these forecasts are based on both quantitative and qualitative inputs.
+
+<div  btit="Pros and Cons of Traditional Approach" blab="rmk2" class="remark">
+
+The disadvantage of the traditional approach to forecasting defaults is that it is labor intensive and lacks transparency. Because the traditional approach is labor intensive, ratings and default probabilities are updated infrequently. This can be especially disconcerting in rapidly evolving markets. The advantage of the traditional approach is that it is extremely flexible. Corporations and governments are extremely complex. By necessity, any quantitative model is likely to leave out a large amount of potentially relative information.
+
+</div>
+
+![-w861](/media/15963510819286/15969471166919.jpg){:width="861px"}{: .align-center}
+
+#### Transition Matrices
+
+<div  class="definition">
+A ratings transition matrix provides the probability that a bond’s rating will change or stay the same over a given time period, given its rating at the start of that period.
+</div>
+
+![-w444](/media/15963510819286/15969472697253.jpg){:width="444px"}{: .align-center}
+
+![-w448](/media/15963510819286/15969472877995.jpg){:width="448px"}{: .align-center}
+
+It turns out rather conveniently that we can calculate the complete two-year transition matrix by multiplying the one-year transition matrix by itself. If $T_1$ is our one-year transition matrix, and $T_n$ is our n-year transition matrix, then
+
+$$T_n=T_1^n$$
+
+#### Quantitative Approach
+
+Over time a number of practitioners and academics have tried to develop a more systematic, quantitative approach to predicting default. In this section we explore the widely used distance-to-default model, first proposed by Robert Merton in 1974.
+
+As an equation, if we denote the enterprise value of the firm as $V_E$, and the value of the firm’s stock as S, and the value of its bonds by B, we have
+
+$$V_E=S+B$$
+
+Merton’s great insight was to realize that we can view the equity holders as having a call option on the value of the firm. Viewed this way, the value of the equity, S, at the end of the year is
+
+$$S=Max(V_E -B,0)$$
+
+In other words, the owning the stock of a firm is equivalent to owning a call option on the enterprise value of the firm, with a strike price equal to B, the value of the bonds.
+
+Because we can observe the price of the equity in the stock market, and we know B, we can use the Black-Scholes-Merton option pricing formula to back out the market-implied volatility of the enterprise value. If we know the current enterprise value, and we know the expected volatility of the enterprise value, then we can easily determine the probability of default, which is the probability that the enterprise value will fall below B.
+
+Rather than express the distance to default in dollar terms, what we really want to know is the probability of default. Assume the stock price follows a brownian motion, then in the risk-neutral world, by Ito-formula, we know:
+
+$$
+\begin{aligned}
+\frac{dS_t}{s_t}&= rd_t + \sigma dw_t\\
+\implies d (ln S_t)&=\frac{dS_t}{s_t} -\frac{1}{2} \frac{dS_t*dS_t}{S_t^2}\\
+&=(r-\frac{1}{2}\sigma^2) dt + \sigma dw_t
+\end{aligned}
+$$
+
+If we now assume that the log returns of the enterprise value follow a normal distribution, then this is equivalent to asking how many standard deviations we are from default. Because we are using options pricing, we need to take into account the expected risk-neutral drift of the enterprise value, $(r-\sigma_V^2/2)T$, where r is the risk-free rate,
+$\sigma_V$ is the implied volatility of the enterprise value, and T is the time to expiration.
+
+In order to default, the enterprise value must undergo a return of
+
+$$ln(1 – S/VE_) =ln(B/V_E)=-ln(V_E/B) $$
+
+Finally, the standard deviation of the returns over the remaining life of the option is $\sigma_V \sqrt{T}$. Putting it together, the distance to default in standard deviations is
+
+
+ $$\Delta=\frac{-\ln \left(\frac{V_{E}}{B}\right)-\left(r-\frac{\sigma_{V}^{2}}{2}\right) T}{\sigma_{V} \sqrt{T}}=-d_{2}$$
+
+Here we have introduced the variable $−d_2$, which is the common designation for this quantity in the Black-Scholes-Merton model. Finally, to convert this distance to default into a probability of default, we simply use the standard normal cumulative distribution function, $P[D] = N(−d_2)$.
+
+#### which method is better
+
+Which approach is better? In practice, asset managers with large fixed-income holdings often use both ratings and quantitative models. They are also likely to supplement public ratings and commercially available quantitative models with their own internal ratings and models. One of the best examples of how the two approaches are viewed in practice can be seen in the history of KMV. Prior to 2002, KMV was one of the leading firms offering software and ratings based on Merton-type quantitative models. KMV suggested that its approach was superior to the approach of the rating agencies, and the rating agencies shot right back, insisting that their approach was in fact superior. In 2002, one of those rating agencies, Moody’s purchased KMV. Moody’s now offers products and services combining both approaches.
+
+
+
+
+## Liquidity Risk
+
+In a crisis, liquidity can often make the difference between survival and disaster for a financial firm. We begin this chapter by defining liquidity risk before introducing measures and models that can help manage liquidity risk.
+
+### Simple Liquidity Measures
+
+We begin by exploring some relatively simple liquidity measures. These measures fail to fully capture all aspects of liquidity risk, but they are easy to calculate and understand.
+
+#### Weighted Average Days Volume
+
+One of the simplest and most widely used measures of portfolio liquidity is the weighted average days’ volume, often referred to simply as the average days’ volume for a single security.
+
+<div  class="info">
+Notice that we used the ambiguous term average in describing this measure. Practitioners are divided on using the mean or the median when calculating average trading volumes.
+</div>
+
+On the one hand, trading volumes often spike around news events, producing highly skewed distributions. Because of this, the median will tend to be more stable and more conservative. On the other hand, if these volume spikes are fairly common, or our trading horizon is sufficiently long, the mean may provide a better indication of how difficult it will be to liquidate a position. Because of this, and because average daily volume is such a commonly used expression, we will continue to use average to describe this particular statistic.
+
+To get the weighted average days’ volume for a portfolio of securities, we can calculate a weighted average based on each position’s absolute market value.
+
+<div  class="definition">
+If a portfolio contains n securities, and the total market value and average days’ volume of the i-th security are $v_i$ and $d_i$, respectively, then the portfolio’s weighted average days’ volume, $\bar{d}_{\text {Portfolio }}$, is
+
+$$\bar{d}_{\text {Portfolio }}=\frac{\sum_{i=1}^{n}\left|v_{i}\right| \bar{d}_{i}}{\sum_{i=1}^{n}\left|v_{i}\right|}=\frac{\sum_{i=1}^{n}\left|x_{i} p_{i}\right| \frac{\left|x_{i}\right|}{\bar{q}_{i}}}{\sum_{i=1}^{n}\left|x_{i} p_{i}\right|}$$
+
+where $x_i$ is the number of units owned of the i-th security, with price, $p_i$, and average daily volume, $q_i$.
+</div>
+
+The advantage of using weighted average days’ volume to summarize liquidity is that it is easy to calculate and easy to understand. That said, weighted average days’ volume is incredibly simplistic and leaves out many aspects of liquidity risk, which may be important.
+
+Weighted average days’ volume works best when a portfolio is composed of similar securities with similar risk characteristics and similar trading volumes.
+
+If a firm has a mix of highly liquid and highly illiquid securities, or if it has a mix of high-volatility and low-volatility securities, then we are likely to have to look beyond weighted average days’ volume in order to accurately gauge liquidity risk.
+
+#### Liquidity Schedule
+
+<div  class="definition">
+A liquidity schedule shows how quickly a portfolio can be liquidated.
+</div>
+
+![-w418](/media/15963510819286/15969495700565.jpg){:width="418px"}{: .align-center}
+
+Table 9.1 provides an example. Here 40% of the portfolio can be liquidated within one day, and the entire portfolio can be liquidated within four days.
+
+**2 Steps to create a liquidity Table**
+
+1. make an assumption about how quickly we can liquidate individual positions;
+2. calculate how much of each position we can liquidate each day.
+3. sum up the liquidation progress
+
+
+As with weighted average days’ volume, there is no universally agreed-upon value. In practice a risk manager may look at more than one scenario, for example, a fast liquidation scenario and a slow liquidation scenario.
+
+<div  class="exampl">
+Question:
+
+You are asked to calculate a liquidity schedule for a portfolio containing 100 million each of PTR and XOM. From previous work you know that the PTR position represents 0.50x the average daily volume of PTR and that the XOM position represents 0.25x the average daily volume of XOM. Assume that you can liquidate 10% of the average daily volume each day.
+
+Answer:
+
+If we can liquidate 10% of the average daily volume each day, then it will take us 5 days to liquidate the PTR position and 2.5 days to liquidate the XOM position. Looked at another way, we will be able to sell, at most, 20 million of PTR and 40 million of XOM each day.
+
+
+Using these values, we begin to construct our liquidation table. First, we insert our per day liquidity values.
+
+We then add these values together to get the total sold each day. We add these values to get the cumulative amount sold at the end of each day. We then turn this into a percentage of gross exposure by dividing by 200 million, the total initial gross market value of the portfolio. This last column in the table is our liquidation schedule.
+
+$$\begin{array}{lcccccc}
+\hline & {\text { Per Day }} & & {\text { Cumulative }} \\
+ \text { Day } & \text { PTR  } & \text { XOM  } & \text { Total  } & \text { Total Comu. } & \text { % Liquidated } \\
+\hline 1 & \$ 20 & \$ 40 & \$ 60 & \$ 60 & 30 \% \\
+2 & \$ 20 & \$ 40 & \$ 60 & \$ 120 & 60 \% \\
+3 & \$ 20 & \$ 20 & \$ 40 & \$ 160 & 80 \% \\
+4 & \$ 20 & & \$ 20 & \$ 180 & 90 \% \\
+5 & \$ 20 & & \$ 20 & \$ 200 & 100 \% \\
+\hline
+\end{array}$$
+
+</div>
+
+
+
+### Liquidity Cost Models
+
+Our standard market-risk model is based on market prices, which are often the midpoint of the bid-ask spread. When we go to sell a security, we will not receive this market price, but the ask price, which is slightly lower. This lower price will act to reduce our profit and loss (P&L). We can add this potential loss into the profit distribution due to market risk. We can then calculate the liquidity-adjusted value at risk (LVaR).
+
+If we try to sell too much, we may push down the price and our profits further. In the first section we will ignore this potential source of loss and assume we can trade as much as we want at the current bid or ask price. In other words, we will assume that the price at which we can buy and sell securities is **exogenous**, and not impacted by our actions. In the second section, when we look at **endogenous models**, we will incorporate the potential impact of our own behavior on security prices.
+
+#### Exogenous Liquidity Models
+
+The difference between the market price and the price where we can buy or sell is equal to half the bid-ask spread. Given the bid-ask spread, the LVaR for a single unit of a security is just the standard VaR plus half the bid-ask spread. For n units of the security, we simply multiply the spread by n.
+
+$$LVaR=VaR+n\frac{1}{2}(P_{aks}-P_{bid})$$
+
+**Model the bid-ask spread**
+
+For extremely liquid securities, under normal market conditions, the bid-ask spread might be relatively stable. For less liquid securities, or in unsettled markets, the bid-ask spread may fluctuate significantly. Rather than using a fixed bid-ask spread, then, it may be appropriate to model the spread as a random variable. As with the distribution of market returns used to calculate our standard VaR, we can use either parametric or non-parametric distributions to model the bid-ask spread.
+
+**Correlation between spreads and market returns**
+
+When adding spread adjustments to our market risk distribution, it may be necessary to consider the correlation between spreads and market returns. In severe down markets, spreads will often widen. Depending on whether we are long or short, this correlation may make LVaR worse or better, compared to an assumption of no correlation. Spreads may also increase as market volatility increases.
+
+**Price spread vs percentage spread**
+
+If the bid and ask prices were 9.90 and 10.10, respectively, then the bid-ask spread would be 0.20. Quoting spreads in dollar terms like this is common practice in financial markets. When modeling spreads, though, it might be more appropriate to use percentage spreads.
+
+In theory, we might expect percentage spreads to be more stable. In practice because securities trade in discrete increments, and because there are fixed costs associate with trading a unit of a security, the distribution of dollar spreads may in fact be more stable. This is another factor to consider when specifying a model.
+
+#### Endogenous Liquidity Models
+
+Financial securities, just like all other goods and services, are subject to the law of supply and demand. The higher the price of a security, the more sellers will be willing to sell, increasing the supply, but the less buyers will be willing to buy, decreasing the demand.
+
+Figure 9.1 shows an example of a partial supply and demand curve for a security. Unlike the supply and demand curves that you might be familiar with from economics textbooks, these partial curves represent only the buyers and sellers who are unwilling to trade at the current price. These buyers and sellers represent potential liquidity in the market. The small gap between the two leftmost points on each curve represents the bid-ask spread. Because securities trade in discrete units (e.g., currently U.S. stocks trade in one-cent increments) when we look closely at these curves, they appear jagged. In the top half of Figure 9.1, we can see this clearly. If we zoom out, though, as in the bottom half of the figure, the curves start to look smooth. As we will see, even when markets are discrete, we often base our models on these smooth approximations.
+
+![-w646](/media/15963510819286/15969505292354.jpg){:width="646px"}{: .align-center}
+
+
+A popular functional form for supply and demand curves is to choose constant elasticity. The elasticity, 𝜆, is the percentage change in quantity divided by the percentage change in price:
+
+$$\lambda = \frac{dQ/Q}{dP/P}$$
+
+<div btit="demand curve" blab="demand_curve" class="proposition">
+In order for the elasticity to remain constant as P and Q change, the demand curve must be of the form
+
+$$P=\left(\frac{Q}{\alpha} \right)^{1/\lambda}$$
+
+where $\alpha$ is a constant.
+</div>
+
+Once we know the elasticity of demand, it is a simple matter to calculate the impact of a given trade on the price of the security. This can then be translated into a loss, which can be added to the market VaR to arrive at the LVaR.
+
+#### LVaR
+
+LVaR is a compelling statistic for a number of reasons. It defines liquidity risk in terms of its impact on P&L, and it provides us with a single number which captures both market and liquidity risk.
+
+It is not without its disadvantages, though. Spreads may be difficult to estimate for illiquid securities—the very securities that may pose the most liquidity risk—and estimating the supply or demand functions can be extremely difficult, even for liquid securities.
+
+The uncertainty surrounding estimates of the liquidity adjustment could potentially swamp the overall estimate, turning a meaningful VaR statistic into a difficult-to-interpret LVaR statistic. In practice, LVaR is rarely a replacement for VaR; rather, it is reported in addition to VaR.
+
+Even though the name is very similar to VaR, LVaR is fundamentally different. Whereas we can backtest VaR, comparing it to actual P&L on a regular basis, large liquidations are likely to happen infrequently. LVaR is likely to be very difficult to backtest.
+
+### Optimal Liquidation
+
+When trying to liquidate a portfolio or part of a portfolio, there is always a trade-off between reducing risk and reducing liquidation costs.
+
+<div  btit="Time Uncertainty VS Price Uncertainty" blab="rmk2" class="remark">
+If we trade out of positions too quickly, we are likely to move the market, which will negatively impact our P&L. If we trade more slowly, we may be able to trade closer to the market price, but the market may start to move against us.
+</div>
+
+With LVaR models, the standard approach is to choose an arbitrary liquidation horizon, which, in turn, determines the liquidation cost. The idea behind optimal liquidation is to let the model choose the time horizon, so that risk reduction and liquidation costs are balanced.
+
+We start with a simple scenario. Imagine you are faced with a choice: You are long 100 of XYZ. Tomorrow there is a 50/50 chance that the price of XYZ will either increase or decrease by 10%. You can either sell the entire position today, or sell half today and half tomorrow. On either day, you can sell up to 55 at 2% below the market price. If you sell the 100 in one day you will need to sell at 4% below the market price. What should you do?
+
+![-w897](/media/15963510819286/15969509833582.jpg){:width="800px"}{: .align-center}
+
+
+As summarized in Figure 9.2, if you sell everything today you are guaranteed to get 96. If you only sell 50% today you have a 50/50 chance of ending up with 102.90 or 93.10. This is an expected payout of 98. If you wait, you are better off on average, but you could be worse off. In this scenario, no choice is necessarily better than the other. Which is better depends on personal preference. More specifically, as we will see when we discuss behavioral finance, the choice depends on how risk averse you are. If you are extremely risk averse you will choose 96 with certainty. If you are less risk averse, you will choose to accept more risk for a slightly higher expected return. Determining the appropriate level of risk aversion to apply can make the optimal liquidation difficult to determine in practice.
+
+Full-blown scenario analysis can be extremely complex. As with LVaR, we can use exogenous spreads or endogenous spreads, and consider the correlation of liquidity risk to other risk factors.
 
 
 
