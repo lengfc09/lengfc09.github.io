@@ -1054,7 +1054,7 @@ A popular functional form for supply and demand curves is to choose constant ela
 
 $$\lambda = \frac{dQ/Q}{dP/P}$$
 
-<div btit="demand curve" blab="demand_curve" class="proposition">
+<div btit="Demand Curve" blab="demand_curve" class="proposition">
 In order for the elasticity to remain constant as P and Q change, the demand curve must be of the form
 
 $$P=\left(\frac{Q}{\alpha} \right)^{1/\lambda}$$
