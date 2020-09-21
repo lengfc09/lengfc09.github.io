@@ -72,6 +72,9 @@ Probably not that much as it is less interesting.
         <img style="width:150px;" src="http://basno.com/eq215omp.png">
         </a>
 </td>
+</tr></table>
+
+<table><tr>
 <td>
         <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="b9366dff-b011-43fe-927f-c96408f80275" data-share-badge-host="https://www.youracclaim.com"></div><script type="text/javascript" async src="//cdn.youracclaim.com/assets/utilities/embed.js"></script>
 </td>
