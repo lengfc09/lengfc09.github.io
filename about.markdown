@@ -54,6 +54,11 @@ Probably not that much as it is less interesting.
         </a>
 </td>
 <td>
+    <a href="http://basno.com/m7iihbfv">
+        <img style="width:150px;" src="http://basno.com/m7iihbfv.png">
+    </a>
+</td>
+<td>
         <a href="http://basno.com/hv38nk27">
         <img style="width:150px;" src="http://basno.com/hv38nk27.png">
         </a>
