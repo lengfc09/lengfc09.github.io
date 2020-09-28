@@ -100,6 +100,169 @@ $$
 This regression is so popular that we frequently speak of a stock’s beta, which is simply $\beta$ from the regression equation. While there are other ways to calculate a stock’s beta, the functional form given above is extremely popular, as it relates two values, $\sigma_X$ and $\sigma_Y$, with which traders and risk managers are often familiar, to two other terms, $\rho(X,Y)$ and $\beta$, which should be rather intuitive.
 
 
+#### Model Diagnostics
+
+<div  class="info">
+Before we use the regression model, we need to make sure there are no gross violations of the model:
+</div>
+
+
+*  Is the relationship between x and y **linear**?
+*  Do the residuals show **iid normal behavior**?
+    *  Constant variability
+    *  Normal residuals
+    *  Independency
+*  Are there **outliers** that may distort the model fit?
+
+
+**Three crucial scatterplot in checking a model:**
+
+- Linear relationship:
+    - Y vs. X scatterplot should reveal a **linear pattern**, linear dependence.
+- Independence between ε and X
+    - Residual vs. x scatterplot should reveal no meaningful pattern.
+    - Residual vs. Predicted scatterplot should reveal no meaningful pattern.
+- I.I.D. Normality of the errors
+    - A histogram and normal quantile plot of the residuals should be consistent with the assumption of normality of the errors.
+    - Variance of the error term is constant.
+    - Error terms for various data points should be uncorrelated with each other.
+
+<div  class="exampl">
+Say we want to analyze the relationship between weight and the price of diamond rings.
+
+These plots reveal no systematic pattern in the residuals, which is good.
+
+
+
+</div>
+
+![-w700](/media/15951262104465/16011896102958.jpg){:width="800px"}{: .align-center}
+
+
+
+**Checking homoscedasticity:**
+
+![-w832](/media/15951262104465/16011898197625.jpg){:width="800px"}{: .align-center}
+
+* The variability of points around the least squares line should be roughly constant.
+* This implies that the variability of residuals around the 0 line should be roughly constant as well.
+* Also called homoscedasticity.
+
+**Checking for nomality:**
+
+![-w764](/media/15951262104465/16011899393425.jpg){:width="800px"}{: .align-center}
+
+* The residual histogram is consistent with the normality assumption.
+* Q-Q plot: The points stay close to the line, suggesting normality.
+
+
+<div  class="exampl">
+In this example, we analyze the number of subscribers to cell phone service in the US every six months from the end of 1984 to the end of 1995.
+
+</div>
+
+![-w760](/media/15951262104465/16011902252769.jpg){:width="800px"}{: .align-center}
+Meandering pattern shows that the residuals violate the independence assumption, i.e. auto-correlated
+
+
+<div  class="exampl">
+In this example, we analyze the number of crews and the # of rooms cleaned for 53 teams of building maintenance workers.
+</div>
+
+![-w783](/media/15951262104465/16011902942581.jpg){:width="800px"}{: .align-center}
+Because the residuals fan out as the # of crews increases, these data violate the assumption of equal error variance in the model.
+
+![-w793](/media/15951262104465/16011903760140.jpg){:width="800px"}{: .align-center}
+
+* Over and under estimate variance for different x region
+* Consider RoomsClean per Crew as y
+
+
+**Outliers**
+
+* **Outliers** are points that lie away from the cloud of points.
+* **High leverage points**: outliers that lie horizontally away from the center of the cloud.
+* **Influential points**: high leverage points that actually influence the slope of the regression line.
+* In order to determine if a point is influential, visualize the regression line with and without the point. Does the slope of the line change considerably?
+    * If so, then the point is influential.
+    * If not, then it’s not an influential point.
+
+
+<div  class="exampl">
+The file phila.dat contains average prices of houses sold and crime rates for 110 communities in/near Philadelphia in April 1996.
+</div>
+
+
+![-w614](/media/15951262104465/16011907040686.jpg){:width="600px"}{: .align-center}
+
+* Leverage points can impact inferences in dramatic fashion.
+* The data cottages.dat contains the profits obtained by a construction firm for 18 properties, as well as the square footage of each of the properties.
+
+
+![-w498](/media/15951262104465/16011907544326.jpg){:width="500px"}{: .align-center}
+
+
+#### Relevant Questions
+
+**Q1: Is $\beta_1$ = 0? i.e. is X an important variable?**
+
+* We use a hypothesis test to answer this question.
+
+$$H_0:\beta_1 =0 \text{ vs. }H_a :\beta_1 \neq 0$$
+
+![-w567](/media/15951262104465/16011928781339.jpg){:width="600px"}{: .align-center}
+
+
+<div  class="info">
+Remember: We lose 1 degree of freedom for each parameter we estimate, and in simple linear regression we estimate 2 parameters, $\beta_0$ and $\beta_1$.
+</div>
+
+**Q2: Confidence Interval for β1**
+
+We not only care about whether β1 = 0, but also what exact
+values β1 takes. We can calculate confidence interval for β1 using the same idea as for μ.
+
+**Q3: Confidence Interval for E(y \|x)**
+
+$$E(y\vert x) = \beta_0 + \beta_1x$$
+
+What is the average price for all rings with 1/4 carat diamonds?
+
+![-w619](/media/15951262104465/16011930853475.jpg){:width="600px"}{: .align-center}
+**Q4: Prediction Interval for y**
+
+$$y=\beta_0+ \beta_1 x+\epsilon$$
+
+How much might pay for a specific ring with a 1/4 carat diamond?
+
+![-w581](/media/15951262104465/16011931309379.jpg){:width="600px"}{: .align-center}
+**Q5: Interpretation of RMSE**
+
+Root Mean Squared Error (RMSE):
+
+$$M S E=\frac{S S E}{n-2} \quad R M S E=\sqrt{M S E}$$
+
+* RMSE tells us how far our predictions are off on average.
+* Drawback: RMSE depends on the size of Y .
+    * Example: diamond price in RMB vs Singapore dollors.
+
+
+RMSE is especially important in regression. If the simple linear regression model holds, i.e.
+
+* Linear relationship
+* Independence among the residuals
+* The residuals have constant variance
+* Normally distributed residuals
+
+then we have the following approximations:
+
+* 68% of the observed y will lie within 1×RMSE of the predicted y
+* 95% of the observed y will lie within 2×RMSE of the predicted y
+* 99.7% of the observed y will lie within 3×RMSE of the predicted y
+
+
+
+
 #### Estimating the parameters
 
 $$
@@ -124,6 +287,10 @@ $$
 $$
 
 where $\bar{X}$ and $\bar{Y}$ are the sample mean of X and Y, respectively.
+
+
+
+
 
 
 #### Evaluating the regression
@@ -254,30 +421,86 @@ The most common null hypothesis when testing regression parameters is that the p
 
 $$Y=X\beta + \varepsilon$$
 
-#### No Multicollinearity
+#### No Multicollinearity/Collinearity
+
 In the multivariate case, we require that all of the independent variables be linearly independent of each other. We say that the independent variables must lack multicollinearity:
 
 **A7: The independent variables have no multicollinearity.**
 
 To say that the independent variables lack multicollinearity means that it is impossible to express one of the independent variables as a linear combination of the others.
 
-In other words, **the features has full rank.**
+MRM allows the use of correlated explanatory variables. Collinearity occurs when the correlations among the X variables are large. As the correlation among these variables grows, it becomes difficult for regression to separate the partial effects of different variables.
+
+* Highly correlated X variables tend to change together, making it difficult to estimate the partial slope.
+* Difficulties interpreting the model
 
 There is no well-accepted procedure for dealing with multicollinearity.
 
-1) **eliminate a variable**
+**1) eliminate a variable**
 The easiest course of action is often simply to **eliminate a variable** from the regression. While easy, this is hardly satisfactory.
 
-2) **transform the variables**
+**2) transform the variables**
 Another possibility is to transform the variables, to create uncorrelated variables out of linear combinations of the existing variables. In the previous example, even though $X_3$ is correlated with $X_2$, $X_3-\lambda X_2$ is uncorrelated with $X_2$.
 
-3) **PCA**
+**3) PCA**
 
 One potential problem with this approach is similar to what we saw with **principal component analysis** (which is really just another method for creating uncorrelated variables from linear combinations of correlated variables).
 
 **Make economic sense?**
 
 If we are lucky, a linear combination of variables will have a simple economic interpretation. For example, if X2 and X3 are two equity indexes, then their difference might correspond to a familiar spread. Similarly, if the two variables are interest rates, their difference might bear some relation to the shape of the yield curve. Other linear combinations might be difficult to interpret, and if the relationship is not readily identifiable, then the relationship is more likely to be unstable or spurious.
+
+
+
+<div  class="exampl">
+The Market Model. We consider simple linear regression of
+1)􏰀 exPACGE on exSP500, the excess returns of PACGE and SP500 over TBill30. 2) exPACGE on exVW, the excess returns of PACGE and VW over TBill30. Also, consider multiple linear regression of exPACGE on both exSP500 and exVW.
+
+</div>
+
+![-w1031](/media/15951262104465/16011973701285.jpg){:width="800px"}{: .align-center}
+
+![-w1021](/media/15951262104465/16011973795417.jpg){:width="800px"}{: .align-center}
+
+**Discussion: The F Test and Correlated Predictors**
+
+* Seemingly contradiction between
+    * Overall F Ratio in the ANOVA Table
+    * Individual p-value (T test) for each regression coefficient
+* The overall F Ratio comes in handy when the explanatory variables in a regression are correlated.
+    * Overall F Ratio: whether at least one of the X variables is significant, leaving out the other ones
+    *  Individual T test: whether each individual X variable is significant, having included the other ones
+* When the predictors are highly correlated (i.e. high collinearity), they may contradict each other.
+
+**Measuring Collinearity: Variance Inflation Factor (VIF)**
+
+<div  class="definition">
+The VIF is defined as
+$$
+VIF(b_k)=\frac{1}{1-R_k^2}
+$$
+
+where $R_k^2$ is $R_2$ from regressing $x_k$ on the other x’s.
+</div>
+
+* The lower VIF is, the less collinearity.
+* The VIF is the ratio of the variation that was originally in each explanatory variable to the variation that remains after removing the effects of the other explanatory variables.
+* If the x’s are uncorrelated, VIF = 1.
+* If the x’s are correlated, VIF can be much larger than 1.
+
+![-w835](/media/15951262104465/16011980485348.jpg){:width="700px"}{: .align-center}
+
+The VIF answers a very handy question when an explanatory variable is not statistically significant: Is this explanatory variable simply not useful, or is it just redundant?
+
+**Summary for Collinearity**
+
+* Collinearity is the presence of “substantial” correlation among the explanatory variables (the X’s) in a multiple regression.
+    * Potential redundancy among the X’s
+* The F Ratio detects statistical significance that can be disguised by collinearity.
+    *  The F ratio allows you to look at the importance of several factors simultaneously.
+    *  When predictors are collinear, the F test reveals their net effect, rather than trying to separate their effects as a t ratio does.
+* VIF measures the impact of collinearity on the coefficients of specific explanatory variables.
+
 
 
 #### Estimating the parameters
@@ -295,7 +518,9 @@ Given the OLS assumptions—actually, we don’t even need assumption A6, that t
 
 #### Evaluation of the regression
 
-##### Evaluation: R square
+##### Evaluation: R square and adjusted R square
+
+R2 equals to the squared correlation between y and predicted $\bar{y}$.
 
 One problem in the multivariate setting is that $R^2$ tends to increase as we add independent variables to our regression.
 
@@ -380,11 +605,101 @@ $$
 
 ##### Evaluation: significance of parameters with F-statistics
 
+Is At Least One $\beta_k \neq 0$?
+
+
+
 Instead of just testing one parameter, we can actually test the significance of all of the parameters, excluding the constant, using what is known as an F-test. The F-statistic can be calculated using $R^2$:
 
 $$
 \frac{ESS/(n-1)}{RSS/(t-n)}=\frac{R^{2} /(n-1)}{\left(1-R^{2}\right) /(t-n)} \sim F_{n-1, t-n}
 $$
+
+
+* The ANOVA table supplies a highly significant F-ratio.
+    * This model explains statistically significant variation in Y .
+    * Atleast one $\beta_k$ is not zero, i.e. at least one of the $X_k $ is useful in predicting Y .
+* The ANOVA Table allows you to look at the importance of several factors simultaneously.
+
+
+<div  class="exampl">
+Market Segmentation. A marketing project identified a list of affluent customers for a new phone.
+
+Should the company target promotion towards the younger or older members of this list? To answer this question, the marketing firm obtained a sample of 75 consumers and asked them to rate their “likelihood of purchase” on a scale of 1 to 10. Age and Income of consumers were also recorded.
+
+
+
+</div>
+
+![-w1007](/media/15951262104465/16011959112130.jpg){:width="1000px"}{: .align-center}
+
+**SRM of Rating, one variable at a time**
+
+$$\begin{array}{lllll}
+\hline & \text { Estimate } & \text { Std. Error } & t \text { value } & \operatorname{Pr}(>|t|) \\
+\hline \text { (Intercept) } & 0.49004 & 0.73414 & 0.668 & 0.507 \\
+\text { Age } & 0.09002 & 0.01456 & 6.181 & 3.3 \mathrm{e}-08 \\
+\hline \hline & \text { Estimate } & \text { Std. Error } & t \text { value } & \operatorname{Pr}(>|t|) \\
+\hline \text { (Intercept) } & -0.598441 & 0.354155 & -1.69 & 0.0953 \\
+\text { Income } & 0.070039 & 0.004344 & 16.12 & <2 e-16 \\
+\hline
+\end{array}$$
+
+**MRM of Rating, on both variables**
+
+$$\begin{array}{lllll}
+\hline & \text { Estimate } & \text { Std. Error } & t \text { value } & \operatorname{Pr}(>|t|) \\
+\hline \text { (Intercept) } & 0.512374 & 0.355004 & 1.443 & 0.153 \\
+\text { Age } & -0.071448 & 0.012576 & -5.682 & 2.65 \mathrm{e}-07 \\
+\text { Income } & 0.100591 & 0.006491 & 15.498 & <2 e-16
+\end{array}$$
+
+<div  class="info">
+We need to understand why the slope of Age is positive in the simple regression but negative in the multiple regression.
+
+Given the context, the positive marginal slope is probably more surprising than the negative partial slope.
+</div>
+
+We can divide the customer into 3 segments:
+* low incomes (< 45K),
+* moderate incomes (70K ∼ 80K),
+* high incomes (> 110K).
+
+
+![-w419](/media/15951262104465/16011965675657.jpg){:width="400px"}{: .align-center}
+
+**Low income**
+
+$$
+\begin{array}{lllll}
+\hline & \text { Estimate } & \text { Std. Error } & t \text { value } & \operatorname{Pr}(>|t|) \\
+\hline \text { (Intercept) } & 3.30845 & 3.42190 & 0.967 & 0.436 \\
+\text { Age } & -0.04144 & 0.10786 & -0.384 & 0.738 \\
+\hline
+\end{array}$$
+
+**Moderate incomes**
+
+$$\begin{array}{lllll}
+\hline & \text { Estimate } & \text { Std. Error } & t \text { value } & \operatorname{Pr}(>|t|) \\
+\hline \text { (Intercept) } & 8.36412 & 2.34772 & 3.563 & 0.0026 \\
+\text { Age } & -0.07978 & 0.04791 & -1.665 & 0.1153 \\
+\hline
+\end{array}$$
+
+**High income**
+
+$$\begin{array}{lllll}
+\hline & \text { Estimate } & \text { Std. Error } & t \text { value } & \operatorname{Pr}(>|t|) \\
+\hline \text { (Intercept) } & 12.07081 & 1.28999 & 9.357 & 0.000235 \\
+\text { Age } & -0.06243 & 0.01873 & -3.332 & 0.020727 \\
+\hline
+\end{array}$$
+
+The simple regression slopes are negative in each case, as in the multiple linear regression.
+
+
+
 
 In general, we want to keep our models as simple as possible. We don’t want to add variables just for the sake of adding variables. This principle is known as **parsimony**.
 
