@@ -123,7 +123,7 @@ Another very simple model for estimating VaR is historical simulation or the his
 
 For example, suppose we want to calculate the one-day 95% VaR for an equity using 100 days of data. The 95th percentile would correspond to the least worst of the worst 5% of returns. In this case, because we are using 100 days of data, the VaR simply corresponds to the fifth worst day.
 
-#### Choose.between Interpolation or Conservativeness
+#### Choose between Interpolation or Conservativeness
 
 ![-w600](/media/15963510819286/15963544305717.jpg){:width="600px"}{: .align-center}
 

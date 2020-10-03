@@ -5,7 +5,8 @@ title: Statistics - HKU Bootcamp
 categories: statistics
 excerpt: "Basic topics of statsitics convered in the HKU stats bootcamp."
 header:
-    overlay_color: "#e68ab8" #火鹤红
+    overlay_color: "#2f4f4f" #暗岩灰
+    # overlay_color: "#e68ab8" #火鹤红
 classes: wide
 tags: statistics
 
