@@ -95,7 +95,7 @@ There are several variations on this test.
 
 3. In some applications, you may want to adopt a new process or treatment only if it exceeds the current treatment by some threshold. In this case, we can state the null hypothesis in the form that the difference between the two populations means is equal to some constant μ1−μ2=d0 where the constant is the desired threshold.
 
-#### Definition
+#### Definition of Two-Sample t-test
 
 The two-sample t-test for unpaired data is defined as:
 
