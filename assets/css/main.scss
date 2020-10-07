@@ -220,6 +220,22 @@
             font-style: normal;
         }
 
+        .attention {
+            display: block;
+            margin: 20px 0 40px 0;
+            font-style: italic;
+            background-color: #ffd9e6;
+            border-left: 6px solid;
+            border-color: #c19bba;
+            padding:10px 20px 10px 20px;
+        }
+        .attention:before {
+            content: "" attr(btit) "";
+            font-weight: bold;
+            font-style: normal;
+            text-decoration: underline;
+        }
+
 
 
         .mytoc__menu {
