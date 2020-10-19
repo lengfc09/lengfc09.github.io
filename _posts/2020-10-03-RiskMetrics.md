@@ -418,7 +418,7 @@ In general, this scaling procedure will not exactly result in the true T -day re
 $$$$
 
 
-An alternative method would be to create a set of T -day non-overlapping returns from the daily return data set. This procedure is theoretically correct, but it is only feasible for relatively short horizons because the use of non-overlapping returns requires a long data history.
+An alternative method would be to create a set of T -day non-overlapping returns from the daily return data set. This procedure is theoretically correct, but it is only feasible for relatively short horizons because the use of non-overlapping returns requires a long data history.$\tag{scarcity of historical data}\label{overlapping}$
 
 </div>
 
@@ -758,3 +758,324 @@ While this interpretation of IVaR is rather simple and convenient, there are two
 
 - The first is that there is simulation error around the portfolio VaR estimate, and the position scenarios can be sensitive to the choice of portfolio scenario.
 - The second problem arises when we have more than one position in a portfolio leading to more than one scenario that produces the same portfolio P&L.
+
+
+
+### Expected Shortfall
+
+Although VaR is the most widely used statistic in the marketplace, it has a few shortcomings.
+
+The most criticized drawback is that VaR is not a sub-additive measure of risk. Subadditivity means that the risk of the sum of subportfolios is smaller than the sum of their individual risks.
+
+Another criticism of VaR is that it does not provide an estimate for the size of losses in those scenarios where the VaR threshold is indeed exceeded.
+
+Expected Shortfall is a subadditive risk statistic that describes how large losses are on average when they exceed the VaR level, and hence it provides further information about the tail of the P&L distribution. Mathematically, we can define Expected Shortfall as the conditional expectation of the portfolio losses given that they are greater than VaR. That is
+
+$$
+\text { Expected Shortfall }=\mathbf{E}[-\Delta V \mid-\Delta V>\text { VaR }]
+$$
+
+Expected Shortfall also has some desirable mathematical properties that VaR lacks. For example, under some technical conditions, Expected Shortfall is a convex function of portfolio weights, which makes it extremely useful in solving optimization problems when we want to minimize the risk subject to certain constraints. (See Rockafellar and Uryasev (2000).)
+
+
+## Reports
+
+The main goal of risk reports is to facilitate the clear and timely communication of risk exposures from the risk takers to senior management, shareholders, and regulators.
+
+Risk reports must summarize the risk characteristics of a portfolio, as well as highlight risk concentrations[^1].
+
+[^1]: For a detailed explanation of risk reporting practices see Laubsch (1999).
+
+The objective of this chapter is to give an overview of the basic ways in which we can visualize and report the risk characteristics of a portfolio using the statistics described in last chapter.
+
+We will show
+
+- how to study the risk attributes of a portfolio through its distribution
+- how to identify the existence of risk concentrations in specific groups of positions.
+- how to investigate the effect of various risk factors on the overall risk of the portfolio.
+
+
+### An overview of risk reporting
+
+At the most aggregate level, we can depict in a histogram the entire distribution of future P&L values for our portfolio.
+
+We can construct a histogram using any of the methods described in Chapters 2 and 3 (i.e., Monte Carlo simulation, parametric, and historical simulation).  The resulting distribution will depend on the assumptions made for each method.
+
+Figure 7.1 shows the histograms under each method for a one sigma out-of-the-money call option on the S&P 500. Note that the parametric distribution is symmetric, while the Monte Carlo and historical distributions are skewed to the right. Moreover, the historical distribution assigns positive probability to high return scenarios not likely to be observed under the normality assumption for risk factor returns.
+
+
+![-w826](/media/16017179858557/16024857017341.jpg){:width="800px"}{: .align-center}
+
+
+At a lower level of aggregation, we can use any of the risk measures described in Chapter 6 to describe particular features of the P&L distribution in more detail. For example, we can calculate the 95% VaR and expected shortfall from the distributions in Figure 7.1. Table 7.1 shows the results.
+
+$$
+\begin{aligned}
+&\text { Table } 7.1: 95 \% \text { VaR and Expected Shortfall }\\
+&\begin{array}{lcc}
+& \text { VaR } & \text { Expected Shortfall } \\
+\hline \text { Parametric } & -39 \% & -49 \% \\
+\text { Monte Carlo } & -34 \% & -40 \% \\
+\text { Historical } & -42 \% & -53 \%
+\end{array}
+\end{aligned}
+$$
+
+
+
+#### How to choose between different methods
+
+The comparison of results from different methods is useful to study the effect of our distributional assumptions, and estimate the potential magnitude of the error incurred by the use of a model. However, in practice, it is often necessary to select from the parametric, historical, and Monte Carlo methods to facilitate the flow of information and consistency of results throughout an organization.
+
+The selection of the calculation method should depend on the **specific portfolio** and the **choice of distribution of risk factor returns**.
+
+- If the portfolio consists mainly of linear positions and we choose to use a normal distribution of returns:
+    - choose the parametric method due to its speed and accuracy under those circumstances
+- If the portfolio consists mainly of non-linear positions,
+    -  then we need to use either Monte Carlo or historical simulation depending on the desired distribution of returns.
+
+
+The selection between the normal and empirical distributions is usually done based on practical considerations rather than through statistical tests.
+
+The main reason to use the empirical distribution is to assign greater likelihood to large returns which have a small probability of occurrence under the normal distribution. Problems associated with empirical distribution:
+
+- Length of Time Periods: The first problem is the difficulty of selecting the historical period used to construct the distribution.
+- In addition, the scarcity of historical data makes it difficult to extend the analysis horizon beyond a few days[^3].
+
+[^3]: These issues are discussed in \eqref{overlapping}
+
+
+$$
+\begin{aligned}
+&\text { Table 7.2: Selecting a methodology }\\
+&\begin{array}{l|cc}
+\text { Distribution } & \text { Linear Portfolio  } & \text { Non-linear Portfolio } \\
+\hline \text { Normal } & \text { Parametric } & \text { Monte Carlo } \\
+\text { Non-normal } & \text { Historical } & \text { Historical }
+\end{array}
+\end{aligned}
+$$
+
+
+### Risk concentrations in specific groups of positions
+
+When dealing with complex or large portfolios, we will often need finer detail in the analysis. We can use risk measures to “dissect” risk across different dimensions and identify the sources of portfolio risk.
+
+This is useful to identify risk concentrations by business unit, asset class, country, currency, and maybe even all the way down to the trader or instrument level.
+
+For example, we can create a VaR table, where we show the risk of every business unit across rows, and counterparties across columns.
+
+These different choices of rows and columns are called “drilldown dimensions”.
+
+![-w1034](/media/16017179858557/16024917818351.jpg){:width="800px"}{: .align-center}
+
+The next section describes drilldowns in detail and explains how to calculate statistics in each of the buckets defined by a drilldown dimension.
+
+#### Drilldowns
+
+We refer to the categories in which you can slice the risk of a portfolio as “drilldown dimensions”.
+
+Examples of drilldown dimensions are: position, portfolio, asset type, counterparty, currency, risk type (e.g., foreign exchange, interest rate, equity), and yield curve maturity buckets.
+
+
+**Drilldowns using simulation methods**
+
+To produce a drilldown report for any statistic, we have to simulate changes in the risk factors contained in each bucket while keeping the remaining risk factors constant.
+
+Once we have the change in value for each scenario on each bucket, we can calculate risk statistics using the 􏰀$\Delta V$ information per bucket. In the following example, we illustrate the calculation of 􏰀$\Delta V$ per bucket for one scenario.
+
+<div  class="exampl">
+
+Example Drilldown by risk type and position/currency.
+
+In this example, we will calculate the change in value for a specific scenario in a portfolio consisting of a cash position of EUR one million, 13,000 shares of IBM, and a short position consisting of a one year at-the-money call on 20,000 shares of IBM with an implied volatility of 45.65%.
+
+The current values and the new scenario for the risk factors are:
+
+$$
+\begin{array}{lcc}
+& \text { Current Values } & \text { New Scenario } \\
+\hline \text { IBM } & \text { USD 120 } & \text { USD 130 } \\
+\text { EUR } & \text { USD 0.88 } & \text { USD 0.80 } \\
+\text { Discount Rate } & 6.0 \% & 6.5 \%
+\end{array}
+$$
+
+Table 7.4 shows the original value of each instrument in the portfolio as well as their values under the new scenario. The last column shows the change in value (􏰀􏰀$\Delta V$).
+
+$$
+\begin{aligned}
+&\text { Table 7.4: Portfolio valuation under a new scenario }\\
+&\begin{array}{lrrr}
+& \text { Original Value } & \text { New Value } & \Delta V \\
+\text { Position } & \text { (USD) } & {\text { (USD) }} & {\text { (USD) }} \\
+\hline \text { Cash } & 880,000 & 800,000 & -80,000 \\
+\text { Equity } & 1,560,000 & 1,690,000 & 130,000 \\
+\text { Option } & -493,876 & -634,472 & -140,596 \\
+\text { Total } & 1,946,123 & 1,855,527 & -90,596
+\end{array}
+\end{aligned}
+$$
+
+
+We can drilldown the value changes in Table 7.4 by risk type. For example, to calculate the change in value due to equity changes, we would simply price the portfolio under a USD 130 IBM price scenario keeping the rest of the risk factors constant.
+
+Note that the total P&L of the portfolio is made up from the changes in value due to the equity, foreign exchange, and interest rate risk factors.
+
+
+We can also drilldown 􏰀$\Delta V$ by risk type and currency by selecting the risk factors that would change for each risk type/currency bucket. The risk factors that we would move to revalue the portfolio for each bucket are
+
+$$
+\begin{aligned}
+&\text { Table } 7.6: \Delta V \text { drilldown by risk type and currency }\\
+&\begin{array}{lcccc}
+& & & \text { Foreign } & \text { Interest } \\
+& \text { Total } & \text { Equity } & \text { Exchange } & \text { Rate } \\
+\hline \text { USD } & -10,596 & -4,581 & & -5,227 \\
+\text { EUR } & -80,000 & & -80,000 & \\
+\text { Total } & -90,596 & -4,581 & -80,000 & -5,227
+\end{array}
+\end{aligned}
+$$
+
+</div>
+
+
+**Drilldowns using parametric methods**
+
+Drilldowns using the parametric approach are based on delta equivalents rather than scenarios, that is, to calculate a risk statistic for each bucket, we set the delta equivalents falling outside the bucket equal to zero, and proceed to calculate the statistic as usual. This procedure is best explained with an example.
+
+<div  class="exampl">
+
+
+Example 7.2 Using delta equivalents in VaR drilldowns.
+
+$$$$
+
+In this example, we will use parametric methods to calculate a VaR report by risk type and currency for the portfolio in Example 7.1. The risk factors for the portfolio are IBM, the EUR/USD exchange rate, and a one-year zero-coupon bond. Table 7.7 shows the delta equivalents for the portfolio by position and risk factor. The columns in Table 7.7 contain the delta equivalent vectors for each position, as well as the total for the portfolio, while the rows contain the delta equivalents with respect to the corresponding risk factor broken down by position. Note that the sum of the delta equivalent vectors of the individual positions is equal to the delta equivalent vector of the portfolio, as explained in Section 2.3.
+
+$$
+\begin{aligned}
+&\text { Table 7.7: Delta equivalents for the portfolio }\\
+&\begin{array}{lrrrr}
+\text { Risk Factors } & \text { Total } & \text { Cash } & \text { Equity } & \text { Option } \\
+\hline \text { IBM } & 22,956 & 0 & 1,560,000 & -1,537,043 \\
+\text { EUR } & 880,000 & 880,000 & 0 & 0 \\
+\text { 1Y Bond } & 1,043,167 & 0 & 0 & 1,043,167
+\end{array}
+\end{aligned}
+$$
+
+Let us assume that the covariance matrix of risk factor returns is:
+
+$$
+\Sigma=\left(\begin{array}{ccc}
+92.13 & -1.90 & 0.02 \\
+-1.90 & 55.80 & -0.23 \\
+0.02 & -0.23 & 0.09
+\end{array}\right) \times 10^{-6}
+$$
+
+From \eqref{6.4}, we can calculate the one-day 95% VaR of the portfolio as $1.64\sqrt{\delta^T \sum \delta}=USD 10,768$, where
+
+$$\delta =\left(\begin{array}{c}
+22,956 \\
+880,000 \\
+1,043,167
+\end{array}\right) $$
+
+Table 7.8 shows the one-day 95% VaR drilled down by risk type and currency.
+
+
+$$
+\begin{aligned}
+&\text { Table } 7.8 \text { : VaR drilldown by risk type and currency }\\
+&\begin{array}{lrrcc}
+& & & \text { Foreign } & \text { Interest } \\
+& \text { Total } & \text { Equity } & \text { Exchange } & \text { Rate } \\
+\hline \text { USD } & 625 & 362 & & 506 \\
+\text { EUR } & 10,814 & & 10,814 & \\
+\text { Total } & 10,768 & 362 & 10,814 & 506
+\end{array}
+\end{aligned}
+$$
+
+Note that the sum of the VaRs for the USD and EUR buckets is greater than the total VaR of the portfolio due to diversification benefit (625 + 10,814 > 10,768).
+
+
+
+$$
+\begin{aligned}
+&\text { Table 7.9: Incremental VaR drill down by currency and asset type }\\
+&\begin{array}{lrllr}
+& \text { Total } & \text { AUD } & \text { JPY } & \text { USD } \\
+\hline \text { Bond } & 1,016 & & -79 & 1,095 \\
+\text { Bond Option } & 7,408 & 7,408 & & \\
+\text { Callable Bond } & 1,473 & & & 1,473 \\
+\text { Cap } & -6,165 & & & -6,165 \\
+\text { Collar } & 18 & & & 18 \\
+\text { Commodity } & 1,567,757 & & & 1,567,757 \\
+\text { Convertible Bond } & -29,293 & & & -29,293 \\
+\text { Equity } & 490,454 & & 283,806 & 206,647 \\
+\text { Equity Option } & -462 & & & -462 \\
+\text { Floor } & 25 & & \\
+\text { FRA } & 8,703 & & \\
+\text { FRN } & 3 & & & 25 \\
+\text { FX Option } & 3,712 & 2,659 & & 1,054 \\
+\text { Zero Coupon Bond } & 1,959 & & & 1,959 \\
+\text { Total } & 2,046,609 & 10,067 & 283,728 & 1,752,814
+\end{array}
+\end{aligned}
+$$
+
+
+Table 7.9 shows the one-day 95% incremental VaR drilled down by asset type and currency. Using this information, we can identify the positions that most contribute to the risk of the portfolio. For example, we can see that the largest contributor to risk in our portfolio are commodities, while the group of convertible bonds in our portfolio is diversifying risk away. We can also see that the risk factors denominated in JPY account for USD 283,728 of the total risk of the portfolio. Note that in this report we have combined a proper dimension (asset type) with an improper one (currency).
+
+</div>
+
+Up to this point, we have presented some of the most common and effective ways of presenting the risk information as well as the methods to break down the aggregate risk in different dimensions. We have also emphasized the importance of looking at risk in many different ways in order to reveal potential exposures or concentrations to groups of risk factors. In the following section, we present a case study that provides a practical application of the reporting concepts we have introduced.
+
+
+### Global Bank case study
+
+Risk reporting is one of the most important aspects of risk management. Effective risk reports help understand the nature of market risks arising from different business units, countries, positions, and risk factors in order to prevent or act effectively in crisis situations. This section presents the example of a fictitious bank, ABC, which is structured in three organizational levels: corporate level, business units, and trading desks. Figure 7.2 presents the organizational chart of ABC bank. The format and content of each risk report is designed to suit the needs of each organizational level.
+
+![](/media/16017179858557/16031117762568.jpg){:width="800px"}{: .align-center}
+
+**Corporate Level**
+At the corporate level, senior management needs a firmwide view of risk, and they will typically focus on market risk concentrations across business units as well as global stress test scenarios.
+
+![](/media/16017179858557/16031119461962.jpg){:width="800px"}{: .align-center}
+
+
+Table 7.10 reports VaR by business unit and risk type.
+
+-  We can see that the one-day 95% VaR is USD 2,247,902.
+- Among the business units, proprietary trading has the highest VaR level (USD 1,564,894), mainly as a result of their interest rate and equity exposures.
+- However, the equity exposures in proprietary trading offset exposures in global equities resulting in a low total equity risk for the bank (USD 595,424).
+- Similarly, the interest rate exposures taken by the proprietary trading unit are offsetting exposures in the emerging markets, fixed income, and foreign exchange units.
+- We can also observe that the foreign exchange unit has a high interest rate risk reflecting the existence of FX forwards, futures, and options in their inventory.
+
+**Business units Level**
+Business units usually need to report risk by trading desk, showing more detail than the corporate reports. For example, a report at the business unit level might contain information by trading desk and country or currency. Table 7.11 reports VaR for the Foreign Exchange unit by trading desk and instrument type. For each instrument type the risk is reported by currency.
+
+![](/media/16017179858557/16031121107792.jpg){:width="800px"}{: .align-center}
+
+
+- We can see that most of ABC’s FX risk is in cash (USD 148,102) with the single largest exposure denominated in JPY (USD 85,435).
+- Also note that the FX Europe trading desk creates a concentration in EUR across cash, FX forward, and FX option instruments which accounts for most of its USD 93,456 at risk.
+
+**Trading desk Level**
+
+At the trading desk level, risk information is presented at the most granular level. Trading desk reports might include detailed risk information by trader, position, and drilldowns such as yield curve positioning. Table 7.12 reports the VaR of the Government Bonds desk by trader and yield curve bucket.
+
+- We can observe that Trader A is exposed only to fluctuations in the short end of the yield curve, while Trader C is well diversified across the entire term structure of interest rates.
+- We can also see that trader B has a barbell exposure to interest rates in the intervals from six months to three years and fifteen years to thirty years.
+- Note that the risk of the desk is diversified across the three traders.
+- We can also see that the VaR of the Government Bonds desk (USD 122,522) is roughly one third of the VaR for the Fixed Income unit (USD 393,131).
+
+### Summary
+
+This document provides an overview of the methodology currently used by RiskMetrics in our market risk management applications. Part I discusses the mathematical assumptions of the multivariate normal model and the empirical model for the distribution of risk factor returns, as well as the parametric and simulation methods used to characterize such distributions. In addition, Part I gives a description of stress testing methods to complement the statistical models. Part II illustrates the different pricing approaches and the assumptions made in order to cover a wide set of asset types. Finally, Part III explains how to calculate risk statistics using the methods in Part I in conjunction with the pricing functions of Part II. We conclude the document by showing how to create effective risk reports based on risk statistics.
+
+The models, assumptions, and techniques described in this document lay a solid methodological foundation for market risk measurement upon which future improvements will undoubtedly be made. We hope to have provided a coherent framework for understanding and using risk modeling techniques.
