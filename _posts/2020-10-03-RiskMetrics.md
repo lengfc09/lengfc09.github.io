@@ -1069,6 +1069,8 @@ Business units usually need to report risk by trading desk, showing more detail 
 
 At the trading desk level, risk information is presented at the most granular level. Trading desk reports might include detailed risk information by trader, position, and drilldowns such as yield curve positioning. Table 7.12 reports the VaR of the Government Bonds desk by trader and yield curve bucket.
 
+![-w815](/media/16017179858557/16036122759531.jpg){:width="800px"}{: .align-center}
+
 - We can observe that Trader A is exposed only to fluctuations in the short end of the yield curve, while Trader C is well diversified across the entire term structure of interest rates.
 - We can also see that trader B has a barbell exposure to interest rates in the intervals from six months to three years and fifteen years to thirty years.
 - Note that the risk of the desk is diversified across the three traders.
