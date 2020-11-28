@@ -311,7 +311,7 @@ $$\sigma^2 ( \hat{\mu}) = w^T Cov(X,X)w=\sum w_i^2 $$
 
 since $\sum w_i =1$, we know that
 
-$$1=\sum_{i=1}^n w_i^2 +2 \sum_{i<j}w_i w_j \leq \sum_{i=1}^n w_i^2+ \sum_{i<j}(w_i^n +w_j^2 )$$
+$$1=\sum_{i=1}^n w_i^2 +2 \sum_{i<j}w_i w_j \leq \sum_{i=1}^n w_i^2+ \sum_{i<j}(w_i^2 +w_j^2 )$$
 
 Rewrite it, we have:
 
