@@ -1,0 +1,69 @@
+I"­<ul class="toc__menu">
+  <li><a href="#chapter-7-linear-regression-analysis">Chapter 7: Linear Regression Analysis</a>
+    <ul>
+      <li><a href="#univariate-linear-regression-one-regressor">Univariate Linear Regression (One Regressor)</a>
+        <ul>
+          <li><a href="#ordinary-least-square">Ordinary Least Square</a></li>
+          <li><a href="#model-diagnostics">Model Diagnostics</a></li>
+          <li><a href="#relevant-questions">Relevant Questions</a></li>
+          <li><a href="#estimating-the-parameters">Estimating the parameters</a></li>
+          <li><a href="#evaluating-the-regression">Evaluating the regression</a>
+            <ul>
+              <li><a href="#evaluation-r-square">Evaluation: R square</a></li>
+              <li><a href="#evaluation-significance-of-the-parameters">Evaluation: Significance of the parameters</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#linear-regression-multivariate">Linear regression (Multivariate)</a>
+        <ul>
+          <li><a href="#no-multicollinearitycollinearity">No Multicollinearity/Collinearity</a></li>
+          <li><a href="#estimating-the-parameters-1">Estimating the parameters</a></li>
+          <li><a href="#evaluation-of-the-regression">Evaluation of the regression</a>
+            <ul>
+              <li><a href="#evaluation-r-square-and-adjusted-r-square">Evaluation: R square and adjusted R square</a></li>
+              <li><a href="#evaluation-significance-of-parameters-with-t-statistics">Evaluation: significance of parameters with t-statistics</a></li>
+              <li><a href="#evaluation-significance-of-parameters-with-f-statistics">Evaluation: significance of parameters with F-statistics</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#application-of-linear-regression">Application of linear regression</a>
+        <ul>
+          <li><a href="#application-factor-analysis">Application: Factor analysis</a></li>
+          <li><a href="#application-stress-testing">Application: Stress Testing</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#chapter-8-time-series-models">Chapter 8: Time Series Models</a>
+    <ul>
+      <li><a href="#random-walks">Random Walks</a></li>
+      <li><a href="#drift-diffusion-model">Drift-Diffusion Model</a></li>
+      <li><a href="#autoregression">Autoregression</a>
+        <ul>
+          <li><a href="#propositions-for-ar1-model">Propositions for AR(1) model</a></li>
+        </ul>
+      </li>
+      <li><a href="#variance-and-autocorrelation">Variance and Autocorrelation</a></li>
+      <li><a href="#stationarity">Stationarity</a>
+        <ul>
+          <li><a href="#example-of-nonstationary-time-series-analyis">Example of nonstationary time series analyis</a></li>
+        </ul>
+      </li>
+      <li><a href="#moving-average">Moving Average</a></li>
+      <li><a href="#application-1-garch">Application 1: GARCH</a></li>
+      <li><a href="#application-2-jump-diffusion-model">Application 2: Jump-Diffusion Model</a></li>
+    </ul>
+  </li>
+  <li><a href="#chapter-9-decay-factors">Chapter 9: Decay Factors</a>
+    <ul>
+      <li><a href="#mean">Mean</a></li>
+      <li><a href="#variance">Variance</a></li>
+      <li><a href="#weighted-least-squares">Weighted Least Squares</a></li>
+      <li><a href="#crashmetrics-approach">CrashMetrics approach</a></li>
+      <li><a href="#application-hybrid-var">Application: Hybrid VaR</a></li>
+    </ul>
+  </li>
+</ul>
+:ET

@@ -1,0 +1,47 @@
+I"H	<ul class="mytoc__menu">
+  <li><a href="#chapter-1-some-basic-math">Chapter 1: Some Basic Math</a>
+    <ul>
+      <li><a href="#log-return-and-standard-return">Log return and standard return</a></li>
+      <li><a href="#compounding">Compounding</a></li>
+      <li><a href="#log-return-and-log-price">Log return and log price</a></li>
+    </ul>
+  </li>
+  <li><a href="#chapter-2-basic-statistics">Chapter 2: Basic Statistics</a>
+    <ul>
+      <li><a href="#population-and-sample-data">Population and Sample Data</a></li>
+      <li><a href="#variance-and-standard-deviation">Variance and Standard Deviation</a></li>
+      <li><a href="#covariance-and-correlation">Covariance and Correlation</a></li>
+      <li><a href="#application-portfolio-variance-and-hedging">Application: Portfolio Variance and Hedging</a></li>
+      <li><a href="#moments">Moments</a>
+        <ul>
+          <li><a href="#skewness">Skewness</a></li>
+          <li><a href="#kurtosis">Kurtosis</a></li>
+        </ul>
+      </li>
+      <li><a href="#best-linear-unbiased-estimator-blue">Best Linear Unbiased Estimator (BLUE)</a></li>
+    </ul>
+  </li>
+  <li><a href="#distributions">Distributions</a>
+    <ul>
+      <li><a href="#bernoulli-distribution">Bernoulli Distribution</a></li>
+      <li><a href="#binomial-distribution">Binomial Distribution</a></li>
+      <li><a href="#poisson-distribution">Poisson Distribution</a></li>
+      <li><a href="#normal-distribution">Normal Distribution</a></li>
+      <li><a href="#lognormal-distribution">Lognormal Distribution</a></li>
+      <li><a href="#chi-squared-distribution">Chi-squared Distribution</a></li>
+      <li><a href="#students-t-distribution">Student’s t Distribution</a></li>
+      <li><a href="#f-distribution">F-distribution</a></li>
+      <li><a href="#triangular-distribution">Triangular Distribution</a></li>
+      <li><a href="#beta-distribution">Beta Distribution</a></li>
+      <li><a href="#mixture-distribution">Mixture Distribution</a></li>
+    </ul>
+  </li>
+  <li><a href="#chapter-3-copulas">Chapter 3: Copulas</a>
+    <ul>
+      <li><a href="#steps-to-calculate-the-pdf-of-a-copula">Steps to calculate the PDF of a copula</a></li>
+      <li><a href="#using-copulas-in-simulations">Using Copulas in simulations</a></li>
+      <li><a href="#parameterization-of-copulas">Parameterization of Copulas</a></li>
+    </ul>
+  </li>
+</ul>
+:ET

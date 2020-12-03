@@ -1,0 +1,46 @@
+I"þ<ul class="toc__menu">
+  <li><a href="#chapter-4-bayesian-analysis">Chapter 4: Bayesian Analysis</a>
+    <ul>
+      <li><a href="#bayes-versus-frequentists">Bayes versus Frequentists</a></li>
+      <li><a href="#continuous-distributions">Continuous Distributions</a></li>
+      <li><a href="#conjugate-distribution">Conjugate Distribution</a></li>
+      <li><a href="#bayesian-networks">Bayesian Networks</a></li>
+      <li><a href="#bayesian-networks-versus-correlation-matrices">Bayesian networks versus Correlation matrices</a></li>
+    </ul>
+  </li>
+  <li><a href="#chapter-5-hypothesis-testing-and-confidence-intervals">Chapter 5: Hypothesis testing and Confidence Intervals</a>
+    <ul>
+      <li><a href="#confidence-intervals">Confidence Intervals</a></li>
+      <li><a href="#hypothesis-testing">Hypothesis testing</a>
+        <ul>
+          <li><a href="#one-tail-or-two">One tail or two?</a></li>
+          <li><a href="#chebyshevs-inequality">Chebyshevâ€™s Inequality</a></li>
+        </ul>
+      </li>
+      <li><a href="#value-at-risk">Value at Risk</a>
+        <ul>
+          <li><a href="#backtesting">Backtesting</a></li>
+          <li><a href="#999-vs-95">99.9% VS 95%</a></li>
+          <li><a href="#problem-with-var">Problem with VaR</a></li>
+        </ul>
+      </li>
+      <li><a href="#expected-shortfall">Expected Shortfall</a></li>
+    </ul>
+  </li>
+  <li><a href="#chapter-6-matrix-algebra">Chapter 6: Matrix Algebra</a>
+    <ul>
+      <li><a href="#cholesky-decomposition">Cholesky Decomposition</a></li>
+      <li><a href="#principle-component-analysis">Principle Component Analysis</a>
+        <ul>
+          <li><a href="#difference-between-linear-regression-and-pca">Difference between linear regression and PCA</a></li>
+          <li><a href="#details-in-mathematics">Details in Mathematics</a></li>
+          <li><a href="#pca-algorithm">PCA algorithm</a></li>
+          <li><a href="#vectorization">Vectorization:</a></li>
+          <li><a href="#application-1-the-dynamic-term-structure-of-interest-rates">Application 1: the dynamic term structure of Interest rates</a></li>
+          <li><a href="#application-2-the-structure-of-global-equity-markets">Application 2: the structure of global equity markets</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET
