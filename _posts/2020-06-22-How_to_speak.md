@@ -79,4 +79,4 @@ If you want to your ideas be remembered you’ve got to have "5 S"
 - At the very end you could tell a joke since people then will leave the event feeling fun and thus keep a good memory of your talk.
 - "Thank you (for listening)" isn’t good ending, it’s trite at least. You can end with a quote of a prominent person (my own knowledge), with a salute to people how much you valued the time being here, the people over here..., “I’d like to get back, it was fun!”
 
-tahjk
+
