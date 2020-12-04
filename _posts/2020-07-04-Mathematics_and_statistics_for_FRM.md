@@ -949,7 +949,20 @@ Characteristics of Kendall's tau:
 
 As long as the transformation does not change the relative order of the points, Kendall's tau won't change, while the Linear Correlation changes.
 
-As it turns out, for many copulas, changing the value of the shape parameter, α, will transform the data in a way that is similar to the way the data was trans- formed in Exhibit 5.14.
+<div btit="Cummulative distribution function does not change the order" blab="mylabel" class="proposition">
+$$$$
+For random variable X and Y, the cummulative distribution function is defined as $u(x)=P(X<=x)$, $v=P(Y<=y)$.
+
+Then, the new random variable u(X) and v(Y) will have the same order as X and Y, in the sense:
+
+if $(X_i-X_j)*(Y_i-Y_j)>0$, we have $(u_i -u_j)*(v_i-v_j)>0$.
+
+</div>
+{: #mylabel}
+
+This propostion suggests that, at least for Kendall's tau, the "correlation" X and Y is equal to the "correlation" between U(X) and V(Y). In otherwords, the Kendall's tau will only be determined by the U and V, and the marginal distribution does not matter any more.
+
+As it turns out, for many copulas, changing the value of the shape parameter, α, will transform the data in a way that is similar to the way the data was transformed in Exhibit 5.14.
 
 Changing α will change the shape of the data, but it will not change the order. For a given type of copula, then, **Kendall’s tau is often a function of the copula’s parameter, α, and does not depend on what type of marginal distributions are being used.**
 
