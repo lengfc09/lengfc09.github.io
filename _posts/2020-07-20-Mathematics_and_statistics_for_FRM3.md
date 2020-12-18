@@ -427,7 +427,6 @@ In the multivariate case, we require that all of the independent variables be li
 
 **A7: The independent variables have no multicollinearity.**
 
-To say that the independent variables lack multicollinearity means that it is impossible to express one of the independent variables as a linear combination of the others.
 
 MRM allows the use of correlated explanatory variables. Collinearity occurs when the correlations among the X variables are large. As the correlation among these variables grows, it becomes difficult for regression to separate the partial effects of different variables.
 
@@ -452,9 +451,8 @@ If we are lucky, a linear combination of variables will have a simple economic i
 
 
 
-<div  class="exampl">
-The Market Model. We consider simple linear regression of
-1)􏰀 exPACGE on exSP500, the excess returns of PACGE and SP500 over TBill30. 2) exPACGE on exVW, the excess returns of PACGE and VW over TBill30. Also, consider multiple linear regression of exPACGE on both exSP500 and exVW.
+<div btit="The Market Model" class="exampl">
+We consider simple linear regression of (1) exPACGE on exSP500, the excess returns of PACGE and SP500 over TBill30. (2) exPACGE on exVW, the excess returns of PACGE and VW over TBill30. Also, consider multiple linear regression of exPACGE on both exSP500 and exVW.
 
 </div>
 
@@ -520,7 +518,33 @@ Given the OLS assumptions—actually, we don’t even need assumption A6, that t
 
 ##### Evaluation: R square and adjusted R square
 
-R2 equals to the squared correlation between y and predicted $\bar{y}$.
+<div btit="R square for linear least squares multiple regression" blab="R2forMLR" class="proposition">
+In linear least squares multiple regression with an estimated intercept term, R2 equals the square of the Pearson correlation coefficient between the observed ${\displaystyle y}$ and modeled (predicted) $\hat{y}$ data values of the dependent variable.
+
+</div>
+{: #R2forMLR}
+
+<div  class="proof">
+Since we know: $Y=X\beta + \varepsilon$
+
+$$
+\begin{aligned}
+COV(X\beta,Y)^2&=\rho^2 Var(X\beta)Var(Y)\\
+\rho^2 &=\frac{COV(X\beta,X\beta+\varepsilon)^2}{Var(X\beta)Var(Y)}\\
+&=\frac{Var(X\beta)^2}{Var(X\beta)Var(Y)}\\
+&=\frac{Var(X\beta)}{Var(Y)}
+\end{aligned}
+$$
+
+As a result:
+
+$$R^2=\frac{Var(X\beta)}{Var(Y)}=\rho^2$$
+
+In other words, R2 equals to the squared correlation between y and predicted $\bar{y}$.
+
+</div>
+
+
 
 One problem in the multivariate setting is that $R^2$ tends to increase as we add independent variables to our regression.
 
@@ -622,8 +646,9 @@ $$
 * The ANOVA Table allows you to look at the importance of several factors simultaneously.
 
 
-<div  class="exampl">
-Market Segmentation. A marketing project identified a list of affluent customers for a new phone.
+
+<div  btit="Market Segmentation" class="exampl">
+A marketing project identified a list of affluent customers for a new phone.
 
 Should the company target promotion towards the younger or older members of this list? To answer this question, the marketing firm obtained a sample of 75 consumers and asked them to rate their “likelihood of purchase” on a scale of 1 to 10. Age and Income of consumers were also recorded.
 
