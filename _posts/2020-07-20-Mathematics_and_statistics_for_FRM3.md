@@ -148,12 +148,88 @@ These plots reveal no systematic pattern in the residuals, which is good.
 * This implies that the variability of residuals around the 0 line should be roughly constant as well.
 * Also called homoscedasticity.
 
-**Checking for nomality:**
+#### Checking for nomality
+
+We can use histogram、Q-Q plot and Jarque–Bera test to check the normality assumption.
 
 ![-w764](/media/15951262104465/16011899393425.jpg){:width="800px"}{: .align-center}
 
 * The residual histogram is consistent with the normality assumption.
 * Q-Q plot: The points stay close to the line, suggesting normality.
+* Jarque–Bera test: to test whether sample data have the skewness and kurtosis matching a normal distribution.
+
+**Histogram**
+
+```python
+# Histogram with 30 bins;
+df.hist(bins=30)
+# it can return the number for each bin;
+
+"""
+Returns
+    -------
+    n : array or list of arrays
+        The values of the histogram bins. See *density* and *weights* for a
+        description of the possible semantics.  If input *x* is an array,
+        then this is an array of length *nbins*. If input is a sequence of
+        arrays ``[data1, data2, ...]``, then this is a list of arrays with
+        the values of the histograms for each of the arrays in the same
+        order.  The dtype of the array *n* (or of its element arrays) will
+        always be float even if no weighting or normalization is used.
+
+    bins : array
+        The edges of the bins. Length nbins + 1 (nbins left edges and right
+        edge of last bin).  Always a single array even when multiple data
+        sets are passed in.
+
+    patches : `.BarContainer` or list of a single `.Polygon` or list of such objects
+        Container of individual artists used to create the histogram
+        or list of such containers if there are multiple input datasets.
+
+
+"""
+#For more help, use:
+import matplotlib.pyplot as plt
+help(plt.hist)
+```
+
+**Q-Q plot**
+
+```python
+import numpy as np
+import statsmodels.api as sm
+from matplotlib import pyplot as plt
+
+data_points = np.random.normal(0, 1, 100)
+sm.qqplot(data_points, line ='s')
+plt.show()
+
+```
+
+**Jarque–Bera test**
+
+In statistics, the Jarque–Bera test is a goodness-of-fit test of whether sample data have the skewness and kurtosis matching a normal distribution. The test is named after Carlos Jarque and Anil K. Bera. The test statistic is always nonnegative. If it is far from zero, it signals the data do not have a normal distribution.
+
+<div  class="definition">
+The test statistic JB is defined as
+$$
+J B=\frac{n}{6}\left(S^{2}+\frac{1}{4}(K-3)^{2}\right)
+$$
+
+where n is the number of observations (or degrees of freedom in general); S is the sample skewness, K is the sample kurtosis :
+
+$$
+\begin{aligned}
+S &=\frac{\hat{\mu}_{3}}{\hat{\sigma}^{3}}=\frac{\frac{1}{n} \sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{3}}{\left(\frac{1}{n} \sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}\right)^{3 / 2}} \\
+K &=\frac{\hat{\mu}_{4}}{\hat{\sigma}^{4}}=\frac{\frac{1}{n} \sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{4}}{\left(\frac{1}{n} \sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}\right)^{2}}
+\end{aligned}
+$$
+
+</div>
+
+If the data comes from a normal distribution, the JB statistic asymptotically has a chi-squared distribution with two degrees of freedom, so the statistic can be used to test the hypothesis that the data are from a normal distribution. The null hypothesis is a joint hypothesis of the skewness being zero and the excess kurtosis being zero. Samples from a normal distribution have an expected skewness of 0 and an expected excess kurtosis of 0 (which is the same as a kurtosis of 3). As the definition of JB shows, any deviation from this increases the JB statistic.
+
+
 
 
 <div  class="exampl">
