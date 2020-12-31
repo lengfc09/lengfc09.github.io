@@ -1,7 +1,7 @@
 ---
 layout: mysingle
 date: 2020-12-29 22:02:16 +0800
-title: Models for estimating Value at Risk
+title: Time-independent Models for estimating Value at Risk
 categories: Quantitative_Financial_Risk_Management
 excerpt: "Parametic and historical method for calculation of VARs. Both time-independent and time-dependent models are included."
 header:
