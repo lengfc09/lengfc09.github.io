@@ -192,6 +192,7 @@ The following function can calculate the Var_001, Var_005 for given data. It has
 ```python
 
 
+
 def myvar(df_input, alphas=[0.01, 0.05], method="all", tell=True):
     if method not in ["all", "norm", "t", "historical"]:
         print("Fail: wrong method! Please use one of the following method:")
@@ -205,7 +206,10 @@ def myvar(df_input, alphas=[0.01, 0.05], method="all", tell=True):
 
     alphas = np.array(alphas)
 
-    palphas = [item * 100 for item in alphas]
+    try:
+        palphas = [item * 100 for item in alphas]
+    except:
+        palphas = 100 * alphas
 
     df_input = np.array(df_input)
     if df_input.ndim > 1:
@@ -221,8 +225,12 @@ def myvar(df_input, alphas=[0.01, 0.05], method="all", tell=True):
         vars = stats.norm.ppf(alphas, loc=nloc, scale=nscale)
         if tell == True or method == "all":
             print("Use Norm-Distribution model:")
-            for var, alpha in zip(vars, alphas):
-                print("Var {}: \t{} ".format(alpha, var))
+            try:
+                for var, alpha in zip(vars, alphas):
+                    print("Var {}: \t{} ".format(alpha, var))
+            except:
+                for var, alpha in zip([vars], [alphas]):
+                    print("Var {}: \t{} ".format(alpha, var))
 
         if method != "all":
             return vars
@@ -236,8 +244,12 @@ def myvar(df_input, alphas=[0.01, 0.05], method="all", tell=True):
         vars = stats.t.ppf(alphas, df=tdof, loc=tloc, scale=tscale)
         if tell == True or method == "all":
             print("Use t location-scale model:")
-            for var, alpha in zip(vars, alphas):
-                print("Var {}: \t{} ".format(alpha, var))
+            try:
+                for var, alpha in zip(vars, alphas):
+                    print("Var {}: \t{} ".format(alpha, var))
+            except:
+                for var, alpha in zip([vars], [alphas]):
+                    print("Var {}: \t{} ".format(alpha, var))
 
         if method != "all":
             return vars
@@ -247,8 +259,13 @@ def myvar(df_input, alphas=[0.01, 0.05], method="all", tell=True):
         vars = np.percentile(df_input, palphas)
         if tell == True or method == "all":
             print("Use Historical Approach:")
-            for var, alpha in zip(vars, alphas):
-                print("Var {}: \t{} ".format(alpha, var))
+            try:
+                for var, alpha in zip(vars, alphas):
+                    print("Var {}: \t{} ".format(alpha, var))
+            except:
+                for var, alpha in zip([vars], [alphas]):
+                    print("Var {}: \t{} ".format(alpha, var))
+
         if method != "all":
             return vars
 
@@ -259,6 +276,9 @@ if __name__ == "__main__":
     import scipy.stats as stats
     df = stats.t.rvs(df=5, scale=2, size=10000, loc=0)
     myvar(df,alphas=[0.01,0.05,0.1])
+    xx = stats.t.ppf(df=5, scale=2, loc=0, q=[0.01, 0.05, 0.1])
+    print("Real Vars:")
+    print(xx)
 ```
 
 #### Espected Shortfall
@@ -278,7 +298,10 @@ def myes(df_input, alphas=[0.01, 0.05], num_of_simus=1000000, method="all", tell
 
     alphas = np.array(alphas)
 
-    palphas = [item * 100 for item in alphas]
+    try:
+        palphas = [item * 100 for item in alphas]
+    except:
+        palphas = 100 * alphas
 
     df_input = np.array(df_input)
     if df_input.ndim > 1:
@@ -292,12 +315,18 @@ def myes(df_input, alphas=[0.01, 0.05], num_of_simus=1000000, method="all", tell
         nloc, nscale = stats.norm.fit(df_input)
         vars = stats.norm.ppf(alphas, loc=nloc, scale=nscale)
         nrvs = stats.norm.rvs(loc=nloc, scale=nscale, size=num_of_simus)
-        ess = [nrvs[nrvs < var].mean() for var in vars]
+        try:
+            ess = [nrvs[nrvs < var].mean() for var in vars]
+        except:
+            ess = nrvs[nrvs < vars].mean()
         if tell == True or method == "all":
             print("Use Analytical Norm-Distribution model:")
-            for es, alpha in zip(ess, alphas):
-                print("ES {}: \t{} ".format(alpha, es))
-
+            try:
+                for es, alpha in zip(ess, alphas):
+                    print("ES {}: \t{} ".format(alpha, es))
+            except:
+                for es, alpha in zip([ess], [alphas]):
+                    print("ES {}: \t{} ".format(alpha, es))
         if method != "all":
             return ess
 
@@ -309,22 +338,37 @@ def myes(df_input, alphas=[0.01, 0.05], num_of_simus=1000000, method="all", tell
         tdof, tloc, tscale = stats.t.fit(df_input)
         vars = stats.t.ppf(alphas, df=tdof, loc=tloc, scale=tscale)
         trvs = stats.t.rvs(df=tdof, scale=tscale, size=num_of_simus, loc=tloc)
-        ess = [trvs[trvs < var].mean() for var in vars]
+        try:
+            ess = [nrvs[nrvs < var].mean() for var in vars]
+        except:
+            ess = nrvs[nrvs < vars].mean()
+
         if tell == True or method == "all":
             print("Use Analytical t location-scale model:")
-            for es, alpha in zip(ess, alphas):
-                print("ES {}: \t{} ".format(alpha, es))
+            try:
+                for es, alpha in zip(ess, alphas):
+                    print("ES {}: \t{} ".format(alpha, es))
+            except:
+                for es, alpha in zip([ess], [alphas]):
+                    print("ES {}: \t{} ".format(alpha, es))
         if method != "all":
             return ess
 
     # historical method
     if method == "historical" or method == "all":
         vars = np.percentile(df_input, palphas)
-        ess = [df_input[df_input < var].mean() for var in vars]
+        try:
+            ess = [nrvs[nrvs < var].mean() for var in vars]
+        except:
+            ess = nrvs[nrvs < vars].mean()
         if tell == True or method == "all":
             print("Use Historical Approach:")
-            for es, alpha in zip(ess, alphas):
-                print("ES {}: \t{} ".format(alpha, es))
+            try:
+                for es, alpha in zip(ess, alphas):
+                    print("ES {}: \t{} ".format(alpha, es))
+            except:
+                for es, alpha in zip([ess], [alphas]):
+                    print("ES {}: \t{} ".format(alpha, es))
         if method != "all":
             return ess
 
@@ -333,11 +377,11 @@ if __name__ == "__main__":
 
     print("This is my Expected Shortfall module")
     import scipy.stats as stats
+
     # for calculating ES, we only have 1% or 5% useful data, therefore we want to increase the number of simulations
     df = stats.t.rvs(df=5, scale=2, size=10000, loc=0)
 
     myes(df, num_of_simus=10000000, alphas=[0.01, 0.05, 0.1])
-
 
 ```
 
