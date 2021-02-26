@@ -206,7 +206,9 @@
             padding:10px 20px 10px 20px;
         }
         .definition:before {
-            content: "Definition.";
+            content: "Definition: " attr(btit) ". ";
+
+            display: block;
             font-weight: bold;
             font-style: normal;
         }
@@ -222,6 +224,7 @@
         }
         .info:before {
             content: "Info.";
+            display: block;
             font-weight: bold;
             font-style: normal;
         }
