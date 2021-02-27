@@ -23,9 +23,7 @@ Luckily, we can use t location-scale model to capture all these missing characte
 ### student's t-distribution
 We can define student-t distribution through two approach.
 
-**Definition from sampling**
-
-<div  class="definition">
+<div btit="Definition from sampling" class="definition">
 
 Let ${\textstyle X_{1},\ldots ,X_{n}}$ be independently and identically drawn from the distribution $N(\mu ,\sigma ^{2})$, i.e. this is a sample of size $n$ from a normally distributed population with expected mean value $\mu$  and variance $\sigma ^{2}$.
 
@@ -45,10 +43,9 @@ $$\frac{\bar{X}-\mu}{S / \sqrt{n}} \sim T(n-1)$$
 where $S$ has been substituted for $\sigma$ , has a Student's t-distribution with n-1 degrees of freedom.
 </div>
 
-**Definition from a test statistic**
 
 
-<div  class="definition">
+<div btit="Definition from a test statistic" class="definition">
 Student's t-distribution with $\nu$  degrees of freedom can be defined as the distribution of the random variable T with
 
 $$T={\frac {Z}{\sqrt {V/\nu }}}$$
@@ -73,13 +70,13 @@ When $0<dof<=1$, all moments are undefined.
 
 The theoretical statistics (i.e., in the absence of sampling error) when $dof>1$ are as follows.
 
-* $$Mean=Mode=Median=0$$
+* Mean=Mode=Median=0
 * $$Variance =
 \begin{cases}
 \infty,  & \text{if $v\leq$ 2} \\
 \frac{v}{v-2}, & \text{if $v>$ 2}
 \end{cases}$$
-* $$Skewness=0 \text{ if v>3}$$
+* Skewness=0 if v>3
 * $$Kurtosiso =
 \begin{cases}
 \infty,  & \text{if $2<v\leq4$ } \\
