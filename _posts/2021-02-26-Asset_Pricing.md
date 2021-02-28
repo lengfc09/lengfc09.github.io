@@ -2,7 +2,7 @@
 layout: mysingle
 date: 2021-02-26 10:02:16 +0800
 title: Asset Pricing Methods
-categories: Asset Pricing
+categories: Asset_Pricing
 excerpt: "Some notes about different approches for asset pricing."
 header:
     # overlay_color: "#333"
