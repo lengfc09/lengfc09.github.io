@@ -210,9 +210,9 @@ class HoLee():
                 for i in np.arange(j+1):
                     r=self.rates_tree.iloc[i,j]
                     if lag==0:
-                        prices[i,j]=discount(r,self.delta)*0.5*(prices[i,j+1]+prices[i+1,j+1])+CFs®
+                        prices[i,j]=discount(r,self.delta)*0.5*(prices[i,j+1]+prices[i+1,j+1])+CFs(r)
                     elif lag==1:
-                        prices[i,j]=discount(r,self.delta)*0.5*(prices[i,j+1]+CFs®+prices[i+1,j+1]+CFs®)
+                        prices[i,j]=discount(r,self.delta)*0.5*(prices[i,j+1]+CFs(r)+prices[i+1,j+1]+CFs(r))
                     else:
                         print("lag must be 0 or 1!")
                         raise Error
@@ -277,9 +277,9 @@ if __name__ == "__main__":
     # Fixed CFs
 
     import numpy as np
-    CF=2*np.ones(len℗)
+    CF=2*np.ones(len(P))
     print(hl1.pricing(CF))
-    print(2*np.sum℗)
+    print(2*np.sum(P))
 
 
     # Contigent CFs
