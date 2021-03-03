@@ -102,6 +102,7 @@ Ho Lee Binomial model for Interest Rates
 Created by Chen Yangyifan 2021.02.28
 """
 
+
 class HoLee():
     # HoLee Model for pring fixed income products
     # P:=[P_1,P_2,...P_T]
@@ -178,7 +179,7 @@ class HoLee():
         print(self.prices_tree)
 
 
-    def pricing(self,CFs,type="fixed",lag=1):
+    def pricing(self,CFs,type='conditional',defer=1):
         import numpy as np
         import pandas as pd
         def discount(rr,TT):
@@ -187,9 +188,9 @@ class HoLee():
             else:
                 return 1/(1+rr*self.delta)**(TT/self.delta)
         # type: fixed, CFs are fixed, and given as a array [CFS_1,CF_2,...,CF_T]
-        # type: conditional, CFs are contingent on r, and given as a function CFs®
-        # lag mean, for the functin type CFs, it CF_T = CFs(r_{T-lag})
-        # lag=1, means the contingent CF is paid 1 peirod after the amount is decided.
+        # type: conditional, CFs are contingent on j,r, and given as a function CFs(j,r)
+        # defer=0, the contingent CF is paid instantly after the amount is decided
+        # defer=1, means the contingent CF is paid 1 peirod after the amount is decided.
         if type=="fixed":
             assert len(CFs)==len(self.P_zcb), "Length of CFs are not equal to Length of Given Zero Coupon Bonds"
             prices=np.zeros(self.prices_tree.shape)
@@ -209,18 +210,20 @@ class HoLee():
             for j in np.arange(layers-2,-1,-1):
                 for i in np.arange(j+1):
                     r=self.rates_tree.iloc[i,j]
-                    if lag==0:
-                        prices[i,j]=discount(r,self.delta)*0.5*(prices[i,j+1]+prices[i+1,j+1])+CFs(r)
-                    elif lag==1:
-                        prices[i,j]=discount(r,self.delta)*0.5*(prices[i,j+1]+CFs(r)+prices[i+1,j+1]+CFs(r))
+                    # Pay instantly
+                    if defer==0:
+                        prices[i,j]=discount(r,self.delta)*0.5*(prices[i,j+1]+prices[i+1,j+1])+CFs(j,r)
+                    # Pay 1 period after the r is realized
+                    elif defer==1:
+                        prices[i,j]=discount(r,self.delta)*0.5*(prices[i,j+1]+CFs(j,r)+prices[i+1,j+1]+CFs(j,r))
                     else:
-                        print("lag must be 0 or 1!")
+                        print("defer must be 0 or 1!")
                         raise Error
 
 
 
 
-        return prices[0,0]
+        return [prices[0,0],pd.DataFrame(prices)]
 
 
 
@@ -261,6 +264,10 @@ class HoLee():
 
 
 
+
+
+
+
 if __name__ == "__main__":
     hl1 = HoLee()
     hl1.summary()
@@ -278,7 +285,8 @@ if __name__ == "__main__":
 
     import numpy as np
     CF=2*np.ones(len(P))
-    print(hl1.pricing(CF))
+    print(hl1.pricing(CF,type='fixed')[1])# Price Tree
+    print(hl1.pricing(CF,type='fixed')[0]) # P_0
     print(2*np.sum(P))
 
 
@@ -288,11 +296,22 @@ if __name__ == "__main__":
     pzcb=[item/100 for item in pzcb]
     hl2.fit(pzcb,0.0173,0.5)
 
-    def mycf(r):
-        return max(11*100*r,94)
+    def mycf(j,r):
+    # only pays depends on r_10
+    # max(11*100*r,94)
+        if j==10:
+            return max(11*100*r,94)
+        else:
+            return 0
+    mycf(10,0.18856)
 
-    p0=hl2.pricing(mycf,type='nf',lag=0)
+    p0=hl2.pricing(mycf,type='conditional',defer=0)[0]
     print(p0)
+    price_tree=hl2.pricing(mycf,type='conditional',defer=0)[1]
+    print(price_tree)
+
+
+
 
 
 ```
