@@ -396,9 +396,9 @@ Curvature:
 
 Butterfly Spread=(MT YLD – ST YLD) - (LT YLD- MT YLD)
 
-$$ST,MT,LT\to (-1,2,1)$$
+$$ST,MT,LT\to (-1,2,-1)$$
 
-![-w761](media/16151198190159/16151321756755.jpg)
+![-w761](/media/16151198190159/16151321756755.jpg){: .align-center}{:width="761px"}
 
 
 **Factor Duration**
