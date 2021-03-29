@@ -138,15 +138,20 @@ $$
 \text{expected return } μ dt + \text{unexpected return } σ dBt.$$
 
 In a risk-neutral world:
-$$dS_t=r dS_t + \sigma S_t dB^Q_t$$
+$$dS_t=r S_t dt + \sigma S_t dB^Q_t$$
 
 <div btit="Two Equivalent defintion" blab="mylabel" class="lemma">
 
 The following two proposition is equivalent:<br>
 1. The log-price $p_t=lnS_t$ follows a Brownian motion
-$$dS_t=\mu dS_t + \sigma S_t dB_t$$
-2. $S_t$ follows a geometric Brownian motion
+
+
 $$d p_{t}=\left(\mu-\frac{1}{2} \sigma^{2}\right) d t+\sigma d B_{t}$$
+
+2. $S_t$ follows a geometric Brownian motion
+
+$$dS_t=\mu S_t dt+ \sigma S_t dB_t$$
+
 </div>
 
 It is easy to prove with Ito's lemma. In fact:
