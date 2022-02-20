@@ -82,7 +82,7 @@ To calculate the sample variance of a random variable X based on n observations,
 
 $$\begin{equation}
 \begin{array}{l}
-\hat{\sigma}_{x}^{2}=\frac{1}{n-1} \sum_{i=1}^{n}\left(x_{i}-\hat{\mu}_{x}\right) \\
+\hat{\sigma}_{x}^{2}=\frac{1}{n-1} \sum_{i=1}^{n}\left(x_{i}-\hat{\mu}_{x}\right)^2 \\
 E\left[\hat{\sigma}_{x}^{2}\right]=\sigma_{x}^{2}
 \end{array}
 \end{equation}$$
