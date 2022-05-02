@@ -635,7 +635,10 @@ $$
 
 #### Calibrating the Vasicek model
 
-- Estimate parameters: $r_{0}, \gamma^{*}, \bar{r}^{*}, \sigma$
+- Estimate parameters:
+
+$$r_{0}, \gamma^{*}, \bar{r}^{*}, \sigma$$
+
 - Choose them to minimize pricing errors:
 $$
 \begin{gathered}
