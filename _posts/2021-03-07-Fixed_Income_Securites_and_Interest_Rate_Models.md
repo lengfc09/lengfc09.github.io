@@ -465,8 +465,186 @@ D_{2} \times P+k_{S} \times D_{S 2} \times P_{S}+k_{L} \times D_{L 2} \times P_{
 
 The (100 − 𝛼)%, 𝑇 year Value at Risk of a portfolio is the maximum loss the portfolio can suffer over a 𝑇 year horizon with 𝛼% probability:
 
-$$\text{𝑃𝑟𝑜𝑏(𝐿𝑜𝑠𝑠 > 𝑉𝑎𝑅) = 𝛼%}$$
+$$\text{𝑃𝑟𝑜𝑏(𝐿𝑜𝑠𝑠 > 𝑉𝑎𝑅)} = 𝛼\%$$
 
 Loss distribution: $L_T=-(P_T-P_0)$, negative if profit.
+
+
+
+### Expected Shortfall
+
+**Expected Shortfall** is the expected loss on a portfolio P over the horizon T conditional on the loss being larger than the $(100 – α)\%$ T VaR:
+
+$$\text{Expected Shortfall}=E[L_T | L_T >VaR]$$
+
+Expected shortfall is the average outcome in the shaded area:
+
+![-w600](/media/16151198190159/16507711365577.jpg){:width="600px"}{: .align-center}
+
+Under normality:
+
+$$
+\begin{aligned}
+&95 \% \text { Exp.shortfall }=-\left(\mu-\sigma_{P} \times \frac{f(-1.645)}{N(-1.645)}\right) \\
+&=-\left(\mu-\sigma_{P} \times 2.0628\right)
+\end{aligned}
+$$
+
+where $f(x)$ denotes the standard density and $N(x)$ is the standard normal cumulative density.
+
+
+## Interest Rate Models
+
+### Interest rate models in stochastic differential equations (SDEs):
+
+- Ho-Lee model:
+$$
+d r_{t}=\theta_{t} d t+\sigma d X_{t}
+$$
+- Varsicek model:
+$$
+d r_{t}=\gamma\left(\bar{r}-r_{t}\right) d t+\sigma d X_{t}
+$$
+- Cox-Ingersoll-Ross (CIR) model:
+$$
+d r_{t}=\gamma\left(\bar{r}-r_{t}\right) d t+\sigma \sqrt{r_{t}} d X_{t}
+$$
+- Dothan model:
+$$
+d r_{t}=\theta r_{t} d t+\sigma r_{t} d X_{t}
+$$
+- Black-Derman-Toy (BDT) model:
+$$
+d r_{t}=\theta_{t} r_{t} d t+\sigma_{t} r_{t} d X_{t}
+$$
+- Hull-White (extended Varsicek) model:
+$$
+d r_{t}=\gamma_{t}\left(\bar{r}-r_{t}\right) d t+\sigma_{t} d X_{t}
+$$
+
+### Single factor affine models
+
+- An affine process 𝑥' has the following form
+
+$$
+\begin{gathered}
+x_{t+\Delta}-x_{t}=\left(A+B x_{t}\right) \Delta+\sqrt{C+D x_{t}} \times \sqrt{\Delta} \varepsilon_{t+\Delta} \\
+\varepsilon_{t+\Delta} \sim N(0,1)
+\end{gathered}
+$$
+- Both the (instantaneous) drift and variance is affine in $x_{t}$ :
+$$
+\begin{aligned}
+&\operatorname{drift}: \frac{\mathbb{E}_{t}\left[x_{t+\Delta}-x_{t}\right]}{\Delta}=A+B x_{t} \\
+&\text { variance: } \frac{\operatorname{Var}_{t}\left[x_{t+\Delta}-x_{t}\right]}{\Delta}=C+D x_{t}
+\end{aligned}
+$$
+
+### Continuous time Vasicek model
+
+- Discrete time risk-neutral short rate process with time step $\Delta$
+$$
+\begin{gathered}
+r_{t+\Delta}=\left(1-\rho_{\Delta}^{*}\right) \bar{r}^{*}+\rho_{\Delta}^{*} r_{t}+\sigma \sqrt{\Delta} \varepsilon_{t+\Delta}^{*} \\
+\rho_{\Delta}^{*}=1-\gamma^{*} \Delta \\
+\varepsilon_{t+\Delta}^{*} \sim N(0,1)
+\end{gathered}
+$$
+- Continuous time Vasicek model is the $\Delta \rightarrow 0$ limit
+$$
+d r_{t}=\gamma^{*}\left(\bar{r}^{*}-r_{t}\right) d t+\sigma d X_{t}^{*}
+$$
+- Price of ZCBs:
+$$
+Z(t, r ; T)=\mathbb{E}^{*}\left[e^{-\int_{t}^{T} r_{s} d s} \mid r_{t}=r\right]
+$$
+
+- The solution to system of ODEs is:
+$$
+\begin{gathered}
+A(t ; T)=(B(t ; T)-(T-t))\left(\bar{r}^{*}-\frac{\sigma^{2}}{2\left(\gamma^{*}\right)^{2}}\right)-\frac{\sigma^{2} B(t ; T)^{2}}{4 \gamma^{*}} \\
+B(t ; T)=\frac{1}{\gamma^{*}}\left(1-e^{-\gamma^{*}(T-t)}\right)
+\end{gathered}
+$$
+- The price at time $t$ of a ZCB with face value 1 and which matures at $T \geq t$ is given by
+$$
+Z\left(t, r_{t} ; T\right)=e^{A(t ; T)-B(t ; T) \times r_{t}}
+$$
+
+- Alternately, we can write in terms of time to maturity $\tau \stackrel{\text { def }}{=} T-t \geq 0$
+- Then:
+$$
+Z\left(\tau, r_{t}\right)=e^{A(\tau)-B(\tau) \times r_{t}}
+$$
+where
+$$
+\begin{gathered}
+A(\tau)=(B(\tau)-\tau)\left(\bar{r}^{*}-\frac{\sigma^{2}}{2\left(\gamma^{*}\right)^{2}}\right)-\frac{\sigma^{2} B(\tau)^{2}}{4 \gamma^{*}} \\
+B(\tau)=\frac{1}{\gamma^{*}}\left(1-e^{-\gamma^{*} \tau}\right)
+\end{gathered}
+$$
+
+
+- The $\tau$ year yield to maturity is:
+$$
+\begin{gathered}
+y \operatorname{tm}\left(\tau, r_{t}\right)=-\frac{\log \left(Z\left(\tau, r_{t}\right)\right)}{\tau} \\
+=-\frac{A(\tau)}{\tau}+\frac{B(\tau)}{\tau} r_{t}
+\end{gathered}
+$$
+- The spot rate duration is:
+$$
+D=-\frac{Z_{r}\left(\tau, r_{t}\right)}{Z\left(\tau, r_{t}\right)}=B(\tau)
+$$
+
+### Cox, Ingersoll, Ross (CIR)
+
+The shortcoming of Vasicek model is that the $r_t$ can be negative.
+
+- CIR models short rate as a "square root process":
+$$
+r_{t+\Delta}=\left(1-\rho_{\Delta}\right) \bar{r}+\rho_{\Delta} r_{t}+\sqrt{\alpha r_{t} \Delta} \varepsilon_{t+\Delta}
+$$
+- Volatility $\sqrt{\alpha r_{t}}$ is no longer constant
+- Preserves mean reversion properties
+- The long run mean is $\bar{r}$
+- There is mean reversion:
+- Positive drift if $r_{t}<\bar{r}$
+- Negative drift if $r_{t}>\bar{r}$
+
+Price of ZCBs:
+
+Solution is:
+$$
+Z(t, r ; T)=e^{A(t ; T)-B(t ; T) \times r}
+$$
+where:
+$$
+\begin{aligned}
+&B(t ; T)=\frac{2\left(e^{\psi_{1}(T-t)}-1\right)}{\left(\gamma^{*}+\psi_{1}\right)\left(e^{\psi_{1}(T-t)}-1\right)+2 \psi_{1}} \\
+&A(t ; T)=2 \frac{\bar{r}^{*} \gamma^{*}}{\alpha} \log \left(\frac{2 \psi_{1} e^{\left(\psi_{1}+\gamma^{*}\right) \frac{(T-t)}{2}}}{\left(\gamma^{*}+\psi_{1}\right)\left(e^{\psi_{1}(T-t)}-1\right)+2 \psi_{1}}\right)
+\end{aligned}
+$$
+and
+$$
+\psi_{1}=\left(\left(\gamma^{*}\right)^{2}+2 \alpha\right)^{1 / 2}
+$$
+
+
+### Calibration
+
+#### Calibrating the Vasicek model
+
+- Estimate parameters: $r_{0}$, $\gamma^{*}$, $\bar{r}^{*}$, $\sigma$
+- Choose them to minimize pricing errors:
+$$
+\begin{gathered}
+\min \sum_{i=1}^{N}\left[y^{\text {Vasicek }}\left(\tau_{i} ; r_{0}, \gamma^{*}, \bar{r}^{*}, \sigma\right)-y^{\text {Data }}\left(\tau_{i}\right)\right]^{2} \\
+y^{\text {Vasicek }}\left(\tau_{i} ; r_{0}, \gamma^{*}, \bar{r}^{*}, \sigma\right)=-\frac{A\left(\tau_{i} ; \gamma^{*}, \bar{r}^{*}, \sigma\right)}{\tau_{i}}+\frac{B\left(\tau_{i} ; \gamma^{*}, \bar{r}^{*}, \sigma\right)}{\tau_{i}} r_{0}
+\end{gathered}
+$$
+
+
+
 
 
