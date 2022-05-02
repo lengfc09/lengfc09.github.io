@@ -560,23 +560,29 @@ Z(t, r ; T)=\mathbb{E}^{*}\left[e^{-\int_{t}^{T} r_{s} d s} \mid r_{t}=r\right]
 $$
 
 - The solution to system of ODEs is:
+
 $$
 \begin{gathered}
 A(t ; T)=(B(t ; T)-(T-t))\left(\bar{r}^{*}-\frac{\sigma^{2}}{2\left(\gamma^{*}\right)^{2}}\right)-\frac{\sigma^{2} B(t ; T)^{2}}{4 \gamma^{*}} \\
 B(t ; T)=\frac{1}{\gamma^{*}}\left(1-e^{-\gamma^{*}(T-t)}\right)
 \end{gathered}
 $$
+
 - The price at time $t$ of a ZCB with face value 1 and which matures at $T \geq t$ is given by
+
 $$
 Z\left(t, r_{t} ; T\right)=e^{A(t ; T)-B(t ; T) \times r_{t}}
 $$
 
 - Alternately, we can write in terms of time to maturity $\tau \stackrel{\text { def }}{=} T-t \geq 0$
 - Then:
+
 $$
 Z\left(\tau, r_{t}\right)=e^{A(\tau)-B(\tau) \times r_{t}}
 $$
+
 where
+
 $$
 \begin{gathered}
 A(\tau)=(B(\tau)-\tau)\left(\bar{r}^{*}-\frac{\sigma^{2}}{2\left(\gamma^{*}\right)^{2}}\right)-\frac{\sigma^{2} B(\tau)^{2}}{4 \gamma^{*}} \\
@@ -586,13 +592,16 @@ $$
 
 
 - The $\tau$ year yield to maturity is:
+
 $$
 \begin{gathered}
 y \operatorname{tm}\left(\tau, r_{t}\right)=-\frac{\log \left(Z\left(\tau, r_{t}\right)\right)}{\tau} \\
 =-\frac{A(\tau)}{\tau}+\frac{B(\tau)}{\tau} r_{t}
 \end{gathered}
 $$
+
 - The spot rate duration is:
+
 $$
 D=-\frac{Z_{r}\left(\tau, r_{t}\right)}{Z\left(\tau, r_{t}\right)}=B(\tau)
 $$
@@ -615,17 +624,22 @@ $$
 Price of ZCBs:
 
 Solution is:
+
 $$
 Z(t, r ; T)=e^{A(t ; T)-B(t ; T) \times r}
 $$
+
 where:
+
 $$
 \begin{aligned}
 &B(t ; T)=\frac{2\left(e^{\psi_{1}(T-t)}-1\right)}{\left(\gamma^{*}+\psi_{1}\right)\left(e^{\psi_{1}(T-t)}-1\right)+2 \psi_{1}} \\
 &A(t ; T)=2 \frac{\bar{r}^{*} \gamma^{*}}{\alpha} \log \left(\frac{2 \psi_{1} e^{\left(\psi_{1}+\gamma^{*}\right) \frac{(T-t)}{2}}}{\left(\gamma^{*}+\psi_{1}\right)\left(e^{\psi_{1}(T-t)}-1\right)+2 \psi_{1}}\right)
 \end{aligned}
 $$
+
 and
+
 $$
 \psi_{1}=\left(\left(\gamma^{*}\right)^{2}+2 \alpha\right)^{1 / 2}
 $$
@@ -640,6 +654,7 @@ $$
 $$r_{0}, \gamma^{*}, \bar{r}^{*}, \sigma$$
 
 - Choose them to minimize pricing errors:
+-
 $$
 \begin{gathered}
 \min \sum_{i=1}^{N}\left[y^{\text {Vasicek }}\left(\tau_{i} ; r_{0}, \gamma^{*}, \bar{r}^{*}, \sigma\right)-y^{\text {Data }}\left(\tau_{i}\right)\right]^{2} \\
