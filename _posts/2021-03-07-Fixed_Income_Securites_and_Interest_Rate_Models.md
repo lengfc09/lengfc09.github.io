@@ -532,7 +532,9 @@ x_{t+\Delta}-x_{t}=\left(A+B x_{t}\right) \Delta+\sqrt{C+D x_{t}} \times \sqrt{\
 \varepsilon_{t+\Delta} \sim N(0,1)
 \end{gathered}
 $$
+
 - Both the (instantaneous) drift and variance is affine in $x_{t}$ :
+
 $$
 \begin{aligned}
 &\operatorname{drift}: \frac{\mathbb{E}_{t}\left[x_{t+\Delta}-x_{t}\right]}{\Delta}=A+B x_{t} \\
@@ -543,6 +545,7 @@ $$
 ### Continuous time Vasicek model
 
 - Discrete time risk-neutral short rate process with time step $\Delta$
+
 $$
 \begin{gathered}
 r_{t+\Delta}=\left(1-\rho_{\Delta}^{*}\right) \bar{r}^{*}+\rho_{\Delta}^{*} r_{t}+\sigma \sqrt{\Delta} \varepsilon_{t+\Delta}^{*} \\
@@ -550,11 +553,15 @@ r_{t+\Delta}=\left(1-\rho_{\Delta}^{*}\right) \bar{r}^{*}+\rho_{\Delta}^{*} r_{t
 \varepsilon_{t+\Delta}^{*} \sim N(0,1)
 \end{gathered}
 $$
+
 - Continuous time Vasicek model is the $\Delta \rightarrow 0$ limit
+
 $$
 d r_{t}=\gamma^{*}\left(\bar{r}^{*}-r_{t}\right) d t+\sigma d X_{t}^{*}
 $$
+
 - Price of ZCBs:
+
 $$
 Z(t, r ; T)=\mathbb{E}^{*}\left[e^{-\int_{t}^{T} r_{s} d s} \mid r_{t}=r\right]
 $$
@@ -654,7 +661,7 @@ $$
 $$r_{0}, \gamma^{*}, \bar{r}^{*}, \sigma$$
 
 - Choose them to minimize pricing errors:
--
+
 $$
 \begin{gathered}
 \min \sum_{i=1}^{N}\left[y^{\text {Vasicek }}\left(\tau_{i} ; r_{0}, \gamma^{*}, \bar{r}^{*}, \sigma\right)-y^{\text {Data }}\left(\tau_{i}\right)\right]^{2} \\
