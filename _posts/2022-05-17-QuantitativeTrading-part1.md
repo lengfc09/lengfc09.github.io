@@ -16,8 +16,6 @@ toc: true
 ---
 
 
-[TOC]
-
 ## Quant roles
 
 * Data manager
@@ -656,4 +654,4 @@ df.assign(score=np.random.randint(60,100,size=4))
 
 ## My own replication in Github
 
-https://github.com/lengfc09/quantitative_trading/blob/main/replication-1.ipynb
+[Github_Jupyter_Notebook_1](https://github.com/lengfc09/quantitative_trading/blob/main/replication-1.ipynb)
