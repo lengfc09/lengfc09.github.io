@@ -3,17 +3,18 @@ layout: mysingle
 date: 2022-05-16 22:34:16 +0800
 title: Quantitative Trading - 1. Introduction
 categories: Quantitative Trading
-# excerpt: "Notes for The Power of Macroeconomics: Economic Principles in the Real World from coursera."
+excerpt: "Based on notes of MFIN 7037 Quantitative Trading of HKU."
 header:
     # overlay_color: "#333"
     # overlay_color: "#2f4f4f" #暗岩灰
-    # overlay_color: "#e68ab8" #火鹤红
-    overlay_color: "#0000ff" #蓝色
+    overlay_color: "#e68ab8" #火鹤红
+    # overlay_color: "#0000ff" #蓝色
 classes: wide
 tags: linear_regression ols qmj mkt factor
 
 toc: true
 ---
+
 
 
 ## Quant roles
