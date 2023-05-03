@@ -10,7 +10,7 @@ header:
     overlay_color: "#e68ab8" #火鹤红
     # overlay_color: "#0000ff" #蓝色
 classes: wide
-tags: linear_regression ols qmj mkt factor
+tags: linear_regression ols qmj mkt factors
 
 toc: true
 ---
