@@ -1,7 +1,7 @@
 ---
 layout: mysingle
 date: 2020-10-03 18:02:16 +0800
-title: Notes for "Return to RiskMetrics -- The Evolution of a Standard"
+title: Return to RiskMetrics (notes)
 categories: Quantitative_Financial_Risk_Management
 excerpt: "An update and restatement of the mathematical models in the 1996 RiskMetrics Technical Document, now known as RiskMetrics Classic. RiskMetrics Classic was the fourth edition, with the original document having been published in 1994. Since the initial publication, the model has become the standard in the field and is used extensively in practice, in academic studies, and as an educational tool."
 header:
@@ -252,7 +252,7 @@ where $$\left\{\frac{\mathrm{d} \mathbf{P}_{t}}{\mathbf{P}_{t}}\right\}_{i}=\fra
 
 This means that the vector of returns for every risk factor from time t to time T can be written as
 
-$$\mathcal{r}_{t,T}=(\mu -\frac{1}{2}\mathcal{\sigma}^2)(T-t)+ C^T \mathcal{z} \sqrt{T-t}$$
+$$\mathcal{r}_{t,T}=(\mu -\frac{1}{2}\mathcal{\sigma}^2)(T-t)+ C^T \mathcal{z} \sqrt{T-t} \tag{4}\label{4}$$
 
 where $\mathcal{r}$ is a vector of returns from from time t to time T. $\mathcal{\sigma}^2(T-t)$  is a n × 1 vector equal to the diagonal of the covariance matrix $\sum$, $\mathcal{z} \sim MVN (0,I)$, a multi-variant normal distribution.
 
