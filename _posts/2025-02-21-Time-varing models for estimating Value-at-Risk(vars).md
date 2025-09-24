@@ -1,7 +1,7 @@
 ---
 layout: mysingle
 date: 2025-02-21 19:28:16 +0800
-title: Time-varing models for estimating Value-at-Risk(vars)
+title: Time-varing models for estimating Value-at-Risk(vars) and volatility
 categories: Quantitative_Financial_Risk_Management
 excerpt: "Modeling volatility is crucial for asset pricing. Empirical evidence indicates that volatility is time-varying. Moreover, it exhibits time-dependence and volatility clustering. To capture the dynamics of volatility, it is necessary to construct models that transform random variables into independent and identically distributed (i.i.d.) variables, with which we are more familiar with."
 header:

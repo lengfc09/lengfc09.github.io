@@ -1,15 +1,15 @@
 ---
 layout: mysingle
 date: 2020-12-29 22:02:16 +0800
-title: Time-independent Models for estimating Value at Risk
+title: Common Models for estimating Value at Risk
 categories: Quantitative_Financial_Risk_Management
-excerpt: "Parametic and historical method for calculation of VARs. Both time-independent and time-dependent models are included."
+excerpt: "Parametic and historical method for calculation of VARs. For models dealing with volatility clustering and time-varing feature, please see the post 'Time-varing models for estimating Value-at-Risk'."
 header:
     # overlay_color: "#333"
     overlay_color: "#2f4f4f" #暗岩灰
     # overlay_color: "#e68ab8" #火鹤红
 classes: wide
-tags: statistics risk_management
+tags: statistics risk_management vars
 
 toc: true
 ---
