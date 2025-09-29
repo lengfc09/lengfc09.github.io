@@ -15,34 +15,33 @@ toc: true
 
 ## Layout conventions
 
-
-The fundamental issue is that the derivative of a vector with respect to a vector, i.e ${\frac {\partial \mathbf {y} }{\partial \mathbf {x} }}$ is often written in two competing ways. If the numerator **y** is of size *m* and the denominator **x** of size *n*, then the result can be laid out as either an *m*×*n* matrix or *n*×*m* matrix, i.e. the *m* elements of **y** laid out in rows and the *n* elements of **x** laid out in columns, or vice versa. This leads to the following possibilities:
+The fundamental issue is that the derivative of a vector with respect to a vector, i.e ${\frac {\partial \mathbf {y} }{\partial \mathbf {x} }}$ is often written in two competing ways. If the numerator **y** is of size *m* and the denominator **x** of size *n*, then the result can be laid out as either an *m*×*n* matrix or *n* × *m* matrix, i.e. the *m* elements of **y** laid out in rows and the *n* elements of **x** laid out in columns, or vice versa. This leads to the following possibilities:
 
 ### Numerator layout
 
- Lay out according to **y** and $\mathbf {x}^T$ (i.e. contrarily to **x**). This is sometimes known as the *Jacobian formulation*. This corresponds to the *m*×*n* layout in the previous example, which means that the row number of $\frac {\partial \mathbf {y} }{\partial \mathbf {x} }$ equals to the size of the numerator $ \mathbf {y} $ and the column number of $\frac {\partial \mathbf {y} }{\partial \mathbf {x} }$ equals to the size of $\mathbf {x}^T$.
- 
- The derivative of a [vector function](https://en.wikipedia.org/wiki/Vector_function "Vector function") (a vector whose components are functions) 
+ Lay out according to **y** and $\mathbf {x}^T$ (i.e. contrarily to **x**). This is sometimes known as the *Jacobian formulation*. This corresponds to the *m*×*n* layout in the previous example, which means that the row number of $\frac {\partial \mathbf {y} }{\partial \mathbf {x} }$ equals to the size of the numerator $ \mathbf {y} $ and the column number of $\frac {\partial \mathbf {y} }{\partial \mathbf {x} }$ equals to the size of $\mathbf {x}^T$.
+
+ The derivative of a [vector function](https://en.wikipedia.org/wiki/Vector_function "Vector function") (a vector whose components are functions)
 
 ${\displaystyle \mathbf {y} ={\begin{bmatrix}y_{1}&y_{2}&\cdots &y_{m}\end{bmatrix}}^{\mathsf {T}}}$
 
-, with respect to an input vector, 
+, with respect to an input vector,
 
-${\displaystyle \mathbf {x} ={\begin{bmatrix}x_{1}&x_{2}&\cdots &x_{n}\end{bmatrix}}^{\mathsf {T}}}$
+${\displaystyle \mathbf {x} ={\begin{bmatrix}x_{1}&x_{2}&\cdots &x_{n}\end{bmatrix}}^{\mathsf {T}}}$$
 
-, is written (in [numerator layout notation](https://en.wikipedia.org/wiki/Matrix_calculus#Layout_conventions)) as
- 
-$ {\frac {\partial \mathbf {y} }{\partial \mathbf {x} }}={\begin{bmatrix}{\frac {\partial y_{1}}{\partial x_{1}}}&{\frac {\partial y_{1}}{\partial x_{2}}}&\cdots &{\frac {\partial y_{1}}{\partial x_{n}}}\\{\frac {\partial y_{2}}{\partial x_{1}}}&{\frac {\partial y_{2}}{\partial x_{2}}}&\cdots &{\frac {\partial y_{2}}{\partial x_{n}}}\\\vdots &\vdots &\ddots &\vdots \\{\frac {\partial y_{m}}{\partial x_{1}}}&{\frac {\partial y_{m}}{\partial x_{2}}}&\cdots &{\frac {\partial y_{m}}{\partial x_{n}}}\\\end{bmatrix}}$
+, is written (in [numerator layout notation](https://en.wikipedia.org/wiki/Matrix_calculus#Layout_conventions)) as
+
+$${\frac {\partial \mathbf {y} }{\partial \mathbf {x} }}={\begin{bmatrix}{\frac {\partial y_{1}}{\partial x_{1}}}&{\frac {\partial y_{1}}{\partial x_{2}}}&\cdots &{\frac {\partial y_{1}}{\partial x_{n}}}\\{\frac {\partial y_{2}}{\partial x_{1}}}&{\frac {\partial y_{2}}{\partial x_{2}}}&\cdots &{\frac {\partial y_{2}}{\partial x_{n}}}\\\vdots &\vdots &\ddots &\vdots \\{\frac {\partial y_{m}}{\partial x_{1}}}&{\frac {\partial y_{m}}{\partial x_{2}}}&\cdots &{\frac {\partial y_{m}}{\partial x_{n}}}\\\end{bmatrix}}$$
 
 #### Vector-by-vector
-In [vector calculus](https://en.wikipedia.org/wiki/Vector_calculus "Vector calculus"), the derivative of a vector function **y** with respect to a vector **x** whose components represent a space is known as the **[pushforward (or differential)](https://en.wikipedia.org/wiki/Pushforward_(differential) "Pushforward (differential)")**, or the **[Jacobian matrix](https://en.wikipedia.org/wiki/Jacobian_matrix "Jacobian matrix")**.
+In [vector calculus](https://en.wikipedia.org/wiki/Vector_calculus "Vector calculus"), the derivative of a vector function **y** with respect to a vector **x** whose components represent a space is known as the **[pushforward (or differential)](https://en.wikipedia.org/wiki/Pushforward_(differential) "Pushforward (differential)")**, or the **[Jacobian matrix](https://en.wikipedia.org/wiki/Jacobian_matrix "Jacobian matrix")**.
 
-The pushforward along a vector function **f** with respect to vector **v** in $\mathbf {R}^n$ is given by 
+The pushforward along a vector function **f** with respect to vector **v** in $\mathbf {R}^n$ is given by
 
 $$ d\mathbf {f} (\mathbf {v} )=\frac{\partial \mathbf {f} }{\partial \mathbf {v} } d(\mathbf {v} ) $$
 
 #### Hessian Matrix
-Suppose $f:\mathbb {R} ^{n}\to \mathbb {R}$ is a function taking as input a vector $\mathbf {x} \in \mathbb {R} ^{n}$ and outputting a scalar $\displaystyle f(\mathbf {x} )\in \mathbb {R}$
+Suppose $f:\mathbb {R} ^{n}\to \mathbb {R}$ is a function taking as input a vector $\mathbf {x} \in \mathbb {R} ^{n}$ and outputting a scalar $\displaystyle f(\mathbf {x} )\in \mathbb {R}$
 
 Then the hessian matrix H of H is a $n\times n$ matrix:
 
@@ -50,16 +49,16 @@ $$\mathbf {H} _{f}={\begin{bmatrix}{\dfrac {\partial ^{2}f}{\partial x_{1}^{2}}}
 
 That is, the entry of the ith row and the jth column is
 
-$$(\mathbf {H} _{f})_{i,j}={\frac {\partial ^{2}f}{\partial x_{i}\,\partial x_{j}}}$$ (differentiate first with respect to \\(x\_j\\), then \\(x\_i\\))
+$$(\mathbf {H} _{f})_{i,j}={\frac {\partial ^{2}f}{\partial x_{i}\,\partial x_{j}}}$$ (differentiate first with respect to \\(x\_j\\), then \\(x\_i\\))
 
 The Hessian matrix of a function $\displaystyle f$ is the transpose of the Jacobian matrix of the gradient of the function $\displaystyle f$; that is:
 
 $$\mathbf {H} (f(\mathbf {x} ))=\mathbf {J} (\nabla f(\mathbf {x} ))^{\mathsf {T}}.$$
 
-The symmetry of the Hessian matrix of a continuously differentiable function depends on a key condition: **the continuity of the function’s second-order partial derivatives** (often called "continuous twice differentiability," denoted \\(C^2\\)). In short:
+The symmetry of the Hessian matrix of a continuously differentiable function depends on a key condition: **the continuity of the function’s second-order partial derivatives** (often called "continuous twice differentiability," denoted \\(C^2\\)). In short:
 
-*   A function that is only *continuously differentiable* (i.e., first-order partial derivatives exist and are continuous, denoted \\(C^1\\)) **does not guarantee a symmetric Hessian**—its second-order partial derivatives may not even exist, or if they do, they may be asymmetric.
-*   A function that is *continuously twice differentiable* (i.e., second-order partial derivatives exist and are continuous, denoted \\(C^2\\)) **always has a symmetric Hessian**—this is proven by Clairaut’s Theorem (also known as Schwarz’s Theorem).
+*   A function that is only *continuously differentiable* (i.e., first-order partial derivatives exist and are continuous, denoted \\(C^1\\)) **does not guarantee a symmetric Hessian**—its second-order partial derivatives may not even exist, or if they do, they may be asymmetric.
+*   A function that is *continuously twice differentiable* (i.e., second-order partial derivatives exist and are continuous, denoted \\(C^2\\)) **always has a symmetric Hessian**—this is proven by Clairaut’s Theorem (also known as Schwarz’s Theorem).
 
 #### Matrix-by-scalar
 
@@ -70,13 +69,13 @@ $${\displaystyle {\frac {\partial \mathbf {y} }{\partial \mathbf {x} }}={\begin{
 $${\displaystyle {\frac {\partial y}{\partial \mathbf {X} }}={\begin{bmatrix}{\frac {\partial y}{\partial x_{11}}}&{\frac {\partial y}{\partial x_{21}}}&\cdots &{\frac {\partial y}{\partial x_{p1}}}\\{\frac {\partial y}{\partial x_{12}}}&{\frac {\partial y}{\partial x_{22}}}&\cdots &{\frac {\partial y}{\partial x_{p2}}}\\\vdots &\vdots &\ddots &\vdots \\{\frac {\partial y}{\partial x_{1q}}}&{\frac {\partial y}{\partial x_{2q}}}&\cdots &{\frac {\partial y}{\partial x_{pq}}}\\\end{bmatrix}}.}$$
 
 
-In analog with [vector calculus](https://en.wikipedia.org/wiki/Vector_calculus "Vector calculus") this derivative is often written as the following.
+In analog with [vector calculus](https://en.wikipedia.org/wiki/Vector_calculus "Vector calculus") this derivative is often written as the following.
 
 $\displaystyle \nabla _{\mathbf {X} }y(\mathbf {X} )={\frac {\partial y(\mathbf {X} )}{\partial \mathbf {X} }}$
 
 #### Summary
 
-![](media/17587048976625/17590491367939.jpg)
+![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/09/29/17590491367939.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
 
 ## Identities
 
