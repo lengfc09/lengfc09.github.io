@@ -184,3 +184,11 @@ Here $a\in R^{ m \times 1}, b\in R^{n \times 1}, X \in R^{m\times n}$
 * **a** and **b** are not functions of X, f(**v**) is a real-valued differentiable function
 
 $${\frac {\partial f(\mathbf {Xa+b} )}{\partial \mathbf {X} }}=\mathbf {a} {\frac {\partial f}{\partial \mathbf {v} }}$$
+
+
+* a, b and C are not functions of X
+
+$${\frac {\partial (\mathbf {X} \mathbf {a} )^{\top }\mathbf {C} (\mathbf {X} \mathbf {b} )}{\partial \mathbf {X} }}=\left(\mathbf {C} \mathbf {X} \mathbf {b} \mathbf {a} ^{\top }+\mathbf {C} ^{\top }\mathbf {X} \mathbf {a} \mathbf {b} ^{\top }\right)^{\top }$$
+
+
+$${\frac {\partial (\mathbf {X} \mathbf {a} )^{\top } (\mathbf {X} \mathbf {a} )}{\partial \mathbf {X} }}=\left( \mathbf {X} \mathbf {a} \mathbf {a} ^{\top }+\mathbf {X} \mathbf {a} \mathbf {a} ^{\top }\right)^{\top }=2\mathbf {a}\mathbf {a} ^{\top }\mathbf {X}^{\top }$$
