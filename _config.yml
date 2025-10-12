@@ -15,7 +15,7 @@ remote_theme             : "lengfc09/minimal-mistakes@4.20.1"  #"mmistakes/minim
 
 #remote_theme             : "mmistakes/minimal-mistakes@4.21.0"  #"mmistakes/minimal-mistakes"
 
-minimal_mistakes_skin    : "default" #"default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin    : "mint" #"default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 github: [metadata]
 
