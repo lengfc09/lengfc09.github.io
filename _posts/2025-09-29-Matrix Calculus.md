@@ -5,7 +5,7 @@ title: Matrix calculus
 categories: machine_learning
 header:
     # overlay_color: "#333"
-    # overlay_color: "#2f4f4f" #暗岩灰
+    overlay_color: "#2f4f4f" #暗岩灰
     # overlay_color: "#e68ab8" #火鹤红
 classes: wide
 tags: math calculus

@@ -11,7 +11,7 @@
 # https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/#installing-the-theme
 # theme: minimal-mistakes-jekyll
 #theme                    : "minimal-mistakes-jekyll"
-remote_theme             : "lengfc09/minimal-mistakes@4.20.1"  #"mmistakes/minimal-mistakes"
+# remote_theme             : "lengfc09/minimal-mistakes@4.20.1"  #"mmistakes/minimal-mistakes"
 
 #remote_theme             : "mmistakes/minimal-mistakes@4.21.0"  #"mmistakes/minimal-mistakes"
 
@@ -107,7 +107,7 @@ author:
   name             : "Ben"
   avatar           : "/assets/images/xiaoxin.jpg" # path openf avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Just another boring man who tries to leave something on the internet."
-  location         : "Shanghai & Hongkong, CN"
+  location         : "Shanghai@CN"
   email            : chenyyfan@gmail.com
   links:
     # - label: "Email"
@@ -316,7 +316,7 @@ defaults:
     values:
       layout: "mysingle"
       mathjax: true
-      author_profile: false
+      author_profile: true
       read_time: true
       comments: true
       share: true
