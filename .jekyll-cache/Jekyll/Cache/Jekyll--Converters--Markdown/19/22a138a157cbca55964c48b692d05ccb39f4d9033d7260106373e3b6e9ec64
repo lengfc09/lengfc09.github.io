@@ -1,0 +1,17 @@
+I"š<ul class="mytoc__menu">
+  <li><a href="#t-location-scale-model">t location-scale model</a>
+    <ul>
+      <li><a href="#students-t-distribution">studentâ€™s t-distribution</a></li>
+      <li><a href="#t-location-scale-distribution">t Location-Scale Distribution</a></li>
+      <li><a href="#codes-in-python">Codes in Python</a>
+        <ul>
+          <li><a href="#histogram-visualization">histogram visualization</a></li>
+          <li><a href="#value-at-risk">Value at risk</a></li>
+          <li><a href="#espected-shortfall">Espected Shortfall</a></li>
+          <li><a href="#application">Application</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

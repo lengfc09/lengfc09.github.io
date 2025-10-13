@@ -1,0 +1,26 @@
+I"<ul class="mytoc__menu">
+  <li><a href="#background">Background</a></li>
+  <li><a href="#data-collection">Data collection</a></li>
+  <li><a href="#data-preprocessing">Data Preprocessing</a>
+    <ul>
+      <li><a href="#data-merge-and-cleaning">Data Merge and Cleaning</a></li>
+      <li><a href="#bag-of-words">Bag of Words</a></li>
+    </ul>
+  </li>
+  <li><a href="#sentiment-analysis">Sentiment Analysis</a>
+    <ul>
+      <li><a href="#number-of-tweets">Number of tweets</a></li>
+      <li><a href="#averaged-sentiment-score">Averaged Sentiment Score</a></li>
+      <li><a href="#result-for-sentiment-analysis">Result for sentiment analysis</a></li>
+    </ul>
+  </li>
+  <li><a href="#unsupervised-learning">Unsupervised Learning</a>
+    <ul>
+      <li><a href="#k-means">K-means</a></li>
+      <li><a href="#pca-and-t-sne-for-dimension-reduction">PCA and T-SNE for Dimension Reduction</a></li>
+    </ul>
+  </li>
+  <li><a href="#supervised-learning">Supervised Learning</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+:ET

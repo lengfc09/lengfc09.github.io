@@ -1,0 +1,23 @@
+I"]<ul class="mytoc__menu">
+  <li><a href="#layout-conventions">Layout conventions</a>
+    <ul>
+      <li><a href="#numerator-layout">Numerator layout</a>
+        <ul>
+          <li><a href="#vector-by-vector">Vector-by-vector</a></li>
+          <li><a href="#hessian-matrix">Hessian Matrix</a></li>
+          <li><a href="#matrix-by-scalar">Matrix-by-scalar</a></li>
+          <li><a href="#scalar-by-matrix">Scalar-by-matrix</a></li>
+          <li><a href="#summary">Summary</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#identities">Identities</a>
+    <ul>
+      <li><a href="#vector-by-vector---matrix">Vector-by-vector -&gt; matrix</a></li>
+      <li><a href="#scalar-by-vector---vector">scalar-by-vector -&gt; vector</a></li>
+      <li><a href="#scalar-by-matrix---matrix">scalar-by-matrix -&gt; matrix</a></li>
+    </ul>
+  </li>
+</ul>
+:ET

@@ -1,0 +1,104 @@
+I"ô<ul class="mytoc__menu">
+  <li><a href="#market-risk-standard-deviation">Market Risk: Standard Deviation</a>
+    <ul>
+      <li><a href="#dollar-standard-deviation">Dollar Standard Deviation</a></li>
+      <li><a href="#annualization">Annualization</a>
+        <ul>
+          <li><a href="#square-root-rule-for-iids">Square-root rule for I.I.D.s</a></li>
+          <li><a href="#non-iid-case">Non I.I.D Case</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#market-risk-value-at-risk">Market Risk: Value At Risk</a>
+    <ul>
+      <li><a href="#defined-as-losses-or-returns">Defined as Losses or Returns</a></li>
+      <li><a href="#advantages-of-var-as-a-risk-measure">Advantages of VaR as a Risk Measure</a></li>
+      <li><a href="#delta-normal-var">Delta-Normal VaR</a></li>
+      <li><a href="#historical-var">Historical VaR</a>
+        <ul>
+          <li><a href="#choose-between-interpolation-or-conservativeness">Choose between Interpolation or Conservativeness</a></li>
+          <li><a href="#no-maturity-vs-finite-lifespans">No Maturity Vs Finite Lifespans</a></li>
+          <li><a href="#parametric-vs-historical-approach">Parametric Vs Historical Approach</a></li>
+        </ul>
+      </li>
+      <li><a href="#hybrid-var-historical--decay-factor">Hybrid VaR (Historical &amp; Decay Factor)</a></li>
+      <li><a href="#monte-carlo-simulation">Monte Carlo Simulation</a></li>
+      <li><a href="#cornish-fisher-var">Cornish-Fisher VaR</a></li>
+      <li><a href="#backtesting">Backtesting</a></li>
+    </ul>
+  </li>
+  <li><a href="#coherent-risk-measures">Coherent Risk Measures</a>
+    <ul>
+      <li><a href="#properties-of-coherent-risk-measures">Properties of Coherent Risk Measures</a></li>
+    </ul>
+  </li>
+  <li><a href="#market-risk-extreme-value-theory">Market Risk: Extreme Value Theory</a>
+    <ul>
+      <li><a href="#approaches-to-sampling-historical-data-for-evt">Approaches to sampling historical Data for EVT</a></li>
+      <li><a href="#determination-of-the-parameters">Determination of the parameters</a></li>
+      <li><a href="#combination-of-evt-and-parametric-model">Combination of EVT and Parametric model</a></li>
+    </ul>
+  </li>
+  <li><a href="#market-risk-beyond-correlation">Market Risk: Beyond Correlation</a>
+    <ul>
+      <li><a href="#coskewness-and-cokurtosis">Coskewness and Cokurtosis</a></li>
+      <li><a href="#independent-and-identically-distributed-random-variables">Independent and Identically Distributed Random Variables</a></li>
+    </ul>
+  </li>
+  <li><a href="#market-risk-risk-attribution">Market Risk: Risk Attribution</a>
+    <ul>
+      <li><a href="#factor-analysis">Factor Analysis</a>
+        <ul>
+          <li><a href="#avoid-multicollinearity">Avoid multicollinearity</a></li>
+          <li><a href="#risks-not-captured-by-public-indexes">Risks not Captured by public indexes</a></li>
+        </ul>
+      </li>
+      <li><a href="#incremental-var">Incremental VaR</a></li>
+      <li><a href="#diversification">Diversification</a>
+        <ul>
+          <li><a href="#diversification-score">diversification score</a></li>
+          <li><a href="#diversification-index">diversification index</a></li>
+        </ul>
+      </li>
+      <li><a href="#risk-adjusted-performance">Risk-Adjusted Performance</a>
+        <ul>
+          <li><a href="#intuition">Intuition</a></li>
+        </ul>
+      </li>
+      <li><a href="#choosing-statistics">Choosing Statistics</a></li>
+    </ul>
+  </li>
+  <li><a href="#credit-risk">Credit Risk</a>
+    <ul>
+      <li><a href="#default-risk-and-pricing">Default Risk and Pricing</a></li>
+      <li><a href="#determine-the-probability-of-default">Determine the Probability of default</a>
+        <ul>
+          <li><a href="#traditional-ratings-approach">Traditional Ratings Approach</a></li>
+          <li><a href="#transition-matrices">Transition Matrices</a></li>
+          <li><a href="#quantitative-approach">Quantitative Approach</a></li>
+          <li><a href="#which-method-is-better">which method is better</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#liquidity-risk">Liquidity Risk</a>
+    <ul>
+      <li><a href="#simple-liquidity-measures">Simple Liquidity Measures</a>
+        <ul>
+          <li><a href="#weighted-average-days-volume">Weighted Average Days Volume</a></li>
+          <li><a href="#liquidity-schedule">Liquidity Schedule</a></li>
+        </ul>
+      </li>
+      <li><a href="#liquidity-cost-models">Liquidity Cost Models</a>
+        <ul>
+          <li><a href="#exogenous-liquidity-models">Exogenous Liquidity Models</a></li>
+          <li><a href="#endogenous-liquidity-models">Endogenous Liquidity Models</a></li>
+          <li><a href="#lvar">LVaR</a></li>
+        </ul>
+      </li>
+      <li><a href="#optimal-liquidation">Optimal Liquidation</a></li>
+    </ul>
+  </li>
+</ul>
+:ET

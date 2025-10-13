@@ -1,0 +1,363 @@
+I"�c<!--
+* TOC
+{:toc}
+ -->
+<p><a href="https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference/27793#27793">StackExchange Post</a></p>
+
+<h2 id="align-and-aligned">Align and Aligned</h2>
+
+<div class="language-latex highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="nt">\begin{align}</span>
+<span class="k">\sqrt</span><span class="p">{</span>37<span class="p">}</span> <span class="p">&amp;</span> = <span class="k">\sqrt</span><span class="p">{</span><span class="k">\frac</span><span class="p">{</span>73<span class="p">^</span>2-1<span class="p">}{</span>12<span class="p">^</span>2<span class="p">}}</span> <span class="k">\\</span>
+ <span class="p">&amp;</span> = <span class="k">\sqrt</span><span class="p">{</span><span class="k">\frac</span><span class="p">{</span>73<span class="p">^</span>2<span class="p">}{</span>12<span class="p">^</span>2<span class="p">}</span><span class="k">\cdot\frac</span><span class="p">{</span>73<span class="p">^</span>2-1<span class="p">}{</span>73<span class="p">^</span>2<span class="p">}}</span> <span class="k">\\</span>
+ <span class="p">&amp;</span> = <span class="k">\sqrt</span><span class="p">{</span><span class="k">\frac</span><span class="p">{</span>73<span class="p">^</span>2<span class="p">}{</span>12<span class="p">^</span>2<span class="p">}}</span><span class="k">\sqrt</span><span class="p">{</span><span class="k">\frac</span><span class="p">{</span>73<span class="p">^</span>2-1<span class="p">}{</span>73<span class="p">^</span>2<span class="p">}}</span> <span class="k">\\</span>
+ <span class="p">&amp;</span> = <span class="k">\frac</span><span class="p">{</span>73<span class="p">}{</span>12<span class="p">}</span><span class="k">\sqrt</span><span class="p">{</span>1 - <span class="k">\frac</span><span class="p">{</span>1<span class="p">}{</span>73<span class="p">^</span>2<span class="p">}}</span> <span class="k">\\</span>
+ <span class="p">&amp;</span> <span class="k">\approx</span> <span class="k">\frac</span><span class="p">{</span>73<span class="p">}{</span>12<span class="p">}</span><span class="k">\left</span>(1 - <span class="k">\frac</span><span class="p">{</span>1<span class="p">}{</span>2<span class="k">\cdot</span>73<span class="p">^</span>2<span class="p">}</span><span class="k">\right</span>)
+<span class="nt">\end{align}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+\[\begin{align}
+\sqrt{37} &amp; = \sqrt{\frac{73^2-1}{12^2}} \\
+ &amp; = \sqrt{\frac{73^2}{12^2}\cdot\frac{73^2-1}{73^2}} \\
+ &amp; = \sqrt{\frac{73^2}{12^2}}\sqrt{\frac{73^2-1}{73^2}} \\
+ &amp; = \frac{73}{12}\sqrt{1 - \frac{1}{73^2}} \\
+ &amp; \approx \frac{73}{12}\left(1 - \frac{1}{2\cdot73^2}\right)
+\end{align}\]
+
+<div class="language-latex highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="nt">\begin{aligned}</span>
+<span class="k">\sqrt</span><span class="p">{</span>37<span class="p">}</span> <span class="p">&amp;</span> = <span class="k">\sqrt</span><span class="p">{</span><span class="k">\frac</span><span class="p">{</span>73<span class="p">^</span>2-1<span class="p">}{</span>12<span class="p">^</span>2<span class="p">}}</span> <span class="k">\\</span>
+ <span class="p">&amp;</span> = <span class="k">\sqrt</span><span class="p">{</span><span class="k">\frac</span><span class="p">{</span>73<span class="p">^</span>2<span class="p">}{</span>12<span class="p">^</span>2<span class="p">}</span><span class="k">\cdot\frac</span><span class="p">{</span>73<span class="p">^</span>2-1<span class="p">}{</span>73<span class="p">^</span>2<span class="p">}}</span> <span class="k">\\</span>
+ <span class="p">&amp;</span> = <span class="k">\sqrt</span><span class="p">{</span><span class="k">\frac</span><span class="p">{</span>73<span class="p">^</span>2<span class="p">}{</span>12<span class="p">^</span>2<span class="p">}}</span><span class="k">\sqrt</span><span class="p">{</span><span class="k">\frac</span><span class="p">{</span>73<span class="p">^</span>2-1<span class="p">}{</span>73<span class="p">^</span>2<span class="p">}}</span> <span class="k">\\</span>
+ <span class="p">&amp;</span> = <span class="k">\frac</span><span class="p">{</span>73<span class="p">}{</span>12<span class="p">}</span><span class="k">\sqrt</span><span class="p">{</span>1 - <span class="k">\frac</span><span class="p">{</span>1<span class="p">}{</span>73<span class="p">^</span>2<span class="p">}}</span> <span class="k">\\</span>
+ <span class="p">&amp;</span> <span class="k">\approx</span> <span class="k">\frac</span><span class="p">{</span>73<span class="p">}{</span>12<span class="p">}</span><span class="k">\left</span>(1 - <span class="k">\frac</span><span class="p">{</span>1<span class="p">}{</span>2<span class="k">\cdot</span>73<span class="p">^</span>2<span class="p">}</span><span class="k">\right</span>)
+<span class="nt">\end{aligned}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+\[\begin{aligned}
+\sqrt{37} &amp; = \sqrt{\frac{73^2-1}{12^2}} \\
+ &amp; = \sqrt{\frac{73^2}{12^2}\cdot\frac{73^2-1}{73^2}} \\
+ &amp; = \sqrt{\frac{73^2}{12^2}}\sqrt{\frac{73^2-1}{73^2}} \\
+ &amp; = \frac{73}{12}\sqrt{1 - \frac{1}{73^2}} \\
+ &amp; \approx \frac{73}{12}\left(1 - \frac{1}{2\cdot73^2}\right)
+\end{aligned}\]
+
+<h2 id="definitions-by-cases">Definitions by cases</h2>
+
+<div class="language-latex highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="p">$$</span><span class="nb">
+f</span><span class="o">(</span><span class="nb">n</span><span class="o">)</span><span class="nb"> </span><span class="o">=</span><span class="nb">
+</span><span class="nv">\begin</span><span class="p">{</span><span class="nb">cases</span><span class="p">}</span><span class="nb">
+n</span><span class="o">/</span><span class="m">2</span><span class="nb">,  </span><span class="p">&amp;</span><span class="nb"> </span><span class="nv">\text</span><span class="p">{</span><span class="nb">if $n$ is even</span><span class="p">}</span><span class="nb"> </span><span class="nv">\\</span><span class="nb">
+</span><span class="m">3</span><span class="nb">n</span><span class="o">+</span><span class="m">1</span><span class="nb">, </span><span class="p">&amp;</span><span class="nb"> </span><span class="nv">\text</span><span class="p">{</span><span class="nb">if $n$ is odd</span><span class="p">}</span><span class="nb">
+</span><span class="nv">\end</span><span class="p">{</span><span class="nb">cases</span><span class="p">}</span><span class="nb">
+</span><span class="p">$$</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+\[f(n) =
+\begin{cases}
+n/2,  &amp; \text{if $n$ is even} \\
+3n+1, &amp; \text{if $n$ is odd}
+\end{cases}\]
+
+<p>To get a larger vertical space between cases we can use \[2ex] instead of \. For example, you get this:</p>
+
+<div class="language-latex highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>f(n) =
+<span class="nt">\begin{cases}</span>
+<span class="k">\frac</span><span class="p">{</span>n<span class="p">}{</span>2<span class="p">}</span>,  <span class="p">&amp;</span> <span class="k">\text</span><span class="p">{</span>if <span class="p">$</span><span class="nb">n</span><span class="p">$</span> is even<span class="p">}</span> <span class="k">\\</span><span class="na">[2ex]</span>
+3n+1, <span class="p">&amp;</span> <span class="k">\text</span><span class="p">{</span>if <span class="p">$</span><span class="nb">n</span><span class="p">$</span> is odd<span class="p">}</span>
+<span class="nt">\end{cases}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+\[f(n) =
+\begin{cases}
+\frac{n}{2},  &amp; \text{if $n$ is even} \\[2ex]
+3n+1, &amp; \text{if $n$ is odd}
+\end{cases}\]
+
+<h2 id="iint">iint</h2>
+
+<p>For double and triple integrals, don’t use \int\int or \int\int\int. Instead use the special forms \iint and \iiint:</p>
+
+<h2 id="using-newcommand">Using \newcommand</h2>
+
+<p>It’s enough to insert something like</p>
+
+<div class="language-latex highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">$</span><span class="nb"> </span><span class="nv">\newcommand</span><span class="p">{</span><span class="nv">\SES</span><span class="p">}</span><span class="o">[</span><span class="m">3</span><span class="o">]</span><span class="p">{</span><span class="nb"> </span><span class="m">0</span><span class="nb"> </span><span class="nv">\to</span><span class="nb"> #</span><span class="m">1</span><span class="nb"> </span><span class="nv">\to</span><span class="nb"> #</span><span class="m">2</span><span class="nb"> </span><span class="nv">\to</span><span class="nb"> #</span><span class="m">3</span><span class="nb"> </span><span class="nv">\to</span><span class="nb"> </span><span class="m">0</span><span class="nb"> </span><span class="p">}</span><span class="nb"> </span><span class="p">$</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>at the top of your post (remember the dollars!). Then you can just use your commands as you are used to do: in my example typing ` \SES{A}{B}{C} ` will produce the following:</p>
+
+<p>$ \newcommand{\SES}[3]{ 0 \to #1 \to #2 \to #3 \to 0 } $</p>
+
+\[\SES{A}{B}{C}\]
+
+<p>It’s also possible to use plain <code class="language-plaintext highlighter-rouge">\def</code>:</p>
+
+<div class="language-latex highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">\def\ses</span>#1#2#3<span class="p">{</span>0 <span class="k">\to</span> #1 <span class="k">\to</span> #2 <span class="k">\to</span> #3 <span class="k">\to</span> 0<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>$\def\ses#1#2#3{0 \to #1 \to #2 \to #3 \to 0}$</p>
+
+<p>and then <code class="language-plaintext highlighter-rouge">\ses{A}{B}{C}</code> will produce the same output.</p>
+
+\[\ses{A}{B}{C}\]
+
+<h2 id="tags-and-references">Tags and References</h2>
+
+<p>For longer calculations (or referring to other post’s results) it is convenient to use the tagging/labelling/referencing system. To tag an equation use <code class="language-plaintext highlighter-rouge">\tag{yourtag}</code>, and if you want to refer to that tag later on, add <code class="language-plaintext highlighter-rouge">\label{somelabel}</code> right after the <code class="language-plaintext highlighter-rouge">\tag</code>. It is not necessary that <code class="language-plaintext highlighter-rouge">yourtag</code> and <code class="language-plaintext highlighter-rouge">somelabel</code> are the same, but it usually is more convenient to do so:</p>
+
+<div class="language-latex highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">$$</span><span class="nb"> a :</span><span class="o">=</span><span class="nb"> x</span><span class="p">^</span><span class="m">2</span><span class="o">-</span><span class="nb">y</span><span class="p">^</span><span class="m">3</span><span class="nb"> </span><span class="nv">\tag</span><span class="p">{</span><span class="nb">mmtag</span><span class="p">}</span><span class="nv">\label</span><span class="p">{</span><span class="nb">mmtag</span><span class="p">}</span><span class="nb"> </span><span class="p">$$</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+\[a := x^2-y^3 \tag{mmtag}\label{mmtag}\]
+
+<p>In order to refer to an equation, just use <code class="language-plaintext highlighter-rouge">\eqref{somelabel}</code></p>
+
+<div class="language-latex highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">$$</span><span class="nb"> a</span><span class="o">+</span><span class="nb">y</span><span class="p">^</span><span class="m">3</span><span class="nb"> </span><span class="nv">\stackrel</span><span class="p">{</span><span class="nv">\eqref</span><span class="p">{</span><span class="nb">mmtag</span><span class="p">}}</span><span class="o">=</span><span class="nb"> x</span><span class="p">^</span><span class="m">2</span><span class="nb"> </span><span class="p">$$</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+\[a+y^3 \stackrel{\eqref{mmtag}}= x^2\]
+
+<p>or <code class="language-plaintext highlighter-rouge">\ref{somelabel}</code></p>
+
+<p>$\ref{mmtag}$</p>
+
+<p>or <code class="language-plaintext highlighter-rouge">\eqref{somelabel}</code></p>
+
+<p>$\eqref{mmtag}$</p>
+
+<div class="language-latex highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>Equations are usually referred to as <span class="p">$</span><span class="nv">\eqref</span><span class="p">{</span><span class="o">*</span><span class="p">}$</span>, but you can also use <span class="p">$</span><span class="nv">\ref</span><span class="p">{</span><span class="o">*</span><span class="p">}$</span>.
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>Multi-line equation</strong></p>
+
+<p>Multi-line equation is actually just one equation rather than several equations. So the correct environment is aligned instead of align.</p>
+
+\[\begin{equation}\begin{aligned}
+a &amp;= b + c \\
+  &amp;= d + e + f + g \\
+  &amp;= h + i
+\end{aligned}\end{equation}\tag{2}\label{eq2}\]
+
+<p>Equation $\eqref{eq2}$ is a multi-line equation. The code to produce equation $\eqref{eq2}$ is</p>
+
+<div class="language-latex highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="p">$$</span><span class="nv">\begin</span><span class="p">{</span><span class="nb">equation</span><span class="p">}</span><span class="nv">\begin</span><span class="p">{</span><span class="nb">aligned</span><span class="p">}</span><span class="nb">
+a </span><span class="p">&amp;</span><span class="o">=</span><span class="nb"> b </span><span class="o">+</span><span class="nb"> c </span><span class="nv">\\</span><span class="nb">
+  </span><span class="p">&amp;</span><span class="o">=</span><span class="nb"> d </span><span class="o">+</span><span class="nb"> e </span><span class="o">+</span><span class="nb"> f </span><span class="o">+</span><span class="nb"> g </span><span class="nv">\\</span><span class="nb">
+  </span><span class="p">&amp;</span><span class="o">=</span><span class="nb"> h </span><span class="o">+</span><span class="nb"> i
+</span><span class="nv">\end</span><span class="p">{</span><span class="nb">aligned</span><span class="p">}</span><span class="nv">\end</span><span class="p">{</span><span class="nb">equation</span><span class="p">}</span><span class="nv">\tag</span><span class="p">{</span><span class="m">2</span><span class="p">}</span><span class="nv">\label</span><span class="p">{</span><span class="nb">eq</span><span class="m">2</span><span class="p">}$$</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>Multiple aligned equations</strong></p>
+
+<p>For multiple aligned equations, we use the align environment.</p>
+
+\[\begin{align}
+a &amp;= b + c \tag{3}\label{eq3} \\
+x &amp;= yz \tag{4}\label{eq4}\\
+l &amp;= m - n \tag{5}\label{eq5}
+\end{align}\]
+
+<p>Equation $\eqref{eq3}$, $\eqref{eq4}$ and $\eqref{eq5}$ are multiple equations aligned together. The code to produce these equations is,</p>
+
+<div class="language-latex highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="p">$$</span><span class="nv">\begin</span><span class="p">{</span><span class="nb">align</span><span class="p">}</span><span class="nb">
+a </span><span class="p">&amp;</span><span class="o">=</span><span class="nb"> b </span><span class="o">+</span><span class="nb"> c </span><span class="nv">\tag</span><span class="p">{</span><span class="m">3</span><span class="p">}</span><span class="nv">\label</span><span class="p">{</span><span class="nb">eq</span><span class="m">3</span><span class="p">}</span><span class="nb"> </span><span class="nv">\\</span><span class="nb">
+x </span><span class="p">&amp;</span><span class="o">=</span><span class="nb"> yz </span><span class="nv">\tag</span><span class="p">{</span><span class="m">4</span><span class="p">}</span><span class="nv">\label</span><span class="p">{</span><span class="nb">eq</span><span class="m">4</span><span class="p">}</span><span class="nv">\\</span><span class="nb">
+l </span><span class="p">&amp;</span><span class="o">=</span><span class="nb"> m </span><span class="o">-</span><span class="nb"> n </span><span class="nv">\tag</span><span class="p">{</span><span class="m">5</span><span class="p">}</span><span class="nv">\label</span><span class="p">{</span><span class="nb">eq</span><span class="m">5</span><span class="p">}</span><span class="nb">
+</span><span class="nv">\end</span><span class="p">{</span><span class="nb">align</span><span class="p">}$$</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="reasoning">Reasoning</h2>
+
+<p>\implies (⟹) is a marginally preferable alternative to \Rightarrow (⇒) for implication.</p>
+
+<p>There’s also \iff ⟺ and \impliedby ⟸.</p>
+
+<p>\to (→) is preferable to \rightarrow or \longrightarrow for things like 𝑓:𝐴→𝐵. The reverse is \gets (←).</p>
+
+<h2 id="linear-programming">Linear programming</h2>
+
+<p>Formulation: A theoretical LPP can be typeset as</p>
+
+<div class="language-latex highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">\begin{array}</span><span class="p">{</span>ll<span class="p">}</span>
+<span class="k">\text</span><span class="p">{</span>maximize<span class="p">}</span>  <span class="p">&amp;</span> c<span class="p">^</span>T x <span class="k">\\</span>
+<span class="k">\text</span><span class="p">{</span>subject to<span class="p">}&amp;</span> d<span class="p">^</span>T x = <span class="k">\alpha</span> <span class="k">\\</span>
+<span class="p">&amp;</span>0 <span class="k">\le</span> x <span class="k">\le</span> 1.
+<span class="nt">\end{array}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+\[\begin{array}{ll}
+\text{maximize}  &amp; c^T x \\
+\text{subject to}&amp; d^T x = \alpha \\
+&amp;0 \le x \le 1.
+\end{array}\]
+
+<p>To input a numerical LPP, use alignat instead of align to get better alignment between signs, variables and coefficients.</p>
+
+<div class="language-latex highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="nt">\begin{alignat}</span><span class="p">{</span>5<span class="p">}</span>
+  <span class="k">\max</span> <span class="k">\quad</span>        <span class="p">&amp;</span> z = <span class="p">&amp;</span>   x<span class="p">_</span>1  <span class="p">&amp;</span> + <span class="p">&amp;</span> 12 x<span class="p">_</span>2  <span class="p">&amp;</span>   <span class="p">&amp;</span>       <span class="p">&amp;</span>         <span class="p">&amp;&amp;</span> <span class="k">\\</span>
+  <span class="k">\mbox</span><span class="p">{</span>s.t.<span class="p">}</span> <span class="k">\quad</span> <span class="p">&amp;</span>     <span class="p">&amp;</span> 13 x<span class="p">_</span>1 <span class="p">&amp;</span> + <span class="p">&amp;</span> x<span class="p">_</span>2     <span class="p">&amp;</span> + <span class="p">&amp;</span> 12x<span class="p">_</span>3 <span class="p">&amp;</span> <span class="k">\geq</span> 5  <span class="p">&amp;&amp;</span> <span class="k">\tag</span><span class="p">{</span>constraint 1<span class="p">}</span> <span class="k">\\</span>
+                    <span class="p">&amp;</span>     <span class="p">&amp;</span> x<span class="p">_</span>1    <span class="p">&amp;</span>   <span class="p">&amp;</span>         <span class="p">&amp;</span> + <span class="p">&amp;</span> x<span class="p">_</span>3   <span class="p">&amp;</span> <span class="k">\leq</span> 16 <span class="p">&amp;&amp;</span> <span class="k">\tag</span><span class="p">{</span>constraint 2<span class="p">}</span> <span class="k">\\</span>
+                    <span class="p">&amp;</span>     <span class="p">&amp;</span> 15 x<span class="p">_</span>1 <span class="p">&amp;</span> + <span class="p">&amp;</span> 201 x<span class="p">_</span>2 <span class="p">&amp;</span>   <span class="p">&amp;</span>       <span class="p">&amp;</span> =    14 <span class="p">&amp;&amp;</span> <span class="k">\tag</span><span class="p">{</span>constraint 3<span class="p">}</span> <span class="k">\\</span>
+                    <span class="p">&amp;</span>     <span class="p">&amp;</span> <span class="k">\rlap</span><span class="p">{</span>x<span class="p">_</span>i <span class="k">\ge</span> 0, i = 1, 2, 3<span class="p">}</span>
+<span class="nt">\end{alignat}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+\[\begin{alignat}{5}
+  \max \quad        &amp; z = &amp;   x_1  &amp; + &amp; 12 x_2  &amp;   &amp;       &amp;         &amp;&amp; \\
+  \mbox{s.t.} \quad &amp;     &amp; 13 x_1 &amp; + &amp; x_2     &amp; + &amp; 12x_3 &amp; \geq 5  &amp;&amp; \tag{constraint 1} \\
+                    &amp;     &amp; x_1    &amp;   &amp;         &amp; + &amp; x_3   &amp; \leq 16 &amp;&amp; \tag{constraint 2} \\
+                    &amp;     &amp; 15 x_1 &amp; + &amp; 201 x_2 &amp;   &amp;       &amp; =    14 &amp;&amp; \tag{constraint 3} \\
+                    &amp;     &amp; \rlap{x_i \ge 0, i = 1, 2, 3}
+\end{alignat}\]
+
+<h2 id="latex-math-blocks">Latex Math Blocks</h2>
+
+<div class="info">
+this is some useful or important information.
+</div>
+
+<div btit="(Homotopy/Prism operator)" blab="thm" class="theorem">
+To input a numerical LPP, use alignat instead of align to get better alignment between signs, variables and coefficients.
+$$
+\begin{array}{ll}
+\text{maximize}  &amp; c^T x \\
+\text{subject to}&amp; d^T x = \alpha \\
+&amp;0 \le x \le 1.
+\end{array}
+$$
+</div>
+
+<div class="proof">
+To input a numerical LPP, use alignat instead of align to get better alignment between signs, variables and coefficients.
+$$
+\begin{array}{ll}
+\text{maximize}  &amp; c^T x \\
+\text{subject to}&amp; d^T x = \alpha \\
+&amp;0 \le x \le 1.
+\end{array}
+$$
+</div>
+
+<div class="definition">
+To input a numerical LPP, use alignat instead of align to get better alignment between signs, variables and coefficients.
+$$
+\begin{array}{ll}
+\text{maximize}  &amp; c^T x \\
+\text{subject to}&amp; d^T x = \alpha \\
+&amp;0 \le x \le 1.
+\end{array}
+$$
+</div>
+
+<div class="exampl" id="myexamlp">
+To input a numerical LPP, use alignat instead of align to get better alignment between signs, variables and coefficients.
+$$
+\begin{array}{ll}
+\text{maximize}  &amp; c^T x \\
+\text{subject to}&amp; d^T x = \alpha \\
+&amp;0 \le x \le 1.
+\end{array}
+$$
+</div>
+
+<div btit="(Homotopy/Prism operator)" blab="thm" class="proposition">
+To input a numerical LPP, use alignat instead of align to get better alignment between signs, variables and coefficients.
+$$
+\begin{array}{ll}
+\text{maximize}  &amp; c^T x \\
+\text{subject to}&amp; d^T x = \alpha \\
+&amp;0 \le x \le 1.
+\end{array}
+$$
+
+$\tag{them11}\label{thm11} $
+</div>
+
+<div btit="(Homotopy/Prism operator)" blab="thm" class="remark">
+To input a numerical LPP, use alignat instead of align to get better alignment between signs, variables and coefficients.
+$$
+\begin{array}{ll}
+\text{maximize}  &amp; c^T x \\
+\text{subject to}&amp; d^T x = \alpha \\
+&amp;0 \le x \le 1.
+\end{array}
+$$
+</div>
+
+<div btit="(Homotopy/Prism operator)" blab="mylemma" class="lemma" id="mylemma">
+To input a numerical LPP, use alignat instead of align to get better alignment between signs, variables and coefficients.
+$$
+\begin{array}{ll}
+\text{maximize}  &amp; c^T x \\
+\text{subject to}&amp; d^T x = \alpha \\
+&amp;0 \le x \le 1.
+\end{array}
+$$
+
+$\tag{mylemma}\label{mylemma} $
+
+</div>
+
+<p>this is the lemma $\eqref{mylemma}$.</p>
+
+<p>this is the theorem $\eqref{thm11}$.</p>
+
+<p>The link to the lemma is <a href="#mylemma">the lemma</a></p>
+
+<p>The link to the example is <a href="#myexamlp">the example</a></p>
+
+:ET

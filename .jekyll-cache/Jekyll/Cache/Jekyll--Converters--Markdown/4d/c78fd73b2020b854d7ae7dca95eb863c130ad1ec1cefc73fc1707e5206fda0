@@ -1,0 +1,71 @@
+I"Å
+<ul class="mytoc__menu">
+  <li><a href="#syllabus">Syllabus</a></li>
+  <li><a href="#introduction-to-data-visualization-tools">Introduction to Data Visualization Tools</a>
+    <ul>
+      <li><a href="#why-build-visuals">Why build visuals?</a></li>
+    </ul>
+  </li>
+  <li><a href="#documentation-of-matplotlib">Documentation of Matplotlib</a>
+    <ul>
+      <li><a href="#3-layers">3 Layers</a></li>
+      <li><a href="#111-the-dongle-problem">11.1. The Dongle Problem</a></li>
+      <li><a href="#112-overview-of-matplotlib-architecture">11.2. Overview of matplotlib Architecture</a>
+        <ul>
+          <li><a href="#backend-layer">Backend Layer</a></li>
+          <li><a href="#artist-layer">Artist Layer</a></li>
+          <li><a href="#scripting-layer-pyplot">Scripting Layer (pyplot)</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#basic-plotting-with-matplotlib">Basic Plotting with Matplotlib</a>
+    <ul>
+      <li><a href="#plot-function">Plot Function</a></li>
+      <li><a href="#pandas">Pandas</a></li>
+      <li><a href="#lab">Lab</a></li>
+    </ul>
+  </li>
+  <li><a href="#basic-visualization-tools">Basic Visualization Tools</a>
+    <ul>
+      <li><a href="#lab-1">Lab-1</a>
+        <ul>
+          <li><a href="#two-types-of-plotting">Two types of plotting</a></li>
+          <li><a href="#histograme">Histograme</a></li>
+          <li><a href="#bar-charts">Bar Charts</a></li>
+        </ul>
+      </li>
+      <li><a href="#lab-2">Lab-2</a>
+        <ul>
+          <li><a href="#pie-charts">Pie Charts</a></li>
+          <li><a href="#box-plots">Box Plots</a></li>
+          <li><a href="#subplots">Subplots</a></li>
+          <li><a href="#scatter-plot-and-regression">Scatter Plot and Regression</a></li>
+          <li><a href="#bubble-plots">Bubble Plots</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#advanced-visualization">Advanced Visualization</a>
+    <ul>
+      <li><a href="#waffel-charts">Waffel Charts</a></li>
+      <li><a href="#word-clouds">Word Clouds</a></li>
+      <li><a href="#seaborn-and-regressin-plots">Seaborn and Regressin Plots</a></li>
+    </ul>
+  </li>
+  <li><a href="#visualizing-geospatial-data">Visualizing Geospatial Data</a>
+    <ul>
+      <li><a href="#folium">Folium</a>
+        <ul>
+          <li><a href="#a-stamen-toner-maps">A. Stamen Toner Maps</a></li>
+          <li><a href="#b-stamen-terrain-maps">B. Stamen Terrain Maps</a></li>
+          <li><a href="#c-mapbox-bright-maps">C. Mapbox Bright Maps</a></li>
+          <li><a href="#maps-with-markers">Maps with Markers</a></li>
+          <li><a href="#choropleth-maps">Choropleth Maps</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#final-assignment">Final Assignment</a></li>
+</ul>
+:ET

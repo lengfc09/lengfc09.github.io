@@ -1,0 +1,1255 @@
+I"�<div class="info">
+
+This blog post is made by 'Group Researchers', for the final project of MFin Text Analytics and Natural Language Processing in Finance and Fintech, taught by <a href="http://www.buehlmaier.net/">Matthias Buehlmaier 高德祿</a>, on January 22, 2021.
+</div>
+
+<h2 id="background">Background</h2>
+<p>Nowadays social media gets more and more attention, and news on social media, such as Twitter and Facebook, has been incorporated in various data science research. People from all over the world share their opinions and stories on social media in a timely manner (to catch the trend), and it gives us a comprehensive source of information. People found that news and sentiment both are important factors to influence stock market. Many research have already indicated the possibility of predicting the market by using the news (especially from certain import political leader in the world) as a signal to a coming movement with an acceptable accuracy percentage.</p>
+
+<p>We want to predict market by using the news, therefore we try to use tweets from Twitter to predict the index price of S&amp;P 500. We want to predict S&amp;P 500 in that it contains many famous companies which are very typical and can help us to know the market better. There are three reasons why we use Twitter to collect tweets. Firstly, more than 60% of Twitter’s users would like to get the news on the site. Secondly, using Twitter as our news source can help us to get the most up to date news. Thirdly, we can get tweets from Twitter easily by using packages such as tweepy and twint.</p>
+
+<h2 id="data-collection">Data collection</h2>
+
+<p>We used the package <code class="language-plaintext highlighter-rouge">Twint</code> to collect tweets from Twitter. In order to increase the accuracy of predicting index price, we collect as much data as we can to train the model. We collect all the tweets containing keyword <strong>SP500</strong> from January 1st 2017 to February, 18th 2021.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="c1"># scrap data from twitter （this step works better on colab)
+</span><span class="kn">import</span> <span class="nn">twint</span>
+<span class="kn">import</span> <span class="nn">nest_asyncio</span>
+
+<span class="n">nest_asyncio</span><span class="p">.</span><span class="nb">apply</span><span class="p">()</span>
+<span class="c1"># Configure
+# %%
+</span><span class="n">c</span> <span class="o">=</span> <span class="n">twint</span><span class="p">.</span><span class="n">Config</span><span class="p">()</span>
+<span class="n">c</span><span class="p">.</span><span class="n">Search</span> <span class="o">=</span> <span class="s">"#sp500"</span>
+<span class="n">c</span><span class="p">.</span><span class="n">Since</span> <span class="o">=</span> <span class="s">'2020-01-01'</span>
+<span class="n">c</span><span class="p">.</span><span class="n">Until</span> <span class="o">=</span> <span class="s">'2021-01-01'</span>
+<span class="n">c</span><span class="p">.</span><span class="n">Output</span> <span class="o">=</span> <span class="s">"tweets2020.csv"</span>
+
+<span class="n">c</span><span class="p">.</span><span class="n">Store_csv</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="c1"># Run
+</span><span class="n">twint</span><span class="p">.</span><span class="n">run</span><span class="p">.</span><span class="n">Search</span><span class="err">©</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>We found approximately 562,866 tweets in total. We only keep the 286,129 tweets which are written in English.</p>
+
+<p>The daily number of tweets we collected is plotted:
+<img src="/media/16157222657124/16157228529668.jpg" alt="-w450" class="align-center" width="450px" /></p>
+
+<p>An interesting result we found is that: people post more tweets about “SP500” on weekdays than on weekend. In fact, the average number of tweets on weekdays is 255 and the average number of tweets on weekend is 101.</p>
+
+<p>Then, we use <code class="language-plaintext highlighter-rouge">pandas_datareader</code> to gather the S&amp;P 500 historical close prices. S&amp;P500 does show negative autocorrelation and significant Volatility Clustering, which implies that the return or volatility might be predictable with the historical information, in our case for example, what people talked about SP500 in twitter.</p>
+
+<p><strong>SP500 shows negative autocorrelation and significant Volatility Clustering</strong>:</p>
+
+<p><img src="/media/16157222657124/16157232107508.jpg" alt="-w600" class="align-center" width="600px" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">from</span> <span class="nn">arch</span> <span class="kn">import</span> <span class="n">arch_model</span>
+<span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_acf</span><span class="p">,</span> <span class="n">plot_pacf</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="n">dt</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="n">sm</span>
+
+
+<span class="kn">from</span> <span class="nn">pandas_datareader</span> <span class="kn">import</span> <span class="n">data</span> <span class="k">as</span> <span class="n">web</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">web</span><span class="p">.</span><span class="n">DataReader</span><span class="p">(</span><span class="s">'^GSPC'</span><span class="p">,</span> <span class="s">'yahoo'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="s">'sp500.pkl'</span><span class="p">)</span>
+<span class="c1"># df.to_excel('sp500.xlsx')
+</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="s">'sp500.pkl'</span><span class="p">)</span>
+
+<span class="c1"># Plot - Historical S&amp;P500 Close Prices
+</span><span class="n">plt</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="s">'ggplot'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">"Historical S&amp;P500 Close Prices"</span><span class="p">)</span>
+
+
+<span class="c1"># Table - Daily Return
+</span><span class="n">df</span><span class="p">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">).</span><span class="n">diff</span><span class="p">()</span>
+
+<span class="c1"># Check AR
+</span><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="s">'ggplot'</span><span class="p">)</span>
+<span class="n">fig1</span> <span class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">].</span><span class="nb">apply</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">).</span><span class="n">diff</span><span class="p">().</span><span class="n">dropna</span><span class="p">())</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Autocorrelation'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">([</span><span class="s">'Partial Autocorrelation of r'</span><span class="p">])</span>
+
+<span class="c1"># Check Volatility Clustering
+</span><span class="n">fig2</span> <span class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">].</span><span class="nb">apply</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">).</span><span class="n">diff</span><span class="p">().</span><span class="n">dropna</span><span class="p">().</span><span class="nb">abs</span><span class="p">())</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Volatility Clustering'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">([</span><span class="s">'Partial Autocorrelation of Abs®'</span><span class="p">])</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="data-preprocessing">Data Preprocessing</h2>
+
+<h3 id="data-merge-and-cleaning">Data Merge and Cleaning</h3>
+
+<p>For the part of sentiment analysis and supervised learning, the DataFrame of tweets are grouped by date, with the sentiment score been averaged. We also use ‘pd.merge’ to join the tweets and SP500 index prices together.</p>
+
+<p>For the unsupervised learning part, we also have to add ‘PCA’ components and ‘T-SNE’ components to our original tweets matrix for the purpose of dimension reduction.</p>
+
+<p>Besides, we also apply standard normalization process in the analysis of relationship between different factors.</p>
+
+<p>For example, the final daily data for sentiment analysis looks like this:</p>
+
+<p><img src="/media/16157222657124/16157238309263.jpg" alt="-700" class="align-center" width="700px" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+</pre></td><td class="rouge-code"><pre>
+
+<span class="c1"># Data Preprocessing
+</span><span class="n">tw2017</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">"tweets2017.csv"</span><span class="p">)</span>
+<span class="n">tw2017</span> <span class="o">=</span> <span class="n">tw2017</span><span class="p">[[</span><span class="s">'date'</span><span class="p">,</span> <span class="s">'tweet'</span><span class="p">,</span> <span class="s">'replies_count'</span><span class="p">,</span> <span class="s">'retweets_count'</span><span class="p">,</span>
+                 <span class="s">'likes_count'</span><span class="p">,</span> <span class="s">'language'</span><span class="p">,</span> <span class="s">'hashtags'</span><span class="p">,</span> <span class="s">'cashtags'</span><span class="p">]]</span>
+<span class="n">tw2017</span> <span class="o">=</span> <span class="n">tw2017</span><span class="p">[</span><span class="n">tw2017</span><span class="p">[</span><span class="s">'language'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'en'</span><span class="p">]</span>
+<span class="n">tw2017</span><span class="p">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">tw2017</span><span class="p">.</span><span class="n">date</span><span class="p">)</span>
+<span class="n">tw2017</span> <span class="o">=</span> <span class="n">tw2017</span><span class="p">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s">'date'</span><span class="p">)</span>
+<span class="n">tw2017</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+
+<span class="c1"># Add sentiment socre for each tweet
+</span><span class="kn">from</span> <span class="nn">nltk.sentiment.vader</span> <span class="kn">import</span> <span class="n">SentimentIntensityAnalyzer</span>
+<span class="n">sid</span> <span class="o">=</span> <span class="n">SentimentIntensityAnalyzer</span><span class="p">()</span>
+<span class="n">tw2017</span><span class="p">[</span><span class="s">'sentiment'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">sid</span><span class="p">.</span><span class="n">polarity_scores</span><span class="p">(</span>
+    <span class="n">t</span><span class="p">).</span><span class="n">get</span><span class="p">(</span><span class="s">'compound'</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tw2017</span><span class="p">[</span><span class="s">'tweet'</span><span class="p">]]</span>
+
+
+<span class="c1"># check how the replies_count retweets_count, likes_count dirstibuted
+</span><span class="n">plt</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="s">'ggplot'</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">axes_flat</span> <span class="o">=</span> <span class="n">axes</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s">'replies_count'</span><span class="p">,</span> <span class="s">'retweets_count'</span><span class="p">,</span> <span class="s">'likes_count'</span><span class="p">]):</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">hist</span><span class="p">(</span><span class="n">tw2017</span><span class="p">[</span><span class="n">item</span><span class="p">].</span><span class="n">value_counts</span><span class="p">())</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="c1"># how the sentiments distrubited
+</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">hist</span><span class="p">(</span><span class="n">tw2017</span><span class="p">[</span><span class="s">'sentiment'</span><span class="p">])</span>
+
+<span class="c1"># how many tweets each day
+</span><span class="n">plt</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="s">'ggplot'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tw2017</span><span class="p">[</span><span class="s">'date'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">().</span><span class="n">sort_index</span><span class="p">(),</span> <span class="s">'o-'</span><span class="p">)</span>
+
+
+<span class="c1"># number of tweets about 'SP500' on weekday is higher than thoes on weekends
+</span><span class="n">tw2017</span><span class="p">[</span><span class="s">'weekday'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">dt</span><span class="p">.</span><span class="n">date</span><span class="p">.</span><span class="n">weekday</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tw2017</span><span class="p">[</span><span class="s">'date'</span><span class="p">]]</span>
+<span class="n">tw2017_daily_group</span> <span class="o">=</span> <span class="n">tw2017</span><span class="p">[[</span><span class="s">'date'</span><span class="p">,</span> <span class="s">'weekday'</span><span class="p">,</span> <span class="s">'tweet'</span><span class="p">]].</span><span class="n">groupby</span><span class="p">(</span>
+    <span class="p">[</span><span class="s">'date'</span><span class="p">,</span> <span class="s">'weekday'</span><span class="p">]).</span><span class="n">count</span><span class="p">().</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">weekday_mean</span> <span class="o">=</span> <span class="n">tw2017_daily_group</span><span class="p">[</span><span class="n">tw2017_daily_group</span><span class="p">[</span><span class="s">'weekday'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">].</span><span class="n">mean</span><span class="p">()[</span>
+    <span class="s">'tweet'</span><span class="p">]</span>
+<span class="n">weekend_mean</span> <span class="o">=</span> <span class="n">tw2017_daily_group</span><span class="p">[</span><span class="n">tw2017_daily_group</span><span class="p">[</span><span class="s">'weekday'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">].</span><span class="n">mean</span><span class="p">()[</span>
+    <span class="s">'tweet'</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Average Tweets on weekdays: {:.0f} </span><span class="se">\n</span><span class="s">Average Tweets on weekends: {:.0f}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span>
+    <span class="n">weekday_mean</span><span class="p">,</span> <span class="n">weekend_mean</span><span class="p">))</span>
+
+<span class="c1"># read the spx prices
+</span><span class="n">spx</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="s">'sp500.pkl'</span><span class="p">)</span>
+<span class="n">spx</span><span class="p">[</span><span class="s">'Close'</span><span class="p">].</span><span class="n">plot</span><span class="p">()</span>
+
+<span class="c1"># plot the daily return
+</span><span class="n">spxr</span> <span class="o">=</span> <span class="n">spx</span><span class="p">[[</span><span class="s">'Close'</span><span class="p">]].</span><span class="nb">apply</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">).</span><span class="n">diff</span><span class="p">().</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">spxr</span><span class="p">.</span><span class="n">index</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">'date'</span>
+<span class="n">spxr</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Daily_Return'</span><span class="p">]</span>
+<span class="n">spxr</span><span class="p">.</span><span class="n">plot</span><span class="p">()</span>
+
+<span class="c1"># Join these two dataset
+</span><span class="n">tw2017_daily_group</span> <span class="o">=</span> <span class="n">tw2017_daily_group</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">spxr</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s">'date'</span><span class="p">)</span>
+
+<span class="c1"># add return-squared as indicator for volatility
+</span><span class="n">tw2017_daily_group</span><span class="p">[</span><span class="s">'Return_squared'</span><span class="p">]</span> <span class="o">=</span> <span class="n">tw2017_daily_group</span><span class="p">[</span><span class="s">'Daily_Return'</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+<span class="c1"># Check the correlation matrix
+</span><span class="n">tw2017_daily_group</span><span class="p">[[</span><span class="s">'tweet'</span><span class="p">,</span> <span class="s">'Daily_Return'</span><span class="p">,</span> <span class="s">'Return_squared'</span><span class="p">]].</span><span class="n">dropna</span><span class="p">().</span><span class="n">corr</span><span class="p">()</span>
+
+<span class="c1"># Add the information from next day for later use
+</span><span class="n">tw2017_daily_group</span><span class="p">[</span><span class="s">'r(t+1)'</span><span class="p">]</span> <span class="o">=</span> <span class="n">tw2017_daily_group</span><span class="p">[</span><span class="s">'Daily_Return'</span><span class="p">].</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">tw2017_daily_group</span><span class="p">[</span><span class="s">'r2(t+1)'</span><span class="p">]</span> <span class="o">=</span> <span class="n">tw2017_daily_group</span><span class="p">[</span><span class="s">'Return_squared'</span><span class="p">].</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="n">tw2017_daily_group</span><span class="p">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+                          <span class="s">'tweet'</span><span class="p">:</span> <span class="s">"#tweets"</span><span class="p">,</span> <span class="s">'Daily_Return'</span><span class="p">:</span> <span class="s">'r'</span><span class="p">,</span> <span class="s">'Return_squared'</span><span class="p">:</span> <span class="s">'r2'</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">tw2017_daily_group</span><span class="p">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">tw2017_daily_group</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:].</span><span class="n">corr</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="bag-of-words">Bag of Words</h3>
+
+<p>In our project, we choose to use <code class="language-plaintext highlighter-rouge">Sklearn.feature_extraction.text.CountVectorize</code> to transform the tweets text corpus into a numerical matrix. More specifically, we fist create a Bag-of-Words from the tweets data we collected.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># cp is the text corpus
+</span><span class="n">cp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tw2017</span><span class="p">[</span><span class="s">'tweet'</span><span class="p">][:].</span><span class="n">values</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">stop_words</span><span class="o">=</span><span class="s">'english'</span><span class="p">)</span>  <span class="c1"># Vectorizer.
+</span><span class="n">bow</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">cp</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The the resulting matrix has a DTM (Document-Term Matrix) structure, with the shape equals to <code class="language-plaintext highlighter-rouge">(286129,287749)</code>.</p>
+
+<h2 id="sentiment-analysis">Sentiment Analysis</h2>
+
+<h3 id="number-of-tweets">Number of tweets</h3>
+<p>The first result we find is the relationship among number of tweets, daily return  and volatility of SP500 index prices.</p>
+
+<p><img src="/media/16157222657124/16157243359575.jpg" alt="-w800" class="align-center" width="800px" /></p>
+
+<p>From the correlation matrix and heatmap above, we find that the correlation between <code class="language-plaintext highlighter-rouge">#tweet</code> and <code class="language-plaintext highlighter-rouge">r</code> is -0.11, but the correlation with volatility (denoted as <code class="language-plaintext highlighter-rouge">r-square</code>) is 0.3233, <code class="language-plaintext highlighter-rouge">r-sqaure (t+1)</code> is approximately 0.1736.</p>
+
+<p>In the figure 4, we can see that  Normalized Number of Tweets and SP500 volatility does have some correlation. Especially in March 2020, when the covid-10 began to become a big problem for the world.</p>
+
+<h3 id="averaged-sentiment-score">Averaged Sentiment Score</h3>
+
+<p>We now use <code class="language-plaintext highlighter-rouge">nltk.sentiment.vader</code> package to give each tweet a sentiment score. For better accuracy, we might use more sophisticated sentiment analysis package like ‘Finbert’.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Add sentiment socre for each tweet
+</span><span class="kn">from</span> <span class="nn">nltk.sentiment.vader</span> <span class="kn">import</span> <span class="n">SentimentIntensityAnalyzer</span>
+<span class="n">sid</span> <span class="o">=</span> <span class="n">SentimentIntensityAnalyzer</span><span class="p">()</span>
+<span class="n">tw2017</span><span class="p">[</span><span class="s">'sentiment'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">sid</span><span class="p">.</span><span class="n">polarity_scores</span><span class="p">(</span>
+    <span class="n">t</span><span class="p">).</span><span class="n">get</span><span class="p">(</span><span class="s">'compound'</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tw2017</span><span class="p">[</span><span class="s">'tweet'</span><span class="p">]]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><img src="/media/16157222657124/16157245571025.jpg" alt="-w600" class="align-center" width="600px" />
+We also apply linear regression on sentiment score and the daily return. We get the following result:
+<code class="language-plaintext highlighter-rouge">Intercept: -0.0055, beta:0.0799, R-Square:0.067, t_beta 7.637, P-value: 0.000</code></p>
+
+<p><img src="/media/16157222657124/16157246751170.jpg" alt="-w600" class="align-center" width="600px" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+</pre></td><td class="rouge-code"><pre><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="p">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">tw2017_daily_group</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:].</span><span class="n">corr</span><span class="p">(),</span> <span class="n">linewidths</span><span class="o">=</span><span class="p">.</span><span class="mi">5</span><span class="p">,)</span>
+
+
+<span class="c1"># Instead of regression, we try to just do a classification by sentiment score
+</span>
+<span class="n">temp_sentiment</span> <span class="o">=</span> <span class="n">tw2017</span><span class="p">[[</span><span class="s">'date'</span><span class="p">,</span> <span class="s">'sentiment'</span><span class="p">]].</span><span class="n">groupby</span><span class="p">(</span><span class="s">'date'</span><span class="p">).</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">tw2017_daily_group</span> <span class="o">=</span> <span class="n">tw2017_daily_group</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">temp_sentiment</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s">'date'</span><span class="p">)</span>
+
+<span class="c1"># for add binary return for each day
+</span>
+
+<span class="k">def</span> <span class="nf">mybinary</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">np</span><span class="p">.</span><span class="n">nan</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">nan</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+
+<span class="n">tw2017_daily_group</span><span class="p">[</span><span class="s">'binary'</span><span class="p">]</span> <span class="o">=</span> <span class="n">tw2017_daily_group</span><span class="p">[</span><span class="s">'r'</span><span class="p">].</span><span class="nb">apply</span><span class="p">(</span><span class="n">mybinary</span><span class="p">)</span>
+<span class="n">tw2017_daily_group</span><span class="p">[</span><span class="s">'binary(t+1)'</span><span class="p">]</span> <span class="o">=</span> <span class="n">tw2017_daily_group</span><span class="p">[</span><span class="s">'binary'</span><span class="p">].</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="n">tw2017_daily_group</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:].</span><span class="n">dropna</span><span class="p">().</span><span class="n">corr</span><span class="p">()</span>
+
+<span class="c1"># Linear regression
+</span><span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="n">smf</span>
+<span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="p">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s">'binary~tweets'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">tw2017_daily_group</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:].</span><span class="n">dropna</span><span class="p">(</span>
+<span class="p">).</span><span class="n">assign</span><span class="p">(</span><span class="n">tweets</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s">'#tweets'</span><span class="p">])).</span><span class="n">fit</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ols</span><span class="p">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="c1"># The number of tweets has no explaining power on stock change
+</span>
+
+<span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="p">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s">'binary~sentiment'</span><span class="p">,</span>
+              <span class="n">data</span><span class="o">=</span><span class="n">tw2017_daily_group</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:].</span><span class="n">dropna</span><span class="p">()).</span><span class="n">fit</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ols</span><span class="p">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="c1"># there seems to be correlation between binary and sentiment
+</span>
+
+<span class="n">ols</span> <span class="o">=</span> <span class="n">smf</span><span class="p">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s">'r~sentiment'</span><span class="p">,</span>
+              <span class="n">data</span><span class="o">=</span><span class="n">tw2017_daily_group</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:].</span><span class="n">dropna</span><span class="p">()).</span><span class="n">fit</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ols</span><span class="p">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="c1"># there seems to be correlation between return and sentiment
+</span>
+<span class="c1"># heat map
+</span><span class="n">sns</span><span class="p">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">tw2017_daily_group</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:].</span><span class="n">dropna</span><span class="p">().</span><span class="n">corr</span><span class="p">(),</span> <span class="n">linewidths</span><span class="o">=</span><span class="p">.</span><span class="mi">5</span><span class="p">,)</span>
+
+
+<span class="c1"># Nomarlized Plot of r-sentiment
+</span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">normalize</span>
+<span class="n">tempdf</span> <span class="o">=</span> <span class="n">tw2017_daily_group</span><span class="p">.</span><span class="n">set_index</span><span class="p">(</span><span class="s">'date'</span><span class="p">).</span><span class="n">dropna</span><span class="p">().</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
+<span class="n">normalized_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">normalize</span><span class="p">(</span><span class="n">tempdf</span><span class="p">.</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">tempdf</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">tempdf</span><span class="p">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">normalized_df</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s">'sentiment'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">])</span>
+
+<span class="c1"># regression plot
+</span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="n">mpl</span>
+<span class="n">mpl</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">use</span><span class="p">([</span><span class="s">'ggplot'</span><span class="p">])</span>  <span class="c1"># optional: for ggplot-like style
+</span><span class="n">sns</span><span class="p">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'sentiment'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'r'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">normalized_df</span><span class="p">)</span>
+
+<span class="c1"># save the result
+</span><span class="n">tw2017</span><span class="p">[[</span><span class="s">'sentiment'</span><span class="p">,</span> <span class="s">'tweet'</span><span class="p">]].</span><span class="n">sort_values</span><span class="p">(</span>
+    <span class="n">by</span><span class="o">=</span><span class="s">'sentiment'</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">).</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">).</span><span class="n">to_excel</span><span class="p">(</span><span class="s">"temp.xlsx"</span><span class="p">)</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="result-for-sentiment-analysis">Result for sentiment analysis</h3>
+
+<p>In terms of correlation:</p>
+<ul>
+  <li>Number of tweets is correlated with volatility, but has minimal correlation with return.</li>
+  <li>Sentiment score is correlated with daily return, but has minimal correlation with volatility.</li>
+</ul>
+
+<p>In terms of predicting power:</p>
+
+<ul>
+  <li>Number of tweets has some predicting power for volatility, but this could be a natural result of volatility clustering.</li>
+  <li>Sentiment score has no predicting power in our case.</li>
+</ul>
+
+<p>More to find out:</p>
+<ul>
+  <li>What is the relationship indeed? We still don’t know wether number of tweets and sentiment score lead the stock change or vice versa?</li>
+  <li>Can we make better predictions or find stronger correlations by the following techniques:
+    <ul>
+      <li>Regress on #tweets and sentiment Score simultaneously, or</li>
+      <li>Add features like <code class="language-plaintext highlighter-rouge">dispersion in sentiment</code>, <code class="language-plaintext highlighter-rouge">change in number of tweets</code> and <code class="language-plaintext highlighter-rouge">change in sentiment score</code>;</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="unsupervised-learning">Unsupervised Learning</h2>
+
+<h3 id="k-means">K-means</h3>
+<p>Firstly, we try find the topics or type of each tweeter. So we apply k-means to group tweets data into <strong>three clusters</strong>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre>
+
+<span class="c1"># K-means
+</span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">bow</span>
+<span class="c1"># Perform k-means clustering of the data into two clusters.
+</span><span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">).</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">kmeans</span><span class="p">.</span><span class="n">cluster_centers_</span>
+
+<span class="c1"># label infos
+</span><span class="n">group_label</span> <span class="o">=</span> <span class="n">kmeans</span><span class="p">.</span><span class="n">labels_</span>
+
+<span class="c1"># how many tweets for each group?
+</span><span class="n">group_label</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span><span class="n">group_label</span><span class="p">)</span>
+<span class="n">group_label</span><span class="p">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Number of Tweets assigned for each Cluster is: <code class="language-plaintext highlighter-rouge">[0:29535, 1: 3419, 2: 24100]</code>. The key words and BoW vector is given below:</p>
+
+<p><img src="/media/16157222657124/16157254235485.jpg" alt="-w917" class="align-center" width="800px" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre></td><td class="rouge-code"><pre><span class="c1"># What are these kmeans.cluster_centers_
+# for cluster_center 1:
+</span><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kmeans</span><span class="p">.</span><span class="n">cluster_centers_</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">feature_names</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">get_feature_names</span><span class="p">()</span>
+<span class="n">center1</span> <span class="o">=</span> <span class="p">[</span><span class="n">feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+           <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">kmeans</span><span class="p">.</span><span class="n">cluster_centers_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="n">tolist</span><span class="p">()]</span>
+<span class="n">center1</span>
+
+
+<span class="c1"># What are these kmeans.cluster_centers_
+# for cluster_center 2:
+</span><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kmeans</span><span class="p">.</span><span class="n">cluster_centers_</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="c1"># feature_names=v.get_feature_names()
+</span><span class="n">center2</span> <span class="o">=</span> <span class="p">[</span><span class="n">feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+           <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">kmeans</span><span class="p">.</span><span class="n">cluster_centers_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.4</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="n">tolist</span><span class="p">()]</span>
+<span class="n">center2</span>
+
+<span class="c1"># What are these kmeans.cluster_centers_
+# for cluster_center 3:
+</span><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kmeans</span><span class="p">.</span><span class="n">cluster_centers_</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="c1"># feature_names=v.get_feature_names()
+</span><span class="n">center3</span> <span class="o">=</span> <span class="p">[</span><span class="n">feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+           <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">kmeans</span><span class="p">.</span><span class="n">cluster_centers_</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.4</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="n">tolist</span><span class="p">()]</span>
+<span class="n">center3</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Next, we manually identify these clusters and find the following result:</p>
+
+<p><strong>Cluster_0</strong>: Contains many real users, who express some opinion about SP500. Typical Tweet: (<code class="language-plaintext highlighter-rouge">See temp_kmeans0.xlsx</code>)</p>
+<blockquote>
+  <p>‘Exciting #trading year. Dropped my long #SP500 futures contracts from 2079, back long on #ZB and #ZN #BondNotes #finance #stocksandbonds 📈’</p>
+</blockquote>
+
+<p><strong>Cluster_1</strong>: Contains a lot web robots, who always give the same text repeatedly, which tends to bring little useful information. Typical Tweet: <code class="language-plaintext highlighter-rouge">(See temp_kmeans1.xlsx)</code></p>
+<blockquote>
+  <p>‘Monday 02/01 - AI Forecast of S&amp;P 500  for investors and traders #sp500, #spx, #forecast’</p>
+</blockquote>
+
+<p><strong>Cluster_2</strong> Also contains a lot web robots, but these robots seem to summarize the recent performance. Typical Tweet: <code class="language-plaintext highlighter-rouge">(See temp_kmeans2.xlsx)</code></p>
+<blockquote>
+  <p>‘Trend Update: $VTI, #SP400, #SP600, #NASDAQ, #DJIA #DOW, #SP500, #RUSSELL2000,  continue to be Bullish, mid term.</p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th><strong>Cluster  0</strong>  <strong>(Real  User)</strong></th>
+      <th><strong>Cluster  1</strong>  <strong>(Useless  Robot)</strong></th>
+      <th><strong>Cluster  2</strong>  <strong>(Useful  Robot)</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>sentiment</strong></td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td><strong>r</strong></td>
+      <td>0.147306</td>
+      <td>0.011468</td>
+      <td><strong>0.414756</strong></td>
+    </tr>
+    <tr>
+      <td><strong>r-squred</strong></td>
+      <td>0.050687</td>
+      <td>0.057768</td>
+      <td>-0.047024</td>
+    </tr>
+    <tr>
+      <td><strong>r(t+1)</strong></td>
+      <td>-0.072556</td>
+      <td>0.064234</td>
+      <td>-0.010021</td>
+    </tr>
+    <tr>
+      <td><strong>r-squred(t+1)</strong></td>
+      <td>-0.116040</td>
+      <td>-0.010351</td>
+      <td>-0.174967</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The result is in line with our manual Identification before:</p>
+<ul>
+  <li>Cluster 2 Contain many useful web robot: Their sentiment has high correlation with Stock Return</li>
+  <li>Cluster 1 Contain many useless web robot: Their sentiment has little correlation with Stock Return</li>
+  <li>Cluster 0 Contain many real users: their own opinion: Their sentiment has some correlation with Stock Return</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+</pre></td><td class="rouge-code"><pre>
+<span class="c1"># add the kmeans-Center to the dataframe
+</span><span class="n">tw2017</span><span class="p">[</span><span class="s">'Kmeans-Center'</span><span class="p">]</span> <span class="o">=</span> <span class="n">group_label</span>
+
+
+<span class="c1"># save the grouped tweets for manual idendification later
+</span><span class="n">tw2017</span><span class="p">[[</span><span class="s">'tweet'</span><span class="p">,</span> <span class="s">'Kmeans-Center'</span><span class="p">]][</span><span class="n">tw2017</span><span class="p">[</span><span class="s">'Kmeans-Center'</span><span class="p">]</span>
+                                   <span class="o">==</span> <span class="mi">2</span><span class="p">].</span><span class="n">to_excel</span><span class="p">(</span><span class="s">'temp_kmeans2.xlsx'</span><span class="p">)</span>
+<span class="n">tw2017</span><span class="p">[[</span><span class="s">'tweet'</span><span class="p">,</span> <span class="s">'Kmeans-Center'</span><span class="p">]][</span><span class="n">tw2017</span><span class="p">[</span><span class="s">'Kmeans-Center'</span><span class="p">]</span>
+                                   <span class="o">==</span> <span class="mi">1</span><span class="p">].</span><span class="n">to_excel</span><span class="p">(</span><span class="s">'temp_kmeans1.xlsx'</span><span class="p">)</span>
+<span class="n">tw2017</span><span class="p">[[</span><span class="s">'tweet'</span><span class="p">,</span> <span class="s">'Kmeans-Center'</span><span class="p">]][</span><span class="n">tw2017</span><span class="p">[</span><span class="s">'Kmeans-Center'</span><span class="p">]</span>
+                                   <span class="o">==</span> <span class="mi">0</span><span class="p">].</span><span class="n">to_excel</span><span class="p">(</span><span class="s">'temp_kmeans0.xlsx'</span><span class="p">)</span>
+
+
+<span class="n">tw2017</span><span class="p">[[</span><span class="s">'tweet'</span><span class="p">,</span> <span class="s">'Kmeans-Center'</span><span class="p">]]</span>
+
+
+<span class="c1"># Within each gourp, check the relationship between sentiment and return/volatility
+</span>
+<span class="n">g_kmeans</span> <span class="o">=</span> <span class="n">tw2017</span><span class="p">[[</span><span class="s">'date'</span><span class="p">,</span> <span class="s">'sentiment'</span><span class="p">,</span> <span class="s">'Kmeans-Center'</span><span class="p">]</span>
+                  <span class="p">].</span><span class="n">groupby</span><span class="p">([</span><span class="s">'date'</span><span class="p">,</span> <span class="s">'Kmeans-Center'</span><span class="p">]).</span><span class="n">mean</span><span class="p">().</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">tw2017_daily_group</span>
+<span class="c1"># ggg[ggg['Kmeans-Center']==2].join(tw2017_daily_group[['date','r','r2','r(t+1)','r2(t+1)','binary','binary(t+1)']],on='date',how='left')
+</span><span class="n">g_kmeans</span> <span class="o">=</span> <span class="n">g_kmeans</span><span class="p">.</span><span class="n">merge</span><span class="p">(</span><span class="n">tw2017_daily_group</span><span class="p">[[</span>
+                          <span class="s">'date'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">,</span> <span class="s">'r2'</span><span class="p">,</span> <span class="s">'r(t+1)'</span><span class="p">,</span> <span class="s">'r2(t+1)'</span><span class="p">,</span> <span class="s">'binary'</span><span class="p">,</span> <span class="s">'binary(t+1)'</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s">'date'</span><span class="p">)</span>
+<span class="n">g_kmeans</span>
+
+
+<span class="c1"># useless robots (ads)
+</span><span class="n">g_kmeans</span><span class="p">[</span><span class="n">g_kmeans</span><span class="p">[</span><span class="s">'Kmeans-Center'</span><span class="p">]</span> <span class="o">==</span>
+         <span class="mi">1</span><span class="p">].</span><span class="n">dropna</span><span class="p">().</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:].</span><span class="n">corr</span><span class="p">()[</span><span class="s">'sentiment'</span><span class="p">]</span>
+
+<span class="c1"># useful robots (summaryize the daily performance)
+</span><span class="n">g_kmeans</span><span class="p">[</span><span class="n">g_kmeans</span><span class="p">[</span><span class="s">'Kmeans-Center'</span><span class="p">]</span> <span class="o">==</span>
+         <span class="mi">2</span><span class="p">].</span><span class="n">dropna</span><span class="p">().</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:].</span><span class="n">corr</span><span class="p">()[</span><span class="s">'sentiment'</span><span class="p">]</span>
+
+
+<span class="c1"># normal people
+</span><span class="n">g_kmeans</span><span class="p">[</span><span class="n">g_kmeans</span><span class="p">[</span><span class="s">'Kmeans-Center'</span><span class="p">]</span> <span class="o">==</span>
+         <span class="mi">0</span><span class="p">].</span><span class="n">dropna</span><span class="p">().</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:].</span><span class="n">corr</span><span class="p">()[</span><span class="s">'sentiment'</span><span class="p">]</span>
+
+
+<span class="c1"># For comparison, when they are mixed
+</span><span class="n">tw2017_daily_group</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:].</span><span class="n">dropna</span><span class="p">().</span><span class="n">corr</span><span class="p">()</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="pca-and-t-sne-for-dimension-reduction">PCA and T-SNE for Dimension Reduction</h3>
+
+<p>We use SVD to reduce the dimension of the DTM:</p>
+<ul>
+  <li>Perform TruncatedSVD to get the first 50 components of the original BoW</li>
+  <li>Total Explained variation by the first 50 components: <code class="language-plaintext highlighter-rouge">34%</code></li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+</pre></td><td class="rouge-code"><pre>
+<span class="c1"># PCA
+</span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">pca_result</span> <span class="o">=</span> <span class="n">pca</span><span class="p">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">bow</span><span class="p">.</span><span class="n">A</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s">'pca-one'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pca_result</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s">'pca-two'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pca_result</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s">'pca-three'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pca_result</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Explained variation per principal component: {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span>
+    <span class="n">pca</span><span class="p">.</span><span class="n">explained_variance_ratio_</span><span class="p">))</span>
+
+<span class="c1"># Failed! The the PCA algorithm is not suitable for this sparse matrix form Bow.
+</span>
+<span class="c1"># Insetad we use sklearn.decomposition.TruncatedSVD
+</span>
+<span class="c1"># TruncatedSVD
+</span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">TruncatedSVD</span>
+<span class="n">svd</span> <span class="o">=</span> <span class="n">TruncatedSVD</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">svd_result</span> <span class="o">=</span> <span class="n">svd</span><span class="p">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">bow</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Explained variation per principal component: </span><span class="se">\n</span><span class="s"> {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span>
+    <span class="n">svd</span><span class="p">.</span><span class="n">explained_variance_ratio_</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Total Explained variation by the first {} components: </span><span class="se">\n</span><span class="s">{}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span>
+    <span class="mi">50</span><span class="p">,</span> <span class="n">svd</span><span class="p">.</span><span class="n">explained_variance_ratio_</span><span class="p">.</span><span class="nb">sum</span><span class="p">()))</span>
+
+
+<span class="c1"># plot the first 3 component
+</span><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">svd</span><span class="p">.</span><span class="n">components_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">svd</span><span class="p">.</span><span class="n">components_</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">svd</span><span class="p">.</span><span class="n">components_</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:])</span>
+
+
+<span class="c1"># plot the data with first 2 SVD component
+</span><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s">"PCA-one"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">"PCA-two"</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s">"Kmeans-Center"</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="n">sns</span><span class="p">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s">"hls"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">tw2017</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="s">"full"</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span>
+<span class="p">)</span>
+
+
+<span class="c1"># For a 3d-version of the same plot
+</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">10</span><span class="p">)).</span><span class="n">gca</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s">'3d'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">xs</span><span class="o">=</span><span class="n">tw2017</span><span class="p">[</span><span class="s">"PCA-one"</span><span class="p">],</span>
+    <span class="n">ys</span><span class="o">=</span><span class="n">tw2017</span><span class="p">[</span><span class="s">"PCA-two"</span><span class="p">],</span>
+    <span class="n">zs</span><span class="o">=</span><span class="n">tw2017</span><span class="p">[</span><span class="s">"PCA-three"</span><span class="p">],</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">tw2017</span><span class="p">[</span><span class="s">"Kmeans-Center"</span><span class="p">],</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s">'tab10'</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'pca-one'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'pca-two'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s">'pca-three'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Now we plot the data with principal components (Labeled by Kmeans)
+<img src="/media/16157222657124/16157257955823.jpg" alt="-w822" class="align-center" width="800px" />
+<img src="/media/16157222657124/16157259158230.jpg" alt="-w614" class="align-center" width="614px" /></p>
+
+<p>From the plot with PCA-1 and PCA-2, <code class="language-plaintext highlighter-rouge">Class 0</code> and <code class="language-plaintext highlighter-rouge">Class 1</code>Seem to belong to the same group in PCA 2D-plot. We decide to get 2D t-SNE from the 50 principal components, and plot the data with these T-SNE transformation.</p>
+
+<p>In T-SNE, we find that the Class 1 and Class 2 are indeed differentiated, which is in line with our finding that <code class="language-plaintext highlighter-rouge">class 0</code> are real users, and <code class="language-plaintext highlighter-rouge">class 1</code> are web robots.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+</pre></td><td class="rouge-code"><pre>
+<span class="c1"># Try to use t-sne for the first 50 components above, and try to see if we can find some interesting result
+</span>
+<span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="n">time_start</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">tsne</span> <span class="o">=</span> <span class="n">TSNE</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">perplexity</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">tsne_results</span> <span class="o">=</span> <span class="n">tsne</span><span class="p">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">svd_result</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'t-SNE done! Time elapsed: {} seconds'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">time_start</span><span class="p">))</span>
+
+
+<span class="c1"># plot the data structure with 2 TSNE-component
+</span><span class="n">tw2017</span><span class="p">[</span><span class="s">'tsne-pca-one'</span><span class="p">]</span> <span class="o">=</span> <span class="n">tsne_results</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">tw2017</span><span class="p">[</span><span class="s">'tsne-pca-two'</span><span class="p">]</span> <span class="o">=</span> <span class="n">tsne_results</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s">"tsne-pca-one"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">"tsne-pca-two"</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s">"Kmeans-Center"</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="n">sns</span><span class="p">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s">"hls"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">tw2017</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="s">"full"</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span>
+<span class="p">)</span>
+
+
+<span class="c1"># for comparison
+</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s">"PCA-one"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">"PCA-two"</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s">"Kmeans-Center"</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="n">sns</span><span class="p">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s">"hls"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">tw2017</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="s">"full"</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span>
+<span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s">"tsne-pca-one"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">"tsne-pca-two"</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s">"Kmeans-Center"</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="n">sns</span><span class="p">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s">"hls"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">tw2017</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="s">"full"</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span>
+<span class="p">)</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="supervised-learning">Supervised Learning</h2>
+
+<p>In this part, we try to find out whether information on twitter has predicting power over SP500 return on next trading day. We mainly use <code class="language-plaintext highlighter-rouge">Ensembled Decision Tree Model – LightGBM</code> for this purpose.</p>
+
+<p>We train LightGBM model on the past rolling 240 days and predict the sign of return of next day. The result is not satisfactory with a accuracy score of 0.495:
+<img src="/media/16157222657124/16157260522727.jpg" alt="600" class="align-center" width="600px" /></p>
+
+<p>We tried different BoW package and hyperparameters, but the model still performs badly.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+</pre></td><td class="rouge-code"><pre><span class="c1"># Supervised Learning
+</span>
+
+<span class="n">years</span> <span class="o">=</span> <span class="p">[</span><span class="s">'2017'</span><span class="p">,</span> <span class="s">'2018'</span><span class="p">,</span> <span class="s">'2019'</span><span class="p">,</span> <span class="s">'2020'</span><span class="p">]</span>
+<span class="n">corpus_daily_collections</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">years</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">r"tweets"</span> <span class="o">+</span> <span class="n">year</span> <span class="o">+</span> <span class="s">".csv"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'latin-1'</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s">'language'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'en'</span><span class="p">]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s">'all'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">dates</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">'date'</span><span class="p">].</span><span class="n">unique</span><span class="p">()</span>
+    <span class="n">corpus_daily</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">dates</span><span class="p">:</span>
+        <span class="n">tweets</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s">'date'</span><span class="p">]</span> <span class="o">==</span> <span class="n">date</span><span class="p">][</span><span class="s">'tweet'</span><span class="p">]</span>
+        <span class="n">text_date</span> <span class="o">=</span> <span class="s">''</span>
+        <span class="k">for</span> <span class="n">tweet</span> <span class="ow">in</span> <span class="n">tweets</span><span class="p">:</span>
+            <span class="n">text_date</span> <span class="o">+=</span> <span class="n">tweet</span>
+        <span class="n">corpus_daily</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">text_date</span><span class="p">)</span>
+    <span class="n">corpus_daily</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span><span class="n">corpus_daily</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">dates</span><span class="p">)</span>
+    <span class="n">corpus_daily</span> <span class="o">=</span> <span class="n">corpus_daily</span><span class="p">.</span><span class="n">sort_index</span><span class="p">()</span>
+    <span class="n">corpus_daily_collections</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">corpus_daily</span><span class="p">)</span>
+<span class="n">corpus_daily_collections</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">(</span><span class="n">corpus_daily_collections</span><span class="p">)</span>
+<span class="n">corpus_daily_collections</span><span class="p">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">corpus_daily_collections</span><span class="p">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">corpus_daily</span> <span class="o">=</span> <span class="n">corpus_daily_collections</span><span class="p">.</span><span class="n">sort_index</span><span class="p">()</span>
+<span class="n">corpus_daily</span><span class="p">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="s">r"corpus_daily.h5"</span><span class="p">,</span> <span class="s">'Ying'</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">'w'</span><span class="p">)</span>
+
+
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+
+<span class="n">years</span> <span class="o">=</span> <span class="p">[</span><span class="s">'2017'</span><span class="p">,</span> <span class="s">'2018'</span><span class="p">,</span> <span class="s">'2019'</span><span class="p">,</span> <span class="s">'2020'</span><span class="p">]</span>
+<span class="n">corpus_daily_collections</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">years</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">r"tweets"</span> <span class="o">+</span> <span class="n">year</span> <span class="o">+</span> <span class="s">".csv"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'latin-1'</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s">'language'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'en'</span><span class="p">]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s">'all'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">dates</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">'date'</span><span class="p">].</span><span class="n">unique</span><span class="p">()</span>
+    <span class="n">corpus_daily</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">dates</span><span class="p">:</span>
+        <span class="n">tweets</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s">'date'</span><span class="p">]</span> <span class="o">==</span> <span class="n">date</span><span class="p">][</span><span class="s">'tweet'</span><span class="p">]</span>
+        <span class="n">text_date</span> <span class="o">=</span> <span class="s">''</span>
+        <span class="k">for</span> <span class="n">tweet</span> <span class="ow">in</span> <span class="n">tweets</span><span class="p">:</span>
+            <span class="n">text_date</span> <span class="o">+=</span> <span class="n">tweet</span>
+        <span class="n">corpus_daily</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">text_date</span><span class="p">)</span>
+    <span class="n">corpus_daily</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span><span class="n">corpus_daily</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">dates</span><span class="p">)</span>
+    <span class="n">corpus_daily</span> <span class="o">=</span> <span class="n">corpus_daily</span><span class="p">.</span><span class="n">sort_index</span><span class="p">()</span>
+    <span class="n">corpus_daily_collections</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">corpus_daily</span><span class="p">)</span>
+<span class="n">corpus_daily_collections</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">(</span><span class="n">corpus_daily_collections</span><span class="p">)</span>
+<span class="n">corpus_daily_collections</span><span class="p">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">corpus_daily_collections</span><span class="p">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">corpus_daily</span> <span class="o">=</span> <span class="n">corpus_daily_collections</span><span class="p">.</span><span class="n">sort_index</span><span class="p">()</span>
+<span class="n">corpus_daily</span><span class="p">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="s">r"corpus_daily.h5"</span><span class="p">,</span> <span class="s">'Ying'</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">'w'</span><span class="p">)</span>
+
+
+<span class="n">corpus</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="s">r"corpus_daily.h5"</span><span class="p">)</span>
+<span class="n">sp500</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s">r"sp500.xlsx"</span><span class="p">)</span>
+
+<span class="c1"># get y
+</span><span class="n">sp500_close</span> <span class="o">=</span> <span class="n">sp500</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">]</span>
+<span class="n">sp500_close</span><span class="p">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">sp500</span><span class="p">[</span><span class="s">'Date'</span><span class="p">]</span>
+<span class="n">return_one_day_later</span> <span class="o">=</span> <span class="p">(</span><span class="n">sp500_close</span><span class="p">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">sp500_close</span> <span class="o">-</span> <span class="mi">1</span><span class="p">).</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">sign_one_day_later</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">e</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">return_one_day_later</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">return_one_day_later</span><span class="p">.</span><span class="n">index</span><span class="p">).</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">sign_one_day_later</span> <span class="o">=</span> <span class="n">sign_one_day_later</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="s">"2017-01-01"</span><span class="p">:</span><span class="s">'2021-02-17'</span><span class="p">]</span>
+
+<span class="c1"># turn days in corpus into trading days
+</span><span class="n">corpus_by_trading_days</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">dates</span> <span class="o">=</span> <span class="n">sign_one_day_later</span><span class="p">.</span><span class="n">index</span><span class="p">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">dates</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="n">last_day</span> <span class="o">=</span> <span class="n">dates</span><span class="p">[</span><span class="n">dates</span><span class="p">.</span><span class="n">index</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">corpus_date</span> <span class="o">=</span> <span class="n">corpus</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">last_day</span><span class="p">:</span><span class="n">date</span><span class="p">].</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">corpus_date</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="s">''</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">corpus_date</span><span class="p">.</span><span class="n">values</span><span class="p">:</span>
+            <span class="n">string</span> <span class="o">+=</span> <span class="n">e</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">corpus_date</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">corpus_by_trading_days</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+<span class="n">corpus_by_trading_days</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">corpus</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">corpus</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">corpus</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span> <span class="o">+</span> <span class="n">corpus_by_trading_days</span>
+<span class="n">corpus_by_trading_days</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span><span class="n">corpus_by_trading_days</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">dates</span><span class="p">)</span>
+
+<span class="c1"># create vocabulary
+</span><span class="n">cv</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
+<span class="n">cv</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">corpus_by_trading_days</span><span class="p">)</span>
+
+<span class="c1"># modeling
+</span><span class="kn">import</span> <span class="nn">lightgbm</span> <span class="k">as</span> <span class="n">lgb</span>
+<span class="n">rolling_period</span> <span class="o">=</span> <span class="mi">240</span>
+<span class="n">dates</span> <span class="o">=</span> <span class="n">corpus_by_trading_days</span><span class="p">.</span><span class="n">index</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">date_to_predict</span> <span class="ow">in</span> <span class="n">dates</span><span class="p">[</span><span class="n">rolling_period</span><span class="p">:]:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">date_to_predict</span><span class="p">)</span>
+    <span class="n">start_date</span> <span class="o">=</span> <span class="n">dates</span><span class="p">[</span><span class="n">dates</span><span class="p">.</span><span class="n">tolist</span><span class="p">().</span><span class="n">index</span><span class="p">(</span><span class="n">date_to_predict</span><span class="p">)</span> <span class="o">-</span> <span class="n">rolling_period</span><span class="p">]</span>
+    <span class="n">end_date</span> <span class="o">=</span> <span class="n">dates</span><span class="p">[</span><span class="n">dates</span><span class="p">.</span><span class="n">tolist</span><span class="p">().</span><span class="n">index</span><span class="p">(</span><span class="n">date_to_predict</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">text_look_back</span> <span class="o">=</span> <span class="n">corpus_by_trading_days</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start_date</span><span class="p">:</span><span class="n">date_to_predict</span><span class="p">]</span>
+    <span class="n">bow</span> <span class="o">=</span> <span class="n">cv</span><span class="p">.</span><span class="n">transform</span><span class="p">(</span><span class="n">text_look_back</span><span class="p">).</span><span class="n">toarray</span><span class="p">()</span>
+    <span class="c1"># divide by row sum
+</span>    <span class="n">X</span> <span class="o">=</span> <span class="n">bow</span> <span class="o">/</span> <span class="n">bow</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:,</span> <span class="bp">None</span><span class="p">]</span>
+    <span class="n">X_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">X_to_predict</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">label_train</span> <span class="o">=</span> <span class="n">sign_one_day_later</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start_date</span><span class="p">:</span><span class="n">end_date</span><span class="p">]</span>
+    <span class="n">lgb_classifier</span> <span class="o">=</span> <span class="n">lgb</span><span class="p">.</span><span class="n">LGBMClassifier</span><span class="p">(</span><span class="n">num_leaves</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">lgb_classifier</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">label_train</span><span class="p">)</span>
+    <span class="n">y_predicted</span> <span class="o">=</span> <span class="n">lgb_classifier</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_to_predict</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">predictions</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_predicted</span><span class="p">)</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">dates</span><span class="p">[</span><span class="n">rolling_period</span><span class="p">:])</span>
+<span class="n">predictions</span><span class="p">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s">r"predictions.csv"</span><span class="p">)</span>
+
+<span class="c1"># calculate accuracy
+</span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="k">print</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">sign_one_day_later</span><span class="p">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">predictions</span><span class="p">.</span><span class="n">index</span><span class="p">),</span> <span class="n">predictions</span><span class="p">))</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>We find some correlation among number of tweets, sentiment score, daily return and volatility of SP500. Only the number of tweets have some predicting power for volatility, but it could be a natural result of volatility clustering of stock returns.</p>
+
+<p>With unsupervised learning program, we find that the tweets about <code class="language-plaintext highlighter-rouge">SP500</code> can be broadly classified into three groups: useful Robots, useless Robots, real users. Different group’s sentiment has different correlation with the daily return.</p>
+
+<p>We try to predict the return by text analytics and <code class="language-plaintext highlighter-rouge">LightGBM</code> algorithm, but the accuracy is not satisfactory. Maybe the SP500 is related to too many risk factors, and therefore cannot be predicted with the informations on twitter. Also, the index is perhaps more difficult to predict compared to a single stock.</p>
+
+<p>Further research may involve:</p>
+
+<p><strong>Improvements on Algorithms:</strong></p>
+<ul>
+  <li>Combine Supervised and Unsupervised Learning: Instead of just using the whole tweet corpus as an input in our supervised learning model, we classify tweets into different groups and choose the “most informative’ subset of tweets.</li>
+  <li>Better sentiment analysis algorithm: nltk.sentiment.Vader is not specially tuned for financial topics in tweets, we might use sophisticated and finance-specialized packages (e.g. Finbert) to derive the sentiment score.</li>
+  <li>Time Series Analysis: As we know, the return of SP500 index is autocorrelated and has volatility clustering. It indicates we might need to add time series analysis in tweets analytics, to better capture the trend and change in sentiment and topics.</li>
+</ul>
+
+<p><strong>Improvement on data quality:</strong></p>
+<ul>
+  <li>Collect labels made by human: Now all the labels are made by KMeans algorithm. If we have more reliable labels, we might be able to find out the most informative tweets more efficiently.</li>
+</ul>
+
+:ET

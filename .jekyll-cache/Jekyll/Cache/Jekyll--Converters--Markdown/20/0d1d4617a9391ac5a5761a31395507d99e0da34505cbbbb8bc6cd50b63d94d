@@ -1,0 +1,158 @@
+I"'<p class="notice--info">All of this series is mainly based on the Machine Learning course given by Andrew Ng, which is hosted on <a href="https://www.coursera.org/">cousera.org</a>.</p>
+
+<h2 id="support-vector-machine---linear-svm">Support Vector Machine - Linear SVM</h2>
+
+<p>the cost function for SVM is:</p>
+
+\[\min _{\theta} ~~~C \sum_{i=1}^{m}\left[y^{(i)} \operatorname{cost}_{1}\left(\theta^{T} x^{(i)}\right)+\left(1-y^{(i)}\right) \operatorname{cost}_{0}\left(\theta^{T} x^{(i)}\right)\right]+\frac{1}{2} \sum_{i=1}^{n} \theta_{j}^{2}\]
+
+<p><img src="/media/15689769464157/15689894683087.jpg" alt="-w669" width="500px" /></p>
+
+<p>Note: C is like $\frac{1}{\lambda}$ in the logistic regression model:</p>
+
+\[\min _{\theta}~~ -\frac{1}{m} \sum_{i=1}^{m}\left[y^{(i)} log\left(h_\theta( x^{(i)})\right)+\left(1-y^{(i)}\right) log\left(1-h_\theta( x^{(i)})\right)\right]+\frac{\lambda}{2m} \sum_{j=1}^{n} \theta_{j}^{2}\]
+
+<p>SVM is also called Large Margin Classifier</p>
+
+<p><img src="/media/15689769464157/15689909501599.jpg" alt="-w1109" width="500px" /></p>
+
+<h3 id="mathematics-behind-large-margin-classification">Mathematics Behind Large Margin Classification</h3>
+
+<p><img src="/media/15689769464157/15689926162806.jpg" alt="-w1414" width="500px" /></p>
+
+<p>when try to find the optimum, the $\theta$ has two dimension: the angle, and the length;</p>
+
+<p>since the objective is to minimize the length, the optimum tends to be that can separate the two classes with the angel to be as parallel as possible with (class1 $\to$ class2); in this case, the resulting line is the green one in the picture.</p>
+
+<p><img src="/media/15689769464157/15718094567552.jpg" alt="" width="500px" /></p>
+
+<p>In fact, the smaller the $||\theta ||$, the bigger the margin distance $\frac{b}{||\theta ||}$.</p>
+
+<h4 id="hard-margin">Hard Margin</h4>
+
+<p>If the training data is linearly separable, we can select two parallel hyperplanes that separate the two classes of data, so that the distance between them is as large as possible.</p>
+
+<p>We can put this together to get the optimization problem:</p>
+
+<p>“Minimize ${\displaystyle |{\vec {w}}|}$ subject to ${\displaystyle y_{i}({\vec {w}}\cdot {\vec {x}}_{i}-b)\geq 1}$ for ${\displaystyle i=1,\ldots ,n}$”
+The ${\vec {w}}$ and b that solve this problem determine our classifier, ${\displaystyle {\vec {x}}\mapsto \operatorname {sgn}({\vec {w}}\cdot {\vec {x}}-b)}.$</p>
+
+<p>An important consequence of this geometric description is that the max-margin hyperplane is completely determined by those ${\displaystyle{\vec {x}}<em>{i}}$ that lie nearest to it. These ${\displaystyle{\vec {x}}</em>{i}}$ are called support vectors.</p>
+
+<h4 id="soft-margin">Soft Margin</h4>
+
+<p>To extend SVM to cases in which the data are not linearly separable, we introduce the hinge loss function,</p>
+
+\[{\displaystyle \max \left(0,1-y_{i}({\vec {w}}\cdot {\vec {x}}_{i}-b)\right).}\]
+
+<p>This function is zero if the constraint in (1) is satisfied, in other words, if ${\vec {x}}_{i}$ lies on the correct side of the margin. For data on the wrong side of the margin, the function’s value is proportional to the distance from the margin.
+we then wish to minimize:</p>
+
+\[{\displaystyle \left[{\frac {1}{n}}\sum _{i=1}^{n}\max \left(0,1-y_{i}({\vec {w}}\cdot {\vec {x}}_{i}-b)\right)\right]+\lambda \lVert {\vec {w}}\rVert ^{2}}\]
+
+<p>Here y=1 or -1;</p>
+
+<p>If we set y=1 or 0, we get the alternative expression:</p>
+
+\[\min _{\theta} ~~~C \sum_{i=1}^{m}\left[y^{(i)} \operatorname{cost}_{1}\left(\theta^{T} x^{(i)}\right)+\left(1-y^{(i)}\right) \operatorname{cost}_{0}\left(\theta^{T} x^{(i)}\right)\right]+\frac{1}{2} \sum_{i=1}^{n} \theta_{j}^{2}\]
+
+<p>where the parameter $\lambda$  determines the trade-off between increasing the margin size and ensuring that the ${\vec {x}}_{i}$ lie on the correct side of the margin. Thus, for sufficiently small values of $\lambda$, the second term in the loss function will become negligible, hence, it will behave similar to the hard-margin SVM, if the input data are linearly classifiable, but will still learn if a classification rule is viable or not.</p>
+
+<h2 id="nonlinear-svm">Nonlinear SVM</h2>
+
+<p>The original maximum-margin hyperplane algorithm proposed by Vapnik in 1963 constructed a linear classifier. However, in 1992, Bernhard E. Boser, Isabelle M. Guyon and Vladimir N. Vapnik suggested a way to create nonlinear classifiers by applying the kernel trick (originally proposed by Aizerman et al.[15]) to maximum-margin hyperplanes.</p>
+
+<p>The resulting algorithm is formally similar, except that every <strong>dot product</strong> is replaced by a <strong>nonlinear kernel function</strong>. This allows the algorithm to fit the maximum-margin hyperplane in a <strong>transformed feature space</strong>. The transformation may be nonlinear and the transformed space high-dimensional; although the classifier is a hyperplane in the transformed feature space, it may be nonlinear in the original input space.</p>
+
+<p>It is noteworthy that working in a higher-dimensional feature space increases the generalization error(High Variance) of support-vector machines, although given enough samples the algorithm still performs well.</p>
+
+<p>Some common kernels include:</p>
+
+<p>Polynomial (homogeneous): ${\displaystyle k({\vec {x_{i}}},{\vec {x_{j}}})=({\vec {x_{i}}}\cdot {\vec {x_{j}}})^{d}}$</p>
+
+<p>Polynomial (inhomogeneous): ${\displaystyle k({\vec {x_{i}}},{\vec {x_{j}}})=({\vec {x_{i}}}\cdot {\vec {x_{j}}}+1)^{d}}$</p>
+
+<p>Gaussian radial basis function: ${\displaystyle k({\vec {x_{i}}},{\vec {x_{j}}})=\exp(-\gamma |{\vec {x_{i}}}-{\vec {x_{j}}}|^{2})}.$
+ Sometimes parametrized using ${\displaystyle \gamma =1/(2\sigma ^{2})}.$</p>
+
+<h3 id="kernels">Kernels</h3>
+
+<p>For Non-linear Decision Boundary, we can add polynomial of existing features:</p>
+
+<p><img src="/media/15689769464157/15689968333556.jpg" alt="-w681" width="500px" /></p>
+
+<p>Other options than polynomials?
+<strong>Kernel</strong>
+There are many forms of kernels. Here is Gaussian Kernels:
+For landmark $l$, define the kernel as:</p>
+
+\[f_l=\text{similarity}(x,l)=\exp \left(-\frac{||x-l||^2}{2\sigma^2}\right)\]
+
+<p>we can choose many landmarks and create the associated features. In essence, it adds another dimension of “height” to the existing feature space. So that we can separate a point from its locally adjacent domain.</p>
+
+<p>With smaller $\sigma$, the height decrease more quickly, and the it’s easier to separate the landmark from nearby space.</p>
+
+<p><img src="/media/15689769464157/15689974742559.jpg" alt="-w709" width="500px" /></p>
+
+<h3 id="svm-with-kernels">SVM with kernels</h3>
+
+\[\begin{array}{l}{\text { Given }\left(x^{(1)}, y^{(1)}\right),\left(x^{(2)}, y^{(2)}\right), \ldots,\left(x^{(m)}, y^{(m)}\right)} \\ {\text { choose } l^{(1)}=x^{(1)}, l^{(2)}=x^{(2)}, \ldots, l^{(m)}=x^{(m)}}\end{array}\]
+
+\[\begin{array}{l}{\text { Given example } x :} \\ {\qquad \begin{array}{l}{f_{1}=\operatorname{similarity}\left(x, l^{(1)}\right)} \\ {f_{2}=\operatorname{similarity}\left(x, l^{(2)}\right)} \\ {\ldots}\end{array}}\end{array}\]
+
+<p>we replace the original features $X^{(i)}\in \mathcal{R}^{n+1}$ by $f^{(i)} \in  \mathcal{R}^{m+1}$, in the following ways:</p>
+
+<p>$f^{(i)}_j=similarity(x^{(i)},l^{(j)}), for ~j\in[1,…,m],i\in[1,…,m]$
+$f^{(i)}_0 =1$ and $f^{(0)} =1$</p>
+
+<h4 id="definition-of-the-svm-with-kernels">Definition of the SVM with Kernels</h4>
+
+<p>Hypothesis: Given x, compute features $f\in R^{m+1}$
+    Predict “y=1” if $\theta*f \geq 0$.</p>
+
+<p>Training:</p>
+
+\[\min _{\theta} C \sum_{i=1}^{m} y^{(i)} \operatorname{cost}_{1}\left(\theta^{T} f^{(i)}\right)+\left(1-y^{(i)}\right) \operatorname{cost}_{0}\left(\theta^{T} f^{(i)}\right)+\frac{1}{2} \sum_{j=1}^{m} \theta_{j}^{2}\]
+
+<h4 id="svm-parameters">SVM Parameters</h4>
+
+<p>$C=\frac{1}{\lambda}$
+Large C: low bias, high variance, overfitting
+Small C: high bias, low variance, underfitting</p>
+
+<p>$\sigma^2$:
+Large $\sigma$: more smooth kernels, high bias, low variance
+Small $\sigma$: less smooth kernels, low bias, high variance</p>
+
+<h4 id="using-an-svm">Using An SVM</h4>
+
+<ul>
+  <li>use SVM software package (e.g., liblinear, libsvm) to solve for parameters $\theta$</li>
+  <li>need to specify the $C$ and the choice of kernel, and $\sigma$.
+e.g.:</li>
+</ul>
+
+\[\begin{array}{l}{\text { Gaussian kernel: }} \\ {\qquad f_{i}=\exp \left(-\frac{\left\|x-l^{(i)}\right\|^{2}}{2 \sigma^{2}}\right), \text { where } l^{(i)}=x^{(i)}}\end{array}\]
+
+<p>For most solvers, we need to define the kernel(similarity) function:</p>
+
+\[\begin{array}{l}{\text { function } \mathrm{f}=\text { kernel }(\mathrm{x} 1, \mathrm{x} 2)} \\ {\qquad f=\exp \left(-\frac{\| \times 1-\mathrm{x} 2\|^{2}}{2 \sigma^{2}}\right)} \\ {\text { return }}\end{array}\]
+
+<p>And we need to do feature scaling before using the Gaussian kernel
+$||x-l||^2=\sum_j (x_j-l_j)^2$. Without feature scaling, some of the small features will be dominated by the other bigger features.</p>
+
+<p>Since the kernels replace the original $X \in R^{m\times n}$  by $f \in R^{m\times m}$, the linear kernel(No kernel) will incorporate more data if $n»m$. On the other hand, if we have a lot of training examples, $m»n$, than the f will have more information.</p>
+
+<ul>
+  <li>n&gt;=m: use logistic regression, or SVM without a kernel (linear kernel)</li>
+  <li>If n is small, m is intermediate (1~50000): use SVM with Gaussian Kernel</li>
+  <li>if n is small, m is large: create/add more features, then use logisitic regression or SVM without a kernel</li>
+  <li>Neural network is likely to work well for most of these settings, but may be slower to train.</li>
+</ul>
+
+<h4 id="multi-class-classification">Multi-Class Classification</h4>
+
+<p><img src="/media/15689769464157/15692123250915.jpg" alt="-w634" width="500px" /></p>
+
+<p>Many SVM packages already have built-in multi-class classification functionality. Otherwise, use <strong>On-vs-all</strong> method.</p>
+:ET

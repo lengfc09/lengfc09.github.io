@@ -1,0 +1,217 @@
+I"T/<p class="notice--info">All of this series is mainly based on the Machine Learning course given by Andrew Ng, which is hosted on <a href="https://www.coursera.org/">cousera.org</a>.</p>
+
+<h2 id="gradient-descent-with-large-datasets">Gradient Descent with Large Datasets</h2>
+
+<p><img src="/media/15721921476405/15721923275348.jpg" alt="-w568" width="600px" /></p>
+
+<p><strong>Large training set size</strong> causes both $J_{train}$ and $J_{CV}$ to be high with $J_{train}≈J_{CV}$.</p>
+
+<p>If a learning algorithm is suffering from <strong>high bias</strong>, getting more training data will not <strong>(by itself)</strong> help much</p>
+
+<p><strong>Experiencing high variance:</strong></p>
+
+<p><strong>Low training set size</strong>: Jtrain(Θ) will be low and JCV(Θ) will be high.</p>
+
+<p><strong>Large training set size</strong>: Jtrain(Θ) increases with training set size and JCV(Θ) continues to decrease without leveling off. Also, Jtrain(Θ) &lt; JCV(Θ) but the difference between them remains significant.</p>
+
+<p>If a learning algorithm is suffering from <strong>high variance</strong>, getting more training data is likely to</p>
+
+<h3 id="stochastic-gradient-descent">Stochastic Gradient Descent</h3>
+<p>When we have a very large training set, gradient descent becomes a computationally very expensive procedure. In this video, we’ll talk about a modification to the basic gradient descent algorithm called Stochastic gradient descent</p>
+
+<p><img src="/media/15721921476405/15721937712758.jpg" alt="-w590" width="600px" /></p>
+
+<p><strong>Batch Gradient Descent:</strong></p>
+
+\[J_{\text {train}}(\theta)=\frac{1}{2 m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right)^{2}\]
+
+<p>Repeat:
+\(\begin{aligned} \theta_{j}:=\theta_{j} &amp;-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)} \\ &amp; \text { (for every }j=0, \ldots, n) \end{aligned} (for every \(j=0, \ldots, n)\)</p>
+
+<p><strong>Stochastic Gradient Descent:</strong></p>
+
+\[\begin{array}{l}{\text { 1. Randomly shuffle (reorder)}} {\text { training examples }} \\ {\text { 2. Repeat }\{} \\ {\qquad \begin{aligned} \text{for }i:=1,...m\{\\ \theta_{j}:=&amp; \theta_{j}-\alpha\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)} \\ &amp; \quad \quad(\text { for every } j=0, \ldots, n) \\\} \end{aligned}} \\ ~~~~~~~~~~~~~~~~\} \end{array}\]
+
+<p>Note: Repeat the loop 1~10 times.</p>
+<h3 id="mini-batch-gradient-descent">Mini-Batch Gradient Descent</h3>
+<p>use b examples in each iteration: b normally lies in [2,100]</p>
+
+<p><strong>Algorithm:</strong>
+Say b=10, m=1000</p>
+
+\[\begin{array}{l}{\text { Repeat }\{} \\ {\text { for } i=1,11,21,31, \ldots, 991 \{} \\ {\qquad \theta_{j}:=\theta_{j}-\alpha \frac{1}{10} \sum_{k=i}^{i+9}\left(h_{\theta}\left(x^{(k)}\right)-y^{(k)}\right) x_{j}^{(k)}} \\ { \text { (for every }j=0, \ldots, n)} \\ {\mathrm{~ \} ~}}\end{array} \\ \}\]
+
+<p>Advantage of Mini-Batch GD:
+Since we add over b examples, vectorization can be used. Good solvers can partially parallelize the computation over the b examples.</p>
+<h3 id="stochastic-gradient-descent-convergence">Stochastic Gradient Descent Convergence</h3>
+<p><strong>Checking for convergence:</strong></p>
+
+<p><img src="/media/15721921476405/15722370781340.jpg" alt="-w622" width="600px" /></p>
+
+<p><img src="/media/15721921476405/15722373072693.jpg" alt="-w622" width="600px" /></p>
+
+<p>Since the stochastic gradient descent method can oscillate around the optimum solution, the convergence is not guaranteed.</p>
+
+<p>One possible solution is to update the learning rate $\alpha$:
+$\alpha =\frac{C_1}{\text{Iteration Number}+C_2}$</p>
+
+<p>where the $C_1$ and $C_2$ are two fixed parameters, which need to be calibrated.</p>
+
+<h2 id="advanced-topics-with-large-scale-problem">Advanced Topics with large scale problem</h2>
+<h3 id="online-learning">Online Learning</h3>
+<p>The online learning setting allows us to model problems where we have a continuous flood or a continuous stream of data coming in and we would like an algorithm to learn from that.</p>
+
+<p>Note:</p>
+<ul>
+  <li>There is no fixed training set. Even though the algorithm is similar to the stochastic optimization algorithm, it is different in terms of the existence of a fixed training set.</li>
+  <li>Due to the lack of fixed training set, online learning algorithm can adapt to changing user preference.</li>
+  <li>If the data volume is moderate, we can apply the fixed training set algorithm.</li>
+</ul>
+
+<p><strong>Example 1:</strong></p>
+
+<p><img src="/media/15721921476405/15722385507731.jpg" alt="-w622" width="600px" /></p>
+
+<p><strong>Example 2:</strong></p>
+
+<p><img src="/media/15721921476405/15722386367522.jpg" alt="-w622" width="600px" /></p>
+
+<h3 id="map-reduction-and-data-parallelism">Map Reduction and Data Parallelism</h3>
+
+<p><img src="/media/15721921476405/15722396800148.jpg" alt="-w800" width="600px" /></p>
+
+<p><img src="/media/15721921476405/15722396584803.jpg" alt="-w800" width="600px" /></p>
+
+<p>Note:</p>
+<ul>
+  <li>Many learning algorithm can be expressed as computing sums of functions over the training set.</li>
+  <li>May be subject to network latency</li>
+</ul>
+
+<p><img src="/media/15721921476405/15722403479579.jpg" alt="-w800" width="600px" /></p>
+
+<p>Note:</p>
+<ul>
+  <li>some linear algebra library automatically takes advantage of parallel computation. In this case, as long as the algorithm is expressed in a well vectorized fashion, there is no need to apply this multi-core or map reduction manually.</li>
+</ul>
+
+<h2 id="application-photo-ocr">Application: Photo OCR</h2>
+<h3 id="problem-description-and-pipeline">Problem Description and Pipeline</h3>
+<p>Photo OCR stands for <strong>Photo Optical Character Recognition</strong>.</p>
+
+<p><strong>Photo OCR Pipeline:</strong></p>
+<ol>
+  <li>Text Detection</li>
+  <li>Character Segmentation</li>
+  <li>Character classification</li>
+  <li>Correct(optional)</li>
+</ol>
+
+<p><img src="/media/15721921476405/15722415663526.jpg" alt="-w800" width="600px" /></p>
+
+<p>Pipeline breaks down the OCR problem into a sequence of tasks and modules.</p>
+
+<h3 id="sliding-windows">Sliding Windows</h3>
+<p>The aspect ratio is relatively fixed.</p>
+
+<p><img src="/media/15721921476405/15722418930550.jpg" alt="-w800" width="600px" /></p>
+
+<p><strong>Supervised learning for pedestrian detection:</strong></p>
+
+<p><img src="/media/15721921476405/15722419403382.jpg" alt="-w800" width="600px" /></p>
+
+<p><strong>Sliding window detection</strong></p>
+
+<p><img src="/media/15721921476405/15722422094389.jpg" alt="-w600" width="600px" /></p>
+
+<p>Iterate on (size of the rectangular, position of the rectangular).
+<strong>For text detection:</strong></p>
+
+<p><img src="/media/15721921476405/15722425221230.jpg" alt="-w800" width="600px" /></p>
+
+<p><strong>Character segmentation:</strong></p>
+
+<p><img src="/media/15721921476405/15722426816933.jpg" alt="-w800" width="600px" /></p>
+
+<p><img src="/media/15721921476405/15722429752117.jpg" alt="-w800" width="600px" /></p>
+
+<h3 id="getting-lots-of-data-and-artificial-data">Getting lots of data and artificial data</h3>
+<p>It has been seen over and over that one of the most reliable ways to get a high performance machine learning system is to take a low bias learning algorithm and to train it on a massive training set.</p>
+
+<p>But where did you get so much training data from? Turns out that the machine earnings there’s a fascinating idea called artificial data synthesis, this doesn’t apply to every single problem, and to apply to a specific problem, often takes some thought and innovation and insight. But if this idea applies to your machine learning problem, it can sometimes be a an easy way to get a huge training set to give to your learning algorithm.
+The idea of artificial data synthesis comprises of two variations, main the first is if we are essentially creating data from [xx], creating new data from scratch. And the second is if we already have a small label training set and we somehow have amplify that training set or use a small training set to turn that into a larger training set and in this video we’ll go over both those ideas.</p>
+
+<p>Possible ways of creating <strong>meaningful</strong> artificial data:</p>
+<ul>
+  <li>add affine transformation, rotations</li>
+  <li>different fonts</li>
+  <li>change the color or use grey photo directly</li>
+  <li>add distortions and blurring operators</li>
+</ul>
+
+<p><img src="/media/15721921476405/15722438796930.jpg" alt="-w800" width="600px" /></p>
+
+<p><img src="/media/15721921476405/15722440205339.jpg" alt="-w800" width="600px" /></p>
+
+<p>Notes:</p>
+<ul>
+  <li>Before spending efforts on adding examples, make sure the bias $J_{\text{test}}$ is small. If not, add features/hidden layers.</li>
+  <li>How much work would it cost to get <strong>10X</strong> data
+    <ul>
+      <li>Artificial data synthesis: generating data from scratch or add distortion to existing data.</li>
+      <li>Collect/label it mannually</li>
+      <li>Crowd sourced data labeling.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>For example, if we have limited number of data, then label 10X more data is practical. However, if the current m is large, it is more applicable to using artificial data synthesis to get 10X data.</p>
+
+<h3 id="ceiling-analysis-what-part-of-the-pipeline-to-work-on-next">Ceiling Analysis: what part of the pipeline to work on next</h3>
+
+<p><img src="/media/15721921476405/15722447554101.jpg" alt="-w800" width="600px" /></p>
+
+<p>Overall Accuracy = f( Accuracy in Step 1,…, Accuracy in Step m)</p>
+
+<p>Say $Acc_i:=\text{accuracy in step i}$</p>
+
+<p>Ceiling analysis is a optimization problem:
+$\max_{Acc} f(Acc)$</p>
+
+<p><img src="/media/15721921476405/15722450407195.jpg" alt="-w800" width="600px" /></p>
+
+<p><img src="/media/15721921476405/15722450851665.jpg" alt="-w350" width="600px" /></p>
+
+<p>The accuracy for step i means the overall accuracy if all the steps j ($j\leq i$) is 100% accurate.</p>
+
+<p>It is better to work on face detection process, which can improve the accuracy by 6%.</p>
+
+<p>In contrary, it is less rewarding to work on background remove process, which only improves the overall accuracy by 0.1%.</p>
+
+<p>Ng:  And in this video we’ll talk about this idea of ceiling analysis, which I’ve often found to be a very good tool for identifying the component of a video as you put focus on that component and make a big difference. Will actually have a huge effect on the overall performance of your final system. So over the years working machine learning, I’ve actually learned to not trust my own gut feeling about what components to work on. So very often, I’ve work on machine learning for a long time, but often I look at a machine learning problem, and I may have some gut feeling about oh, let’s jump on that component and just spend all the time on that. But over the years, I’ve come to even trust my own gut feelings and learn not to trust gut feelings that much. And instead, if you have a sort of machine learning problem where it’s possible to structure things and do a ceiling analysis, often there’s a much better and much more reliable way for deciding where to put a focused effort, to really improve the performance of some component. And be kind of reassured that, when you do that, it won’t actually have a huge effect on the final performance of the overall system.</p>
+
+<h2 id="summary-main-topics">Summary: main topics</h2>
+
+<ul>
+  <li>Supervised Learning
+    <ul>
+      <li>Linear regression, logistic regression, neural networks, SVMs</li>
+    </ul>
+  </li>
+  <li>Unsupervised Learning
+    <ul>
+      <li>K-means, PCA, Anomaly Detection</li>
+    </ul>
+  </li>
+  <li>Special applications/topics
+    <ul>
+      <li>recommendations system (collaborative filtering), large scale machine learning</li>
+    </ul>
+  </li>
+  <li>Advice on building a machine learning system
+    <ul>
+      <li>bias/variance, regularization; deciding what to do on next; evaluation of learning algorithm, learning curves, error analysis, ceiling analysis</li>
+    </ul>
+  </li>
+</ul>
+:ET

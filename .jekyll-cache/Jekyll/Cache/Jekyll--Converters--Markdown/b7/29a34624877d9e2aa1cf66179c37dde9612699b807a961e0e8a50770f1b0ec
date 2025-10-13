@@ -1,0 +1,36 @@
+I"“<ul class="mytoc__menu">
+  <li><a href="#quant-roles">Quant roles</a></li>
+  <li><a href="#what-is-the-quant-trading-skillset">What is the quant trading skillset?</a></li>
+  <li><a href="#definition-of-quant-trading-strategy">Definition of Quant Trading strategy</a></li>
+  <li><a href="#why-quant">Why Quant</a></li>
+  <li><a href="#useful-resources">Useful resources</a></li>
+  <li><a href="#difference-between-price-and-return">Difference between price and return</a>
+    <ul>
+      <li><a href="#stock-split">Stock split</a></li>
+      <li><a href="#dividends">Dividends</a></li>
+      <li><a href="#definition-of-return">Definition of return</a></li>
+      <li><a href="#financial-database-in-practice">Financial Database in practice</a></li>
+      <li><a href="#simple-and-compound-interest">Simple and compound interest</a>
+        <ul>
+          <li><a href="#log-return-and-standard-return">Log return and standard return</a></li>
+          <li><a href="#compounding">Compounding</a></li>
+          <li><a href="#log-return-and-log-price">Log return and log price</a></li>
+          <li><a href="#cumulative-return">Cumulative return</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#risks">Risks</a></li>
+  <li><a href="#risk-adjustment">Risk-adjustment</a>
+    <ul>
+      <li><a href="#market-efficiency-theory">Market Efficiency Theory</a></li>
+      <li><a href="#basic-takeaways-of-risk-adjustment-return-analysis">Basic Takeaways of Risk-adjustment return analysis</a></li>
+      <li><a href="#the-classic-risk-model--capm">The classic risk model -CAPM</a></li>
+      <li><a href="#variation-of-capm">Variation of CAPM</a></li>
+      <li><a href="#another-perspective-of-risk-factor-models">Another perspective of risk-factor models</a></li>
+      <li><a href="#example-qmj">Example: QMJ</a></li>
+    </ul>
+  </li>
+  <li><a href="#my-own-replication-in-github">My own replication in Github</a></li>
+</ul>
+:ET

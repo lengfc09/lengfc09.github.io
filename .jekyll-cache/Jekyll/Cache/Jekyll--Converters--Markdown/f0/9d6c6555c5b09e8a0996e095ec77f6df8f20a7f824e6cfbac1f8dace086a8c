@@ -1,0 +1,18 @@
+I"º<ul class="toc__menu">
+  <li><a href="#tldr-benefits">tl;dr Benefits</a></li>
+  <li><a href="#limits-imposed-by-twitter">Limits imposed by Twitter</a></li>
+  <li><a href="#requirements">Requirements</a></li>
+  <li><a href="#installing">Installing</a></li>
+  <li><a href="#cli-basic-examples-and-combos">CLI Basic Examples and Combos</a></li>
+  <li><a href="#module-example">Module Example</a></li>
+  <li><a href="#storing-options">Storing Options</a></li>
+  <li><a href="#elasticsearch-setup">Elasticsearch Setup</a></li>
+  <li><a href="#graph-visualization">Graph Visualization</a></li>
+  <li><a href="#faq">FAQ</a></li>
+  <li><a href="#more-examples">More Examples</a>
+      - {:.} <a href="#followersfollowing">Followers/Following</a>
+      - {:.} <a href="#userlist">userlist</a>
+      - {:.} <a href="#tweet-translation-experimental">tweet translation (experimental)</a></li>
+  <li><a href="#featured-blog-posts">Featured Blog Posts:</a></li>
+</ul>
+:ET

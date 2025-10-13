@@ -1,0 +1,458 @@
+I"��<h2 id="introduction">Introduction</h2>
+
+<p>The first step around any data related challenge is to start by exploring the data itself. This could be by looking at, for example, the distributions of certain variables or looking at potential correlations between variables.</p>
+
+<p>The problem nowadays is that most datasets have a large number of variables. In other words, they have a high number of dimensions along which the data is distributed. Visually exploring the data can then become challenging and most of the time even practically impossible to do manually. However, such visual exploration is incredibly important in any data-related problem. Therefore it is key to understand how to visualize high-dimensional datasets. This can be achieved using techniques known as dimensionality reduction. This post will focus on two techniques that will allow us to do this: PCA and t-SNE.</p>
+
+<h2 id="data-source">Data Source</h2>
+
+<p>We use <code class="language-plaintext highlighter-rouge">Twint</code> to collect all the tweets which contain ‘SP500’ from 2017-01-01 to 2021-01-31.</p>
+
+<p>To get a numerical dataset to work with, we apply the following steps:</p>
+<ul>
+  <li>use <code class="language-plaintext highlighter-rouge">sklearn.feature_extraction.text.CountVectorizer</code> to create a Bag-of-Words.</li>
+  <li>Fit and transform the original text corpus into a numerical matrix, which is in the DTM structure (Document-Term-Matrix).</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre>
+<span class="c1"># corpus of all tweets
+</span><span class="n">cp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tw2017</span><span class="p">[</span><span class="s">'tweet'</span><span class="p">][:].</span><span class="n">values</span><span class="p">)</span>
+
+<span class="c1"># This code uses scikit-learn to calculate bag-of-words
+# (BOW). `CountVectorizer` implements both tokenization and occurrence
+# counting in a single class.
+</span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">stop_words</span><span class="o">=</span><span class="s">'english'</span><span class="p">)</span>  <span class="c1"># Vectorizer.
+</span><span class="n">c</span> <span class="o">=</span> <span class="n">cp</span>
+
+<span class="c1"># Learn the vocabulary dictionary and return the document-term
+# matrix. Tokenize and count word occurrences.
+</span><span class="n">bow</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">fit_transform</span><span class="err">©</span>
+<span class="n">bow</span><span class="p">.</span><span class="n">toarray</span><span class="p">()</span>                   <span class="c1"># Print the document-term matrix.
+# bow.A                           # Same effect, shortcut command.
+</span><span class="k">print</span><span class="p">(</span><span class="s">"Shape:"</span><span class="p">,</span> <span class="n">bow</span><span class="p">.</span><span class="n">A</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">v</span><span class="p">.</span><span class="n">get_feature_names</span><span class="p">()</span>           <span class="c1"># Which term is in which column?
+</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The shape of <code class="language-plaintext highlighter-rouge">bow</code> is (57054, 68220).</p>
+
+<h2 id="add-labels-with-k-means">Add labels with K-Means</h2>
+
+<p>We need to clarify one thing first. The goal is to plot the structure of the data, especially for the case where we have some label with the trainning set. Since we have no human-made labels for all the tweets yet, we use K-means to get a <strong>artificial label</strong> for each twitter. It turns out the classification works pretty well, in the sense that it help us to identify 3 groups: useful web-robots on twitter, useless web-robots on twitter, real users on twitter.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+</pre></td><td class="rouge-code"><pre><span class="c1"># K-means
+</span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">bow</span>
+<span class="c1"># Perform k-means clustering of the data into two clusters.
+</span><span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">).</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">kmeans</span><span class="p">.</span><span class="n">cluster_centers_</span>
+
+<span class="c1"># label infos
+</span><span class="n">group_label</span> <span class="o">=</span> <span class="n">kmeans</span><span class="p">.</span><span class="n">labels_</span>
+
+<span class="c1"># how many tweets for each group?
+</span><span class="n">group_label</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span><span class="n">group_label</span><span class="p">)</span>
+<span class="n">group_label</span><span class="p">.</span><span class="n">value_counts</span><span class="p">()</span>
+
+
+<span class="c1"># What are these kmeans.cluster_centers_
+# for cluster_center 1:
+</span><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kmeans</span><span class="p">.</span><span class="n">cluster_centers_</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">feature_names</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">get_feature_names</span><span class="p">()</span>
+<span class="n">center1</span> <span class="o">=</span> <span class="p">[</span><span class="n">feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+           <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">kmeans</span><span class="p">.</span><span class="n">cluster_centers_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="n">tolist</span><span class="p">()]</span>
+<span class="n">center1</span>
+
+
+<span class="c1"># What are these kmeans.cluster_centers_
+# for cluster_center 2:
+</span><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kmeans</span><span class="p">.</span><span class="n">cluster_centers_</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="c1"># feature_names=v.get_feature_names()
+</span><span class="n">center2</span> <span class="o">=</span> <span class="p">[</span><span class="n">feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+           <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">kmeans</span><span class="p">.</span><span class="n">cluster_centers_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.4</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="n">tolist</span><span class="p">()]</span>
+<span class="n">center2</span>
+
+<span class="c1"># What are these kmeans.cluster_centers_
+# for cluster_center 3:
+</span><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kmeans</span><span class="p">.</span><span class="n">cluster_centers_</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="c1"># feature_names=v.get_feature_names()
+</span><span class="n">center3</span> <span class="o">=</span> <span class="p">[</span><span class="n">feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+           <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">kmeans</span><span class="p">.</span><span class="n">cluster_centers_</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.4</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="n">tolist</span><span class="p">()]</span>
+<span class="n">center3</span>
+
+
+<span class="c1"># add the kmeans-Center to the dataframe
+</span><span class="n">tw2017</span><span class="p">[</span><span class="s">'Kmeans-Center'</span><span class="p">]</span> <span class="o">=</span> <span class="n">group_label</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="dimension-reduction-with-pca-or-svd">Dimension Reduction with PCA or SVD</h2>
+
+<h3 id="pca">PCA</h3>
+
+<p>PCA is a technique for reducing the number of dimensions in a dataset whilst retaining most information. It is using the correlation between some dimensions and tries to provide a minimum number of variables that keeps the maximum amount of variation or information about how the original data is distributed. It does not do this using guesswork but using hard mathematics and it uses something known as the eigenvalues and eigenvectors of the data-matrix. These eigenvectors of the covariance matrix have the property that they point along the major directions of variation in the data. These are the directions of maximum variation in a dataset.</p>
+
+<p>Firstly, we try to use PCA.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre>
+<span class="c1"># PCA
+</span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">pca_result</span> <span class="o">=</span> <span class="n">pca</span><span class="p">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">bow</span><span class="p">.</span><span class="n">A</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s">'pca-one'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pca_result</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s">'pca-two'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pca_result</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s">'pca-three'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pca_result</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Explained variation per principal component: {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span>
+    <span class="n">pca</span><span class="p">.</span><span class="n">explained_variance_ratio_</span><span class="p">))</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="truncated-svd">Truncated SVD</h3>
+
+<p>However, the sparse matrix <strong>bow</strong> can not be processed with this package. Insetad, we use <code class="language-plaintext highlighter-rouge">klearn.decomposition.TruncatedSVD</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre>
+<span class="c1"># TruncatedSVD
+</span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">TruncatedSVD</span>
+<span class="n">svd</span> <span class="o">=</span> <span class="n">TruncatedSVD</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">svd_result</span> <span class="o">=</span> <span class="n">svd</span><span class="p">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">bow</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Explained variation per principal component: </span><span class="se">\n</span><span class="s"> {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span>
+    <span class="n">svd</span><span class="p">.</span><span class="n">explained_variance_ratio_</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Total Explained variation by the first {} components: </span><span class="se">\n</span><span class="s">{}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span>
+    <span class="mi">50</span><span class="p">,</span> <span class="n">svd</span><span class="p">.</span><span class="n">explained_variance_ratio_</span><span class="p">.</span><span class="nb">sum</span><span class="p">()))</span>
+
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>We can plot the first 3 components:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>
+
+<span class="c1"># plot the first 3 component
+</span><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">svd</span><span class="p">.</span><span class="n">components_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">svd</span><span class="p">.</span><span class="n">components_</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">svd</span><span class="p">.</span><span class="n">components_</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:])</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><img src="/media/16157298060932/16157308441377.jpg" alt="-w381" width="381px" class="align-center" />
+<img src="/media/16157298060932/16157308513140.jpg" alt="-w389" width="389px" class="align-center" />
+<img src="/media/16157298060932/16157308581181.jpg" alt="-w388" width="388px" class="align-center" /></p>
+
+<h3 id="plot-with-pcasvd-components">Plot with PCA/SVD components</h3>
+
+<p>With first 2 SVD components:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s">"PCA-one"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">"PCA-two"</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s">"Kmeans-Center"</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="n">sns</span><span class="p">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s">"hls"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">tw2017</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="s">"full"</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span>
+<span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><img src="/media/16157298060932/16157309309913.jpg" alt="-w939" width="800px" class="align-center" /></p>
+
+<p>With first 3 SVD components:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="c1"># For a 3d-version of the same plot
+</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">10</span><span class="p">)).</span><span class="n">gca</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s">'3d'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">xs</span><span class="o">=</span><span class="n">tw2017</span><span class="p">[</span><span class="s">"PCA-one"</span><span class="p">],</span>
+    <span class="n">ys</span><span class="o">=</span><span class="n">tw2017</span><span class="p">[</span><span class="s">"PCA-two"</span><span class="p">],</span>
+    <span class="n">zs</span><span class="o">=</span><span class="n">tw2017</span><span class="p">[</span><span class="s">"PCA-three"</span><span class="p">],</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">tw2017</span><span class="p">[</span><span class="s">"Kmeans-Center"</span><span class="p">],</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s">'tab10'</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'pca-one'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'pca-two'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s">'pca-three'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><img src="/media/16157298060932/16157309844814.jpg" alt="-w566" width="566px" class="align-center" /></p>
+
+<h2 id="further-dimension-reduction-with-t-sne">Further Dimension Reduction with T-SNE</h2>
+
+<p>As we can see, the first two PCA components (PCA-1, PCA-2) seem to imply the <code class="language-plaintext highlighter-rouge">group 0</code> and <code class="language-plaintext highlighter-rouge">group 1</code> should be combined. But this is in contradiction to our manual identification result.</p>
+
+<p>This might be caused by the fact that many information are lost if we only keep the limited PCA components. However, with more components, we can not find a nice way to visualize the distribution of our samples.</p>
+
+<p>The solution is <strong>T-SNE</strong>.</p>
+
+<p>t-Distributed Stochastic Neighbor Embedding (t-SNE) is another technique for dimensionality reduction and is particularly well suited for the visualization of high-dimensional datasets. Contrary to PCA it is not a mathematical technique but a probablistic one. The original paper describes the working of t-SNE as:</p>
+
+<blockquote>
+  <p>“t-Distributed stochastic neighbor embedding (t-SNE) minimizes the divergence between two distributions: a distribution that measures pairwise similarities of the input objects and a distribution that measures pairwise similarities of the corresponding low-dimensional points in the embedding”.</p>
+</blockquote>
+
+<p>Essentially what this means is that it looks at the original data that is entered into the algorithm and looks at how to best represent this data using less dimensions by matching both distributions. The way it does this is computationally quite heavy and therefore there are some (serious) limitations to the use of this technique.</p>
+
+<p>For example one of the recommendations is that, in case of very high dimensional data, you may need to apply another dimensionality reduction technique before using t-SNE:</p>
+
+<blockquote>
+  <p>It is highly recommended to use another dimensionality reduction method (e.g. PCA for dense data or TruncatedSVD for sparse data) to reduce the number of dimensions to a reasonable amount (e.g. 50) if the number of features is very high.</p>
+</blockquote>
+
+<p>The other key drawback is that it:</p>
+
+<blockquote>
+  <p>“Since t-SNE scales quadratically in the number of objects N, its applicability is limited to data sets with only a few thousand input objects; beyond that, learning becomes too slow to be practical (and the memory requirements become too large)”.</p>
+</blockquote>
+
+<p>As a result, instead of running the algorithm on the actual dimensions of the data (Bow: 57054 * 68220), We’ll now take the recommendations to heart and actually reduce the number of dimensions before feeding the data into the t-SNE algorithm.</p>
+
+<p>For this we’ll use PCA again. We will first create a new dataset containing the fifty dimensions generated by the PCA reduction algorithm. We can then use this dataset to perform the t-SNE on</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">TruncatedSVD</span>
+<span class="n">svd</span><span class="o">=</span><span class="n">TruncatedSVD</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">svd_result</span><span class="o">=</span><span class="n">svd</span><span class="p">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">bow</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Explained variation per principal component: </span><span class="se">\n</span><span class="s"> {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">svd</span><span class="p">.</span><span class="n">explained_variance_ratio_</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Total Explained variation by the first {} components: </span><span class="se">\n</span><span class="s">{}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="n">svd</span><span class="p">.</span><span class="n">explained_variance_ratio_</span><span class="p">.</span><span class="nb">sum</span><span class="p">()))</span>
+<span class="c1"># Output:
+# Total Explained variation by the first 50 components:
+</span><span class="mf">0.37115116045019997</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>As a result, the first 50 components roughly hold around 37% of the total variation in the data.</p>
+
+<p>Now lets try and feed this data into the t-SNE algorithm:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="n">time_start</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">tsne</span> <span class="o">=</span> <span class="n">TSNE</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">perplexity</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">tsne_results</span> <span class="o">=</span> <span class="n">tsne</span><span class="p">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">svd_result</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'t-SNE done! Time elapsed: {} seconds'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">time_start</span><span class="p">))</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Now we plot the data with TSNE-1 and TSNE-2:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="n">tw2017</span><span class="p">[</span><span class="s">'tsne-pca-one'</span><span class="p">]</span> <span class="o">=</span> <span class="n">tsne_results</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">tw2017</span><span class="p">[</span><span class="s">'tsne-pca-two'</span><span class="p">]</span> <span class="o">=</span> <span class="n">tsne_results</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s">"tsne-pca-one"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">"tsne-pca-two"</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s">"Kmeans-Center"</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="n">sns</span><span class="p">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s">"hls"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">tw2017</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="s">"full"</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span>
+<span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><img src="/media/16157298060932/16157315177225.jpg" alt="-w942" width="700px" class="align-center" /></p>
+
+<p>As we can see, the class 0 and class 1 now are properly differentiated.</p>
+
+<p>Just to compare PCA &amp; T-SNE</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td class="rouge-code"><pre> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s">"PCA-one"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">"PCA-two"</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s">"Kmeans-Center"</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="n">sns</span><span class="p">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s">"hls"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">tw2017</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="s">"full"</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span>
+<span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s">"tsne-pca-one"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">"tsne-pca-two"</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s">"Kmeans-Center"</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="n">sns</span><span class="p">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s">"hls"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">tw2017</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="s">"full"</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span>
+<span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><img src="/media/16157298060932/16157316464008.jpg" alt="-w942" width="700px" class="align-center" /></p>
+
+<p>From the graph above:</p>
+
+<ul>
+  <li>PCA graph seems to indicate that we should combine class 1 and class 0. But Class 0 tends to be nomal users, class 1 tends to be useless robot.</li>
+  <li>Luckily, T-SNE algorithm detects that Class 1 should not be combined with Class 0.</li>
+  <li>This is perhaps because the first two components can’t differentiate class 1 from class 0. More specificly, too much information is lost if we just use PCA-1 and PCA-2.</li>
+</ul>
+
+<h2 id="useful-sources-for-this-topic">Useful Sources for this topic</h2>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/T-distributed_stochastic_neighbor_embedding">Wikipedia: t-distributed stochastic neighbor embedding</a></li>
+  <li><a href="https://towardsdatascience.com/visualising-high-dimensional-datasets-using-pca-and-t-sne-in-python-8ef87e7915b">Visualising high-dimensional datasets using PCA and t-SNE in Python</a></li>
+  <li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">sklearn.manifold.TSNE</a></li>
+  <li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.TruncatedSVD.html">sklearn.decomposition.TruncatedSVD</a></li>
+  <li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">sklearn.decomposition.PCA</a></li>
+</ul>
+:ET

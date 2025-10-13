@@ -1,0 +1,826 @@
+I"ѩ<h2 id="chapter-1-some-basic-math">Chapter 1: Some Basic Math</h2>
+
+<h3 id="log-return-and-standard-return">Log return and standard return</h3>
+
+<p>One of the most common applications of logarithms in finance is computing log returns. Log returns are defined as follows:</p>
+
+\[\begin{equation}
+r_{t} \equiv \ln \left(1+R_{t}\right) \quad \text { where } \quad R_{t}=\frac{P_{t}-P_{t-1}}{P_{t-1}}
+\end{equation}\]
+
+<p>Alternatively:</p>
+
+\[e^{r_t}= 1+R_{t}=\frac{P_{t}}{P_{t-1}}\]
+
+<p>To get a more precise estimate of the relationship between standard returns and log returns, we can use the following approximation:</p>
+
+\[r\approx R-\frac{1}{2}R^2\]
+
+<h3 id="compounding">Compounding</h3>
+
+<p>To get the return of a security for two periods using simple returns, we have to do something that is not very intuitive, namely adding one to each of the returns, multiplying, and then subtracting one:</p>
+
+\[\begin{equation}
+R_{2, t}=\frac{P_{t}-P_{t-2}}{P_{t-2}}=\left(1+R_{1, t}\right)\left(1+R_{1, t-1}\right)-1
+\end{equation}\]
+
+<p>and for the log return:</p>
+
+\[r_{2,t}=r_{1,t}+r_{1,t-1}\]
+
+<h3 id="log-return-and-log-price">Log return and log price</h3>
+
+<p>Define $p_t$ as the log of price $P_t$, then we have:</p>
+
+\[r_t=ln(P_t/P_{t-1})=p_t-p_{t-1}\]
+
+<p>As a result, we can check the log(price)-Time plot, to see whether the return is increasing:</p>
+
+<p><img src="/media/15938358383413/15938365361053.jpg" alt="-w600" width="600px" /></p>
+
+<p>According to the graph above, the log return is constant, even though the price is increasing faster than a linear speed.</p>
+
+<h2 id="chapter-2-basic-statistics">Chapter 2: Basic Statistics</h2>
+
+<h3 id="population-and-sample-data">Population and Sample Data</h3>
+
+<p>The state of absolute certainty is, unfortunately, quite rare in finance. More often, we are faced with a situation such as this: estimate the mean return of stock ABC, given the most recent year of daily returns. In a situation like this, we assume there is some underlying data-generating process, whose statistical properties are constant over time.</p>
+
+<p>We can only estimate the true mean based on our limited data sample. In our example, assuming n returns, we estimate the mean using the same formula as before:</p>
+
+\[\begin{equation}
+\hat{\mu}=\frac{1}{n} \sum_{i=1}^{n} r_{i}=\frac{1}{n}\left(r_{1}+r_{2}+\cdots+r_{n-1}+r_{n}\right)
+\end{equation}\]
+
+<p>where $\hat{\mu}$ (pronounced “mu hat”) is our estimate of the true mean, μ, based on our sample of n returns. We call this the sample mean.</p>
+
+<h3 id="variance-and-standard-deviation">Variance and Standard Deviation</h3>
+
+<p>The variance of a random variable measures how noisy or unpredictable that random variable is. Variance is defined as the expected value of the difference between the variable and its mean squared:</p>
+
+\[\sigma^2=E[(X-\mu)^2 ]\]
+
+<p>The square root of variance, typically denoted by σ , is called standard deviation. In finance we often refer to standard deviation as volatility. This is analogous to referring to the mean as the average. Standard deviation is a mathematically precise term, whereas volatility is a more general concept.</p>
+
+<p>In the previous example, we were calculating the population variance and standard deviation. <strong>All of the possible outcomes for the derivative were known</strong>.</p>
+
+<p>To calculate the sample variance of a random variable X based on n observations, $x_1,x_2,…,x_n$ and the sample mean $\hat{\mu}$, we can use the following formula:</p>
+
+\[\begin{equation}
+\begin{array}{l}
+\hat{\sigma}_{x}^{2}=\frac{1}{n-1} \sum_{i=1}^{n}\left(x_{i}-\hat{\mu}_{x}\right)^2 \\
+E\left[\hat{\sigma}_{x}^{2}\right]=\sigma_{x}^{2}
+\end{array}
+\end{equation}\]
+
+<p>We divide the sum of squared errors by n-1 to arrive at a unbiased estimator of true variance. If the mean is known or we are calculating the population variance, then we divide by n. If instead the mean is also being estimated, then we divide by n − 1.</p>
+
+<p>It can easily be rearranged as follows:</p>
+
+\[\sigma^{2}=E\left[X^{2}\right]-\mu^{2}=E\left[X^{2}\right]-E[X]^{2}\]
+
+<h3 id="covariance-and-correlation">Covariance and Correlation</h3>
+
+<p>Covariance is analogous to variance, but instead of looking at the deviation from the mean of one variable, we are going to look at the relationship between the deviations of two variables:</p>
+
+\[\sigma_{X Y}=E\left[\left(X-\mu_{X}\right)\left(Y-\mu_{Y}\right)\right]\]
+
+<p>Just as we rewrote our variance equation earlier, we can rewrite the previous equation as follows:</p>
+
+\[\sigma_{X Y}=E\left[\left(X-\mu_{X}\right)\left(Y-\mu_{Y}\right)\right]=E[X Y]-\mu_{X} \mu_{Y}=E[X Y]-E[X] E[Y]\]
+
+<p>In order to calculate the covariance between two random variables, X and Y, <strong>assuming the means of both variables are known</strong>, we can use the following formula:</p>
+
+\[\hat{\sigma}_{X, Y}=\frac{1}{n} \sum_{i=1}^{n}\left(x_{i}-\mu_{X}\right)\left(y_{i}-\mu_{Y}\right)\]
+
+<p>If the means are unknown and must also be estimated, we replace n with (n − 1):</p>
+
+\[\hat{\sigma}_{X, Y}=\frac{1}{n-1} \sum_{i=1}^{n}\left(x_{i}-\hat{\mu_{X}}\right)\left(y_{i}-\hat{\mu_{Y}}\right)\]
+
+<p>To get rid of the the impact of each variable’s deviation on the covariance, we can use the correlation:</p>
+
+\[\rho_{XY}=\frac{\sigma_{XY}}{\sigma_X \sigma_Y}\]
+
+<p>If two variables are highly correlated, it is often the case that one variable causes the other variable, or that both variables share a common underlying driver.</p>
+
+<p>However, <strong>Correlation does not prove causation</strong>. Similarly, if two variables are uncorrelated, it does not necessarily follow that they are unrelated.</p>
+
+<p>For example, assume X is a random variable, and Y = $X^2$. X has an equal probability of being −1, 0, or +1. The correlation between X and Y is 0.</p>
+
+<h3 id="application-portfolio-variance-and-hedging">Application: Portfolio Variance and Hedging</h3>
+
+<p>For example, if we have two securities with random returns $X_A$ and $X_B$, with means $\mu_A$ and $\mu_B$ and standard deviations $\sigma_A$ and $\sigma_B$, respectively, we can calculate the variance of $X_A+X_B$ as follows:</p>
+
+\[\sigma^2_{A+B}=\sigma^2_{A}+\sigma^2_{B}+2\rho_{AB}\sigma_A \sigma_B\]
+
+<p>Since we know that the $\rho \in [-1,1]$, the portfolio has a minimum of variance if $\rho = -1$.</p>
+
+<p>If the variance of both securities is equal, then Equation simplifies to:</p>
+
+\[\sigma^2_{A+B}=2 \sigma^2 (1+\rho_{AB})\]
+
+<p>In the special case where the correlation between the two securities is zero, we can further simplify our equation. For the standard deviation</p>
+
+\[\rho_{AB}=0 \Longrightarrow \sigma_{A+B}=\sqrt{2} \sigma\]
+
+<p>If Y is a linear combination of $X_A$ and $X_B$, such that:</p>
+
+\[Y=aX_A+bX_B\]
+
+<p>then, using our standard notation, we have:</p>
+
+\[\sigma^2_Y=a^2 \sigma^2_A +b^2 \sigma^2_B + 2ab \rho_{AB}\sigma_A \sigma_B\]
+
+<p>Correlation is central to the problem of hedging. Using the same notation as before, imagine we have <strong>1 dollar</strong> of Security A, and we wish to hedge it with <strong>h dollar</strong> of Security B.</p>
+
+\[\begin{aligned}
+P &amp;=X_{A}+h X_{B} \\
+\sigma_{P}^{2} &amp;=\sigma_{A}^{2}+h^{2} \sigma_{B}^{2}+2 h \rho_{A B} \sigma_{A} \sigma_{B}
+\end{aligned}\]
+
+<p>As a risk manager, we might be interested to know what hedge ratio would achieve the portfolio with the least variance:</p>
+
+\[\begin{aligned}
+\frac{d \sigma_{P}^{2}}{d h} &amp;=2 h \sigma_{B}^{2}+2 \rho_{A B} \sigma_{A} \sigma_{B} \\
+h^{*} &amp;=-\rho_{A B} \frac{\sigma_{A}}{\sigma_{B}}
+\end{aligned}\]
+
+<p>Substituting $h^*$ back into our original equation, we see that the smallest variance we can achieve is:</p>
+
+\[\min \left[\sigma_{P}^{2}\right]=\sigma_{A}^{2}\left(1-\rho_{A B}^{2}\right)\]
+
+<p>This risk that we cannot hedge is referred to as idiosyncratic risk.</p>
+
+<h3 id="moments">Moments</h3>
+
+<p>Previously, we defined the mean of a variable X as:</p>
+
+\[\mu = E[X]\]
+
+<p>It turns out that we can generalize this concept as follows:</p>
+
+\[m_k= E[X^k]\]
+
+<p>We refer to $m_k$ as the k-th moment of X. The mean of X is also the first moment of X.</p>
+
+<p>Similarly, we can generalize the concept of variance as follows:</p>
+
+\[\mu_k = E[(X-\mu)^k]\]
+
+<p>We refer to $μ_k$ as the kth <strong>central moment</strong> of X.</p>
+
+<p>While we can easily calculate any central moment, in risk management it is very rare that we are interested in anything beyond the fourth central moment.</p>
+
+<h4 id="skewness">Skewness</h4>
+
+<p>The third central moment tells us how symmetrical the distribution is around the mean. Rather than working with the third central moment directly, by convention we first standardize the statistic. The <strong>standardized third central moment</strong> is known as <strong>skewness</strong>:</p>
+
+\[\text{Skewness} = \frac{E[(x-\mu)^3]}{\sigma^3}\]
+
+<p>Skewness is a very important concept in risk management. If the distributions of returns of two investments are the same in all respects, with the same mean and standard deviation, but different skews, then the investment with more negative skew is generally considered to be more risky. <strong>Historical data suggest that many financial assets exhibit negative skew</strong>.</p>
+
+<p><img src="/media/15938358383413/15938405232802.jpg" alt="-w600" width="600px" /></p>
+
+<p><img src="/media/15938358383413/15938405604461.jpg" alt="-w600" width="600px" /></p>
+
+<p><strong>With the population statistic</strong>, the skewness of a random variable X, based on n observations, $x_1, x_2,…, x_n$, can be calculated as:</p>
+
+\[\hat{s}=\frac{1}{n} \sum_{i=1}^{n}\left(\frac{x_{i}-\mu}{\sigma}\right)^{3}\]
+
+<p>where μ is the population mean and σ is the population standard deviation.</p>
+
+<p>Similar to our calculation of <strong>sample variance</strong>, if we are calculating the <strong>sample skewness</strong> there is going to be an overlap with the calculation of the sample mean and sample standard deviation. We need to correct for that. The sample skewness can be calculated as:</p>
+
+\[\tilde{s}=\frac{n}{(n-1)(n-2)} \sum_{i=1}^{n}\left(\frac{x_{i}-\hat{\mu}}{\hat{\sigma}}\right)^{3}\]
+
+<p>We also have:</p>
+
+\[E[(X-\mu)^3]=E[X^3]-3\mu \sigma^2 -\mu^3\]
+
+<h4 id="kurtosis">Kurtosis</h4>
+
+<p>The fourth central moment is similar to the second central moment, in that it tells us how spread out a random variable is, <strong>but it puts more weight on extreme points</strong>.</p>
+
+<p>As with skewness, rather than working with the central moment directly, we typically work with a <strong>standardized statistic</strong>. <strong>This standardized fourth central moment is known as kurtosis</strong>. For a random variable X, we can define the kurtosis as K, where:</p>
+
+\[K=\frac{E[(X-\mu)^4]}{\sigma^4}\]
+
+<p>Because the random variable with higher kurtosis has points further from the mean, we often refer to distribution with high kurtosis as <strong>fat-tailed</strong>.</p>
+
+<p><img src="/media/15938358383413/15938410478358.jpg" alt="-w600" width="600px" />
+<img src="/media/15938358383413/15938410838614.jpg" alt="-w600" width="600px" /></p>
+
+<p>Like skewness, kurtosis is an important concept in risk management. Many financial assets exhibit high levels of kurtosis.</p>
+
+<p>If the distribution of returns of two assets have the same mean, variance, and skewness but different kurtosis, then the distribution with the higher kurtosis will tend to have more extreme points, and be considered more risky.</p>
+
+<p><strong>With the population statistic</strong>, the kurtosis of a random variable X, based on n observations, $x_1, x_2,…, x_n$, can be calculated as:</p>
+
+\[\hat{K}=\frac{1}{n} \sum_{i=1}^{n}\left(\frac{x_{i}-\mu}{\sigma}\right)^{4}\]
+
+<p>where μ is the <strong>population mean</strong> and σ is the <strong>population standard deviation</strong>.</p>
+
+<p>Similar to our calculation of sample variance, if we are calculating the <strong>sample kurtosis</strong> there is going to be an overlap with the calculation of the sample mean and sample standard deviation. We need to correct for that. The <strong>sample kurtosis</strong> can be calculated as:</p>
+
+\[\tilde{K}=\frac{n(n+1)}{(n-1)(n-2)(n-3)} \sum_{i=1}^{n}\left(\frac{x_{i}-\hat{\mu}}{\hat{\sigma}}\right)^{4}\]
+
+<p>The normal distribution has a kurtosis of 3. Because normal distributions are so common, many people refer to “<strong>excess kurtosis</strong>”, which is simply the kurtosis minus 3.</p>
+
+\[K_{excess}=K-3\]
+
+<p>When we are also using the sample mean and variance, calculating the sample excess kurtosis is somewhat more complicated than just subtracting 3. If we have n points, then the correct formula is</p>
+
+\[\tilde{K}_{\mathrm{excess}}=\tilde{K}-3 \frac{(n-1)^{2}}{(n-2)(n-3)}\]
+
+<h3 id="best-linear-unbiased-estimator-blue">Best Linear Unbiased Estimator (BLUE)</h3>
+
+<p>In this chapter we have been careful to differentiate between the true parameters of a distribution and estimates of those parameters based on a sample of population data. In statistics we refer to these parameter estimates, or to the method of obtaining the estimate, as an estimator.</p>
+
+<p>For example, at the start of the chapter, we intro- duced an estimator for the sample mean:</p>
+
+\[\hat{\mu}=\frac{1}{n}\sum_{i=1}^n x_i\]
+
+<p>One justification that we gave earlier is that this particular estimator provides an unbiased estimate of the true mean. That is:</p>
+
+\[E[\hat{\mu}]=\mu\]
+
+<p>Clearly, a good estimator should be unbiased. But we can have many unbiased estimator:</p>
+
+\[\hat{\mu}=0.75x_1 + 0.25 x_2\]
+
+<p>Therefore, we need an objective measure for comparing different unbiased estimators. As we will see in coming chapters, just as we can measure the variance of random variables, we can measure the variance of parameter estimators as well.</p>
+
+<p>When choosing among all the unbiased estimators, statisticians typically try to come up with the estimator with the minimum variance. In other words, we want to choose a formula that produces estimates for the parameter that are <strong>consistently close to the true value of the parameter</strong>.</p>
+
+<p>If we limit ourselves to estimators that can be written as a linear combination of the data, we can often prove that a particular candidate has the minimum variance among all the potential unbiased estimators. <strong>We call an estimator with these properties the best linear unbiased estimator</strong>, or BLUE.</p>
+
+<p>E.g.:</p>
+
+\[\hat{\mu}= \sum_{i=1}^n w_i x_i\]
+
+<p>where $\sum w_i =1$</p>
+
+<p>Then</p>
+
+\[E[\hat{\mu}]=\mu\]
+
+\[\sigma^2 ( \hat{\mu}) = w^T Cov(X,X)w=\sum w_i^2\]
+
+<p>since $\sum w_i =1$, we know that</p>
+
+\[1=\sum_{i=1}^n w_i^2 +2 \sum_{i&lt;j}w_i w_j \leq \sum_{i=1}^n w_i^2+ \sum_{i&lt;j}(w_i^2 +w_j^2 )\]
+
+<p>Rewrite it, we have:</p>
+
+\[1\leq \sum_{i=1}^n n w_i^2\]
+
+<p>We know the minimum for $\sigma^2 ( \hat{\mu})$ is $\frac{1}{n}$.</p>
+
+<p>This minimum for $\sigma^2 ( \hat{\mu}) =\sum w_i^2 $ is achieved iff $w_i =\frac{1}{n}$.</p>
+
+<h2 id="distributions">Distributions</h2>
+
+<p>Distributions can be divided into two broad categories: parametric distributions and nonparametric distributions. A parametric distribution can be described by a mathematical function. In the following sections we explore a number of parametric distributions, including the uniform distribution and the normal distribution. A nonparametric distribution cannot be summarized by a mathematical formula. In its simplest form, a nonparametric distribution is just a collection of data.</p>
+
+<p>Parametric distributions are often easier to work with, but they force us to make assumptions, which may not be supported by real-world data. Nonparametric distributions can fit the observed data perfectly. The drawback of nonparametric distributions is that they are potentially too specific, which can make it difficult to draw any general conclusions.</p>
+
+<h3 id="bernoulli-distribution">Bernoulli Distribution</h3>
+
+<p>A Bernoulli random variable is equal to either zero or one. If we define p as the probability that X equals one, we have</p>
+
+<p>$P[X=1]=p$ and $P[X=0]=1-p$</p>
+
+<p>We can easily calculate the mean and variance of a Bernoulli variable:</p>
+
+\[\begin{aligned}
+\mu &amp;=p \cdot 1+(1-p) \cdot 0=p \\
+\sigma^{2} &amp;=p \cdot(1-p)^{2}+(1-p) \cdot(0-p)^{2}=p(1-p)
+\end{aligned}\]
+
+<h3 id="binomial-distribution">Binomial Distribution</h3>
+
+<p>A binomial distribution can be thought of as a collection of Bernoulli random variables $x_i$:</p>
+
+\[K=\sum_{i=1}^n x_i\]
+
+\[P[K=k]=\left(\begin{array}{l}
+n \\
+k
+\end{array}\right) p^{k}(1-p)^{n-k}\]
+
+<p>It is easy to prove that $E(K)=np$, and $\sigma_K=np(1-p)$.</p>
+
+<p>For p=0.5, the binomial probability density functions looks like this:</p>
+
+<p><img src="/media/15938358383413/15938453104800.jpg" alt="-w600" width="600px" /></p>
+
+<h3 id="poisson-distribution">Poisson Distribution</h3>
+
+<p>Another useful discrete distribution is the Poisson distribution, named for the French mathematician Simeon Denis Poisson.</p>
+
+<p>For a Poisson random variable X,</p>
+
+\[P[X=n]=\frac{\lambda^{n}}{n !} e^{-\lambda}\]
+
+<p>We can prove that the mean and variance for Poisson distribution is both $\lambda$.</p>
+
+<p>If the rate at which events occur over time is constant, and the probability of any one event occurring is independent of all other events, then we say that the events follow a Poisson process, where:</p>
+
+\[P[X=n]=\frac{(\lambda t)^{n}}{n !} e^{-\lambda t}\]
+
+<p>where t is the amount of time elapsed. In other words, <strong>the expected number of events before time t is equal to λt</strong>.</p>
+
+<h3 id="normal-distribution">Normal Distribution</h3>
+
+<p>For a random variable X, the probability density function for the normal distribution is:</p>
+
+\[f(x)=\frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^{2}}\]
+
+<p>When a normal distribution has a mean of zero and a standard deviation of one, it is referred to as a standard normal distribution.</p>
+
+\[\phi=\frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2} x^{2}}\]
+
+<p>It is the convention to denote the standard normal PDF by $\phi$, and the cumulative standard normal distribution by $\Phi $.</p>
+
+<p>To create two correlated normal variables, we can combine three independent standard normal variables, $X_1$, $X_2$, and $X_3$, as follows:</p>
+
+\[\begin{array}{l}
+X_{A}=\sqrt{\rho} X_{1}+\sqrt{1-\rho} X_{2} \\
+X_{B}=\sqrt{\rho} X_{1}+\sqrt{1-\rho} X_{3}
+\end{array}\]
+
+<p>In this formulation, $X_A$ and $X_B$ are also standard normal variables, but with a correlation of ρ.</p>
+
+<p>In risk management it is also useful to know how many standard deviations are needed to encompass 95% or 99% of outcomes.</p>
+
+<p>Notice that for each row in the table, there is a “one-tailed” and “two-tailed” column.</p>
+
+<p>Normal Distribution Confidence Intervals:</p>
+
+\[\begin{array}{rcc}
+\hline &amp; \text { One-Tailed } &amp; \text { Two-Tailed } \\
+\hline 1.0 \% &amp; -2.33 &amp; -2.58 \\
+2.5 \% &amp; -1.96 &amp; -2.24 \\
+5.0 \% &amp; -1.64 &amp; -1.96 \\
+10.0 \% &amp; -1.28 &amp; -1.64 \\
+90.0 \% &amp; 1.28 &amp; 1.64 \\
+95.0 \% &amp; 1.64 &amp; 1.96 \\
+97.5 \% &amp; 1.96 &amp; 2.24 \\
+99.0 \% &amp; 2.33 &amp; 2.58 \\
+\hline
+\end{array}\]
+
+<h3 id="lognormal-distribution">Lognormal Distribution</h3>
+
+<p>It’s natural to ask: if we assume that log returns are normally distributed, then how are standard returns distributed? To put it another way: rather than modeling log returns with a normal distribution, can we use another distribution and model standard returns <strong>directly</strong>?</p>
+
+<p>$1+R=e^r$ with $r\sim N(\mu, \sigma^2)  $</p>
+
+<p>The answer to these questions lies in the lognormal distribution, whose density function is given by (Chain-rule for derivatives):</p>
+
+\[f(x)=\frac{1}{x \sigma \sqrt{2 \pi}} e^{-\frac{1}{2}\left(\frac{\ln x-\mu}{\sigma}\right)^{2}} \text{, for } x&gt;0\]
+
+<p>Here $f(x)$ is the density function for $1+R$.</p>
+
+\[E(X)=e^{\mu + \frac{1}{2}\sigma^2 }\]
+
+<p><img src="/media/15938358383413/15938469911587.jpg" alt="-w600" width="600px" /></p>
+
+\[1+R=e^r \approx 1 + r + \frac{1}{2} r^2 +...\]
+
+\[E(X)=E(1+R) \approx 1+ \mu + \frac{1}{2} \sigma^2 +...\]
+
+\[E(X) \approx e^{\mu +\frac{1}{2}\sigma^2}\]
+
+<p>The variance of the lognormal distribution is given by:</p>
+
+\[E\left[(X-E[X])^{2}\right]=\left(e^{\sigma^{2}}-1\right) e^{2 \mu+\sigma^{2}}\]
+
+<p>It is convenient to be able to describe the re- turns of a financial instrument as being lognormally distributed, rather than having to say the log returns of that instrument are normally distributed.</p>
+
+<p>When it comes to modeling, though, even though they are equivalent, it is often easier to work with log returns and normal distributions than with standard returns and lognormal distributions.</p>
+
+<h3 id="chi-squared-distribution">Chi-squared Distribution</h3>
+
+<p>If we have k independent standard normal variables, $Z_1$, $Z_2$,…, $Z_k$, then the sum of their squares, S, has a chi-squared distribution. We write:</p>
+
+\[\begin{array}{l}
+S=\sum_{i=1}^{k} Z_{i}^{2} \\
+S \sim \chi_{k}^{2}
+\end{array}\]
+
+<p>The variable k is commonly referred to as the degrees of freedom. It follows that the sum of two independent chi-squared variables, with k1 and k2 degrees of freedom, will follow a chi-squared distribution, with (k1 + k2) degrees of freedom.</p>
+
+<p>The mean of the distribution is k, and the variance is 2k.</p>
+
+<p>As k approaches infinity, the chi-squared distribution converges to the normal distribution.</p>
+
+<p>For positive values of x, the probability density function for the chi-squared distribution is:</p>
+
+\[f(x)=\frac{1}{2^{k / 2} \Gamma(k / 2)} x^{\frac{k}{2}-1} e^{-\frac{x}{2}}\]
+
+<p>where $\Gamma$ is the gamma function:</p>
+
+\[\Gamma(n)=\int_{0}^{\infty} x^{n-1} e^{-x} d x\]
+
+<p>The chi-squared distribution is widely used in risk management, and in statistics in general, for hypothesis testing.</p>
+
+<p><img src="/media/15938358383413/15938478356724.jpg" alt="-w600" width="600px" /></p>
+
+<h3 id="students-t-distribution">Student’s t Distribution</h3>
+
+<p>Another extremely popular distribution in statistics and in risk management is Stu- dent’s t distribution.</p>
+
+<p>If Z is a standard normal variable and U is a chi-square variable with k degrees of freedom, which is independent of Z, then the random variable X,</p>
+
+\[X=\frac{Z}{\sqrt{U/k}}\]
+
+<p>follows a t distribution with k degrees of freedom.</p>
+
+<p>Mathematically, the distribution is quite complicated. The probability density function can be written:</p>
+
+\[f(x)=\frac{\Gamma\left(\frac{k+1}{2}\right)}{\sqrt{k \pi} \Gamma\left(\frac{k}{2}\right)}\left(1+\frac{x^{2}}{k}\right)^{-\frac{(k+1)}{2}}\]
+
+<p><img src="/media/15938358383413/15938479720004.jpg" alt="-w600" width="600px" /></p>
+
+<p>Very few risk managers will memorize this PDF equation, but it is important to understand the basic shape of the distribution and how it changes with k.</p>
+
+<p>The t distribution is symmetrical around its mean, which is equal to zero. For low values of k, the t distribution looks very similar to a standard normal distribution, except that it displays excess kurtosis. As k increases, this excess kurtosis de- creases. In fact, as k approaches infinity, the t distribution converges to a standard normal distribution.</p>
+
+<p>The variance of the t distribution for k &gt; 2 is k/(k − 2). You can see that as k increases, the variance of the t distribution converges to one, the variance of the standard normal distribution.</p>
+
+<p>As we will see in the following chapter, the t distribution’s popularity derives mainly from its use in hypothesis testing. The t distribution is also a popular choice for modeling the returns of financial assets, <strong>since it displays excess kurtosis.</strong></p>
+
+<p>Example:</p>
+
+<p>The BLUE for population mean is the sample mean:</p>
+
+\[\hat{\mu}=\frac{1}{n} \sum_{i=1}^{n} r_{i}=\frac{1}{n}\left(r_{1}+r_{2}+\cdots+r_{n-1}+r_{n}\right)\]
+
+<p>The mean and variance of this sample mean is:</p>
+
+\[E[\hat{\mu}]=\mu \\
+V[\hat{\mu}]=\sigma^2_{\hat{\mu}} = E[(\hat{\mu}-\mu)^2]=\frac{\sigma^2}{n}\]
+
+<p>Whereas the sample variance:</p>
+
+\[\begin{equation}
+\begin{array}{l}
+\hat{\sigma}^{2}=\frac{1}{n-1} \sum_{i=1}^{n}\left(x_{i}-\hat{\mu}\right) \\
+E\left[\hat{\sigma}^{2}\right]=\sigma^{2}
+\end{array}
+\end{equation}\]
+
+<p>we have</p>
+
+\[(n-1) \frac{\hat{\sigma}^{2}}{\sigma^{2}} \sim \chi_{n-1}^{2}\]
+
+<p>Therefore, we can prove that \(t=\frac{\hat{\mu}-\mu}{\hat{\sigma} / \sqrt{n}}\) follow a Student’s t distribution with (n − 1) degrees of freedom.</p>
+
+<p><strong>Proof:</strong></p>
+
+\[t=\frac{\frac{\hat{\mu}-\mu}{\sigma / \sqrt{n}} }{(\hat{\sigma} /\ \sigma)}\]
+
+<p>As we know:</p>
+
+\[\frac{\hat{\mu}-\mu}{\sigma / \sqrt{n}} \sim N(0,1)\]
+
+\[\frac{\hat{\sigma}^{2}}{\sigma^{2}} \sim \frac{1}{n-1} \chi_{n-1}^{2}\]
+
+<p>By definition, t follow a Student’s t distribution with (n − 1) degrees of freedom.</p>
+
+<p><strong>Common Critical Values for Student’s t Distribution:</strong></p>
+
+\[\begin{array}{rrrrr}
+\hline &amp; t_{10} &amp; t_{100} &amp; t_{1,000} &amp; N \\
+\hline 1.0 \% &amp; -2.76 &amp; -2.36 &amp; -2.33 &amp; -2.33 \\
+2.5 \% &amp; -2.23 &amp; -1.98 &amp; -1.96 &amp; -1.96 \\
+5.0 \% &amp; -1.81 &amp; -1.66 &amp; -1.65 &amp; -1.64 \\
+10.0 \% &amp; -1.37 &amp; -1.29 &amp; -1.28 &amp; -1.28 \\
+90.0 \% &amp; 1.37 &amp; 1.29 &amp; 1.28 &amp; 1.28 \\
+95.0 \% &amp; 1.81 &amp; 1.66 &amp; 1.65 &amp; 1.64 \\
+97.5 \% &amp; 2.23 &amp; 1.98 &amp; 1.96 &amp; 1.96 \\
+99.0 \% &amp; 2.76 &amp; 2.36 &amp; 2.33 &amp; 2.33 \\
+\hline
+\end{array}\]
+
+<h3 id="f-distribution">F-distribution</h3>
+
+<p>If $U_1$ and $U_2$ are two independent chi-squared distributions with k1 and k2 degrees of freedom, respectively, then X</p>
+
+\[X=\frac{U_{1} / k_{1}}{U_{2} / k_{2}} \sim F\left(k_{1}, k_{2}\right)\]
+
+<p>follows an F-distribution with parameters k1 and k2.</p>
+
+<p>The probability density function of the F-distribution, as with the chi-squared distribution, is rather complicated:</p>
+
+\[f(x)=\frac{\sqrt{\frac{\left(k_{1} x\right)^{k_{1}} k_{2}^{k_{2}}}{\left(k_{1} x+k_{2}\right)^{k_{1}+k_{2}}}}}{x B\left(\frac{k_{1}}{2}, \frac{k_{2}}{2}\right)}\]
+
+<p>where B(x, y) is the beta function:</p>
+
+\[B(x, y)=\int_{0}^{1} z^{x-1}(1-z)^{y-1} d z\]
+
+<p>It is important to understand the general shape and some properties of the distribution.</p>
+
+<p><img src="/media/15938358383413/15938482040139.jpg" alt="-w600" width="600px" /></p>
+
+\[\begin{aligned}
+\mu &amp;=\frac{k_{2}}{k_{2}-2} \text { for } k_{2}&gt;2 \\
+\sigma^{2} &amp;=\frac{2 k_{2}^{2}\left(k_{1}+k_{2}-2\right)}{k_{1}\left(k_{2}-2\right)^{2}\left(k_{2}-4\right)} \text { for } k_{2}&gt;4
+\end{aligned}\]
+
+<p>As k1 and k2 increase, the mean and mode converge to one. As k1 and k2 approach infinity, the F-distribution converges to a normal distribution.</p>
+
+<p>There is also a <strong>nice relationship between Student’s t distribution and the F-distribution</strong>. From the description of the t distribution, it is easy to see that the square of a variable with a t distribution has an F-distribution.</p>
+
+<p>More specifically, if X is a random variable with a t distribution with k degrees of freedom, then $X_2$ has an F-distribution with 1 and k degrees of freedom:</p>
+
+\[X^{2} \sim F(1, k)\]
+
+<h3 id="triangular-distribution">Triangular Distribution</h3>
+
+<p>It is often useful in risk management to have a distribution with a <strong>fixed minimum and maximum</strong>—for example, when modeling default rates and recovery rates, which by definition cannot be less than zero or greater than one.</p>
+
+<p>The triangular distribution is a distribution whose PDF is a triangle. As with the uniform distribution, it has a finite range.</p>
+
+<p>The PDF for a triangular distribution with a minimum of a, a maximum of b, and a mode of c is described by the following two-part function:</p>
+
+\[f(x)=\left\{\begin{array}{ll}
+\frac{2(x-a)}{(b-a)(c-a)} &amp; a \leq x \leq c \\
+\frac{2(b-x)}{(b-a)(b-c)} &amp; c&lt;x \leq b
+\end{array}\right.\]
+
+<p><img src="/media/15938358383413/15938484474645.jpg" alt="-w600" width="600px" /></p>
+
+<p>Exhibit 4.13 shows a triangular distribution where a, b, and c are 0.0, 1.0, and 0.8, respectively.</p>
+
+<p>The mean, $\mu$, and variance, $\sigma^2$, of a triangular distribution are given by:</p>
+
+\[\begin{aligned}
+\mu &amp;=\frac{a+b+c}{3} \\
+\sigma^{2} &amp;=\frac{a^{2}+b^{2}+c^{2}-a b-a c-b c}{18}
+\end{aligned}\]
+
+<h3 id="beta-distribution">Beta Distribution</h3>
+
+<p>The beta distribution is another distribution with <strong>a finite range.</strong> It is more complicated than the triangular distribution mathematically, but it is also much more flexible.</p>
+
+<p>The beta distribution is defined on the interval from zero to one. The PDF is defined as follows, where a and b are two positive constants:</p>
+
+\[f(x)=\frac{1}{B(a, b)} x^{a-1}(1-x)^{b-1} \quad 0 \leq x \leq 1\]
+
+<p>The mean, $\mu$, and variance, $\sigma^2$, of a beta distribution are given by:</p>
+
+\[\begin{aligned}
+\mu &amp;=\frac{a}{a+b} \\
+\sigma^{2} &amp;=\frac{a b}{(a+b)^{2}(a+b+1)}
+\end{aligned}\]
+
+<p><img src="/media/15938358383413/15938486035324.jpg" alt="-w600" width="600px" /></p>
+
+<h3 id="mixture-distribution">Mixture Distribution</h3>
+
+<p>Imagine a stock whose log returns follow a normal distribution with low volatility 90% of the time, and a normal distribution with high volatility 10% of the time.</p>
+
+<p>Most of the time the world is relatively dull, and the stock just bounces along. Occasionally, though—maybe there is an earnings announcement or some other news event—the stock’s behavior is more extreme. We could write the combined density function as:</p>
+
+\[f(x)=w_{L} f_{L}(x)+w_{H} f_{H}(x)\]
+
+<p>where $w_{L}$ = 0.90 is the probability of the return coming from the low-volatility distribution, $f_{L}(x)$, and $w_{H}$ = 0.10 is the probability of the return coming from the high-volatility distribution $f_{H}(x)$.</p>
+
+<p>We can think of this as a two-step process.</p>
+
+<p>First, we randomly choose the high or low distribution, with a 90% chance of picking the low distribution. Second, we generate a random return from the chosen normal distribution.</p>
+
+<p>The final distribution, f(x), is a legitimate probability distribution in its own right, and although it is equally valid to describe a random draw directly from this distribution, it is often helpful to think in terms of this two-step process.</p>
+
+<p><strong>Note that the two-step process is not the same as the process described in a previous section for adding two random variables together.</strong> In the case we are describing now, the return appears to come from either the low-volatility distribution or the high-volatility distribution.</p>
+
+<p>The distribution that results from a weighted average distribution of density functions is known as a mixture distribution. More generally, we can create a distribution:</p>
+
+\[f(x)=\sum_{i=1}^{n} w_{i} f_{i}(x) \text { s.t. } \sum_{i=1}^{n} w_{i}=1\]
+
+<p>Mixture distributions are extremely flexible. In a sense they occupy a realm between parametric distributions and nonparametric distributions.</p>
+
+<p>In a typical mixture distribution, the component distributions are parametric, <strong>but the weights are based on empirical data, which is nonparametric.</strong></p>
+
+<p>Just as there is a trade-off between parametric distributions and nonparametric distributions, there is a trade- off between using a low number and a high number of component distributions.</p>
+
+<p>By adding more and more component distributions, we can approximate any data set with increasing precision. At the same time, as we add more and more component distributions, the conclusions that we can draw tend to become less general in nature.—- <strong>Variance VS Underfitting problem</strong></p>
+
+<p>Just by adding two normal distributions together, we can develop a large number of interesting distributions.</p>
+
+<ul>
+  <li>Similar to the previous example, if we combine two normal distributions with the same mean but different variances, we can get a symmetrical mixture distribution that displays excess kurtosis.</li>
+  <li>By shifting the mean of one distribution, we can also create a distribution with positive or negative skew.</li>
+  <li>Finally, if we move the means far enough apart, the resulting mixture distribution will be bimodal; that is, the PDF will have two distinct maxima,</li>
+</ul>
+
+<p><img src="/media/15938358383413/15938490883813.jpg" alt="-w600" width="600px" /></p>
+
+<p><img src="/media/15938358383413/15938491155081.jpg" alt="-w600" width="600px" /></p>
+
+<p>Mixture distributions can be extremely useful in risk management. Securities whose return distributions are skewed or have excess kurtosis are often considered riskier than those with normal distributions, since extreme events can occur more frequently. Mixture distributions provide a ready method for modeling these attributes.</p>
+
+<h2 id="chapter-3-copulas">Chapter 3: Copulas</h2>
+
+<p>In this chapter we explore distributions involving more than one variable, and pro- vide a brief overview of copulas. Multivariate distributions are an important tool for modeling portfolios.</p>
+
+<p>In everyday parlance, a copula is simply something that joins or couples. In statistics, a copula is a function used to combine two or more cumulative distribution functions in order to produce one joint cumulative distribution function.</p>
+
+<p>A copula only defines a relationship between univariate distributions. <strong>The underlying distributions themselves can be any shape or size.</strong></p>
+
+<p>Mechanically, copulas take as their inputs two or more cumulative distributions and output a joint cumulative distribution. The advantage of working with cumulative distributions is that the range is always the same. <strong>No matter what the distribution is, the output of a cumulative distribution always ranges from 0% to 100%.</strong></p>
+
+<p>Say we have two random variable X and Y, with the cumulative distribution function as $u=F_X(x)$ and $v=F_Y(y)$.</p>
+
+<p>A copula gives a joint cumulative distribution function as $C(u,v)$ s.t.:</p>
+
+\[\begin{aligned}
+C(1,1) &amp;=1 \\
+C(0,0) &amp;=0\\
+\frac{\partial C }{\partial u} &amp;\geq 0\\
+\frac{\partial C }{\partial v} &amp;\geq 0
+\end{aligned}\]
+
+<p>For example, given two cumulative distributions, u and v, and a constant, $\alpha$, we can write <strong>Frank’s copula</strong> as:</p>
+
+\[C(u, v)=\frac{1}{\alpha} \ln \left[1+\frac{\left(e^{\alpha u}-1\right)\left(e^{\alpha v}-1\right)}{e^{\alpha}-1}\right]\]
+
+<p>To calculate the joint PDF (probability density function) of a copula, we can use the chain rule:</p>
+
+\[f(x, y)=\frac{\partial^{2} C(u, v)}{\partial x \partial y}=\frac{\partial^{2} C(u, v)}{\partial u \partial v} \frac{\partial u}{d x} \frac{\partial v}{d y}=c(u, v) f(x) f(y)\]
+
+<p>Here we have denoted the second cross partial derivative of $C(u,v)$ by $c(u,v)$. $c(u,v)$ is often referred to as the density function of the copula. Because $c(u,v)$ depends on only the copula and not the marginal distributions, we can calculate $c(u,v)$ once and then apply it to many different problems.</p>
+
+<p>If we work on the x-y space, we should have</p>
+
+\[\begin{aligned}
+\int_x \int_y f(x,y)dxdy=1
+\end{aligned}\]
+
+<p>since</p>
+
+\[\begin{aligned}
+du&amp;=f_X(x)dx\\
+dv&amp;=f_Y(y)dy
+\end{aligned}\]
+
+<p>we have:</p>
+
+\[\begin{aligned}
+\int_0^1 \int_0^1 c(u,v)dudv=1
+\end{aligned}\]
+
+<p>Moreover, since that u and v are both uniformly distributed in [0,1], we know that the marginal PDF is always $I_{[0,1]}$.</p>
+
+<p>In other words, for \(\forall u^*,v^*\), we must have</p>
+
+\[\begin{aligned}
+\int_0^1 c(u^*,v)dv&amp;=1\\
+\int_0^1 c(u,v^*)du&amp;=1
+\end{aligned}\]
+
+<p><strong>In summary</strong>, a copulas $C(u,v)$ is defined by</p>
+
+\[C(u^*,v^*)=\int_0^{u^*} \int_0^{v^*} c(u,v)dvdu\]
+
+<p>where $c(u,v): [0,1]\times[0,1] \to [0,+\infty) $ satisfies</p>
+
+\[\begin{aligned}
+\int_0^1 c(u^*,v)dv&amp;=1\\
+\int_0^1 c(u,v^*)du&amp;=1
+\end{aligned}\]
+
+<h3 id="steps-to-calculate-the-pdf-of-a-copula">Steps to calculate the PDF of a copula</h3>
+
+<p><strong>Step 1:</strong></p>
+
+<p>For any point on the graph, (x,y), we first calculate values for both the PDF and the CDF of X and Y.</p>
+
+<p><strong>Step 2:</strong></p>
+
+<p>Use the CDF (u,v) of X and Y at (x,y), we can calculate the $c(u,v)$.</p>
+
+<p><strong>Step 3:</strong></p>
+
+\[\begin{aligned}
+f(x, y)&amp;=c(u, v)f(x) f(y) \\
+c(u, v)&amp;=\frac{\partial^{2} C(u, v)}{\partial u \partial v}
+\end{aligned}\]
+
+<p><img src="/media/15938358383413/15940456901104.jpg" alt="-w600" width="600px" /></p>
+
+<h3 id="using-copulas-in-simulations">Using Copulas in simulations</h3>
+
+<p>In this section, we demonstrate how copulas can be used in Monte Carlo simulations.</p>
+
+<p>In order to use copulas in a Monte Carlo simulation, we need to calculate the <strong>inverse marginal CDFs</strong> for the copula.</p>
+
+<p>To determine the marginal CDFs of a copula, we take the first derivative of the copula function with respect to one of the under- lying distributions. For two cumulative distributions u and v, the marginal CDFs would be:</p>
+
+\[C(u^*,v^*)=\int_0^{u^*} \int_0^{v^*} c(u,v)dv du\]
+
+\[\begin{array}{l}
+C_{1}(u^*,v^*)=\frac{\partial C}{\partial u}(u^*,v^*)=\int_0^{v^*} c(u^*, v) d v \\
+C_{2}(u^*,v^*)=\frac{\partial C}{\partial v}(u^*,v^*)=\int_0^{u^*} c(u, v^*) d u
+\end{array}\]
+
+<p>Note that \(c(u^*, v)\) is the conditional PDF for \(v^* \in [0,1]\):</p>
+
+\[\int_0^{1} c(u^*, v) d v=1\]
+
+<p>As a result, $C_1$ is a conditional CDF for \(v^*\). Therefore, under the condition that \(u=u^*\), \(C_1(u^*, v^*)\) is uniformly distributed on $[0,1]$.</p>
+
+<p>For example, for Frank’s copula the marginal CDF for u would be:</p>
+
+\[C_{1}=\frac{\partial C}{\partial u}=\frac{\left(e^{-\alpha u}-1\right)\left(e^{-\alpha v}-1\right)+\left(e^{-\alpha v}-1\right)}{\left(e^{-\alpha u}-1\right)\left(e^{-\alpha v}-1\right)+\left(e^{-\alpha}-1\right)}\]
+
+<p>$C_1$ is a proper CDF, and varies between 0% and 100%. To determine the inverse of $C_1$, we solve for $v$:</p>
+
+\[v=-\frac{1}{\alpha} \ln \left[1+\frac{C_{1}\left(e^{-\alpha}-1\right)}{1+\left(e^{-\alpha u}-1\right)\left(1-C_{1}\right)}\right]\]
+
+<p>Each iteration in the Monte Carlo simulation then involves three steps:</p>
+
+<ol>
+  <li>Generate two independent random draws from a standard uniform distribution. These are the values for $u$ and $C_1$.</li>
+  <li>Use the inverse CDF of the copula to determine v. This is the essential step. Depending on the copula, different values of v will be more or less likely, given u.</li>
+  <li>Calculate values for x and y, using inverse cumulative distribution functions for the underlying distributions. For example, if the underlying distributions are normal, use the inverse normal CDF to calculate x and y based on u and v.</li>
+</ol>
+
+<h3 id="parameterization-of-copulas">Parameterization of Copulas</h3>
+
+<p>Given a copula, we know how to calculate values for that copula, but how do we know which copula to use in the first place? The answer is a mixture of art and science.</p>
+
+<p>If the data seem to exhibit increased correlation in crashes, then you should choose a copula that displays <strong>a higher probability in the negative-negative region</strong> such as the <strong>Clayton copula.</strong></p>
+
+<p>Once we know which type of copula we are going to use, we need to determine the parameters of the copula. Take for example the Farlie-Gumbel-Morgenstern (FGM) copula, given by:</p>
+
+\[C=uv[1+\alpha (1-u)(1-v)]\]
+
+<p>We can prove that</p>
+
+\[c(u,v)=1+\alpha-2\alpha u -2\alpha v +4 \alpha uv\]
+
+<p>As with most copulas, there is a single parameter, α, which needs to be determined, and this parameter is related to how closely the two underlying random variables are <strong>related to each other.</strong></p>
+
+<p>In statistics, the popular methods for measuring how closely two variables are related to each other include:</p>
+
+<p><strong>1) Pearson’s correlation or linear correlation</strong></p>
+
+\[\text { Correlation }=\frac{E[(X-E[X])(Y-E[Y])]}{\sigma_{X} \sigma_{Y}}\]
+
+<p><strong>2)  Kendall’s tau</strong></p>
+
+<p>If we have $(X_i-X_j)(Y_i - Y_j)&gt;0 $, we say that the two points are concordant.</p>
+
+<p>Kendall’s tau is defined as the probability of concordance minus the probability of discordance.</p>
+
+\[\tau = P[\text{concordance}] – P[\text{discordance}]\]
+
+<p>If P[concordance] is 100%, then P[discordance] must be 0%. Similarly, if P[discordance] is 100%, P[concordance] must be 0%. Because of this, like our standard correlation measure, Kendall’s tau must vary between −100% and +100%.</p>
+
+\[\tau=\frac{\text{# of concordant pairs − # of discordant pairs}}{C_n^2}\]
+
+<p>Characteristics of Kendall’s tau:</p>
+<ol>
+  <li>It is less sensitive to outliers than Pearson’s correlation.</li>
+  <li>Measures of dependence based on rank are in- variant under strictly increasing transformations</li>
+</ol>
+
+<p><img src="/media/15938358383413/15941343079344.jpg" alt="-w600" width="600px" /></p>
+
+<p>As long as the transformation does not change the relative order of the points, Kendall’s tau won’t change, while the Linear Correlation changes.</p>
+
+<div btit="Cummulative distribution function does not change the order" blab="mylabel" class="proposition" id="mylabel">
+$$$$
+For random variable X and Y, the cummulative distribution function is defined as $u(x)=P(X&lt;=x)$, $v=P(Y&lt;=y)$.
+
+Then, the new random variable u(X) and v(Y) will have the same order as X and Y, in the sense:
+
+if $(X_i-X_j)*(Y_i-Y_j)&gt;0$, we have $(u_i -u_j)*(v_i-v_j)&gt;0$.
+
+</div>
+
+<p>This propostion suggests that, at least for Kendall’s tau, the “correlation” X and Y is equal to the “correlation” between U(X) and V(Y). In otherwords, the Kendall’s tau will only be determined by the U and V, and the marginal distribution does not matter any more.</p>
+
+<p>As it turns out, for many copulas, changing the value of the shape parameter, α, will transform the data in a way that is similar to the way the data was transformed in Exhibit 5.14.</p>
+
+<p>Changing α will change the shape of the data, but it will not change the order. For a given type of copula, then, <strong>Kendall’s tau is often a function of the copula’s parameter, α, and does not depend on what type of marginal distributions are being used.</strong></p>
+
+<p>This leads to a simple method for setting the parameter of the copula. First, calculate Kendall’s tau, and then set the shape parameter based on the appropriate formula for that copula relating Kendall’s tau and the shape parameter.</p>
+
+<p>Given an equation for a copula, C(u,v) and its density function c(u,v), Kendall’s tau can be determined as follows:</p>
+
+\[\tau=4 E[C(u, v)]-1=4 \int_{0}^{1} \int_{0}^{1} C(u, v) c(u, v) d u d v-1\]
+
+<p><strong>3) Spearman’s rho</strong></p>
+
+<p>To calculate Spear- man’s rho from sample data, we simply calculate our standard correlation measure using the ranks of the data.</p>
+
+<p>We can also calculate Spearman’s rho from a copula function:</p>
+
+\[\rho_{s}=12 \int_{0}^{1} \int_{0}^{1} C(u, v) d u d v-3\]
+
+<p>Rather than being based directly on the values of the variables, both Kendall’s tau and Spearman’s rho are based on the <strong>order or rank of the variables</strong>.</p>
+:ET

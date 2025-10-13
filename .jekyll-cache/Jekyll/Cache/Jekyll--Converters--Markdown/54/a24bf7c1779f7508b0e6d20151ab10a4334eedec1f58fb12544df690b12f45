@@ -1,0 +1,15 @@
+I"º<ul class="toc__menu">
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#data-source">Data Source</a></li>
+  <li><a href="#add-labels-with-k-means">Add labels with K-Means</a></li>
+  <li><a href="#dimension-reduction-with-pca-or-svd">Dimension Reduction with PCA or SVD</a>
+    <ul>
+      <li><a href="#pca">PCA</a></li>
+      <li><a href="#truncated-svd">Truncated SVD</a></li>
+      <li><a href="#plot-with-pcasvd-components">Plot with PCA/SVD components</a></li>
+    </ul>
+  </li>
+  <li><a href="#further-dimension-reduction-with-t-sne">Further Dimension Reduction with T-SNE</a></li>
+  <li><a href="#useful-sources-for-this-topic">Useful Sources for this topic</a></li>
+</ul>
+:ET

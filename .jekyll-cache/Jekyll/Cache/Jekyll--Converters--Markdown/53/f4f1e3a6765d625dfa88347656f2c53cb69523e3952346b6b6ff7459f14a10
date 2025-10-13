@@ -1,0 +1,82 @@
+I"0<ul class="toc__menu">
+  <li><a href="#introduction-to-machine-learning">Introduction to Machine Learning</a>
+    <ul>
+      <li><a href="#python-for-machine-learning">Python for Machine Learning</a></li>
+      <li><a href="#supervised-vs-unsupervised">Supervised vs Unsupervised</a></li>
+    </ul>
+  </li>
+  <li><a href="#introduction-to-regression">Introduction to Regression</a>
+    <ul>
+      <li><a href="#model-evaluation-approaches">Model Evaluation approaches</a></li>
+      <li><a href="#lab-section---linear-regression">Lab section - Linear Regression</a></li>
+      <li><a href="#non-linear-regression">Non-Linear Regression</a></li>
+      <li><a href="#lab-polynomial-regression">Lab: Polynomial regression</a></li>
+      <li><a href="#lab-non-linear-regression-analysis">Lab: Non-linear regression analysis</a></li>
+    </ul>
+  </li>
+  <li><a href="#introduction-to-classification">Introduction to Classification</a>
+    <ul>
+      <li><a href="#k-nearest-neighbors">K-Nearest Neighbors</a>
+        <ul>
+          <li><a href="#supervised-learning-case">Supervised Learning case</a></li>
+          <li><a href="#lab-knn">Lab: KNN</a></li>
+        </ul>
+      </li>
+      <li><a href="#evaluation-metrics-in-classification">Evaluation metrics in classification</a></li>
+      <li><a href="#decisions-tress">Decisions Tress</a>
+        <ul>
+          <li><a href="#lab-decisiontreeclassifier">Lab: DecisionTreeClassifier</a></li>
+        </ul>
+      </li>
+      <li><a href="#logistic-regression">Logistic Regression</a>
+        <ul>
+          <li><a href="#proposition-about-convex-functions">Proposition about convex functions</a></li>
+          <li><a href="#gradient-descent">Gradient Descent</a></li>
+          <li><a href="#vectorization">Vectorization</a></li>
+          <li><a href="#lab-logistic-regression">Lab: logistic regression</a></li>
+        </ul>
+      </li>
+      <li><a href="#support-vector-machine">Support Vector Machine</a>
+        <ul>
+          <li><a href="#data-transformation">Data Transformation</a></li>
+          <li><a href="#using-svm-to-find-the-hyperplane">Using SVM to find the hyperplane</a></li>
+          <li><a href="#pros-and-cons-of-svm">Pros and Cons of SVM</a></li>
+          <li><a href="#lab-svm">LAB: svm</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#intro-to-clustering">Intro to Clustering</a>
+    <ul>
+      <li><a href="#k-means-clustering">K-means clustering</a>
+        <ul>
+          <li><a href="#lab-k-means">Lab: K-means</a></li>
+        </ul>
+      </li>
+      <li><a href="#hierarchical-clustering">Hierarchical Clustering</a>
+        <ul>
+          <li><a href="#lab-hierarchical-clustering">Lab: Hierarchical Clustering</a></li>
+        </ul>
+      </li>
+      <li><a href="#dbscan-clustering">DBSCAN Clustering</a>
+        <ul>
+          <li><a href="#lab-dbscan">Lab: DBSCAN</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#introduction-to-recommender-system">Introduction to Recommender System</a>
+    <ul>
+      <li><a href="#two-types-of-recommender-systems">Two Types of recommender systems</a></li>
+      <li><a href="#content-based-recommender-systems">Content-based recommender systems</a></li>
+      <li><a href="#lab-content-based-recommender-system">Lab: content-based recommender system</a></li>
+      <li><a href="#collaborative-filtering">Collaborative Filtering</a>
+        <ul>
+          <li><a href="#lab-collaborative-filtering-on-movies">Lab: Collaborative filtering on movies</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#final-assignment">Final Assignment</a></li>
+</ul>
+:ET
