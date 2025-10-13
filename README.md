@@ -1,5 +1,7 @@
 # Installation Guide
 
+https://github.com/mmistakes/minimal-mistakes/tree/master
+
 ## 1-ignorelist
 ```
 .gitignore
