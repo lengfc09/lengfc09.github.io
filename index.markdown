@@ -9,7 +9,7 @@ header:
     # overlay_color: "#418db9ff"
     # image: /assets/images/wallpaper3.png
     # Image无overlay，上面不会有文字
-    overlay_image: /assets/images/fushishan.jpg
+    overlay_image: /assets/images/fushishan2.JPG
     # overlay_filter: "0.5" # transparency
     # overlay_filter: rgba(255, 0, 0, 0.5)
     # 直接定义rgb以及透明度
