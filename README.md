@@ -35,7 +35,10 @@ pull all the files except for the ignored list above
 - use ruby 2.6.10-1 or system ruby in mac os (2.6.0-2.6.10)
 - rbenv global 2.6.10-1      
 
-## bundle install  
-bundle exec jekyll serve --trace
+## build the web
 
+```
+bundle install  
+bundle exec jekyll serve --trace
+```
 
