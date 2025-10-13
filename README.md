@@ -41,4 +41,6 @@ pull all the files except for the ignored list above
 bundle install  
 bundle exec jekyll serve --trace
 ```
+## notice
 
+In github theme, lower case and upper case in file names will **make a difference**.
