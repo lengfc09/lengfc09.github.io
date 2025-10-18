@@ -27,7 +27,7 @@ ${\displaystyle \mathbf {y} ={\begin{bmatrix}y_{1}&y_{2}&\cdots &y_{m}\end{bmatr
 
 , with respect to an input vector,
 
-${\displaystyle \mathbf {x} ={\begin{bmatrix}x_{1}&x_{2}&\cdots &x_{n}\end{bmatrix}}^{\mathsf {T}}}$$
+${\displaystyle \mathbf {x} ={\begin{bmatrix}x_{1}&x_{2}&\cdots &x_{n}\end{bmatrix}}^{\mathsf {T}}}$
 
 , is written (in [numerator layout notation](https://en.wikipedia.org/wiki/Matrix_calculus#Layout_conventions)) as
 
