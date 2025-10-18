@@ -273,19 +273,60 @@ df['Grade']=(df['Grade']-np.mean(df['Grade']))/np.std(df['Grade'])
 
 
 
-### Bnning in Python
+### pandas.cut()
+
+- `cut()`: Creates bins with fixed/equal widths (based on value ranges).
+- `qcut()`: Creates bins with roughly equal counts (based on data distribution).
+
+
+`pandas.cut()` is a function in pandas used to discretize continuous data into bins (also called binning). It divides a continuous numerical dataset into specified intervals (or "bins") and assigns each value to the corresponding interval, converting the continuous data into categorical data. This is useful for grouping data, feature transformation, or statistical analysis.
+
+
+
+#### Key Purpose
+
+It converts continuous variables (e.g., age, income, test scores) into discrete categories (e.g., "child/teen/adult", "low/middle/high income"). This helps simplify analysis, improve interpretability, or prepare data for models that work better with categorical features.
+
+#### Basic Example
+
+Suppose you have test scores (0-100) and want to categorize them into "Fail", "Pass", "Good", and "Excellent":
 
 ```python
-pandas.cut(df['col'],bins,group_names, include_lowest =True)
+import pandas as pd
+
+scores = pd.Series([55, 62, 78, 89, 95, 43, 71])
+bins = [0, 60, 70, 85, 100]  # Define interval boundaries
+labels = ["Fail", "Pass", "Good", "Excellent"]  # Labels for each bin
+
+result = pd.cut(scores, bins=bins, labels=labels)
+print(result)
 ```
 
+**Output**:
+
+```plaintext
+0      Fail
+1      Pass
+2      Good
+3    Excellent
+4    Excellent
+5      Fail
+6      Pass
+dtype: category
+Categories (4, object): ['Fail' < 'Pass' < 'Good' < 'Excellent']
+```
+
+#### Key Parameters
+
+- `x`: The continuous data to bin (a Series or array).
+- `bins`: Defines the bin boundaries. Can be:
+  - A list of values (e.g., `[0, 60, 100]` for fixed intervals).
+  - An integer `n` (automatically creates `n` equal-width bins).
+- `labels`: Custom names for the bins (must match the number of bins). If omitted, returns the interval itself (e.g., `(0, 60]`).
+- `right`: Whether bins are closed on the right (default `True`, i.e., `(left, right]`). Set to `False` for `[left, right)`.
+- `include_lowest`: If `True`, the first bin includes the minimum value of the data.
 
 
-
-
-Binning is the process of grouping of values into bins.
-
-Converts numeric into categorical variables.
 
 For example, price is a feature range from 0 to 1000000. We can convert to price into "low price", "Mid Price" and "High Price".
 
@@ -317,16 +358,47 @@ plt.pyplot.ylabel("count")
 plt.pyplot.title("horsepower bins")
 ```
 
-### Turning categorical variables into quantitative variables in Python
+### pandas.qcut()
+`pandas.qcut()` is a function used to **discretize continuous data into bins based on quantiles**. Unlike `cut()` (which creates bins with fixed or equal widths), `qcut()` divides data into intervals such that each bin contains approximately the same number of observations. This ensures balanced group sizes, making it useful for analyzing distributions or creating evenly populated categories.
 
-Approach 1: use dummy variables.
+#### Key Purpose
+
+It splits data into groups where each group has a roughly equal number of samples, based on quantiles (e.g., quartiles, quintiles). For example, dividing income data into 4 bins where each bin contains ~25% of the population.
+
+#### Basic Example
+
+Using random income data split into 4 quantile-based bins:
+
+```python
+import pandas as pd
+import numpy as np
+
+np.random.seed(42)
+incomes = pd.Series(np.random.randint(10000, 100000, size=10))  # 10 random incomes
+
+# Split into 4 bins (quartiles) with labels
+result, bins = pd.qcut(incomes, q=4, labels=["Low", "Mid-Low", "Mid-High", "High"], retbins=True)
+
+print("Binned results:\n", result)
+print("\nBin boundaries:\n", bins)
+```
+
+#### Key Parameters
+
+- `x`: The continuous data to bin (Series or array).
+- `q`: Number of quantiles (e.g., `q=4` for quartiles) or a list of quantile values (e.g., `[0, 0.25, 0.5, 0.75, 1]`).
+- `labels`: Custom names for bins (optional; defaults to interval ranges).
+- `retbins`: If `True`, returns the computed bin boundaries (default `False`).
+- `duplicates`: How to handle duplicate quantiles (e.g., `'drop'` to remove duplicates).
+
+
+### one-hot encoding
+
+To turn categorical variables into quantitative variables in Python, we use **pd.get_dummies()**
 
 We encode the values by adding new features corresponding to each unique element in the original feature we would like to encode.
 
-```python
-# use pandas.get_dummies() method
-pd.get_dummies(df['fuel'])
-```
+
 
 |      |    Student | Grade |
 | ---: | ---------: | ----: |
@@ -336,6 +408,8 @@ pd.get_dummies(df['fuel'])
 |    3 |   Jane Doe |    90 |
 
 ```python
+# use pandas.get_dummies() method to turn categorical data into dummy variables
+# aka One-Hot Encoding
 dm=pandas.get_dummies(df.Student)
 ```
 
@@ -345,6 +419,11 @@ dm=pandas.get_dummies(df.Student)
 |    1 |        0 |          1 |        0 | 0          |
 |    2 |        0 |          0 |        1 | 0          |
 |    3 |        1 |          0 |        0 | 0          |
+
+```python
+result=pd.concat([df,dm],axis=1).drop("Student",axis=1)
+```
+
 
 ## Exploratory Data Analysis (EDA)
 
