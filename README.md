@@ -4,7 +4,12 @@ https://github.com/mmistakes/minimal-mistakes/tree/master
 
 ## 1-ignorelist
 ```
+#忽略gitignore文件
 .gitignore
+
+# macOS
+.DS_Store
+.ruby-version
 
 # Jekyll generated files
 .jekyll-cache
@@ -13,15 +18,43 @@ https://github.com/mmistakes/minimal-mistakes/tree/master
 _asset_bundler_cache
 _site
 README.md
+
+
+# Ruby Gem
+#_config.yml
+*.gem
+.bundle
+Gemfile.lock
+**/vendor/bundle
+#Gemfile
+
+
+# Jekyll generated files
+_site
+.jekyll-cache
+.jekyll-metadata
+.sass-cache
+_asset_bundler_cache
+.jekyll-cache/Jekyll/Cache/
+# /vendor/
+# vendor/
+# /vendor
+
+
 # Sublime Text
 *.sublime-project
 *.sublime-workspace
 
-# Ruby Gem
-*.gem
-# .bundle
-Gemfile.lock
-**/vendor/bundle
+
+#  .gitignore文件实例：
+
+# *.a       # 忽略所有 .a 结尾的文件
+# !lib.a    # 但 lib.a 除外
+# /TODO     # 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO
+# build/    # 忽略 build/ 目录下的所有文件
+# doc/*.txt # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
+#
+
 ```
 
 ## 2-install Git
