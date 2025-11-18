@@ -55,6 +55,11 @@ _asset_bundler_cache
 # doc/*.txt # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 #
 
+# lock the two following files in _site
+## otherwise, it will be deleted everytime we bundle exec jekyll serve
+package-lock.json
+package.json 
+
 ```
 
 ## 2-install Git
