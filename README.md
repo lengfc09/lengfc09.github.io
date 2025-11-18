@@ -55,10 +55,15 @@ _asset_bundler_cache
 # doc/*.txt # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 #
 
-# lock the two following files in _site
+# Notice1！：lock the two following files in _site
 ## otherwise, it will be deleted everytime we bundle exec jekyll serve
 package-lock.json
-package.json 
+package.json
+
+
+# Notice2！：
+when try to "bundle install"
+need to delete anaconda/openssl in the system path, at least temporarily!
 
 ```
 
