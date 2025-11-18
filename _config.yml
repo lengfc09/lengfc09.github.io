@@ -10,10 +10,10 @@
 # Review documentation to determine if you should use `theme` or `remote_theme`
 # https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/#installing-the-theme
 # theme: minimal-mistakes-jekyll
-#theme                    : "minimal-mistakes-jekyll"
+# theme                    : "minimal-mistakes-jekyll"
 # remote_theme             : "lengfc09/minimal-mistakes@4.20.1"  #"mmistakes/minimal-mistakes"
 
-#remote_theme             : "mmistakes/minimal-mistakes@4.21.0"  #"mmistakes/minimal-mistakes"
+# remote_theme             : "minimal-mistakes@4.21.0"  #"mmistakes/minimal-mistakes"
 
 minimal_mistakes_skin    : "mint" #"default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
