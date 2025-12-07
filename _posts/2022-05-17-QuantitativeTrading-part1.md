@@ -70,11 +70,11 @@ Quant trading strategies are repeatable, rules-based strategies.
 
 ## Why Quant
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16135571452782.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16135571589988.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16135571452782.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16135571589988.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16135571871550.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16135571871550.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 * Discretionary decisions are increasingly being fed by quant data
     * Alternative data, for example
@@ -86,7 +86,7 @@ Quant trading strategies are repeatable, rules-based strategies.
 * [Quantocracy](https://quantocracy.com/)
     * Daily blogs – goal is to get you fluent in this discourse
 
-![-w1294](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16135574072897.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![-w1294](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16135574072897.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 
 * Textbooks – Antan Ilmamen’s “Expected Returns”
@@ -114,7 +114,7 @@ These are terms you probably have heard, let’s unpack them slowly
     * The return you get is the return minus the transaction has a cost
     * Expected trading costs
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16135615904374.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16135615904374.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 Price changes are wrong because of the following problems.
 
@@ -127,13 +127,13 @@ Apple's stock has split four times since the company went public. The stock spli
 
 The price of a stock should fall by the amount of the dividend. (Not exactly true due to taxes, see Ivo Welch’s work)
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16135617253419.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16135617253419.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 ***Payouts are repurchases and dividends.***
 
 About 1/4th of stocks pay dividends, important to consider:
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16135617563477.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16135617563477.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 ### Definition of return
 
@@ -165,7 +165,7 @@ Some databases, if you’re lucky, calculate returns. Most of the time, they giv
 
 Professional and Industry use.
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16135620695590.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16135620695590.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 
 **Example: CRSP**
@@ -191,9 +191,9 @@ For more info, see [Wharton Research Data Services](mweblib://16053223786055).
 > Our client base is made up of individuals, hedge funds, quant funds, fintech companies, academic institutions, and others. To see our complete product offering, please visit the Tiingo Welcome Page.
 
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16135667234399.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16135667234399.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16135667489846.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16135667489846.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 **Bottom Line**
 We should care about the quality of the data.
@@ -246,7 +246,7 @@ $$r_t=ln(P_t/P_{t-1})=p_t-p_{t-1}$$
 
 As a result, we can check the log(price)-Time plot, to see whether the return is increasing:
 
-![-w600](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/15938365361053.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![-w600](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/15938365361053.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 According to the graph above, the log return is constant, even though the price is increasing faster than a linear speed.
 
@@ -263,7 +263,7 @@ Assume the initial investment is 1 dollar, the Wealth process is defined as :
 
 $$W_t= \Pi_{t=0}^N  (R_t + 1) $$
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16135680658087.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16135680658087.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 ## Risks
 
@@ -294,13 +294,13 @@ $$MaxDrawDown=\frac{Peak-Worst}{Peak}$$
 
 Other metrics in industry (source : JPM):
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16135744633001.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16135744633001.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16135745305901.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16135745305901.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16135747358360.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16135747358360.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16135747404056.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16135747404056.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 **Key Insight:**
 
@@ -341,7 +341,7 @@ It turns out they are all related!  And the framework here will provide the foun
 
 The efficient-market hypothesis (EMH) is a hypothesis in financial economics that states that asset prices reflect all available information. A direct implication is that it is impossible to “beat the market” consistently on a risk-adjusted basis since market prices should only react to new information
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16135753555761.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16135753555761.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 Proposed in Fama (1970), by Nobel Prize winner Eugene Fama.
 
@@ -400,7 +400,7 @@ $$
 On average, a security’s return is proportional to its market risk sensitivity.
 
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16135766893199.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16135766893199.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 * Under the CAPM, idiosyncratic risk is not rewarded
     * If you don’t like a stock, you sell it and buy another stock
@@ -539,7 +539,7 @@ ax = (
 ```
 
 
-![-w719](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16136579743602.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![-w719](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16136579743602.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 ```python
 # calculate the sharpe ratio
@@ -562,7 +562,7 @@ olsm.summary()
 # or: print(olsm.summary().as_html())
 ```
 
-![-w974](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16136585746166.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![-w974](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16136585746166.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 
 **What did we learn from this QMJ example?**
@@ -574,7 +574,7 @@ olsm.summary()
 
 * Because they are diversified and one has alpha with respect to another strategy, a blend should give diversification benefits and a higher Sharpe ratio
 
-![-w948](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16136600380440.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![-w948](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16136600380440.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 
 ```python
@@ -615,7 +615,7 @@ x2['halfsies'] = (x2['mkt']+x2['qmj'])/2
 smf.ols('halfsies ~ mkt + qmj', data=x2).fit().summary()
 ```
 
-![-w699](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16136588079666.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![-w699](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16136588079666.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 
 ```python
@@ -634,7 +634,7 @@ ax = (
 
 ```
 
-![-w718](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2022/05/17/16136588442967.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
+![-w718](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2022/05/17/16136588442967.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10)
 
 
 Note:

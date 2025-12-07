@@ -26,7 +26,7 @@ This blog post is made by 'Group Researchers', for the final project of MFin Tex
 
 
 
-##  Background
+## Background
 Nowadays social media gets more and more attention, and news on social media, such as Twitter and Facebook, has been incorporated in various data science research. People from all over the world share their opinions and stories on social media in a timely manner (to catch the trend), and it gives us a comprehensive source of information. People found that news and sentiment both are important factors to influence stock market. Many research have already indicated the possibility of predicting the market by using the news (especially from certain import political leader in the world) as a signal to a coming movement with an acceptable accuracy percentage.
 
 We want to predict market by using the news, therefore we try to use tweets from Twitter to predict the index price of S&P 500. We want to predict S&P 500 in that it contains many famous companies which are very typical and can help us to know the market better. There are three reasons why we use Twitter to collect tweets. Firstly, more than 60% of Twitter’s users would like to get the news on the site. Secondly, using Twitter as our news source can help us to get the most up to date news. Thirdly, we can get tweets from Twitter easily by using packages such as tweepy and twint.
@@ -108,7 +108,7 @@ plt.legend(['Partial Autocorrelation of Abs®'])
 
 ```
 
-##  Data Preprocessing
+## Data Preprocessing
 
 ### Data Merge and Cleaning
 

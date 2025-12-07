@@ -22,30 +22,30 @@ Check this website for more theoretical details: [Vlab of NYU](https://vlab.ster
 
 ### Example 1: real GDP growth rate in USA
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17378762703630.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17378762703630.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
 
-![](https://bens-1-pics.oss-cn-hongkong.aliyuncs.com/uPic/2025/02/21/1935image-20250221193527325.png){:width="600px"}{: .align-center}
+![](https://bens-2-pics.oss-cn-shanghai.aliyuncs.com/uPic/2025/02/21/1935image-20250221193527325.png){:width="600px"}{: .align-center}
 
 ### Example 2: S&P500 Index Return
 * Daily Returns
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17378766412658.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17378766412658.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
 
 
 In fact, by ploting the ACF(Autocorrelation Funciton) and PACF(Partial Autocorrelation Function), we can find strong autocorrelations of the squared returns, absolute returns and High-Low returns ${ln(Y_t^H/Y_t^L)}$.
 
 
 * $r_t$: not significant autocorrelation
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17378813766988.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17378813766988.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
 
 * $r_t^2$:significant autocorrelation
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17378813953235.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17378813953235.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
 
 * $|r_t|$:significant autocorrelation
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17378814083903.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17378814083903.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
 
 * ${ln(Y_t^H/Y_t^L)}$:significant autocorrelation
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17378814282787.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17378814282787.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
 
 Codes:
 ```python
@@ -163,7 +163,7 @@ print((returns<q*sigma2).mean())
 #0.05745526838966203
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17401273830114.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17401273830114.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
 
 Set the window for MA-std to be 50 instead of 100 may give the similar result to EWMA($\lambda$ =0.94)
 
@@ -176,7 +176,7 @@ sigma.plot()
 ```
 
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17401274839669.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17401274839669.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
 
 
 ## Introduction to GARCH models
@@ -280,7 +280,7 @@ res = am.fit(update_freq=5,last_obs=split_date)
 res.summary()
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17395191682932.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17395191682932.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
 
 
 ```python
@@ -289,7 +289,7 @@ plt.figure(dpi=100)
 fig=res.plot(annualize='D')
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17395191880736.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17395191880736.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
 
 some params in fitting process:
 
@@ -316,7 +316,7 @@ plt.style.use('ggplot')
 df.plot()
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17396173959962.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17396173959962.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
 
 
 ```python
@@ -324,8 +324,8 @@ fig1=res.plot()
 fig2=fix_res.plot()
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17396175595244.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17396175683558.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17396175595244.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17396175683558.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
 
 Notice that, the fixed parameters created model by `fix_res=am.fix([parameters...])` will cover the whole sample.
 
@@ -349,7 +349,7 @@ ar = ARX(ann_inflation, lags=[1, 3, 12])
 print(ar.fit().summary())
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17396182676693.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17396182676693.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
 
 
 * Step 2:Add a volatility model:
@@ -362,7 +362,7 @@ res = ar.fit(update_freq=0, disp='off')
 print(res.summary())
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17396182859761.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17396182859761.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
 
 * Step 3: Finally the distribution can be changed from the default normal to a standardized Student's T using the distribution property of a mean model.
 
@@ -427,7 +427,7 @@ forecasts=res.forecast(horizon=5)
 forecasts.variance.dropna()
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17396201142958.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17396201142958.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
 
 The forecasts above are made with the data available in Day T for the following days. `2013-12-31`:
 
@@ -443,7 +443,7 @@ forecasts=res.forecast(horizon=1,align='target')
 forecasts.residual_variance.dropna()
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17401030474516.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="200px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17401030474516.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="200px"}{: .align-center}
 
 
 
@@ -453,7 +453,7 @@ forecasts=res.forecast(horizon=5,start=dt.datetime(2014,12,31))
 forecasts.variance.dropna()
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17396201606196.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17396201606196.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
 
 
 #### return or forecast()
@@ -481,7 +481,7 @@ temp1.columns=['returns','GARCH-std']
 temp1.plot()
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17399568975243.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17399568975243.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
 
 Combine all the forecasts
 
@@ -497,13 +497,13 @@ all_fores.columns=['returns','GARCH-std','MA-std','EWMA-std']
 all_fores.plot()
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17399562837746.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17399562837746.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
 
 ```python
 all_fores['2014-12':'2015-12'].plot()
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17401285095257.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17401285095257.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
 
 
 Check the forecasts of GARCH and EWMA
@@ -512,7 +512,7 @@ Check the forecasts of GARCH and EWMA
 all_fores.loc[:,['GARCH-std','EWMA-std']].plot()
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17399571613804.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17399571613804.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
 
 #### Rolling Window Forecasting
 
@@ -569,7 +569,7 @@ plt.gca().set_xlim(1,5)
 legend = plt.legend()
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17399640892269.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17399640892269.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
 
 
 #### Value-at-Risk Forecasting
@@ -600,7 +600,7 @@ ax=value_at_risk.plot()
 ax.set_title('GARCH VAR')
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17401289798734.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17401289798734.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
 
 Notice:
 
@@ -635,9 +635,9 @@ ax=var_EWMA.plot()
 ax.set_title('EWMA VAR')
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17401289637554.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17401289637554.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17401289706026.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17401289706026.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
 
 
 ### Performance
@@ -693,7 +693,7 @@ def myVarScatter(rets,value_at_risk):
 myVarScatter(returns["2015":],value_at_risk["2015":])
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17401260894215.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17401260894215.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
 
 * No Exceedence: 94.83%
 * 5% Exceedence: 3.58%
@@ -705,7 +705,7 @@ myVarScatter(returns["2015":],value_at_risk["2015":])
 myVarScatter(returns['2015':],var_MA['2015':])
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17401261460487.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17401261460487.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
 
 * No Exceedence: 93.24%
 * 5% Exceedence: 3.78%
@@ -717,7 +717,7 @@ myVarScatter(returns['2015':],var_MA['2015':])
 myVarScatter(returns['2015':],var_EWMA['2015':])
 ```
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/02/21/17401261460487.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/02/21/17401261460487.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="500px"}{: .align-center}
 
 * No Exceedence: 94.33%
 * 5% Exceedence: 3.28%

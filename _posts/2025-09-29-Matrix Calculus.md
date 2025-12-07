@@ -76,7 +76,7 @@ $\displaystyle \nabla _{\mathbf {X} }y(\mathbf {X} )={\frac {\partial y(\mathbf 
 #### Summary
 
 
-![](http://bens-1-pics.oss-cn-hongkong.aliyuncs.com/2025/09/29/17590491367939.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
+![](http://bens-2-pics.oss-cn-shanghai.aliyuncs.com/2025/09/29/17590491367939.jpg?x-oss-process=image/auto-orient,1/quality,q_90/watermark,text_YmVuc2Jsb2cudGVjaA,color_f5eded,size_15,x_10,y_10){:width="600px"}{: .align-center}
 
 
 ## Identities
