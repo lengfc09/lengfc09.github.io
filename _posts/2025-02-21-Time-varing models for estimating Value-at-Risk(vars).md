@@ -874,9 +874,9 @@ if __name__ == "__main__":
         sys.stdout.write('.')
         sys.stdout.flush()
         res = am.fit(first_obs=i, last_obs=i + end_loc, disp='off')
-        temp = res.forecast(horizon=3).variance
-        fcast = temp.iloc[i + end_loc - 1]
-        forecasts[fcast.name] = fcast
+        # temp = res.forecast(horizon=3).variance
+        # fcast = temp.iloc[i + end_loc - 1]
+        # forecasts[fcast.name] = fcast
     print()
     print(pd.DataFrame(forecasts).T)
 
