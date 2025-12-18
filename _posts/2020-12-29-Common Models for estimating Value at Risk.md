@@ -281,6 +281,7 @@ if __name__ == "__main__":
 #### Espected Shortfall
 
 ```python
+
 def myes(df_input, alphas=[0.01, 0.05], num_of_simus=1000000, method="all", tell=True):
     if method not in ["all", "norm", "t", "historical"]:
         print("Fail: wrong method! Please use one of the following method:")
@@ -290,8 +291,8 @@ def myes(df_input, alphas=[0.01, 0.05], num_of_simus=1000000, method="all", tell
 
     import matplotlib.pyplot as plt
     import matplotlib.style as style
-    import scipy.stats as stats
     import numpy as np
+    import scipy.stats as stats
 
     alphas = np.array(alphas)
 
@@ -336,9 +337,9 @@ def myes(df_input, alphas=[0.01, 0.05], num_of_simus=1000000, method="all", tell
         vars = stats.t.ppf(alphas, df=tdof, loc=tloc, scale=tscale)
         trvs = stats.t.rvs(df=tdof, scale=tscale, size=num_of_simus, loc=tloc)
         try:
-            ess = [nrvs[nrvs < var].mean() for var in vars]
+            ess = [trvs[trvs < var].mean() for var in vars]
         except:
-            ess = nrvs[nrvs < vars].mean()
+            ess = trvs[trvs < vars].mean()
 
         if tell == True or method == "all":
             print("Use Analytical t location-scale model:")
@@ -355,9 +356,9 @@ def myes(df_input, alphas=[0.01, 0.05], num_of_simus=1000000, method="all", tell
     if method == "historical" or method == "all":
         vars = np.percentile(df_input, palphas)
         try:
-            ess = [nrvs[nrvs < var].mean() for var in vars]
+            ess = [df_input[df_input < var].mean() for var in vars]
         except:
-            ess = nrvs[nrvs < vars].mean()
+            ess = df_input[df_input < vars].mean()
         if tell == True or method == "all":
             print("Use Historical Approach:")
             try:
@@ -371,7 +372,6 @@ def myes(df_input, alphas=[0.01, 0.05], num_of_simus=1000000, method="all", tell
 
 
 if __name__ == "__main__":
-
     print("This is my Expected Shortfall module")
     import scipy.stats as stats
 
@@ -379,7 +379,6 @@ if __name__ == "__main__":
     df = stats.t.rvs(df=5, scale=2, size=10000, loc=0)
 
     myes(df, num_of_simus=10000000, alphas=[0.01, 0.05, 0.1])
-
 ```
 
 
