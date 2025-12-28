@@ -120,8 +120,8 @@ Since the result highly depend on which datasets the data is trained and tested,
 - MSE: mean square error
 - MAE: mean absolute error
 - RMES: root of mean square error
-- RSE: relative square error
-- RAE: relative average error
+- RSE: residual square error
+- RAE: residual average error
   
   ![-w260](/media/15842755659220/15842800057018.jpg){:width="260px"}
    
