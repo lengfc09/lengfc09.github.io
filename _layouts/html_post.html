@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="{{ site.locale | slice: 0,2 | default: 'zh-CN' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} | {{ site.title }}</title>
+
+    <!-- 你可以在这里链接外部CSS或添加内联样式 -->
+    {% if page.custom_css %}
+    <style>
+        {{ page.custom_css }}
+    </style>
+    {% endif %}
+
+    <!-- 也可以从front matter加载外部CSS -->
+    {% if page.external_css %}
+        {% for css in page.external_css %}
+        <link rel="stylesheet" href="{{ css }}">
+        {% endfor %}
+    {% endif %}
+
+    <!-- 基础重置，确保没有默认边距 -->
+
+</head>
+<body>
+    <!-- 这里是你的HTML内容 -->
+    {{ content }}
+
+    <!-- 可选的JavaScript -->
+    {% if page.custom_js %}
+    <script>
+        {{ page.custom_js }}
+    </script>
+    {% endif %}
+
+    {% if page.external_js %}
+        {% for js in page.external_js %}
+        <script src="{{ js }}"></script>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

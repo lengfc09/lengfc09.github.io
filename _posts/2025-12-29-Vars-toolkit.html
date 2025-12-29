@@ -1,0 +1,1542 @@
+---
+layout: html_post
+title: Value at Risk Toolkit
+date: 2025-12-29
+classes: wide
+categories: Quantitative_Financial_Risk_Management
+tags: vars risk_management
+---
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vars Package - Value at Risk & Risk Metrics Toolkit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --accent: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f9fafb;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .logo i {
+            font-size: 2.2rem;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-bottom: 1.5rem;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background-color: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 1.2rem 1.5rem;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 1.5rem;
+            right: 1.5rem;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        /* Main content */
+        main {
+            padding: 3rem 0;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 80px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title i {
+            color: var(--primary);
+        }
+
+        .card-content {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Code examples */
+        .code-container {
+            background-color: #1e293b;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+
+        .code-header {
+            background-color: #0f172a;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--light-gray);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: var(--light-gray);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .copy-btn:hover {
+            color: white;
+        }
+
+        .code-content {
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        pre {
+            margin: 0;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        code {
+            color: #e2e8f0;
+        }
+
+        .keyword {
+            color: #f472b6;
+        }
+
+        .function {
+            color: #60a5fa;
+        }
+
+        .string {
+            color: #34d399;
+        }
+
+        .comment {
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        .number {
+            color: #fbbf24;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid var(--light-gray);
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        table td {
+            color: var(--dark);
+        }
+
+        table code {
+            color: var(--primary);
+            font-weight: 600;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        table a {
+            text-decoration: none;
+        }
+
+        table a:hover code {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        tr:hover {
+            background-color: #f8fafc;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: white;
+                flex-direction: column;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                padding: 1rem 1.5rem;
+                border-bottom: 1px solid var(--light-gray);
+            }
+
+            .nav-links a.active::after {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <span>Vars Package</span>
+            </div>
+            <h1>Value at Risk & Risk Metrics Calculation Toolkit</h1>
+            <p class="tagline">
+                A comprehensive Python package for calculating and visualizing Value at Risk (VaR),
+                Expected Shortfall (ES), volatility estimation, and risk analysis.
+                Includes static VaR, dynamic VaR, ES calculation, and visualization utilities.
+            </p>
+            <div class="header-buttons">
+                <a href="#installation" class="btn btn-primary">
+                    <i class="fas fa-download"></i> Installation
+                </a>
+                <a href="#usage" class="btn btn-secondary">
+                    <i class="fas fa-play-circle"></i> Quick Start
+                </a>
+                <a href="https://github.com/lengfc09/Vars" target="_blank" class="btn btn-secondary">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="#api" class="btn btn-secondary">
+                    <i class="fas fa-code"></i> API Reference
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo" style="font-size: 1.4rem;">
+                <i class="fas fa-chart-line"></i>
+                <span>Vars</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#overview" class="active">Overview</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#installation">Installation</a></li>
+                <li><a href="#usage">Usage</a></li>
+                <li><a href="#api">API</a></li>
+                <li><a href="#examples">Examples</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="container">
+        <!-- Overview -->
+        <section id="overview" class="section">
+            <h2 class="section-title">Package Overview</h2>
+            <p class="section-subtitle">
+                Vars is a powerful Python toolkit for financial risk analysis, providing comprehensive
+                tools for Value at Risk (VaR) calculation, Expected Shortfall (ES) estimation,
+                volatility modeling, and risk visualization.
+            </p>
+
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-info-circle"></i> What is Value at Risk (VaR)?</h3>
+                <p class="card-content">
+                    Value at Risk (VaR) is a statistical measure that quantifies the level of financial risk
+                    within a firm or investment portfolio over a specific time frame. It estimates the maximum
+                    potential loss with a given confidence level (e.g., 95% or 99%).
+                </p>
+
+                <div class="features-grid">
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-calculator"></i> Static VaR</h3>
+                        <p class="card-content">
+                            Calculate VaR using historical simulation, normal distribution, and Student's t-distribution methods.
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-chart-line"></i> Dynamic VaR</h3>
+                        <p class="card-content">
+                            Time-varying VaR using MA, EWMA, and ARCH/GARCH models for volatility forecasting.
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-exclamation-triangle"></i> Expected Shortfall</h3>
+                        <p class="card-content">
+                            Calculate Conditional VaR (CVaR) measuring the average loss in worst-case scenarios beyond VaR.
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-chart-bar"></i> Visualization</h3>
+                        <p class="card-content">
+                            Create informative plots for VaR monitoring, distribution fitting, and risk reporting.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section id="features" class="section">
+            <h2 class="section-title">Core Features</h2>
+            <p class="section-subtitle">
+                Explore the comprehensive capabilities of the Vars package for financial risk analysis.
+            </p>
+
+            <div class="tabs" id="featureTabs">
+                <button class="tab-btn active" data-tab="static">Static VaR</button>
+                <button class="tab-btn" data-tab="dynamic">Dynamic VaR</button>
+                <button class="tab-btn" data-tab="es">Expected Shortfall</button>
+                <button class="tab-btn" data-tab="visualization">Visualization</button>
+                <button class="tab-btn" data-tab="advanced">Advanced Tools</button>
+            </div>
+
+            <div id="static" class="tab-content active">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-chart-area"></i> Static Value at Risk</h3>
+                    <p class="card-content">
+                        Calculate VaR using three different methods: historical simulation, normal distribution,
+                        and Student's t-distribution. Compare results across multiple confidence levels.
+                    </p>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Python Example</span>
+                            <button class="copy-btn" onclick="copyCode('code1')">
+                                <i class="far fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <div class="code-content">
+                            <pre><code><span class="keyword">import</span> Vars
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Generate sample returns</span>
+returns = np.random.randn(<span class="number">1000</span>) * <span class="number">0.02</span>
+
+<span class="comment"># Calculate VaR using all methods</span>
+var_all = Vars.calculate_static_var(returns, alphas=[<span class="number">0.01</span>, <span class="number">0.05</span>], method=<span class="string">'all'</span>)
+
+<span class="comment"># Calculate specific method</span>
+var_norm = Vars.calculate_static_var(returns, alphas=<span class="number">0.05</span>, method=<span class="string">'norm'</span>)
+
+<span class="comment"># Compare methods visually</span>
+fig = Vars.compare_static_var_methods(returns, alphas=[<span class="number">0.01</span>, <span class="number">0.05</span>])</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dynamic" class="tab-content">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-chart-line"></i> Dynamic Value at Risk</h3>
+                    <p class="card-content">
+                        Calculate time-varying VaR using Moving Average (MA), Exponentially Weighted Moving Average (EWMA),
+                        and ARCH/GARCH models. Perfect for monitoring risk in financial time series.
+                    </p>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Python Example</span>
+                            <button class="copy-btn" onclick="copyCode('code2')">
+                                <i class="far fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <div class="code-content">
+                            <pre><code><span class="keyword">import</span> Vars
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Create time series data</span>
+dates = pd.date_range(<span class="string">'2020-01-01'</span>, periods=<span class="number">1000</span>, freq=<span class="string">'D'</span>)
+returns = pd.Series(np.random.randn(<span class="number">1000</span>) * <span class="number">0.01</span>, index=dates)
+
+<span class="comment"># Calculate MA VaR</span>
+var_ma = Vars.calculate_dynamic_var(returns, method=<span class="string">'MA'</span>, window=<span class="number">60</span>)
+
+<span class="comment"># Calculate EWMA VaR</span>
+var_ewma = Vars.calculate_dynamic_var(returns, method=<span class="string">'EWMA'</span>, lambda_param=<span class="number">0.96</span>)
+
+<span class="comment"># Calculate ARCH VaR</span>
+split_date = pd.Timestamp(<span class="string">'2020-09-01'</span>)
+var_arch = Vars.calculate_dynamic_var(returns, method=<span class="string">'ARCH'</span>, split_index=split_date)</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="es" class="tab-content">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-exclamation-triangle"></i> Expected Shortfall (ES)</h3>
+                    <p class="card-content">
+                        Calculate Expected Shortfall (Conditional VaR), which measures the average loss
+                        in the worst (1-alpha)% of cases, providing a more comprehensive risk measure than VaR.
+                    </p>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Python Example</span>
+                            <button class="copy-btn" onclick="copyCode('code3')">
+                                <i class="far fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <div class="code-content">
+                            <pre><code><span class="keyword">import</span> Vars
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Generate sample data with fat tails</span>
+returns = np.random.standard_t(df=<span class="number">5</span>, size=<span class="number">1000</span>) * <span class="number">0.02</span>
+
+<span class="comment"># Calculate ES using all methods</span>
+es_all = Vars.calculate_expected_shortfall(returns, confidence_levels=[<span class="number">0.01</span>, <span class="number">0.05</span>])
+
+<span class="comment"># Calculate specific method</span>
+es_t = Vars.calculate_expected_shortfall(returns, confidence_levels=<span class="number">0.05</span>, method=<span class="string">'t'</span>)
+
+<span class="comment"># Historical simulation ES</span>
+es_hist = Vars.calculate_expected_shortfall(returns, confidence_levels=[<span class="number">0.01</span>, <span class="number">0.05</span>, <span class="number">0.1</span>],
+                                           method=<span class="string">'historical'</span>)</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="visualization" class="tab-content">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-chart-bar"></i> Visualization Tools</h3>
+                    <p class="card-content">
+                        Create informative visualizations for risk analysis including VaR scatter plots,
+                        distribution fitting, and comprehensive risk reports.
+                    </p>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Python Example</span>
+                            <button class="copy-btn" onclick="copyCode('code4')">
+                                <i class="far fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <div class="code-content">
+                            <pre><code><span class="keyword">import</span> Vars
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+<span class="comment"># Create sample data</span>
+dates = pd.date_range(<span class="string">'2020-01-01'</span>, periods=<span class="number">100</span>, freq=<span class="string">'D'</span>)
+returns = pd.Series(np.random.randn(<span class="number">100</span>) * <span class="number">0.02</span>, index=dates)
+var_df = Vars.calculate_dynamic_var(returns, method=<span class="string">'MA'</span>, alphas=[<span class="number">0.01</span>, <span class="number">0.05</span>])
+
+<span class="comment"># VaR scatter plot</span>
+fig, ax = Vars.plot_var_scatter(returns, var_df, title=<span class="string">'VaR Monitoring'</span>)
+
+<span class="comment"># Distribution fitting plot</span>
+fig = Vars.plot_distribution_fit(returns.values, bins=<span class="number">30</span>)
+
+<span class="comment"># Comprehensive risk report</span>
+risk = Vars.RiskMetrics(returns)
+risk.calculate_all(alpha=<span class="number">0.05</span>)
+risk_report = risk.plot_report()
+
+plt.show()</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="advanced" class="tab-content">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-tools"></i> Advanced Tools</h3>
+                    <p class="card-content">
+                        Advanced features including volatility modeling, unified risk metrics interface,
+                        and comprehensive risk reporting.
+                    </p>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Python Example</span>
+                            <button class="copy-btn" onclick="copyCode('code5')">
+                                <i class="far fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <div class="code-content">
+                            <pre><code><span class="keyword">import</span> Vars
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># Calculate volatility</span>
+vol_ma = Vars.calculate_volatility(returns, method=<span class="string">'MA'</span>, window=<span class="number">60</span>)
+vol_ewma = Vars.calculate_volatility(returns, method=<span class="string">'EWMA'</span>)
+vol_arch = Vars.calculate_volatility(returns, method=<span class="string">'ARCH'</span>, split_index=<span class="string">'2020-09-01'</span>)
+
+<span class="comment"># Use RiskMetrics class for comprehensive analysis</span>
+risk = Vars.RiskMetrics(returns)
+
+<span class="comment"># Calculate all risk metrics</span>
+results = risk.calculate_all(alpha=<span class="number">0.05</span>, dynamic_var_method=<span class="string">'EWMA'</span>)
+
+<span class="comment"># Generate comprehensive report</span>
+report_fig = risk.plot_report(figsize=(<span class="number">15</span>, <span class="number">25</span>))
+
+<span class="comment"># Quick VaR calculation</span>
+quick_results = Vars.quick_var(returns, alphas=<span class="number">0.05</span>)</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Installation -->
+        <section id="installation" class="section">
+            <h2 class="section-title">Installation</h2>
+            <p class="section-subtitle">
+                Required dependencies for the Vars package.
+            </p>
+
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-cogs"></i> Dependencies</h3>
+                <p class="card-content" style="margin-bottom: 1.5rem;">
+                    Vars package requires the following dependencies. Install them via pip before using the package.
+                </p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Package</th>
+                                <th>Version</th>
+                                <th>Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>numpy</td>
+                                <td>≥1.19.0</td>
+                                <td>Numerical computations</td>
+                            </tr>
+                            <tr>
+                                <td>pandas</td>
+                                <td>≥1.3.0</td>
+                                <td>Time series handling</td>
+                            </tr>
+                            <tr>
+                                <td>matplotlib</td>
+                                <td>≥3.4.0</td>
+                                <td>Visualization</td>
+                            </tr>
+                            <tr>
+                                <td>scipy</td>
+                                <td>≥1.7.0</td>
+                                <td>Statistical distributions</td>
+                            </tr>
+                            <tr>
+                                <td>arch</td>
+                                <td>≥5.0.0</td>
+                                <td>ARCH/GARCH models</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Usage -->
+        <section id="usage" class="section">
+            <h2 class="section-title">Quick Start</h2>
+            <p class="section-subtitle">
+                Get started with Vars in just a few lines of code.
+            </p>
+
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-rocket"></i> Basic Usage Example</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn" onclick="copyCode('code8')">
+                            <i class="far fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">import</span> Vars
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># 1. Generate sample data</span>
+returns = np.random.randn(<span class="number">1000</span>) * <span class="number">0.02</span>
+
+<span class="comment"># 2. Calculate static VaR</span>
+var_results = Vars.calculate_static_var(returns, alphas=[<span class="number">0.01</span>, <span class="number">0.05</span>], method=<span class="string">'all'</span>)
+<span class="keyword">print</span>(<span class="string">"Static VaR Results:"</span>, var_results)
+
+<span class="comment"># 3. Calculate Expected Shortfall</span>
+es_results = Vars.calculate_expected_shortfall(returns, confidence_levels=[<span class="number">0.01</span>, <span class="number">0.05</span>])
+<span class="keyword">print</span>(<span class="string">"Expected Shortfall Results:"</span>, es_results)
+
+<span class="comment"># 4. Create time series data for dynamic VaR</span>
+dates = pd.date_range(<span class="string">'2020-01-01'</span>, periods=<span class="number">1000</span>, freq=<span class="string">'D'</span>)
+returns_series = pd.Series(np.random.randn(<span class="number">1000</span>) * <span class="number">0.01</span>, index=dates)
+
+<span class="comment"># 5. Calculate dynamic VaR</span>
+dynamic_var = Vars.calculate_dynamic_var(returns_series, method=<span class="string">'MA'</span>, window=<span class="number">60</span>)
+
+<span class="comment"># 6. Visualize results</span>
+fig, ax = Vars.plot_var_scatter(returns_series, dynamic_var)
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+plt.show()</code></pre>
+                    </div>
+                </div>
+
+                <h3 class="card-title" style="margin-top: 2rem;"><i class="fas fa-play-circle"></i> Run Demo</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn" onclick="copyCode('code9')">
+                            <i class="far fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">import</span> Vars
+
+<span class="comment"># Run comprehensive demo</span>
+Vars.demo()</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- API -->
+        <section id="api" class="section">
+            <h2 class="section-title">API Reference</h2>
+            <p class="section-subtitle">
+                Main functions and classes available in the Vars package.
+            </p>
+
+            <div class="card">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Function/Class</th>
+                                <th>Description</th>
+                                <th>Parameters</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#calculate_static_var"><code>calculate_static_var()</code></a></td>
+                                <td>Calculate static Value at Risk</td>
+                                <td>returns, alphas, method, verbose, return_fitted_params</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#calculate_dynamic_var"><code>calculate_dynamic_var()</code></a></td>
+                                <td>Calculate dynamic/time-varying VaR</td>
+                                <td>returns, method, alphas, align, **kwargs</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#calculate_expected_shortfall"><code>calculate_expected_shortfall()</code></a></td>
+                                <td>Calculate Expected Shortfall (ES)</td>
+                                <td>returns, confidence_levels, method, num_simulations, verbose</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#calculate_volatility"><code>calculate_volatility()</code></a></td>
+                                <td>Calculate volatility using various models</td>
+                                <td>returns, method, **kwargs</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#plot_var_scatter"><code>plot_var_scatter()</code></a></td>
+                                <td>Create VaR scatter plot for monitoring</td>
+                                <td>returns, value_at_risk, title, figsize, show_statistics, ax</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#plot_distribution_fit"><code>plot_distribution_fit()</code></a></td>
+                                <td>Plot distribution fitting analysis</td>
+                                <td>data, bins, figsize, show_statistics, style_name</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#compare_static_var_methods"><code>compare_static_var_methods()</code></a></td>
+                                <td>Compare different VaR methods visually</td>
+                                <td>returns, alphas, figsize, ax</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#riskmetrics-class"><code>RiskMetrics</code> class</a></td>
+                                <td>Unified interface for risk analysis</td>
+                                <td>returns (in constructor)</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#demo"><code>demo()</code></a></td>
+                                <td>Run comprehensive package demo</td>
+                                <td>None</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#quick_var"><code>quick_var()</code></a></td>
+                                <td>Quick calculation of multiple VaR methods</td>
+                                <td>returns, alphas</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Examples -->
+        <section id="examples" class="section">
+            <h2 class="section-title">Examples</h2>
+            <p class="section-subtitle">
+                Practical examples showing real-world usage of the Vars package.
+            </p>
+
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-chart-pie"></i> Comprehensive Risk Report</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn" onclick="copyCode('code10')">
+                            <i class="far fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">import</span> Vars
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+<span class="comment"># Create realistic financial time series</span>
+np.random.seed(<span class="number">42</span>)
+n_periods = <span class="number">1000</span>
+dates = pd.date_range(<span class="string">'2019-01-01'</span>, periods=n_periods, freq=<span class="string">'D'</span>)
+
+<span class="comment"># Simulate returns with volatility clustering (GARCH-like)</span>
+volatility = <span class="number">0.01</span> * np.ones(n_periods)
+returns = np.zeros(n_periods)
+
+<span class="keyword">for</span> t <span class="keyword">in</span> range(<span class="number">1</span>, n_periods):
+    <span class="comment"># Simple GARCH(1,1) volatility</span>
+    volatility[t] = <span class="number">0.05</span> + <span class="number">0.85</span> * volatility[t-<span class="number">1</span>] + <span class="number">0.1</span> * returns[t-<span class="number">1</span>]**<span class="number">2</span>
+    returns[t] = np.random.randn() * np.sqrt(volatility[t])
+
+returns_series = pd.Series(returns, index=dates)
+
+<span class="comment"># Create RiskMetrics instance</span>
+risk = Vars.RiskMetrics(returns_series)
+
+<span class="comment"># Calculate all risk metrics</span>
+results = risk.calculate_all(alpha=<span class="number">0.05</span>, dynamic_var_method=<span class="string">'ARCH'</span>,
+                            split_index=pd.Timestamp(<span class="string">'2021-06-01'</span>))
+
+<span class="comment"># Generate comprehensive report</span>
+report_fig = risk.plot_report(figsize=(<span class="number">15</span>, <span class="number">20</span>))
+
+<span class="comment"># Save report</span>
+report_fig.savefig(<span class="string">'risk_report.png'</span>, dpi=<span class="number">150</span>, bbox_inches=<span class="string">'tight'</span>)
+plt.close()
+
+<span class="keyword">print</span>(<span class="string">"Risk analysis completed. Report saved as 'risk_report.png'"</span>)</code></pre>
+                    </div>
+                </div>
+
+                <h3 class="card-title" style="margin-top: 2rem;"><i class="fas fa-exchange-alt"></i> Backtesting VaR Models</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn" onclick="copyCode('code11')">
+                            <i class="far fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">import</span> Vars
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Generate historical data</span>
+dates = pd.date_range(<span class="string">'2018-01-01'</span>, periods=<span class="number">1500</span>, freq=<span class="string">'D'</span>)
+returns = pd.Series(np.random.randn(<span class="number">1500</span>) * <span class="number">0.015</span>, index=dates)
+
+<span class="comment"># Split into training and testing</span>
+train = returns[:<span class="number">1000</span>]
+test = returns[<span class="number">1000</span>:]
+
+<span class="comment"># Calculate VaR on training data</span>
+var_ma = Vars.calculate_dynamic_var(train, method=<span class="string">'MA'</span>, window=<span class="number">100</span>)
+var_ewma = Vars.calculate_dynamic_var(train, method=<span class="string">'EWMA'</span>, lambda_param=<span class="number">0.94</span>)
+
+<span class="comment"># Extend VaR forecasts to test period (simplified approach)</span>
+<span class="comment"># In practice, you would re-estimate models recursively</span>
+
+<span class="comment"># Compare exceedence rates</span>
+<span class="keyword">def</span> <span class="function">calculate_exceedence</span>(returns, var_series, alpha=<span class="number">0.05</span>):
+    <span class="comment"># Simple exceedence calculation</span>
+    exceedences = returns &lt;= var_series
+    exceedence_rate = exceedences.mean()
+    expected_rate = alpha
+    <span class="keyword">return</span> exceedence_rate, expected_rate
+
+<span class="comment"># Print results</span>
+<span class="keyword">print</span>(<span class="string">"VaR Backtesting Results:"</span>)
+<span class="keyword">print</span>(<span class="string">"-"</span> * <span class="number">40</span>)
+<span class="keyword">print</span>(<span class="string">f"MA VaR exceedence rate: {calculate_exceedence(train, var_ma['5%'])[0]:.2%}"</span>)
+<span class="keyword">print</span>(<span class="string">f"EWMA VaR exceedence rate: {calculate_exceedence(train, var_ewma['5%'])[0]:.2%}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Expected exceedence rate: 5.00%"</span>)</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Function Definitions -->
+        <section id="codes" class="section">
+            <h2 class="section-title">Function Definitions</h2>
+            <p class="section-subtitle">
+                Detailed function signatures and class definitions for the Vars package.
+            </p>
+
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-code"></i> Core Functions</h3>
+
+                <div class="code-container" id="calculate_static_var">
+                    <div class="code-header">
+                        <span>calculate_static_var() function</span>
+                        <button class="copy-btn" onclick="copyCode('code-static-var')">
+                            <i class="far fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">def</span> calculate_static_var(
+    returns: np.ndarray,
+    alphas: Union[List[float], float] = [0.01, 0.05],
+    method: str = "all",
+    verbose: bool = False,
+    return_fitted_params: bool = False,
+) -> Union[Dict[str, np.ndarray], np.ndarray, Tuple[np.ndarray, Dict]]:
+    <span class="string">"""Calculate static Value at Risk (VaR) using different methods."""</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="code-container" id="calculate_dynamic_var">
+                    <div class="code-header">
+                        <span>calculate_dynamic_var() function</span>
+                        <button class="copy-btn" onclick="copyCode('code-dynamic-var')">
+                            <i class="far fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">def</span> calculate_dynamic_var(
+    returns: pd.Series,
+    method: str = "EWMA",
+    alphas: Union[List[float], float] = [0.01, 0.05],
+    align: str = "target",
+    **kwargs,
+) -> pd.DataFrame:
+    <span class="string">"""Calculate dynamic Value at Risk using MA, EWMA, or ARCH models."""</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="code-container" id="calculate_expected_shortfall">
+                    <div class="code-header">
+                        <span>calculate_expected_shortfall() function</span>
+                        <button class="copy-btn" onclick="copyCode('code-expected-shortfall')">
+                            <i class="far fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">def</span> calculate_expected_shortfall(
+    returns: np.ndarray,
+    confidence_levels: Union[List[float], float] = [0.01, 0.05],
+    method: str = "all",
+    num_simulations: int = 1000000,
+    verbose: bool = False,
+) -> Union[Dict[str, np.ndarray], np.ndarray, str]:
+    <span class="string">"""Calculate Expected Shortfall (Conditional Value at Risk)."""</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="code-container" id="calculate_volatility">
+                    <div class="code-header">
+                        <span>calculate_volatility() function</span>
+                        <button class="copy-btn" onclick="copyCode('code-volatility')">
+                            <i class="far fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">def</span> calculate_volatility(
+    returns: pd.Series,
+    method: str = "MA",
+    **kwargs
+) -> Union[pd.Series, pd.DataFrame]:
+    <span class="string">"""Calculate volatility using MA, EWMA, or ARCH models."""</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="code-container" id="plot_var_scatter">
+                    <div class="code-header">
+                        <span>plot_var_scatter() function</span>
+                        <button class="copy-btn" onclick="copyCode('code-plot-var-scatter')">
+                            <i class="far fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">def</span> plot_var_scatter(
+    returns: Union[pd.Series, np.ndarray],
+    value_at_risk: Union[pd.DataFrame, pd.Series, np.ndarray, float],
+    title: Optional[str] = None,
+    figsize: Tuple[int, int] = (12, 6),
+    show_statistics: bool = True,
+    ax=None,
+) -> Tuple[Any, Any]:
+    <span class="string">"""Plot VaR scatter plot for monitoring VaR exceedences."""</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="code-container" id="plot_distribution_fit">
+                    <div class="code-header">
+                        <span>plot_distribution_fit() function</span>
+                        <button class="copy-btn" onclick="copyCode('code-plot-distribution-fit')">
+                            <i class="far fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">def</span> plot_distribution_fit(
+    data: np.ndarray,
+    bins: Optional[int] = None,
+    figsize: Tuple[int, int] = (10, 6),
+    show_statistics: bool = True,
+    style_name: str = "seaborn-v0_8-whitegrid",
+) -> Any:
+    <span class="string">"""Plot data distribution histogram with fitted distributions."""</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="code-container" id="compare_static_var_methods">
+                    <div class="code-header">
+                        <span>compare_static_var_methods() function</span>
+                        <button class="copy-btn" onclick="copyCode('code-compare-static-var-methods')">
+                            <i class="far fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">def</span> compare_static_var_methods(
+    returns: np.ndarray,
+    alphas: List[float] | float = [0.01, 0.05],
+    figsize: Tuple[int, int] = (14, 5),
+    ax=None,
+) -> Any:
+    <span class="string">"""Compare different static VaR calculation methods."""</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="code-container" id="riskmetrics-class">
+                    <div class="code-header">
+                        <span>RiskMetrics class</span>
+                        <button class="copy-btn" onclick="copyCode('code-riskmetrics-class')">
+                            <i class="far fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">class</span> RiskMetrics:
+    <span class="string">"""Unified interface for risk metrics calculation and reporting."""</span>
+
+    <span class="keyword">def</span> __init__(self, returns: Union[np.ndarray, pd.Series]):
+        <span class="string">"""Initialize RiskMetrics with returns data."""</span>
+
+    <span class="keyword">def</span> calculate_static_var(self, alphas: float = 0.05, method: str = "all"):
+        <span class="string">"""Calculate static Value at Risk."""</span>
+
+    <span class="keyword">def</span> calculate_es(self, alphas: float = 0.05, method: str = "all"):
+        <span class="string">"""Calculate Expected Shortfall."""</span>
+
+    <span class="keyword">def</span> calculate_dynamic_var(
+        self,
+        method: str = "EWMA",
+        alphas: float = 0.05,
+        align: str = "target",
+        fullrange=True,
+        **kwargs,
+    ):
+        <span class="string">"""Calculate dynamic Value at Risk."""</span>
+
+    <span class="keyword">def</span> calculate_all(
+        self, alphas: float = 0.05, dynamic_var_method: str = "EWMA", **kwargs
+    ):
+        <span class="string">"""Calculate all risk metrics with default settings."""</span>
+
+    <span class="keyword">def</span> plot_report(self, figsize: Tuple[int, int] = (15, 25), **kwargs):
+        <span class="string">"""Generate comprehensive risk report visualization."""</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="code-container" id="demo">
+                    <div class="code-header">
+                        <span>demo() function</span>
+                        <button class="copy-btn" onclick="copyCode('code-demo')">
+                            <i class="far fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">def</span> demo() -> None:
+    <span class="string">"""Run comprehensive demonstration of Vars package functionality."""</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="code-container" id="quick_var">
+                    <div class="code-header">
+                        <span>quick_var() function</span>
+                        <button class="copy-btn" onclick="copyCode('code-quick-var')">
+                            <i class="far fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">def</span> quick_var(
+    returns: np.ndarray,
+    alphas: float = 0.05
+) -> Dict[str, float]:
+    <span class="string">"""Quick calculation of multiple VaR methods (simplified interface)."""</span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Vars Package</h3>
+                    <p>A comprehensive Python toolkit for Value at Risk calculation, Expected Shortfall estimation, and financial risk analysis.</p>
+                    <p style="margin-top: 1rem;">
+                        <a href="https://github.com/lengfc09/Vars" target="_blank" class="btn btn-secondary" style="padding: 8px 16px;">
+                            <i class="fab fa-github"></i> GitHub Repository
+                        </a>
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#overview">Overview</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#installation">Installation</a></li>
+                        <li><a href="#usage">Quick Start</a></li>
+                        <li><a href="#api">API Reference</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://pypi.org/project/vars-risk/" target="_blank">PyPI Page</a></li>
+                        <li><a href="https://github.com/lengfc09/Vars/issues" target="_blank">Issue Tracker</a></li>
+                        <li><a href="https://github.com/lengfc09/Vars/blob/main/LICENSE" target="_blank">License</a></li>
+                        <li><a href="https://www.investopedia.com/terms/v/var.asp" target="_blank">VaR Explained</a></li>
+                        <li><a href="https://en.wikipedia.org/wiki/Expected_shortfall" target="_blank">Expected Shortfall</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>© 2025 Vars Package. Created by Chen Yangyifan. Licensed under MIT License.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.8rem;">
+                    Version 1.0.0 | Last updated: December 2025
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+
+                // Add active class to clicked button and corresponding content
+                btn.classList.add('active');
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Close mobile menu if open
+                        document.getElementById('navLinks').classList.remove('active');
+
+                        // Scroll to target
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+
+                        // Update active nav link
+                        document.querySelectorAll('nav a').forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                    }
+                }
+            });
+        });
+
+        // Update active nav link on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Copy code functionality
+        function copyCode(codeId) {
+            const codeElement = document.getElementById(codeId);
+            if (!codeElement) {
+                // Try to find the code in the parent container
+                const btn = event.target.closest('.copy-btn');
+                const container = btn.closest('.code-container');
+                const pre = container.querySelector('pre');
+                const code = pre.textContent;
+
+                navigator.clipboard.writeText(code).then(() => {
+                    // Show feedback
+                    const originalHTML = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        btn.innerHTML = originalHTML;
+                    }, 2000);
+                });
+                return;
+            }
+
+            const code = codeElement.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                // Show feedback
+                const btn = event.target.closest('.copy-btn');
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                }, 2000);
+            });
+        }
+
+        // Add IDs to code blocks for copy functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeContainers = document.querySelectorAll('.code-container');
+            codeContainers.forEach((container, index) => {
+                const pre = container.querySelector('pre');
+                if (pre && !pre.id) {
+                    pre.id = `code${index + 1}`;
+                }
+            });
+        });
+
+
+    </script>
+</body>
+</html>
